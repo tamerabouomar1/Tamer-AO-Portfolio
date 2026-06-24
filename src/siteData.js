@@ -46,7 +46,7 @@ export const PROJECT_GROUPS = [
       {
         name: "KARV Pilates Studio",
         tag: "Logo & identity",
-        images: imgs("karv", 5),
+        images: imgs("karv", 4),
         desc: "Logo and brand identity for KARV Pilates Studio — an elegant, minimal mark with a calm, premium boutique feel.",
       },
       {
@@ -57,15 +57,27 @@ export const PROJECT_GROUPS = [
       },
       {
         name: "MoCars / MoTrouble",
-        tag: "Logo, motion & kit",
-        images: pick("mocars-1", "mocars-2"),
-        desc: "Logo, logo-motion and a 'MO / Trouble' grappling kit for MoCars / MoTrouble — a sharp automotive brand built for speed and attitude.",
+        tag: "Logo, motion & poster",
+        images: imgs("mocars", 3),
+        desc: "Branding for MoCars / MoTrouble — a 'Super Veloce Jota / Trouble' yellow-SVJ poster, the logo and logo-motion, and a matching MO grappling kit. A sharp automotive brand built for speed and attitude.",
       },
       {
         name: "Qasr Al Hyatt",
         tag: "Hospitality brand",
         images: imgs("qasr", 1),
         desc: "Brand and collateral design for Qasr Al Hyatt — a refined, luxury hospitality identity.",
+      },
+    ],
+  },
+  {
+    title: "Social Media",
+    product: true,
+    items: [
+      {
+        name: "10th Planet — Social Media",
+        tag: "Posts & flyers",
+        images: imgs("tenp-soc", 6),
+        desc: "Social-media design for 10th Planet Jiu Jitsu Beirut — membership posts, event flyers, the US Embassy seminar and the weekly schedule.",
       },
     ],
   },
@@ -108,18 +120,6 @@ export const PROJECT_GROUPS = [
         tag: "Apparel",
         images: imgs("pgc", 12),
         desc: "PGC / PLAY streetwear — a run of tee designs and mockups.",
-      },
-    ],
-  },
-  {
-    title: "Social Media",
-    product: true,
-    items: [
-      {
-        name: "10th Planet — Social Media",
-        tag: "Posts & flyers",
-        images: imgs("tenp-soc", 6),
-        desc: "Social-media design for 10th Planet Jiu Jitsu Beirut — membership posts, event flyers, the US Embassy seminar and the weekly schedule.",
       },
     ],
   },
