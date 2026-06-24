@@ -8,7 +8,7 @@ export default function Fitness() {
       <header className="topbar">
         <div>
           <h2 className="topbar__title">Your Ultimate Coach</h2>
-          <p className="topbar__sub">Athletic Scholarship</p>
+          <p className="topbar__sub">2× Athletic Scholarships</p>
         </div>
         <a className="link" href={`mailto:${CONTACT.email}`}>
           Get in touch <span className="plus">+</span>
@@ -46,10 +46,20 @@ export default function Fitness() {
         <h3 className="section-title">Workshops Given</h3>
         <motion.div className="fit-photos" variants={container} initial="hidden" animate="show">
           <motion.div className="card fit-photo" variants={cardIn}>
-            <img src="/assets/projects/fitness-training.jpg" alt="Tamer training — Taekwondo sparring" loading="lazy" />
+            <img
+              src="/assets/projects/workshop-antibullying.jpg"
+              alt="Combat Sport Academy — Kids & Teenagers Anti-Bullying Program"
+              loading="lazy"
+              style={{ objectFit: "contain" }}
+            />
           </motion.div>
           <motion.div className="card fit-photo" variants={cardIn}>
-            <img src="/assets/projects/fitness-coaching.jpg" alt="Combat Sports Academy — coaching" loading="lazy" />
+            <img
+              src="/assets/projects/workshop-women.jpg"
+              alt="Combat Sport Academy — Women Empowerment Program"
+              loading="lazy"
+              style={{ objectFit: "contain" }}
+            />
           </motion.div>
         </motion.div>
       </section>

@@ -1,5 +1,4 @@
 // Central place for content reused across pages.
-// Contact details come straight from the Figma design (intended public).
 
 export const CONTACT = {
   email: "tamerabouomar1@gmail.com",
@@ -17,8 +16,11 @@ export const CONTACT = {
 export const VIDEO_SRC =
   "https://d8j0ntlcm91z4.cloudfront.net/user_38xzZboKViGWJOttwIXH07lWA1P/hf_20260328_105406_16f4600d-7a92-4292-b96e-b19156c7830a.mp4";
 
-// Projects grouped as in the Figma "Projects" screen.
-// `images` powers the click-to-open popup carousel; `desc` is the info text.
+// helper: build an ordered carousel array of N optimized images for a project slug
+const imgs = (slug, n) =>
+  Array.from({ length: n }, (_, i) => `/assets/projects/${slug}-${i + 1}.jpg`);
+
+// Projects — every card opens a popup carousel (`images`) with info (`desc`).
 export const PROJECT_GROUPS = [
   {
     title: "Profiles",
@@ -26,24 +28,14 @@ export const PROJECT_GROUPS = [
       {
         name: "Charbel Farah — Portfolio",
         tag: "Athlete profile",
-        images: [
-          "/assets/projects/charbel-1.jpg",
-          "/assets/projects/charbel-2.jpg",
-          "/assets/projects/charbel-3.jpg",
-          "/assets/projects/charbel-4.jpg",
-        ],
-        desc: "A bold athlete portfolio for boxer Charbel Farah — editorial layout, dramatic typography and a fight-ready visual identity under The Gulf Heritage.",
+        images: imgs("charbel", 14),
+        desc: "A 14-page athlete portfolio for boxer Charbel Farah — editorial layouts, bold typography and a fight-ready identity under The Gulf Heritage.",
       },
       {
         name: "Contracts Design — Company Profile",
         tag: "Corporate",
-        images: [
-          "/assets/projects/contracts-1.jpg",
-          "/assets/projects/contracts-2.jpg",
-          "/assets/projects/contracts-3.jpg",
-          "/assets/projects/contracts-4.jpg",
-        ],
-        desc: "A corporate company profile for Contracts Design — structured, confident layouts presenting services, team and projects.",
+        images: imgs("contracts", 5),
+        desc: "Company profile and logo system for Contracts Design — clean, confident corporate layouts across cover, services and team.",
       },
     ],
   },
@@ -53,20 +45,20 @@ export const PROJECT_GROUPS = [
       {
         name: "KARV Pilates Studio",
         tag: "Logo & identity",
-        images: ["/assets/projects/karv.jpg"],
+        images: imgs("karv", 5),
         desc: "Logo and brand identity for KARV Pilates Studio — an elegant, minimal mark with a calm, premium boutique feel.",
-      },
-      {
-        name: "MoCars / MoTrouble",
-        tag: "Logo & identity",
-        images: ["/assets/projects/mocars.jpg"],
-        desc: "Logo, identity and logomotion for MoCars / MoTrouble — a sharp automotive brand built for speed and attitude.",
       },
       {
         name: "BioGarden",
         tag: "Brand identity",
-        images: ["/assets/projects/biogarden.jpg"],
-        desc: "Brand identity for BioGarden — a natural, organic food brand spanning packaging, labels and marketing collateral.",
+        images: imgs("biogarden", 4),
+        desc: "Brand identity and product catalogue for BioGarden — a natural, organic food brand.",
+      },
+      {
+        name: "MoCars / MoTrouble",
+        tag: "Logo & motion",
+        images: imgs("mocars", 1),
+        desc: "Logo and logo-motion for MoCars / MoTrouble — a sharp automotive brand built for speed and attitude.",
       },
     ],
   },
@@ -75,50 +67,28 @@ export const PROJECT_GROUPS = [
     product: true, // product renders -> contain image + caption below
     items: [
       {
+        name: "OKIRO",
+        tag: "Grappling wear",
+        images: imgs("okiro", 6),
+        desc: "OKIRO grappling wear — rashguard and shorts designs (God of War, Jiu-Jitsu Girl and more) built for BJJ training and competition.",
+      },
+      {
         name: "OKIRO × Gripline",
-        tag: "Collab — OXG kit",
-        images: ["/assets/projects/okiro-oxg.jpg", "/assets/projects/okiro-oxg-gi.jpg"],
-        desc: "OKIRO × Gripline 'OXG — Grapple Division': a full No-Gi kit — rashguard, fight shorts and a gi — with sublimated graphics, reinforced seams and 4-way stretch. Discipline through struggle.",
+        tag: "Collab kit",
+        images: imgs("oxg", 3),
+        desc: "OKIRO × Gripline collaboration — a co-branded No-Gi capsule kit.",
       },
       {
-        name: "OKIRO — God of War",
-        tag: "Rashguard",
-        images: ["/assets/projects/godofwar-front.jpg", "/assets/projects/rashguard-godofwar.jpg"],
-        desc: "OKIRO grappling rashguard — a red-and-black 'God of War' design with bold panels and a thorn motif, built for BJJ training and competition.",
+        name: "10th Planet — Jiu Jitsu Beirut",
+        tag: "Apparel & social",
+        images: imgs("tenp", 12),
+        desc: "Design work for 10th Planet Jiu Jitsu Beirut — rashguards, fight shorts, membership posts, weekly schedules and event flyers.",
       },
       {
-        name: "OKIRO — Wanted",
-        tag: "Rashguard & shorts",
-        images: [
-          "/assets/projects/wanted-front.jpg",
-          "/assets/projects/rashguard-wanted.jpg",
-          "/assets/projects/wanted-shorts.jpg",
-        ],
-        desc: "OKIRO 'Wanted: Dead or Alive' set — a grappler's wanted-poster concept (front, back and matching shorts) that lists your favourite submissions as the charges.",
-      },
-      {
-        name: "OKIRO — JJ Girl",
-        tag: "Rashguard & shorts",
-        images: ["/assets/projects/jj-girl-rashguard.jpg", "/assets/projects/jj-girl-shorts.jpg"],
-        desc: "Women's 'Jiu-Jitsu Girl' set for OKIRO — a floral rashguard and matching grappling shorts in pink, white and magenta line-art over a matte black base.",
-      },
-      {
-        name: "OKIRO — Armbar",
-        tag: "Headwear",
-        images: ["/assets/projects/okiro-armbar.jpg", "/assets/projects/okiro-cap.jpg"],
-        desc: "OKIRO 'Armbar' headwear — a clean trucker-cap line for the grappling / training-gear range. Stand out.",
-      },
-      {
-        name: "10th Planet — Beirut",
-        tag: "Rashguard",
-        images: ["/assets/projects/10p-white-front.jpg", "/assets/projects/10p-white-back.jpg"],
-        desc: "Competition rashguard for 10th Planet Jiu Jitsu Beirut — the white colourway, with patterned sleeves and a clean centre crest for the No-Gi academy.",
-      },
-      {
-        name: "PGC — Play Tee",
+        name: "PGC / PLAY",
         tag: "Apparel",
-        images: ["/assets/projects/tee-2.jpg"],
-        desc: "Streetwear tee for PGC / PLAY — relaxed apparel with clean logo placement.",
+        images: imgs("pgc", 12),
+        desc: "PGC / PLAY streetwear — a run of tee designs and mockups.",
       },
     ],
   },
@@ -126,34 +96,40 @@ export const PROJECT_GROUPS = [
     title: "Other",
     items: [
       {
-        name: "RFACE — Brochure",
-        tag: "Brochure",
-        images: ["/assets/projects/reface.jpg"],
-        desc: "Brochure design for RFACE — a structured, photography-led layout system.",
+        name: "Environmental",
+        tag: "Awareness campaign",
+        images: imgs("environmental", 2),
+        desc: "Environmental awareness campaign — flyer and certificate design.",
       },
       {
-        name: "Resilience & Reflection Retreat",
-        tag: "Event — Environmental",
-        images: ["/assets/projects/environmental.jpg"],
-        desc: "Event and environmental design for a Resilience & Reflection retreat — calm, grounded visuals across flyers and signage.",
+        name: "RFACE — Brochure",
+        tag: "Brochure",
+        images: imgs("reface", 2),
+        desc: "Brochure design — a structured, photography-led layout system.",
+      },
+      {
+        name: "Notebook Cover",
+        tag: "Print",
+        images: imgs("notebook", 1),
+        desc: "Notebook cover design.",
       },
       {
         name: "Qasr Hyatt",
         tag: "Hospitality",
-        images: ["/assets/projects/qasr-hyatt.jpg"],
-        desc: "Hospitality design work for Qasr Hyatt — refined collateral with a luxury feel.",
+        images: imgs("qasr", 1),
+        desc: "Hospitality design for Qasr Hyatt — refined collateral with a luxury feel.",
       },
     ],
   },
 ];
 
-// Weekly class schedule from the Fitness screen.
+// Weekly class schedule (Fitness page).
 export const SCHEDULE = [
-  { day: "MON", classes: ["JIU-JITSU CSA"] },
-  { day: "TUE", classes: ["S&C"] },
-  { day: "WED", classes: ["S&C"] },
-  { day: "THUR", classes: ["REST"] },
-  { day: "FRI", classes: ["S&C"] },
-  { day: "SAT", classes: ["OPEN MAT"] },
-  { day: "SUN", classes: ["JIU-JITSU CSA", "JIU-JITSU Yarz"] },
+  { day: "MON", classes: ["S&C"] },
+  { day: "TUE", classes: ["JIU-JITSU CSA"] },
+  { day: "WED", classes: ["JIU-JITSU Yarz"] },
+  { day: "THUR", classes: ["OPEN MAT", "S&C"] },
+  { day: "FRI", classes: ["Private Classes"] },
+  { day: "SAT", classes: ["JIU-JITSU Yarz", "JIU-JITSU CSA"] },
+  { day: "SUN", classes: ["REST"] },
 ];

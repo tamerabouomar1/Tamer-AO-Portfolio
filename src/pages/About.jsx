@@ -5,7 +5,7 @@ import { CONTACT } from "../siteData";
 const BADGES = [
   { big: "Gold", label: "Martial arts Medalist", gold: true },
   { big: "AUB", label: "Student" },
-  { big: "Self-funded", label: "Athletic Scholarship Awardee" },
+  { big: "2×", label: "Athletic Scholarships" },
   { big: "7 yrs", label: "Total Working Experience" },
 ];
 
