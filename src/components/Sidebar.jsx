@@ -40,11 +40,48 @@ const NAV = [
   { to: "/fitness", label: "Fitness", icon: Icon.fitness },
 ];
 
+const svgProps = {
+  viewBox: "0 0 24 24",
+  fill: "none",
+  stroke: "currentColor",
+  strokeWidth: 1.9,
+  strokeLinecap: "round",
+  strokeLinejoin: "round",
+};
+
+const SocialIcon = {
+  instagram: (
+    <svg {...svgProps}>
+      <rect x="2" y="2" width="20" height="20" rx="5" />
+      <circle cx="12" cy="12" r="4.2" />
+      <circle cx="17.5" cy="6.5" r="1.1" fill="currentColor" stroke="none" />
+    </svg>
+  ),
+  linkedin: (
+    <svg {...svgProps}>
+      <path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-2-2 2 2 0 0 0-2 2v7h-4v-7a6 6 0 0 1 6-6z" />
+      <rect width="4" height="12" x="2" y="9" />
+      <circle cx="4" cy="4" r="2" />
+    </svg>
+  ),
+  phone: (
+    <svg {...svgProps}>
+      <path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.8 19.8 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6A19.8 19.8 0 0 1 2.12 4.18 2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72c.13.96.36 1.9.7 2.81a2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45c.91.34 1.85.57 2.81.7A2 2 0 0 1 22 16.92z" />
+    </svg>
+  ),
+  email: (
+    <svg {...svgProps}>
+      <rect width="20" height="16" x="2" y="4" rx="2" />
+      <path d="m22 7-8.97 5.7a1.94 1.94 0 0 1-2.06 0L2 7" />
+    </svg>
+  ),
+};
+
 const SOCIALS = [
-  { href: CONTACT.instagram, label: "Instagram", src: "/assets/icon-instagram.png" },
-  { href: CONTACT.linkedin, label: "LinkedIn", src: "/assets/icon-linkedin.png" },
-  { href: CONTACT.phoneHref, label: "Phone", src: "/assets/icon-phone.png" },
-  { href: `mailto:${CONTACT.email}`, label: "Email", src: "/assets/icon-letter.png" },
+  { href: CONTACT.instagram, label: "Instagram", icon: SocialIcon.instagram },
+  { href: CONTACT.linkedin, label: "LinkedIn", icon: SocialIcon.linkedin },
+  { href: CONTACT.phoneHref, label: "Phone", icon: SocialIcon.phone },
+  { href: `mailto:${CONTACT.email}`, label: "Email", icon: SocialIcon.email },
 ];
 
 export default function Sidebar() {
@@ -103,7 +140,7 @@ export default function Sidebar() {
             target={s.href.startsWith("http") ? "_blank" : undefined}
             rel={s.href.startsWith("http") ? "noreferrer" : undefined}
           >
-            <img src={s.src} alt="" />
+            {s.icon}
           </a>
         ))}
       </div>
