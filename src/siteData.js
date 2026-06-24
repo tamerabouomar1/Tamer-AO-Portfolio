@@ -16,11 +16,12 @@ export const CONTACT = {
 export const VIDEO_SRC =
   "https://d8j0ntlcm91z4.cloudfront.net/user_38xzZboKViGWJOttwIXH07lWA1P/hf_20260328_105406_16f4600d-7a92-4292-b96e-b19156c7830a.mp4";
 
-// helper: build an ordered carousel array of N optimized images for a project slug
+// helper: ordered carousel array of N optimized images for a project slug
 const imgs = (slug, n) =>
   Array.from({ length: n }, (_, i) => `/assets/projects/${slug}-${i + 1}.jpg`);
+const pick = (...names) => names.map((n) => `/assets/projects/${n}.jpg`);
 
-// Projects — every card opens a popup carousel (`images`) with info (`desc`).
+// Projects — each distinct DESIGN is its own card; clicking opens a popup carousel.
 export const PROJECT_GROUPS = [
   {
     title: "Profiles",
@@ -60,6 +61,12 @@ export const PROJECT_GROUPS = [
         images: imgs("mocars", 1),
         desc: "Logo and logo-motion for MoCars / MoTrouble — a sharp automotive brand built for speed and attitude.",
       },
+      {
+        name: "Qasr Al Hyatt",
+        tag: "Hospitality brand",
+        images: imgs("qasr", 1),
+        desc: "Brand and collateral design for Qasr Al Hyatt — a refined, luxury hospitality identity.",
+      },
     ],
   },
   {
@@ -67,10 +74,22 @@ export const PROJECT_GROUPS = [
     product: true, // product renders -> contain image + caption below
     items: [
       {
-        name: "OKIRO",
-        tag: "Grappling wear",
-        images: imgs("okiro", 6),
-        desc: "OKIRO grappling wear — rashguard and shorts designs (God of War, Jiu-Jitsu Girl and more) built for BJJ training and competition.",
+        name: "OKIRO — God of War",
+        tag: "Rashguard & shorts",
+        images: pick("okiro-3", "okiro-5"),
+        desc: "OKIRO 'God of War' set — a red-and-black grappling rashguard and matching fight shorts with Ω branding and a thorn motif.",
+      },
+      {
+        name: "OKIRO — Jiu-Jitsu Girl",
+        tag: "Rashguard & shorts",
+        images: pick("okiro-4", "okiro-2"),
+        desc: "OKIRO 'Jiu-Jitsu Girl' set — a women's floral rashguard and matching grappling shorts in pink, white and magenta over matte black.",
+      },
+      {
+        name: "OKIRO — Wanted",
+        tag: "Rashguard & shorts",
+        images: pick("okiro-1", "okiro-6"),
+        desc: "OKIRO 'Wanted: Dead or Alive' set — a grappler's wanted-poster rashguard and matching fight shorts.",
       },
       {
         name: "OKIRO × Gripline",
@@ -79,16 +98,28 @@ export const PROJECT_GROUPS = [
         desc: "OKIRO × Gripline collaboration — a co-branded No-Gi capsule kit.",
       },
       {
-        name: "10th Planet — Jiu Jitsu Beirut",
-        tag: "Apparel & social",
-        images: imgs("tenp", 12),
-        desc: "Design work for 10th Planet Jiu Jitsu Beirut — rashguards, fight shorts, membership posts, weekly schedules and event flyers.",
+        name: "10th Planet — Apparel",
+        tag: "Rashguards & shorts",
+        images: imgs("tenp-app", 6),
+        desc: "Apparel for 10th Planet Jiu Jitsu Beirut — competition rashguards and fight shorts (Lebanon, military and more).",
       },
       {
         name: "PGC / PLAY",
         tag: "Apparel",
         images: imgs("pgc", 12),
         desc: "PGC / PLAY streetwear — a run of tee designs and mockups.",
+      },
+    ],
+  },
+  {
+    title: "Social Media",
+    product: true,
+    items: [
+      {
+        name: "10th Planet — Social Media",
+        tag: "Posts & flyers",
+        images: imgs("tenp-soc", 6),
+        desc: "Social-media design for 10th Planet Jiu Jitsu Beirut — membership posts, event flyers, the US Embassy seminar and the weekly schedule.",
       },
     ],
   },
@@ -112,12 +143,6 @@ export const PROJECT_GROUPS = [
         tag: "Print",
         images: imgs("notebook", 1),
         desc: "Notebook cover design.",
-      },
-      {
-        name: "Qasr Hyatt",
-        tag: "Hospitality",
-        images: imgs("qasr", 1),
-        desc: "Hospitality design for Qasr Hyatt — refined collateral with a luxury feel.",
       },
     ],
   },
