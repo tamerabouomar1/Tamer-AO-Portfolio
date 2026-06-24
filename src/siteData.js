@@ -57,9 +57,9 @@ export const PROJECT_GROUPS = [
       },
       {
         name: "MoCars / MoTrouble",
-        tag: "Logo & motion",
-        images: imgs("mocars", 1),
-        desc: "Logo and logo-motion for MoCars / MoTrouble — a sharp automotive brand built for speed and attitude.",
+        tag: "Logo, motion & kit",
+        images: pick("mocars-1", "mocars-2"),
+        desc: "Logo, logo-motion and a 'MO / Trouble' grappling kit for MoCars / MoTrouble — a sharp automotive brand built for speed and attitude.",
       },
       {
         name: "Qasr Al Hyatt",
@@ -100,7 +100,7 @@ export const PROJECT_GROUPS = [
       {
         name: "10th Planet — Apparel",
         tag: "Rashguards & shorts",
-        images: imgs("tenp-app", 6),
+        images: imgs("tenp-app", 5),
         desc: "Apparel for 10th Planet Jiu Jitsu Beirut — competition rashguards and fight shorts (Lebanon, military and more).",
       },
       {
