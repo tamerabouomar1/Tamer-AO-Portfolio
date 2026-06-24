@@ -47,7 +47,7 @@ export default function About() {
           <h3 className="card-title">Get In Touch</h3>
           <div className="contact-list">
             <a href={CONTACT.phoneHref}><span className="dot" />{CONTACT.phone}</a>
-            <a href={CONTACT.calendly} target="_blank" rel="noreferrer"><span className="dot" />Calendly — book a call</a>
+            <a href={CONTACT.calendly}><span className="dot" />Book a call</a>
             <a href={`mailto:${CONTACT.email}`}><span className="dot" />{CONTACT.email}</a>
           </div>
           <a className="link" href={`mailto:${CONTACT.email}`}>

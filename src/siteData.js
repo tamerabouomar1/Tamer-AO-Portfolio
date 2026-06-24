@@ -5,9 +5,13 @@ export const CONTACT = {
   email: "tamerabouomar1@gmail.com",
   phone: "+961 70477595",
   phoneHref: "tel:+96170477595",
-  calendly: "https://calendly.com/", // TODO: replace with real Calendly handle
-  instagram: "#", // TODO: real Instagram URL
-  linkedin: "#", // TODO: real LinkedIn URL
+  // No Calendly yet — "Book a session / call" opens a pre-filled email.
+  // Replace with "https://calendly.com/your-handle" when you have one.
+  calendly: "mailto:tamerabouomar1@gmail.com?subject=Booking%20a%20session",
+  instagram: "https://www.instagram.com/tamer_ao/",
+  // TODO: this is the generic LinkedIn feed, not a public profile.
+  // Replace with your profile URL e.g. https://www.linkedin.com/in/your-name
+  linkedin: "https://www.linkedin.com/feed/",
 };
 
 export const VIDEO_SRC =
