@@ -165,19 +165,22 @@ export const WEBSITES = [
   {
     name: "Snack Faysal",
     tag: "Website design",
-    image: "/assets/projects/web-snack.jpg",
+    image: "/assets/projects/web-snack-full.jpg",
+    url: "snack-faysal.com",
     desc: "A Beirut manakish & fatayer institution — a warm, appetite-led site built around the menu and the brand's heritage.",
   },
   {
     name: "Saifi Barbershop",
     tag: "Website design",
-    image: "/assets/projects/web-saifi.jpg",
+    image: "/assets/projects/web-saifi-full.jpg",
+    url: "saifi-barbershop.com",
     desc: "A premium 'precision cuts & premium style' identity in gold and black, with booking front-and-center.",
   },
   {
     name: "Sinar",
     tag: "Website design",
-    image: "/assets/projects/web-sinar.jpg",
+    image: "/assets/projects/web-sinar-full.jpg",
+    url: "sinar.com",
     desc: "A construction & interior fit-out company — a clean, architectural site positioning Sinar as a full solution partner.",
   },
 ];

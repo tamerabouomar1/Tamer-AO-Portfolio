@@ -46,8 +46,16 @@ export default function Media() {
         <motion.div className="web-grid" variants={container} initial="hidden" animate="show">
           {WEBSITES.map((w) => (
             <motion.article className="card web-card" key={w.name} variants={cardIn}>
-              <div className="web-card__shot">
-                <img src={w.image} alt={w.name} loading="lazy" />
+              <div className="browser">
+                <div className="browser__bar">
+                  <span className="browser__dot" />
+                  <span className="browser__dot" />
+                  <span className="browser__dot" />
+                  <span className="browser__url">{w.url}</span>
+                </div>
+                <div className="browser__screen" title="Scroll to explore the full page">
+                  <img src={w.image} alt={w.name} loading="lazy" />
+                </div>
               </div>
               <div className="web-card__body">
                 <span className="web-card__tag">{w.tag}</span>
