@@ -1,6 +1,6 @@
 import { motion } from "framer-motion";
 import Page, { container, cardIn } from "../components/Page";
-import { CONTACT } from "../siteData";
+import { CONTACT, WEBSITES } from "../siteData";
 
 const LOGOMOTIONS = [
   { title: "Combat Sports Academy", src: "/assets/motion/logomotion-csa.mp4" },
@@ -36,6 +36,24 @@ export default function Media() {
                 style={{ objectFit: m.fit || "contain", transform: m.scale ? `scale(${m.scale})` : undefined }}
               />
               <div className="motion-card__label">{m.title}</div>
+            </motion.article>
+          ))}
+        </motion.div>
+      </section>
+
+      <section className="proj-section">
+        <h3 className="section-title">Websites</h3>
+        <motion.div className="web-grid" variants={container} initial="hidden" animate="show">
+          {WEBSITES.map((w) => (
+            <motion.article className="card web-card" key={w.name} variants={cardIn}>
+              <div className="web-card__shot">
+                <img src={w.image} alt={w.name} loading="lazy" />
+              </div>
+              <div className="web-card__body">
+                <span className="web-card__tag">{w.tag}</span>
+                <h4 className="web-card__title">{w.name}</h4>
+                <p className="card-body">{w.desc}</p>
+              </div>
             </motion.article>
           ))}
         </motion.div>

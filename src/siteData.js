@@ -53,29 +53,6 @@ export const PROJECT_GROUPS = [
     ],
   },
   {
-    title: "Website",
-    items: [
-      {
-        name: "Snack Faysal",
-        tag: "Website design",
-        images: pick("web-snack"),
-        desc: "Website design for Snack Faysal — a Beirut manakish and fatayer institution. A warm, appetite-led layout built around the menu and the brand's heritage.",
-      },
-      {
-        name: "Saifi Barbershop",
-        tag: "Website design",
-        images: pick("web-saifi"),
-        desc: "Website design for Saifi Barbershop — a premium 'precision cuts & premium style' identity in gold and black with booking front-and-center.",
-      },
-      {
-        name: "Sinar",
-        tag: "Website design",
-        images: pick("web-sinar"),
-        desc: "Website design for Sinar — a construction and interior fit-out company. A clean, architectural layout positioning Sinar as a full solution partner.",
-      },
-    ],
-  },
-  {
     title: "Branding",
     items: [
       {
@@ -180,6 +157,28 @@ export const PROJECT_GROUPS = [
         desc: "Notebook cover design.",
       },
     ],
+  },
+];
+
+// Websites — shown on the Media page.
+export const WEBSITES = [
+  {
+    name: "Snack Faysal",
+    tag: "Website design",
+    image: "/assets/projects/web-snack.jpg",
+    desc: "A Beirut manakish & fatayer institution — a warm, appetite-led site built around the menu and the brand's heritage.",
+  },
+  {
+    name: "Saifi Barbershop",
+    tag: "Website design",
+    image: "/assets/projects/web-saifi.jpg",
+    desc: "A premium 'precision cuts & premium style' identity in gold and black, with booking front-and-center.",
+  },
+  {
+    name: "Sinar",
+    tag: "Website design",
+    image: "/assets/projects/web-sinar.jpg",
+    desc: "A construction & interior fit-out company — a clean, architectural site positioning Sinar as a full solution partner.",
   },
 ];
 
