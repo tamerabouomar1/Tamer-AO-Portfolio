@@ -56,8 +56,9 @@ export default function Home() {
           <motion.article className="card cta" variants={cardIn}>
             <h3 className="card-title">Your Ultimate Designer</h3>
             <p className="card-body">
-              Wether it is static or moving, image or video, digital or physical, big scaled or small
-              scaled. The solution down in blue
+              I'm Tamer Abou Omar, a graphic designer in Beirut, Lebanon. I build brand identities,
+              logos, logo motion, social-media design and apparel — static or moving, digital or
+              physical, big or small.
             </p>
             <a className="link" href={`mailto:${CONTACT.email}`}>
               Get in touch <span className="plus">+</span>

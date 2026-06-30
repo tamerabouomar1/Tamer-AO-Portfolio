@@ -38,8 +38,9 @@ export default function About() {
             mind through the body. <span style={{ color: "var(--shiny)" }}>@Combat Sports Academy</span>
           </motion.p>
           <motion.p variants={cardIn}>
-            Currently working as a freelance Graphic Designer and as a martial arts instructor giving
-            classes and private sessions — but also brand identities and ads.
+            I work as a freelance graphic designer in Beirut, Lebanon — building brand identities,
+            logos, logo motion, social-media design and apparel (rashguards and fight kits for OKIRO
+            and 10th Planet Jiu Jitsu), alongside coaching martial arts classes and private sessions.
           </motion.p>
         </motion.div>
 
