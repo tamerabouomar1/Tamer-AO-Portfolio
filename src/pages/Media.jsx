@@ -99,8 +99,9 @@ export default function Media() {
             <div className="media-ig__copy">
               <p className="card-body">
                 Short-form is where most of my motion work lives. My reels and edits on Instagram pull in
-                <strong style={{ color: "#fff" }}> over 200,000 views every month</strong> — brand promos,
-                fitness content, logo animations and event recaps that reach a real, growing audience.
+                <strong style={{ color: "#fff" }}> over 200,000 views every month</strong>, from brand
+                promos and fitness content to logo animations and event recaps that reach a real,
+                growing audience.
               </p>
               <a
                 className="link"
@@ -143,7 +144,7 @@ export default function Media() {
                 </button>
               </div>
               <div className="weblb__scroll">
-                <img src={active.full} alt={`${active.name} — full page`} />
+                <img src={active.full} alt={`${active.name} full page`} />
               </div>
             </motion.div>
           </motion.div>

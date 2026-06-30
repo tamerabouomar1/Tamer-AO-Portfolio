@@ -17,10 +17,21 @@ function initials(name) {
 export default function Projects() {
   const [active, setActive] = useState(null);
   const [idx, setIdx] = useState(0);
+  const [docIdx, setDocIdx] = useState(0);
 
-  const images = active ? active.images : [];
+  // A card can hold either a single image set, or several named documents.
+  const docs = active && active.docs ? active.docs : null;
+  const current = docs ? docs[docIdx] : active;
+  const images = current ? current.images : [];
+  const desc = current ? current.desc : "";
+
   const open = (item) => {
     setActive(item);
+    setIdx(0);
+    setDocIdx(0);
+  };
+  const pickDoc = (i) => {
+    setDocIdx(i);
     setIdx(0);
   };
   const close = () => setActive(null);
@@ -78,10 +89,21 @@ export default function Projects() {
                   }
                 }}
               >
-                <div className="proj-card__media">
-                  <img src={item.images[0]} alt={item.name} loading="lazy" />
-                </div>
-                {item.images.length > 1 && <span className="proj-card__count">{item.images.length} ▦</span>}
+                {(() => {
+                  const cover = item.images ? item.images : item.docs[0].images;
+                  return (
+                    <>
+                      <div className="proj-card__media">
+                        <img src={cover[0]} alt={item.name} loading="lazy" />
+                      </div>
+                      {item.docs ? (
+                        <span className="proj-card__count">{item.docs.length} docs</span>
+                      ) : (
+                        cover.length > 1 && <span className="proj-card__count">{cover.length} ▦</span>
+                      )}
+                    </>
+                  );
+                })()}
                 <div className="proj-card__overlay" />
                 <div className="proj-card__meta">
                   <div className="proj-card__tag">{item.tag}</div>
@@ -125,7 +147,7 @@ export default function Projects() {
                   <motion.img
                     key={idx}
                     src={images[idx]}
-                    alt={`${active.name} — ${idx + 1}`}
+                    alt={`${active.name} ${idx + 1}`}
                     initial={{ opacity: 0 }}
                     animate={{ opacity: 1 }}
                     exit={{ opacity: 0 }}
@@ -153,10 +175,23 @@ export default function Projects() {
               <div className="lightbox__info">
                 <div className="proj-card__tag">{active.tag}</div>
                 <h3 className="lightbox__title">{active.name}</h3>
-                <p className="card-body">{active.desc}</p>
+                {docs && (
+                  <div className="lb-docs">
+                    {docs.map((d, i) => (
+                      <button
+                        key={d.label}
+                        className={"lb-doc" + (i === docIdx ? " is-on" : "")}
+                        onClick={() => pickDoc(i)}
+                      >
+                        {d.label}
+                      </button>
+                    ))}
+                  </div>
+                )}
+                <p className="card-body">{desc}</p>
                 {images.length > 1 && (
                   <div className="lb-counter">
-                    {idx + 1} / {images.length} — use ← → to browse
+                    {idx + 1} / {images.length} · use ← → to browse
                   </div>
                 )}
                 <a className="link" href={`mailto:${CONTACT.email}`}>

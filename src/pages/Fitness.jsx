@@ -37,8 +37,8 @@ export default function Fitness() {
       </motion.div>
 
       <p className="card-body" style={{ margin: "var(--gap) 0", maxWidth: "70ch" }}>
-        With over 100+ students coached, in more than one sport, fitness and self improvement became my
-        passion.
+        With more than 100 students coached across several sports, fitness and self-improvement have
+        become my passion.
       </p>
 
       {/* Workshops Given — heading above the training photos (as in the Figma) */}
@@ -48,7 +48,7 @@ export default function Fitness() {
           <motion.div className="card fit-photo" variants={cardIn}>
             <img
               src="/assets/projects/workshop-antibullying.jpg"
-              alt="Combat Sport Academy — Kids & Teenagers Anti-Bullying Program"
+              alt="Combat Sports Academy Kids & Teenagers Anti-Bullying Program"
               loading="lazy"
               style={{ objectFit: "contain" }}
             />
@@ -56,7 +56,7 @@ export default function Fitness() {
           <motion.div className="card fit-photo" variants={cardIn}>
             <img
               src="/assets/projects/workshop-women.jpg"
-              alt="Combat Sport Academy — Women Empowerment Program"
+              alt="Combat Sports Academy Women Empowerment Program"
               loading="lazy"
               style={{ objectFit: "contain" }}
             />

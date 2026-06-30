@@ -47,7 +47,7 @@ export default function Home() {
               <span className="link featured-cta">View all<span className="plus">+</span></span>
             </div>
             <div className="featured-img">
-              <img src="/assets/featured.jpg" alt="Featured project — Charbel Farah portfolio cover" />
+              <img src="/assets/featured.jpg" alt="Featured project: Charbel Farah portfolio cover" />
             </div>
           </MotionLink>
         </div>
@@ -56,9 +56,9 @@ export default function Home() {
           <motion.article className="card cta" variants={cardIn}>
             <h3 className="card-title">Your Ultimate Designer</h3>
             <p className="card-body">
-              I'm Tamer Abou Omar, a graphic designer in Beirut, Lebanon. I build brand identities,
-              logos, logo motion, social-media design and apparel — static or moving, digital or
-              physical, big or small.
+              I'm Tamer Abou Omar, a graphic designer based in Beirut, Lebanon. I build brand
+              identities, logos, logo motion, social-media design and apparel, whether static or
+              moving, digital or physical, big or small.
             </p>
             <a className="link" href={`mailto:${CONTACT.email}`}>
               Get in touch <span className="plus">+</span>
@@ -68,8 +68,8 @@ export default function Home() {
           <motion.article className="card cta" variants={cardIn}>
             <h3 className="card-title">Fitness on the side</h3>
             <p className="card-body">
-              Martial Arts Instructor and a Personal Trainer, I help people get in shape. Empowering the
-              mind through the body.
+              As a martial arts instructor and personal trainer, I help people get in shape and build
+              confidence, empowering the mind through the body.
             </p>
             <Link className="link" to="/fitness">
               Book a session <span className="plus">+</span>

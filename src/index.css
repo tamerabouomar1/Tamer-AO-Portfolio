@@ -461,6 +461,25 @@ ul { margin: 0; padding: 0; list-style: none; }
 .lb-dot.is-on { background: var(--accent); border-color: var(--accent); transform: scale(1.25); }
 .lb-counter { font-size: 12px; color: var(--faint); letter-spacing: 0.5px; }
 
+/* document switcher inside the lightbox info panel */
+.lb-docs { display: flex; flex-wrap: wrap; gap: 8px; margin-bottom: 4px; }
+.lb-doc {
+  font-size: 13px; font-weight: 600;
+  padding: 7px 14px;
+  border-radius: 999px;
+  background: rgba(255, 255, 255, 0.05);
+  border: 1px solid rgba(255, 255, 255, 0.16);
+  color: var(--faint);
+  cursor: pointer;
+  transition: background 0.18s ease, color 0.18s ease, border-color 0.18s ease;
+}
+.lb-doc:hover { color: #fff; border-color: rgba(255, 255, 255, 0.3); }
+.lb-doc.is-on {
+  background: var(--shiny);
+  border-color: var(--shiny);
+  color: #07121f;
+}
+
 /* count badge on cards with multiple images */
 .proj-card__count {
   position: absolute; top: 12px; left: 12px; z-index: 3;

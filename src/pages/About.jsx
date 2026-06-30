@@ -34,11 +34,11 @@ export default function About() {
           </motion.div>
 
           <motion.p variants={cardIn}>
-            Martial Arts Instructor and a Personal Trainer, I help people get in shape. Empowering the
-            mind through the body. <span style={{ color: "var(--shiny)" }}>@Combat Sports Academy</span>
+            As a martial arts instructor and personal trainer, I help people get in shape and build
+            confidence, empowering the mind through the body. <span style={{ color: "var(--shiny)" }}>@Combat Sports Academy</span>
           </motion.p>
           <motion.p variants={cardIn}>
-            I work as a freelance graphic designer in Beirut, Lebanon — building brand identities,
+            I work as a freelance graphic designer in Beirut, Lebanon, building brand identities,
             logos, logo motion, social-media design and apparel (rashguards and fight kits for OKIRO
             and 10th Planet Jiu Jitsu), alongside coaching martial arts classes and private sessions.
           </motion.p>
