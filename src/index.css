@@ -550,7 +550,7 @@ ul { margin: 0; padding: 0; list-style: none; }
   display: grid;
   grid-template-columns: 1.3fr 1fr;
   gap: var(--gap);
-  align-items: start;
+  align-items: stretch;   /* Get In Touch box fills its column -> bottoms align */
 }
 .about-badges { display: grid; grid-template-columns: 1fr 1fr; gap: var(--gap); }
 .badge { padding: clamp(18px, 1.8vw, 30px); display: flex; flex-direction: column; gap: 6px; min-height: 120px; justify-content: center; }
