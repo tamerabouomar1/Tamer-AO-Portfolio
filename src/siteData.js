@@ -38,6 +38,41 @@ export const PROJECT_GROUPS = [
         images: imgs("contracts", 5),
         desc: "Company profile and logo system for Contracts Design — clean, confident corporate layouts across cover, services and team.",
       },
+      {
+        name: "FabricAid — Company Profile",
+        tag: "Corporate",
+        images: imgs("fabricaid", 8),
+        desc: "Company profile for FabricAid — a social enterprise tackling clothing waste and accessibility. An impact-driven layout system across mission, programs and reach.",
+      },
+      {
+        name: "FabricAid — Textile Sustainability Pledge",
+        tag: "Campaign",
+        images: imgs("pledge", 6),
+        desc: "The Textile Sustainability Pledge for FabricAid — a brochure rallying brands and partners around responsible, circular textile practices.",
+      },
+    ],
+  },
+  {
+    title: "Website",
+    items: [
+      {
+        name: "Snack Faysal",
+        tag: "Website design",
+        images: pick("web-snack"),
+        desc: "Website design for Snack Faysal — a Beirut manakish and fatayer institution. A warm, appetite-led layout built around the menu and the brand's heritage.",
+      },
+      {
+        name: "Saifi Barbershop",
+        tag: "Website design",
+        images: pick("web-saifi"),
+        desc: "Website design for Saifi Barbershop — a premium 'precision cuts & premium style' identity in gold and black with booking front-and-center.",
+      },
+      {
+        name: "Sinar",
+        tag: "Website design",
+        images: pick("web-sinar"),
+        desc: "Website design for Sinar — a construction and interior fit-out company. A clean, architectural layout positioning Sinar as a full solution partner.",
+      },
     ],
   },
   {
