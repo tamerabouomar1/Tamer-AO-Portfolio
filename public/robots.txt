@@ -1,4 +1,4 @@
 User-agent: *
 Allow: /
 
-Sitemap: https://lively-figolla-29ae15.netlify.app/sitemap.xml
+Sitemap: https://tamer-ao-portfolio.netlify.app/sitemap.xml
