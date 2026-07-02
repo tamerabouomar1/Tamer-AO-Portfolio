@@ -18,7 +18,7 @@ export default function About() {
           <p className="topbar__sub">What do I do</p>
         </div>
         <a className="link" href={`mailto:${CONTACT.email}`}>
-          Lets work together <span className="plus">+</span>
+          Let's work together <span className="plus">+</span>
         </a>
       </header>
 
@@ -52,7 +52,7 @@ export default function About() {
             <a href={`mailto:${CONTACT.email}`}><span className="dot" />{CONTACT.email}</a>
           </div>
           <a className="link" href={`mailto:${CONTACT.email}`}>
-            Lets work together <span className="plus">+</span>
+            Let's work together <span className="plus">+</span>
           </a>
         </motion.aside>
       </div>

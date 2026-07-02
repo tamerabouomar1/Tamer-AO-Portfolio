@@ -88,7 +88,7 @@ export default function Fitness() {
         <motion.div className="card cta" variants={cardIn} initial="hidden" animate="show" style={{ minHeight: 0 }}>
           <h3 className="card-title">Classes Given</h3>
           <p className="card-body">
-            As a martial arts Instructor and a personal Trainer, I have given classes at the International
+            As a martial arts instructor and personal trainer, I have given classes at the International
             College (IC), at Academies (CSA), and at Private Clubs (Yarz leisure club).
           </p>
           <a className="link" href={CONTACT.calendly} target="_blank" rel="noreferrer">

@@ -355,11 +355,14 @@ ul { margin: 0; padding: 0; list-style: none; }
 }
 .proj-card__overlay {
   position: absolute; inset: 0; z-index: 1;
-  background: linear-gradient(180deg, transparent 40%, rgba(0, 0, 0, 0.78));
-  opacity: 0.85; transition: opacity 0.4s var(--ease);
+  background: linear-gradient(180deg, transparent 35%, rgba(0, 0, 0, 0.88));
+  opacity: 0.92; transition: opacity 0.4s var(--ease);
 }
 .proj-card:hover .proj-card__overlay { opacity: 1; }
-.proj-card__meta { position: relative; z-index: 2; min-width: 0; }
+.proj-card__meta {
+  position: relative; z-index: 2; min-width: 0;
+  text-shadow: 0 1px 8px rgba(0, 0, 0, 0.55);  /* stays readable on light artwork */
+}
 .proj-card__tag { font-size: 12px; color: var(--shiny); text-transform: uppercase; letter-spacing: 1px; }
 .proj-card__name { font-size: clamp(15px, 1.2vw, 19px); font-weight: 700; margin-top: 2px; }
 

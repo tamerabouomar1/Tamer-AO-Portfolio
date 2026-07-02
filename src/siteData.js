@@ -141,6 +141,7 @@ export const PROJECT_GROUPS = [
   },
   {
     title: "Other",
+    product: true, // light document artwork reads better with the caption below
     items: [
       {
         name: "Environmental",

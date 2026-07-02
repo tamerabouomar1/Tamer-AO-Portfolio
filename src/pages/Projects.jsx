@@ -65,7 +65,7 @@ export default function Projects() {
           <p className="topbar__sub">Student Athlete</p>
         </div>
         <a className="link" href={`mailto:${CONTACT.email}`}>
-          Lets work together <span className="plus">+</span>
+          Let's work together <span className="plus">+</span>
         </a>
       </header>
 
