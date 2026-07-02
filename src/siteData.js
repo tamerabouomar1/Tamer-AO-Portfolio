@@ -39,6 +39,12 @@ export const PROJECT_GROUPS = [
         desc: "A company profile and logo system for Contracts Design, with clean, confident corporate layouts across the cover, services and team.",
       },
       {
+        name: "BioGarden",
+        tag: "Company profile",
+        images: imgs("biogarden", 4),
+        desc: "A company profile and product catalogue for BioGarden, a natural, organic food brand.",
+      },
+      {
         name: "FabricAid",
         tag: "Profile & pledge",
         docs: [
@@ -66,15 +72,21 @@ export const PROJECT_GROUPS = [
         desc: "A logo and brand identity for KARV Pilates Studio. The mark is elegant and minimal, with a calm, premium boutique feel.",
       },
       {
-        name: "BioGarden",
-        tag: "Brand identity",
-        images: imgs("biogarden", 4),
-        desc: "Brand identity and a product catalogue for BioGarden, a natural, organic food brand.",
+        name: "Contracts Design",
+        tag: "Logo",
+        images: pick("contracts-5"),
+        desc: "The Contracts Design logo: a refined CD monogram in serif type, built for an engineering design firm.",
+      },
+      {
+        name: "Playwear Club",
+        tag: "Logo & identity",
+        images: imgs("playwear", 5),
+        desc: "Logo and identity for Playwear Club, a playful kids' clothing brand: the logo lockups, the mascot, and the Patch Bar patterns.",
       },
       {
         name: "MoCars / MoTrouble",
         tag: "Logo, motion & poster",
-        images: imgs("mocars", 3),
+        images: pick("mocars-2", "mocars-1", "mocars-3"),
         desc: "Branding for MoCars and MoTrouble. It includes a yellow Super Veloce Jota 'Trouble' poster, the logo and its motion treatment, and a matching MO grappling kit. The result is a sharp automotive brand built for speed and attitude.",
       },
       {
@@ -128,8 +140,8 @@ export const PROJECT_GROUPS = [
       {
         name: "10th Planet Apparel",
         tag: "Rashguards & shorts",
-        images: imgs("tenp-app", 5),
-        desc: "Apparel for 10th Planet Jiu Jitsu Beirut, including competition rashguards and fight shorts across Lebanon, military and other designs.",
+        images: imgs("tenp-app", 3),
+        desc: "Apparel for 10th Planet Jiu Jitsu Beirut: three competition sets of rashguards and fight shorts in white, camo and black.",
       },
       {
         name: "PGC / PLAY",
@@ -167,6 +179,13 @@ export const PROJECT_GROUPS = [
 
 // Websites — shown on the Media page.
 export const WEBSITES = [
+  {
+    name: "Kitchen Garage",
+    tag: "Website design",
+    image: "/assets/projects/web-kg.jpg",
+    full: "/assets/projects/web-kg-full.jpg",
+    desc: "A full ordering site for Kitchen Garage in Aley: smash burgers, wings and loaded fries, with a menu, cart, accounts and every payment method.",
+  },
   {
     name: "Snack Faysal",
     tag: "Website design",
