@@ -90,6 +90,18 @@ export const PROJECT_GROUPS = [
         desc: "Branding for MoCars and MoTrouble. It includes a yellow Super Veloce Jota 'Trouble' poster, the logo and its motion treatment, and a matching MO grappling kit. The result is a sharp automotive brand built for speed and attitude.",
       },
       {
+        name: "Aley Summer Festival",
+        tag: "Logo",
+        images: imgs("aley", 1),
+        desc: "The Aley Summer Festival logo: a bold, colorful mark for the town's summer festival.",
+      },
+      {
+        name: "Teep Fighting System",
+        tag: "Logo",
+        images: imgs("teep", 1),
+        desc: "A logo for Teep Fighting System, a Muay Thai program: purple gloves inside a traditional mandala emblem.",
+      },
+      {
         name: "Qasr Al Hyatt",
         tag: "Hospitality brand",
         images: imgs("qasr", 1),
@@ -98,14 +110,20 @@ export const PROJECT_GROUPS = [
     ],
   },
   {
-    title: "Social Media",
-    product: true,
+    title: "Packaging & Retail",
+    product: true, // light artwork reads better with the caption below
     items: [
       {
-        name: "10th Planet Social Media",
-        tag: "Posts & flyers",
-        images: imgs("tenp-soc", 6),
-        desc: "Social-media design for 10th Planet Jiu Jitsu Beirut, covering membership posts, event flyers, the US Embassy seminar and the weekly schedule.",
+        name: "BioGarden Labels",
+        tag: "Packaging",
+        images: imgs("bg-label", 9),
+        desc: "Product label design for BioGarden's natural food range: flaxseed oil, tahini, thyme, nut butters, olives, coconut butter, semi-dried tomatoes and sumac, each with full bilingual nutrition layouts.",
+      },
+      {
+        name: "BioGarden Shelf Talkers & Posters",
+        tag: "Retail & print",
+        images: imgs("bg-retail", 5),
+        desc: "In-store retail design for BioGarden: the 'From Nature To You' A3 posters and a photographic shelf-talker series for tomato juice, tahini and tomato paste.",
       },
     ],
   },
@@ -174,6 +192,27 @@ export const PROJECT_GROUPS = [
         desc: "Notebook cover design.",
       },
     ],
+  },
+];
+
+// Social-media posts — shown on the Media page.
+export const SOCIAL_POSTS = {
+  name: "10th Planet Social Media",
+  desc: "Social-media design for 10th Planet Jiu Jitsu Beirut, covering membership posts, event flyers, the US Embassy seminar and the weekly schedule.",
+  images: imgs("tenp-soc", 6),
+};
+
+// Video edits — shown on the Media page.
+export const VIDEO_EDITS = [
+  {
+    title: "Athletes Night at AUB",
+    src: "/assets/motion/edit-athletes-night.mp4",
+    desc: "Event edit from Athletes Night at AUB.",
+  },
+  {
+    title: "Match Edit: Tamer vs Amir",
+    src: "/assets/motion/edit-tamer-fight.mp4",
+    desc: "Competition match edit.",
   },
 ];
 
