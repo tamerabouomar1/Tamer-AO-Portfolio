@@ -90,40 +90,10 @@ export const PROJECT_GROUPS = [
         desc: "Branding for MoCars and MoTrouble. It includes a yellow Super Veloce Jota 'Trouble' poster, the logo and its motion treatment, and a matching MO grappling kit. The result is a sharp automotive brand built for speed and attitude.",
       },
       {
-        name: "Aley Summer Festival",
-        tag: "Logo",
-        images: imgs("aley", 1),
-        desc: "The Aley Summer Festival logo: a bold, colorful mark for the town's summer festival.",
-      },
-      {
-        name: "Teep Fighting System",
-        tag: "Logo",
-        images: imgs("teep", 1),
-        desc: "A logo for Teep Fighting System, a Muay Thai program: purple gloves inside a traditional mandala emblem.",
-      },
-      {
         name: "Qasr Al Hyatt",
         tag: "Hospitality brand",
         images: imgs("qasr", 1),
         desc: "Brand and collateral design for Qasr Al Hyatt, a refined, luxury hospitality identity.",
-      },
-    ],
-  },
-  {
-    title: "Packaging & Retail",
-    product: true, // light artwork reads better with the caption below
-    items: [
-      {
-        name: "BioGarden Labels",
-        tag: "Packaging",
-        images: imgs("bg-label", 9),
-        desc: "Product label design for BioGarden's natural food range: flaxseed oil, tahini, thyme, nut butters, olives, coconut butter, semi-dried tomatoes and sumac, each with full bilingual nutrition layouts.",
-      },
-      {
-        name: "BioGarden Shelf Talkers & Posters",
-        tag: "Retail & print",
-        images: imgs("bg-retail", 5),
-        desc: "In-store retail design for BioGarden: the 'From Nature To You' A3 posters and a photographic shelf-talker series for tomato juice, tahini and tomato paste.",
       },
     ],
   },
@@ -166,6 +136,30 @@ export const PROJECT_GROUPS = [
         tag: "Apparel",
         images: imgs("pgc", 12),
         desc: "PGC and PLAY streetwear: a run of tee designs and mockups.",
+      },
+    ],
+  },
+  {
+    title: "Packaging & Retail",
+    product: true, // light artwork reads better with the caption below
+    items: [
+      {
+        name: "BioGarden Labels",
+        tag: "Packaging",
+        images: imgs("bg-label", 5),
+        desc: "Product label design for BioGarden's natural food range, shown on the shelf line-up and in flat layouts for coconut butter, coconut oil, green olives and black olives, each with full bilingual nutrition panels.",
+      },
+      {
+        name: "BioGarden Posters",
+        tag: "Print",
+        images: imgs("bg-poster", 2),
+        desc: "A3 poster design for BioGarden: the 'From Nature To You' product poster and a photographic tapenade flatlay.",
+      },
+      {
+        name: "BioGarden Shelf Talkers",
+        tag: "Retail",
+        images: imgs("bg-st", 3),
+        desc: "A photographic shelf-talker series for BioGarden's in-store displays, covering tomato juice, tahini and tomato paste.",
       },
     ],
   },
