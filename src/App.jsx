@@ -10,6 +10,7 @@ import Projects from "./pages/Projects";
 import Media from "./pages/Media";
 import About from "./pages/About";
 import Fitness from "./pages/Fitness";
+import Fund from "./pages/Fund";
 
 function ScrollToTop() {
   const { pathname } = useLocation();
@@ -34,6 +35,7 @@ export default function App() {
             <Route path="/media" element={<Media />} />
             <Route path="/about" element={<About />} />
             <Route path="/fitness" element={<Fitness />} />
+            <Route path="/fund" element={<Fund />} />
             <Route path="*" element={<Home />} />
           </Routes>
         </AnimatePresence>

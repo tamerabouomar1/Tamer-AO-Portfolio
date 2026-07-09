@@ -30,6 +30,11 @@ const Icon = {
       <path d="M2.5 12.5H7l1.8-5 3 9 2-4H21.5" />
     </svg>
   ),
+  fund: (
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round">
+      <path d="M20.8 5.6a5.2 5.2 0 0 0-7.4 0l-1.4 1.4-1.4-1.4a5.2 5.2 0 0 0-7.4 7.4l1.4 1.4L12 21l7.4-6.6 1.4-1.4a5.2 5.2 0 0 0 0-7.4Z" />
+    </svg>
+  ),
 };
 
 const NAV = [
@@ -38,6 +43,7 @@ const NAV = [
   { to: "/media", label: "Media", icon: Icon.videos },
   { to: "/about", label: "About", icon: Icon.about },
   { to: "/fitness", label: "Fitness", icon: Icon.fitness },
+  { to: "/fund", label: "Fund", icon: Icon.fund },
 ];
 
 const svgProps = {
