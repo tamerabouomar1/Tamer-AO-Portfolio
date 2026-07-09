@@ -16,58 +16,6 @@ export const CONTACT = {
 export const VIDEO_SRC =
   "https://d8j0ntlcm91z4.cloudfront.net/user_38xzZboKViGWJOttwIXH07lWA1P/hf_20260328_105406_16f4600d-7a92-4292-b96e-b19156c7830a.mp4";
 
-// ============================================================
-//  Fundraiser — "Fund a Student Athlete"
-//  A legitimate, shareable $1 micro-donation campaign. No mass
-//  emailing / no scraping: reach comes from people sharing the
-//  page. Swap the PLACEHOLDER payment values below for your real
-//  accounts before sharing the link.
-// ============================================================
-export const DONATION = {
-  title: "Fund a Student Athlete",
-  tagline: "One dollar puts a kid on the mat.",
-  // The ask, kept honest and specific.
-  intro:
-    "I train student athletes in Beirut — kids who have the talent and the discipline but not the budget for mats, gear, and competition fees. I earned two athletic scholarships myself, so I know what one small break can change. This is a simple ask: give one dollar. If a lot of people each give a dollar, we can cover a season for a young athlete who otherwise sits out.",
-  usage: [
-    { label: "Mat & gym time", detail: "Sessions for athletes who can't cover monthly fees." },
-    { label: "Gear", detail: "A rashguard, a gi, gloves — the basics to train safely." },
-    { label: "Competition fees", detail: "Registration and travel so they can actually compete." },
-  ],
-  // The honest math that makes $1 worth asking for.
-  promise:
-    "Every dollar goes to athletes' training, gear, and competition costs — nothing else. Give once, then send this page to one person. That share is worth more than the dollar.",
-
-  // ---- Payment channels (Lebanon-friendly) ----
-  // TODO(Tamer): confirm each value is correct before you share the link.
-  methods: [
-    {
-      id: "whish",
-      name: "Whish Money",
-      // Whish is tied to a phone number. This is your public site number —
-      // confirm it's the one registered to your Whish account.
-      value: "+961 70 477 595",
-      note: "Open Whish → Send Money → enter this number.",
-      kind: "phone",
-    },
-    {
-      id: "omt",
-      name: "OMT",
-      value: "Tamer Abou Omar",
-      note: "At any OMT branch, 'Send Money' to this full name (Beirut, Lebanon).",
-      kind: "name",
-    },
-    {
-      id: "crypto",
-      name: "USDT — Tron (TRC-20)",
-      // PLACEHOLDER — paste your real USDT (TRC-20) wallet address here.
-      value: "TXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX",
-      note: "Send USDT on the Tron (TRC-20) network only. Low fees, works from anywhere.",
-      kind: "crypto",
-    },
-  ],
-};
-
 // helper: ordered carousel array of N optimized images for a project slug
 const imgs = (slug, n) =>
   Array.from({ length: n }, (_, i) => `/assets/projects/${slug}-${i + 1}.jpg`);
