@@ -4,14 +4,88 @@ export const CONTACT = {
   email: "tamerabouomar1@gmail.com",
   phone: "+961 70477595",
   phoneHref: "tel:+96170477595",
-  // No Calendly yet — "Book a session / call" opens a pre-filled email.
-  // Replace with "https://calendly.com/your-handle" when you have one.
-  calendly: "mailto:tamerabouomar1@gmail.com?subject=Booking%20a%20session",
+  // Real Calendly link — a free 30-minute discovery call (Zoom).
+  calendly: "https://calendly.com/tamer_ao/30min",
   instagram: "https://www.instagram.com/tamer_ao/",
   // TODO: this is the generic LinkedIn feed, not a public profile.
   // Replace with your profile URL e.g. https://www.linkedin.com/in/your-name
   linkedin: "https://www.linkedin.com/feed/",
 };
+
+// Pre-filled inquiry email for one-off / custom work (logos, motion, apparel, web…).
+export const INQUIRY_MAILTO =
+  "mailto:tamerabouomar1@gmail.com?subject=Design%20inquiry&body=Hi%20Tamer%2C%0A%0AI%27d%20like%20to%20work%20with%20you%20on%3A%20%0A%0A(logo%20%2F%20brand%20identity%20%2F%20social%20media%20%2F%20motion%20%2F%20apparel%20%2F%20website%20%2F%20other)%0A%0AA%20few%20details%3A%20";
+
+// ── Work With Me ──────────────────────────────────────────────
+// Social-media management packages. Prices are in USD and fully
+// customizable — edit freely. `featured` highlights the popular tier.
+export const SOCIAL_PACKAGES = [
+  {
+    name: "Starter",
+    tagline: "A consistent, on-brand feed",
+    price: "$250",
+    period: "/ month",
+    cta: "Start with a free call",
+    features: [
+      "8 custom social posts / month",
+      "1 platform (Instagram or Facebook)",
+      "Monthly content calendar",
+      "Caption copywriting",
+      "2 revisions per design",
+    ],
+  },
+  {
+    name: "Growth",
+    tagline: "Post more, move faster, stand out",
+    price: "$450",
+    period: "/ month",
+    featured: true,
+    cta: "Book a free call",
+    features: [
+      "16 custom posts + 4 story sets / month",
+      "Up to 2 platforms",
+      "Content calendar + hashtag strategy",
+      "1 animated / motion post per week",
+      "Caption copywriting",
+      "Unlimited revisions",
+    ],
+  },
+  {
+    name: "Premium",
+    tagline: "Your full-service design partner",
+    price: "$750",
+    period: "/ month",
+    cta: "Book a free call",
+    features: [
+      "24+ posts, stories & reels / month",
+      "Up to 3 platforms",
+      "Full content strategy + monthly report",
+      "Logo motion & animated content",
+      "Priority turnaround",
+      "Monthly strategy call",
+    ],
+  },
+];
+
+// One-off / custom work beyond the monthly packages.
+export const EXTRA_SERVICES = [
+  {
+    name: "Logo & brand identity",
+    desc: "A complete identity — logo, colours, type and the rules that hold it together.",
+  },
+  {
+    name: "Logo motion",
+    desc: "Bring your mark to life with a clean animated intro or logo sting.",
+  },
+  {
+    name: "Apparel & print",
+    desc: "Rashguards, fight kits, tees and print-ready artwork (OKIRO, 10th Planet).",
+  },
+  {
+    name: "Any digital design",
+    desc: "Websites, decks, posters, packaging — if it's digital, I can design it.",
+  },
+];
 
 export const VIDEO_SRC =
   "https://d8j0ntlcm91z4.cloudfront.net/user_38xzZboKViGWJOttwIXH07lWA1P/hf_20260328_105406_16f4600d-7a92-4292-b96e-b19156c7830a.mp4";
