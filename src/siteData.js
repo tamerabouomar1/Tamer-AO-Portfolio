@@ -62,24 +62,13 @@ export const SOCIAL_PACKAGES = [
   },
 ];
 
-// One-off / custom work beyond the monthly packages.
+// One-off / custom work beyond the monthly packages (rendered as chips).
 export const EXTRA_SERVICES = [
-  {
-    name: "Logo & brand identity",
-    desc: "A complete identity — logo, colours, type and the rules that hold it together.",
-  },
-  {
-    name: "Logo motion",
-    desc: "Bring your mark to life with a clean animated intro or logo sting.",
-  },
-  {
-    name: "Apparel & print",
-    desc: "Rashguards, fight kits, tees and print-ready artwork (OKIRO, 10th Planet).",
-  },
-  {
-    name: "Any digital design",
-    desc: "Websites, decks, posters, packaging — if it's digital, I can design it.",
-  },
+  "Logo & brand identity",
+  "Logo motion",
+  "Apparel & print",
+  "Websites & decks",
+  "Anything digital",
 ];
 
 export const VIDEO_SRC =
