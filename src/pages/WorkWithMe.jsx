@@ -1,14 +1,20 @@
 import { motion } from "framer-motion";
 import Page, { container, cardIn } from "../components/Page";
-import {
-  CONTACT,
-  INQUIRY_MAILTO,
-  SOCIAL_PACKAGES,
-  EXTRA_SERVICES,
-} from "../siteData";
+import { CONTACT, MESSAGE_MAILTO, SOCIAL_PACKAGES, EXTRA_SERVICES } from "../siteData";
+
+// Calendly inline embed, themed to match the site.
+const CALENDLY_EMBED =
+  CONTACT.calendly +
+  "?embed_type=Inline&hide_gdpr_banner=1&background_color=101010&text_color=ffffff&primary_color=64cefb" +
+  "&embed_domain=" +
+  (typeof window !== "undefined" ? window.location.hostname : "tamer-ao-portfolio.netlify.app");
 
 export default function WorkWithMe() {
-  const bookProps = { target: "_blank", rel: "noreferrer" };
+  // Package CTAs scroll to the embedded calendar below — booking stays on the page.
+  const scrollToBook = (e) => {
+    e.preventDefault();
+    document.getElementById("book")?.scrollIntoView({ behavior: "smooth" });
+  };
 
   return (
     <Page>
@@ -17,37 +23,21 @@ export default function WorkWithMe() {
           <h2 className="topbar__title">Work With Me</h2>
           <p className="topbar__sub">Social media, branding &amp; digital design</p>
         </div>
-        <a className="link" href={CONTACT.calendly} {...bookProps}>
-          Book a free call <span className="plus">+</span>
-        </a>
       </header>
 
-      {/* Intro — personalized */}
-      <motion.section
-        className="card cta work-intro"
+      <motion.p
+        className="page-lead"
         variants={cardIn}
         initial="hidden"
         animate="show"
-        style={{ minHeight: 0 }}
       >
-        <h3 className="card-title">Let&apos;s grow your brand</h3>
-        <p className="card-body">
-          I&apos;m Tamer, a Beirut-based graphic designer and Adobe expert. I run social
-          media the way an athlete trains — consistent, sharp and built to perform. From a
-          full monthly content plan to a single logo, I&apos;ll make your brand look like it
-          means business. Not sure what you need? Book a free 30-minute call and we&apos;ll
-          map it out together.
-        </p>
-        <a className="link" href={CONTACT.calendly} {...bookProps}>
-          Book a free 30-min call <span className="plus">+</span>
-        </a>
-      </motion.section>
+        Monthly social media management or one-off design work — pick a package, then book
+        a free 30-minute meeting below.
+      </motion.p>
 
       {/* Social media packages */}
       <section className="proj-section">
-        <h3 className="proj-section__title">
-          Social Media Management — Monthly Packages
-        </h3>
+        <h3 className="proj-section__title">Social media packages</h3>
         <motion.div
           className="price-grid"
           variants={container}
@@ -77,79 +67,71 @@ export default function WorkWithMe() {
                   </li>
                 ))}
               </ul>
-              <a className="btn-book" href={CONTACT.calendly} {...bookProps}>
+              <a className="btn-book" href="#book" onClick={scrollToBook}>
                 {p.cta}
               </a>
             </motion.article>
           ))}
         </motion.div>
         <p className="price-note">
-          Prices in USD. Every package is tailored to your brand — mix, match or scale it on
-          our free call. Longer commitments and bundles get a better rate.
+          Prices in USD — every package gets tailored to your brand on our first meeting.
         </p>
       </section>
 
-      {/* One-off / custom work */}
+      {/* One-off work — one compact line */}
       <section className="proj-section">
-        <h3 className="proj-section__title">One-off &amp; custom work</h3>
+        <h3 className="proj-section__title">One-off work</h3>
         <motion.div
-          className="work-services"
-          variants={container}
+          className="card work-oneoff"
+          variants={cardIn}
           initial="hidden"
           animate="show"
         >
-          {EXTRA_SERVICES.map((s) => (
-            <motion.article className="card work-service" key={s.name} variants={cardIn}>
-              <h4 className="work-service__name">{s.name}</h4>
-              <p className="work-service__desc">{s.desc}</p>
-            </motion.article>
-          ))}
+          <div className="chip-row">
+            {EXTRA_SERVICES.map((s) => (
+              <span className="chip" key={s}>
+                {s}
+              </span>
+            ))}
+          </div>
+          <a className="link" href={MESSAGE_MAILTO}>
+            Send a message <span className="plus">+</span>
+          </a>
         </motion.div>
       </section>
 
-      {/* Booking + inquiry */}
-      <section className="work-cta-row">
-        <motion.article
-          className="card work-cta"
+      {/* Booking — embedded in the portfolio */}
+      <section className="proj-section" id="book">
+        <h3 className="proj-section__title">Book a free 30-min meeting</h3>
+        <motion.div
+          className="card work-booking"
           variants={cardIn}
           initial="hidden"
           animate="show"
         >
-          <h3 className="card-title">Free 30-min discovery call</h3>
-          <p className="card-body">
-            A no-pressure Zoom call to talk through your goals and see if we&apos;re a fit.
-            Come with questions, leave with a plan — no commitment.
-          </p>
-          <a className="btn-book btn-book--lg" href={CONTACT.calendly} {...bookProps}>
-            Book your free call
-          </a>
-        </motion.article>
-
-        <motion.article
-          className="card work-cta"
-          variants={cardIn}
-          initial="hidden"
-          animate="show"
-        >
-          <h3 className="card-title">Something else in mind?</h3>
-          <p className="card-body">
-            A logo, a full brand identity, apparel, motion, a website — or anything digital.
-            Tell me what you&apos;re after and I&apos;ll get back to you.
-          </p>
-          <div className="contact-list">
-            <a href={INQUIRY_MAILTO}>
-              <span className="dot" />
+          <iframe
+            className="calendly-frame"
+            src={CALENDLY_EMBED}
+            title="Book a free 30-minute meeting with Tamer"
+            loading="lazy"
+          />
+          <p className="price-note">
+            Calendar not loading?{" "}
+            <a
+              className="work-booking__fallback"
+              href={CONTACT.calendly}
+              target="_blank"
+              rel="noreferrer"
+            >
+              Open Calendly in a new tab
+            </a>{" "}
+            — or email{" "}
+            <a className="work-booking__fallback" href={MESSAGE_MAILTO}>
               {CONTACT.email}
             </a>
-            <a href={CONTACT.phoneHref}>
-              <span className="dot" />
-              {CONTACT.phone}
-            </a>
-          </div>
-          <a className="link" href={INQUIRY_MAILTO}>
-            Send an inquiry <span className="plus">+</span>
-          </a>
-        </motion.article>
+            .
+          </p>
+        </motion.div>
       </section>
     </Page>
   );

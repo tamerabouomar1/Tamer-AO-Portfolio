@@ -763,8 +763,11 @@ ul { margin: 0; padding: 0; list-style: none; }
 /* ---------------------------------------------------------- */
 /*  WORK WITH ME                                               */
 /* ---------------------------------------------------------- */
-.work-intro { gap: clamp(12px, 1.4vw, 20px); }
-.work-intro .card-body { max-width: 68ch; }
+.page-lead {
+  font-size: clamp(14px, 1.15vw, 17px); color: var(--muted); font-weight: 300;
+  line-height: 1.6; max-width: 62ch;
+  margin-bottom: clamp(6px, 0.8vw, 12px);
+}
 
 /* pricing tiers */
 .price-grid {
@@ -830,39 +833,42 @@ ul { margin: 0; padding: 0; list-style: none; }
 .btn-book:hover { transform: translateY(-2px); background: rgba(100, 206, 251, 0.14); }
 .price-card--featured .btn-book { background: var(--shiny); border-color: var(--shiny); color: #07121f; }
 .price-card--featured .btn-book:hover { box-shadow: 0 12px 30px rgba(100, 206, 251, 0.35); }
-.btn-book--lg { padding: 14px 26px; font-size: clamp(15px, 1.15vw, 17px); align-self: flex-start; }
-
 .price-note {
   margin-top: clamp(12px, 1.4vw, 18px);
   font-size: clamp(12px, 0.95vw, 14px); color: var(--faint); font-weight: 300; line-height: 1.5;
   max-width: 74ch;
 }
 
-/* one-off services */
-.work-services {
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(min(100%, 230px), 1fr));
-  gap: var(--gap);
+/* one-off work — compact chip strip */
+.work-oneoff {
+  display: flex; flex-wrap: wrap; align-items: center;
+  gap: clamp(14px, 1.6vw, 24px);
+  padding: clamp(20px, 2vw, 30px) clamp(22px, 2.2vw, 34px);
 }
-.work-service { padding: clamp(20px, 2vw, 30px); display: flex; flex-direction: column; gap: 8px; }
-.work-service__name { font-size: clamp(16px, 1.4vw, 20px); font-weight: 700; color: var(--shiny); }
-.work-service__desc { font-size: clamp(13px, 1.02vw, 16px); color: var(--muted); font-weight: 300; line-height: 1.5; }
+.chip-row { display: flex; flex-wrap: wrap; gap: 10px; flex: 1; }
+.chip {
+  padding: 8px 15px; border-radius: 999px;
+  font-size: clamp(12px, 0.98vw, 15px); font-weight: 400; color: var(--muted);
+  background: rgba(255, 255, 255, 0.04);
+  border: 1px solid var(--line);
+  white-space: nowrap;
+}
 
-/* booking + inquiry row */
-.work-cta-row {
-  margin-top: clamp(20px, 2.6vw, 40px);
-  display: grid;
-  grid-template-columns: 1fr 1fr;
-  gap: var(--gap);
-}
-.work-cta {
+/* embedded Calendly booking */
+.work-booking {
   display: flex; flex-direction: column; gap: clamp(12px, 1.3vw, 18px);
-  padding: clamp(26px, 2.6vw, 44px) clamp(24px, 2.2vw, 38px);
-  justify-content: center;
+  padding: clamp(22px, 2.2vw, 36px);
 }
-@media (max-width: 900px) {
-  .work-cta-row { grid-template-columns: 1fr; }
+.work-booking .card-body { max-width: 68ch; }
+.calendly-frame {
+  width: 100%;
+  height: clamp(620px, 78vh, 780px);
+  border: 0;
+  border-radius: var(--radius);
+  background: var(--card-solid);
 }
+.work-booking__fallback { color: var(--shiny); text-decoration: underline; text-underline-offset: 3px; }
+.work-booking__fallback:hover { opacity: 0.85; }
 
 /* ---------------------------------------------------------- */
 /*  Responsive — keep everything intact, nothing distorts      */
