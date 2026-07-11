@@ -864,6 +864,25 @@ ul { margin: 0; padding: 0; list-style: none; }
   .work-cta-row { grid-template-columns: 1fr; }
 }
 
+/* intro action links (book / email) */
+.work-intro__actions { display: flex; flex-wrap: wrap; gap: clamp(14px, 2vw, 28px); }
+
+/* embedded Calendly booking */
+.work-booking {
+  display: flex; flex-direction: column; gap: clamp(12px, 1.3vw, 18px);
+  padding: clamp(22px, 2.2vw, 36px);
+}
+.work-booking .card-body { max-width: 68ch; }
+.calendly-frame {
+  width: 100%;
+  height: clamp(620px, 78vh, 780px);
+  border: 0;
+  border-radius: var(--radius);
+  background: var(--card-solid);
+}
+.work-booking__fallback { color: var(--shiny); text-decoration: underline; text-underline-offset: 3px; }
+.work-booking__fallback:hover { opacity: 0.85; }
+
 /* ---------------------------------------------------------- */
 /*  Responsive — keep everything intact, nothing distorts      */
 /* ---------------------------------------------------------- */

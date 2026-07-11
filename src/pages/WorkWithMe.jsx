@@ -2,13 +2,26 @@ import { motion } from "framer-motion";
 import Page, { container, cardIn } from "../components/Page";
 import {
   CONTACT,
-  INQUIRY_MAILTO,
+  MESSAGE_MAILTO,
   SOCIAL_PACKAGES,
   EXTRA_SERVICES,
 } from "../siteData";
 
+// Calendly inline embed, themed to match the site.
+const CALENDLY_EMBED =
+  CONTACT.calendly +
+  "?embed_type=Inline&hide_gdpr_banner=1&background_color=101010&text_color=ffffff&primary_color=64cefb" +
+  "&embed_domain=" +
+  (typeof window !== "undefined" ? window.location.hostname : "tamer-ao-portfolio.netlify.app");
+
 export default function WorkWithMe() {
-  const bookProps = { target: "_blank", rel: "noreferrer" };
+  // Every "book a meeting" action scrolls to the embedded calendar below —
+  // booking happens inside the portfolio, no new tab.
+  const scrollToBook = (e) => {
+    e.preventDefault();
+    document.getElementById("book")?.scrollIntoView({ behavior: "smooth" });
+  };
+  const bookProps = { href: "#book", onClick: scrollToBook };
 
   return (
     <Page>
@@ -17,8 +30,8 @@ export default function WorkWithMe() {
           <h2 className="topbar__title">Work With Me</h2>
           <p className="topbar__sub">Social media, branding &amp; digital design</p>
         </div>
-        <a className="link" href={CONTACT.calendly} {...bookProps}>
-          Book a free call <span className="plus">+</span>
+        <a className="link" {...bookProps}>
+          Book a meeting <span className="plus">+</span>
         </a>
       </header>
 
@@ -35,12 +48,17 @@ export default function WorkWithMe() {
           I&apos;m Tamer, a Beirut-based graphic designer and Adobe expert. I run social
           media the way an athlete trains — consistent, sharp and built to perform. From a
           full monthly content plan to a single logo, I&apos;ll make your brand look like it
-          means business. Not sure what you need? Book a free 30-minute call and we&apos;ll
-          map it out together.
+          means business. Not sure what you need? Book a free 30-minute meeting right here
+          on this page, or send me an email.
         </p>
-        <a className="link" href={CONTACT.calendly} {...bookProps}>
-          Book a free 30-min call <span className="plus">+</span>
-        </a>
+        <div className="work-intro__actions">
+          <a className="link" {...bookProps}>
+            Book a meeting <span className="plus">+</span>
+          </a>
+          <a className="link" href={MESSAGE_MAILTO}>
+            Send an email <span className="plus">+</span>
+          </a>
+        </div>
       </motion.section>
 
       {/* Social media packages */}
@@ -77,15 +95,16 @@ export default function WorkWithMe() {
                   </li>
                 ))}
               </ul>
-              <a className="btn-book" href={CONTACT.calendly} {...bookProps}>
+              <a className="btn-book" {...bookProps}>
                 {p.cta}
               </a>
             </motion.article>
           ))}
         </motion.div>
         <p className="price-note">
-          Prices in USD. Every package is tailored to your brand — mix, match or scale it on
-          our free call. Longer commitments and bundles get a better rate.
+          Prices in USD. Every package is tailored to your brand — we&apos;ll shape the
+          right one together in a free meeting. Need more volume or extra platforms? It
+          scales; just ask.
         </p>
       </section>
 
@@ -105,9 +124,46 @@ export default function WorkWithMe() {
             </motion.article>
           ))}
         </motion.div>
+        <p className="price-note">
+          For any of these, book a meeting below or send an email with what you have in
+          mind.
+        </p>
       </section>
 
-      {/* Booking + inquiry */}
+      {/* Booking — embedded in the portfolio */}
+      <section className="proj-section" id="book">
+        <h3 className="proj-section__title">Book a meeting</h3>
+        <motion.div
+          className="card work-booking"
+          variants={cardIn}
+          initial="hidden"
+          animate="show"
+        >
+          <p className="card-body">
+            A free 30-minute meeting — no pressure, no commitment. Pick a time that works
+            for you and we&apos;ll talk through your goals.
+          </p>
+          <iframe
+            className="calendly-frame"
+            src={CALENDLY_EMBED}
+            title="Book a free 30-minute meeting with Tamer"
+            loading="lazy"
+          />
+          <p className="price-note">
+            Calendar not loading?{" "}
+            <a className="work-booking__fallback" href={CONTACT.calendly} target="_blank" rel="noreferrer">
+              Open Calendly in a new tab
+            </a>{" "}
+            or{" "}
+            <a className="work-booking__fallback" href={MESSAGE_MAILTO}>
+              send an email
+            </a>
+            .
+          </p>
+        </motion.div>
+      </section>
+
+      {/* Send a message */}
       <section className="work-cta-row">
         <motion.article
           className="card work-cta"
@@ -115,13 +171,23 @@ export default function WorkWithMe() {
           initial="hidden"
           animate="show"
         >
-          <h3 className="card-title">Free 30-min discovery call</h3>
+          <h3 className="card-title">Something else in mind?</h3>
           <p className="card-body">
-            A no-pressure Zoom call to talk through your goals and see if we&apos;re a fit.
-            Come with questions, leave with a plan — no commitment.
+            A logo, a full brand identity, apparel, motion, a website — or anything
+            digital. Send me a message and I&apos;ll get back to you.
           </p>
-          <a className="btn-book btn-book--lg" href={CONTACT.calendly} {...bookProps}>
-            Book your free call
+          <div className="contact-list">
+            <a href={MESSAGE_MAILTO}>
+              <span className="dot" />
+              {CONTACT.email}
+            </a>
+            <a href={CONTACT.phoneHref}>
+              <span className="dot" />
+              {CONTACT.phone}
+            </a>
+          </div>
+          <a className="btn-book" href={MESSAGE_MAILTO}>
+            Send a message
           </a>
         </motion.article>
 
@@ -131,23 +197,13 @@ export default function WorkWithMe() {
           initial="hidden"
           animate="show"
         >
-          <h3 className="card-title">Something else in mind?</h3>
+          <h3 className="card-title">Prefer to talk it through?</h3>
           <p className="card-body">
-            A logo, a full brand identity, apparel, motion, a website — or anything digital.
-            Tell me what you&apos;re after and I&apos;ll get back to you.
+            The fastest way to figure out what you need — a free 30-minute meeting, booked
+            right here on the page.
           </p>
-          <div className="contact-list">
-            <a href={INQUIRY_MAILTO}>
-              <span className="dot" />
-              {CONTACT.email}
-            </a>
-            <a href={CONTACT.phoneHref}>
-              <span className="dot" />
-              {CONTACT.phone}
-            </a>
-          </div>
-          <a className="link" href={INQUIRY_MAILTO}>
-            Send an inquiry <span className="plus">+</span>
+          <a className="btn-book btn-book--lg" {...bookProps}>
+            Book a meeting
           </a>
         </motion.article>
       </section>

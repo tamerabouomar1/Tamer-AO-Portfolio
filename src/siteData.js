@@ -12,9 +12,10 @@ export const CONTACT = {
   linkedin: "https://www.linkedin.com/feed/",
 };
 
-// Pre-filled inquiry email for one-off / custom work (logos, motion, apparel, web…).
-export const INQUIRY_MAILTO =
-  "mailto:tamerabouomar1@gmail.com?subject=Design%20inquiry&body=Hi%20Tamer%2C%0A%0AI%27d%20like%20to%20work%20with%20you%20on%3A%20%0A%0A(logo%20%2F%20brand%20identity%20%2F%20social%20media%20%2F%20motion%20%2F%20apparel%20%2F%20website%20%2F%20other)%0A%0AA%20few%20details%3A%20";
+// Pre-filled "send a message" email for anything outside the packages
+// (logos, motion, apparel, web — any digital thing).
+export const MESSAGE_MAILTO =
+  "mailto:tamerabouomar1@gmail.com?subject=Message%20for%20Tamer&body=Hi%20Tamer%2C%0A%0AI%20have%20something%20in%20mind%3A%20%0A%0A";
 
 // ── Work With Me ──────────────────────────────────────────────
 // Social-media management packages. Prices are in USD and fully
@@ -25,13 +26,11 @@ export const SOCIAL_PACKAGES = [
     tagline: "A consistent, on-brand feed",
     price: "$250",
     period: "/ month",
-    cta: "Start with a free call",
+    cta: "Book a meeting",
     features: [
-      "8 custom social posts / month",
+      "6 custom social posts / month",
       "1 platform (Instagram or Facebook)",
       "Monthly content calendar",
-      "Caption copywriting",
-      "2 revisions per design",
     ],
   },
   {
@@ -40,14 +39,12 @@ export const SOCIAL_PACKAGES = [
     price: "$450",
     period: "/ month",
     featured: true,
-    cta: "Book a free call",
+    cta: "Book a meeting",
     features: [
-      "16 custom posts + 4 story sets / month",
+      "12 custom posts + story sets / month",
       "Up to 2 platforms",
-      "Content calendar + hashtag strategy",
-      "1 animated / motion post per week",
-      "Caption copywriting",
-      "Unlimited revisions",
+      "Content calendar + captions",
+      "1 animated / motion post per month",
     ],
   },
   {
@@ -55,14 +52,12 @@ export const SOCIAL_PACKAGES = [
     tagline: "Your full-service design partner",
     price: "$750",
     period: "/ month",
-    cta: "Book a free call",
+    cta: "Book a meeting",
     features: [
-      "24+ posts, stories & reels / month",
+      "20 posts, stories & reels / month",
       "Up to 3 platforms",
-      "Full content strategy + monthly report",
-      "Logo motion & animated content",
+      "Content strategy + monthly report",
       "Priority turnaround",
-      "Monthly strategy call",
     ],
   },
 ];
