@@ -44,7 +44,6 @@ export const SOCIAL_PACKAGES = [
       "12 custom posts + story sets / month",
       "Up to 2 platforms",
       "Content calendar + captions",
-      "1 animated / motion post per month",
     ],
   },
   {

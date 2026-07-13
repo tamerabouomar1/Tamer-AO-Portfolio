@@ -98,6 +98,9 @@ export default function WorkWithMe() {
             Send a message <span className="plus">+</span>
           </a>
         </motion.div>
+        <p className="price-note">
+          On a monthly social media package? You get a discount on all one-off work.
+        </p>
       </section>
 
       {/* Booking — embedded in the portfolio */}
