@@ -10,7 +10,7 @@ const CALENDLY_EMBED =
   (typeof window !== "undefined" ? window.location.hostname : "tamer-ao-portfolio.netlify.app");
 
 export default function WorkWithMe() {
-  // Package CTAs scroll to the embedded calendar below — booking stays on the page.
+  // Package CTAs scroll to the embedded calendar below; booking stays on the page.
   const scrollToBook = (e) => {
     e.preventDefault();
     document.getElementById("book")?.scrollIntoView({ behavior: "smooth" });
@@ -31,8 +31,8 @@ export default function WorkWithMe() {
         initial="hidden"
         animate="show"
       >
-        Monthly social media management or one-off design work — pick a package, then book
-        a free 30-minute meeting below.
+        Content that sells and design that stands out. Pick a package and book your free
+        30-minute meeting below.
       </motion.p>
 
       {/* Social media packages */}
@@ -74,11 +74,11 @@ export default function WorkWithMe() {
           ))}
         </motion.div>
         <p className="price-note">
-          Prices in USD — every package gets tailored to your brand on our first meeting.
+          Prices in USD. Every package is tailored to your brand.
         </p>
       </section>
 
-      {/* One-off work — one compact line */}
+      {/* One-off work, one compact line */}
       <section className="proj-section">
         <h3 className="proj-section__title">One-off work</h3>
         <motion.div
@@ -99,11 +99,11 @@ export default function WorkWithMe() {
           </a>
         </motion.div>
         <p className="price-note">
-          On a monthly social media package? You get a discount on all one-off work.
+          Monthly clients get a discount on all one-off work.
         </p>
       </section>
 
-      {/* Booking — embedded in the portfolio */}
+      {/* Booking, embedded in the portfolio */}
       <section className="proj-section" id="book">
         <h3 className="proj-section__title">Book a free 30-min meeting</h3>
         <motion.div
@@ -128,7 +128,7 @@ export default function WorkWithMe() {
             >
               Open Calendly in a new tab
             </a>{" "}
-            — or email{" "}
+            {" "}or email{" "}
             <a className="work-booking__fallback" href={MESSAGE_MAILTO}>
               {CONTACT.email}
             </a>
