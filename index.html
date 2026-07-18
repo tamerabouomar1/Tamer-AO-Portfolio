@@ -86,6 +86,13 @@
     </script>
   </head>
   <body>
+    <!-- Static mirror of the React contact form so Netlify Forms detects it
+         at deploy time. Field names must match src/pages/WorkWithMe.jsx. -->
+    <form name="contact" data-netlify="true" netlify-honeypot="bot-field" hidden>
+      <input type="text" name="name" />
+      <input type="email" name="email" />
+      <textarea name="message"></textarea>
+    </form>
     <div id="root"></div>
     <script type="module" src="/src/main.jsx"></script>
   </body>

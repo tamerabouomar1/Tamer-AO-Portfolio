@@ -12,11 +12,6 @@ export const CONTACT = {
   linkedin: "https://www.linkedin.com/feed/",
 };
 
-// Pre-filled "send a message" email for anything outside the packages
-// (logos, motion, apparel, web — any digital thing).
-export const MESSAGE_MAILTO =
-  "mailto:tamerabouomar1@gmail.com?subject=Message%20for%20Tamer&body=Hi%20Tamer%2C%0A%0AI%20have%20something%20in%20mind%3A%20%0A%0A";
-
 // ── Work With Me ──────────────────────────────────────────────
 // Social-media management packages. Prices are in USD and fully
 // customizable — edit freely. `featured` highlights the popular tier.
@@ -28,9 +23,8 @@ export const SOCIAL_PACKAGES = [
     period: "/ month",
     cta: "Book a meeting",
     features: [
-      "6 custom social posts / month",
+      "4 custom social posts / month",
       "1 platform (Instagram or Facebook)",
-      "Monthly content calendar",
     ],
   },
   {
@@ -46,6 +40,7 @@ export const SOCIAL_PACKAGES = [
       "Content calendar + captions",
     ],
   },
+  // Tier ladder is deliberate: 4 → 12 → 20+ posts, 2 → 3 → 5 features.
   {
     name: "Premium",
     tagline: "Your full-service design partner",
@@ -53,21 +48,27 @@ export const SOCIAL_PACKAGES = [
     period: "/ month",
     cta: "Book a meeting",
     features: [
-      "20 posts, stories & reels / month",
+      "20+ posts, stories & reels / month",
       "Up to 3 platforms",
-      "Content strategy + monthly report",
+      "Full content strategy + monthly report",
       "Priority turnaround",
+      "Monthly review meeting",
     ],
   },
 ];
 
-// One-off / custom work beyond the monthly packages (rendered as chips).
-export const EXTRA_SERVICES = [
-  "Logo & brand identity",
-  "Logo motion",
-  "Apparel & print",
-  "Websites & decks",
-  "Anything digital",
+// One-off / custom work beyond the monthly packages, by category.
+export const SERVICE_CATEGORIES = [
+  {
+    name: "Design & identities",
+    desc: "Logos, full brand identities, logo motion, websites and decks. One design or a complete system, built to make your brand look like it means business.",
+    chips: ["Logos", "Brand identity", "Logo motion", "Websites & decks"],
+  },
+  {
+    name: "Clothing",
+    desc: "Apparel designed for the real world and delivered print-ready: rashguards, fight kits and tees (OKIRO, 10th Planet).",
+    chips: ["Rashguards", "Fight kits", "Tees", "Print-ready artwork"],
+  },
 ];
 
 export const VIDEO_SRC =
