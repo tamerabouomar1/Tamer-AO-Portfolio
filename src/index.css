@@ -839,13 +839,19 @@ ul { margin: 0; padding: 0; list-style: none; }
   max-width: 74ch;
 }
 
-/* one-off work — compact chip strip */
-.work-oneoff {
-  display: flex; flex-wrap: wrap; align-items: center;
-  gap: clamp(14px, 1.6vw, 24px);
-  padding: clamp(20px, 2vw, 30px) clamp(22px, 2.2vw, 34px);
+/* one-off work — categorized cards */
+.cat-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(min(100%, 320px), 1fr));
+  gap: var(--gap);
 }
-.chip-row { display: flex; flex-wrap: wrap; gap: 10px; flex: 1; }
+.work-cat {
+  display: flex; flex-direction: column; gap: clamp(10px, 1.1vw, 16px);
+  padding: clamp(22px, 2.2vw, 34px);
+}
+.work-cat__name { font-size: clamp(17px, 1.5vw, 22px); font-weight: 700; color: var(--shiny); }
+.work-cat__desc { font-size: clamp(13px, 1.02vw, 16px); color: var(--muted); font-weight: 300; line-height: 1.55; }
+.chip-row { display: flex; flex-wrap: wrap; gap: 10px; }
 .chip {
   padding: 8px 15px; border-radius: 999px;
   font-size: clamp(12px, 0.98vw, 15px); font-weight: 400; color: var(--muted);
@@ -869,6 +875,51 @@ ul { margin: 0; padding: 0; list-style: none; }
 }
 .work-booking__fallback { color: var(--shiny); text-decoration: underline; text-underline-offset: 3px; }
 .work-booking__fallback:hover { opacity: 0.85; }
+.work-booking--hero { margin-bottom: clamp(8px, 1vw, 14px); }
+.work-booking__head { display: flex; flex-direction: column; gap: 6px; }
+
+/* send-a-message form (Netlify Forms) */
+.work-message {
+  display: flex; flex-direction: column; gap: clamp(14px, 1.5vw, 20px);
+  padding: clamp(22px, 2.2vw, 36px);
+}
+.msg-form { display: flex; flex-direction: column; gap: 14px; }
+.msg-form .hp { position: absolute; left: -9999px; height: 0; overflow: hidden; }
+.msg-form__row {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(min(100%, 240px), 1fr));
+  gap: 14px;
+}
+.msg-form input[type="text"],
+.msg-form input[type="email"],
+.msg-form textarea {
+  width: 100%;
+  padding: 13px 16px;
+  border-radius: var(--radius);
+  background: rgba(255, 255, 255, 0.04);
+  border: 1px solid var(--line);
+  color: var(--text);
+  font: inherit;
+  font-size: clamp(14px, 1.05vw, 16px);
+  font-weight: 300;
+  transition: border-color 0.3s var(--ease), background 0.3s var(--ease);
+}
+.msg-form input::placeholder,
+.msg-form textarea::placeholder { color: var(--faint); }
+.msg-form input:focus,
+.msg-form textarea:focus {
+  outline: none;
+  border-color: rgba(100, 206, 251, 0.55);
+  background: rgba(255, 255, 255, 0.06);
+}
+.msg-form textarea { resize: vertical; min-height: 120px; }
+.msg-form__foot { display: flex; flex-wrap: wrap; align-items: center; gap: 16px; }
+.msg-form .btn-book { cursor: pointer; }
+.msg-form .btn-book:disabled { opacity: 0.6; cursor: default; }
+.form-status { font-size: clamp(13px, 1vw, 15px); font-weight: 300; }
+.form-status--ok { color: var(--shiny); }
+.form-status--err { color: var(--muted); }
+.form-status--err a { color: var(--shiny); text-decoration: underline; text-underline-offset: 3px; }
 
 /* ---------------------------------------------------------- */
 /*  Responsive — keep everything intact, nothing distorts      */

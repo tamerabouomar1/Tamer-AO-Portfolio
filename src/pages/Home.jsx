@@ -13,9 +13,9 @@ export default function Home() {
           <h2 className="topbar__title">Graphic Designer</h2>
           <p className="topbar__sub">Student Athlete</p>
         </div>
-        <a className="link" href={`mailto:${CONTACT.email}`}>
+        <Link className="link" to="/work-with-me">
           Let's work together <span className="plus">+</span>
-        </a>
+        </Link>
       </header>
 
       <motion.section className="bento" variants={container} initial="hidden" animate="show">
