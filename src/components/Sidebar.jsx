@@ -98,7 +98,7 @@ export default function Sidebar() {
     <aside className={"sidebar" + (open ? " is-open" : "")}>
       <div className="sidebar__profile">
         <div className="avatar">
-          <img src="/assets/avatar.jpg" alt="Portrait of Tamer AO" />
+          <img src="/assets/avatar-square.jpg" alt="Portrait of Tamer AO" />
         </div>
         <ShinyText as="h1" className="sidebar__name" text="Tamer AO" speed={4} />
       </div>
