@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import Page, { container, cardIn } from "../components/Page";
+import useSwipe from "../components/useSwipe";
 import { CONTACT, WEBSITES, SOCIAL_POSTS, VIDEO_EDITS } from "../siteData";
 
 const LOGOMOTIONS = [
@@ -13,6 +14,16 @@ export default function Media() {
   const [active, setActive] = useState(null); // website object or null
   const [postIdx, setPostIdx] = useState(null); // social-post index or null
 
+  const nextPost = () => setPostIdx((i) => (i + 1) % SOCIAL_POSTS.images.length);
+  const prevPost = () => setPostIdx((i) => (i - 1 + SOCIAL_POSTS.images.length) % SOCIAL_POSTS.images.length);
+
+  // touch: swipe left/right through posts, swipe down to close
+  const postSwipe = useSwipe({
+    onLeft: nextPost,
+    onRight: prevPost,
+    onDown: () => setPostIdx(null),
+  });
+
   const anyOpen = active !== null || postIdx !== null;
   useEffect(() => {
     if (!anyOpen) return;
@@ -21,9 +32,9 @@ export default function Media() {
         setActive(null);
         setPostIdx(null);
       } else if (postIdx !== null && e.key === "ArrowRight") {
-        setPostIdx((i) => (i + 1) % SOCIAL_POSTS.images.length);
+        nextPost();
       } else if (postIdx !== null && e.key === "ArrowLeft") {
-        setPostIdx((i) => (i - 1 + SOCIAL_POSTS.images.length) % SOCIAL_POSTS.images.length);
+        prevPost();
       }
     };
     window.addEventListener("keydown", onKey);
@@ -177,23 +188,16 @@ export default function Media() {
               exit={{ scale: 0.96, opacity: 0 }}
               transition={{ type: "spring", stiffness: 260, damping: 26 }}
               onClick={(e) => e.stopPropagation()}
+              {...postSwipe}
             >
               <button className="lightbox__close" onClick={() => setPostIdx(null)} aria-label="Close">
                 ×
               </button>
               <img src={SOCIAL_POSTS.images[postIdx]} alt={`${SOCIAL_POSTS.name} post ${postIdx + 1}`} />
-              <button
-                className="lb-nav lb-nav--prev"
-                onClick={() => setPostIdx((i) => (i - 1 + SOCIAL_POSTS.images.length) % SOCIAL_POSTS.images.length)}
-                aria-label="Previous"
-              >
+              <button className="lb-nav lb-nav--prev" onClick={prevPost} aria-label="Previous">
                 ‹
               </button>
-              <button
-                className="lb-nav lb-nav--next"
-                onClick={() => setPostIdx((i) => (i + 1) % SOCIAL_POSTS.images.length)}
-                aria-label="Next"
-              >
+              <button className="lb-nav lb-nav--next" onClick={nextPost} aria-label="Next">
                 ›
               </button>
             </motion.div>

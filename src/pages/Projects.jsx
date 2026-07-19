@@ -1,6 +1,7 @@
 import { useState, useEffect, useCallback } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import Page, { container, cardIn } from "../components/Page";
+import useSwipe from "../components/useSwipe";
 import { PROJECT_GROUPS, CONTACT } from "../siteData";
 
 function initials(name) {
@@ -18,6 +19,7 @@ export default function Projects() {
   const [active, setActive] = useState(null);
   const [idx, setIdx] = useState(0);
   const [docIdx, setDocIdx] = useState(0);
+  const [dir, setDir] = useState(0); // slide direction: 1 next, -1 prev
 
   // A card can hold either a single image set, or several named documents.
   const docs = active && active.docs ? active.docs : null;
@@ -29,14 +31,29 @@ export default function Projects() {
     setActive(item);
     setIdx(0);
     setDocIdx(0);
+    setDir(0);
   };
   const pickDoc = (i) => {
     setDocIdx(i);
     setIdx(0);
+    setDir(0);
   };
   const close = () => setActive(null);
-  const next = useCallback(() => setIdx((i) => (i + 1) % images.length), [images.length]);
-  const prev = useCallback(() => setIdx((i) => (i - 1 + images.length) % images.length), [images.length]);
+  const next = useCallback(() => {
+    setDir(1);
+    setIdx((i) => (i + 1) % images.length);
+  }, [images.length]);
+  const prev = useCallback(() => {
+    setDir(-1);
+    setIdx((i) => (i - 1 + images.length) % images.length);
+  }, [images.length]);
+
+  // touch: swipe left/right to browse the carousel, swipe down to close
+  const swipe = useSwipe({
+    onLeft: images.length > 1 ? next : undefined,
+    onRight: images.length > 1 ? prev : undefined,
+    onDown: close,
+  });
 
   // keyboard: Esc closes, arrows navigate the carousel
   useEffect(() => {
@@ -142,16 +159,16 @@ export default function Projects() {
                 ×
               </button>
 
-              <div className="lightbox__media">
+              <div className="lightbox__media" {...swipe}>
                 <AnimatePresence mode="wait">
                   <motion.img
                     key={idx}
                     src={images[idx]}
                     alt={`${active.name} ${idx + 1}`}
-                    initial={{ opacity: 0 }}
-                    animate={{ opacity: 1 }}
-                    exit={{ opacity: 0 }}
-                    transition={{ duration: 0.2 }}
+                    initial={{ opacity: 0, x: 44 * dir }}
+                    animate={{ opacity: 1, x: 0 }}
+                    exit={{ opacity: 0, x: -44 * dir }}
+                    transition={{ duration: 0.22, ease: [0.22, 1, 0.36, 1] }}
                   />
                 </AnimatePresence>
                 {images.length > 1 && (
@@ -191,7 +208,7 @@ export default function Projects() {
                 <p className="card-body">{desc}</p>
                 {images.length > 1 && (
                   <div className="lb-counter">
-                    {idx + 1} / {images.length} · use ← → to browse
+                    {idx + 1} / {images.length} · swipe or use ← → to browse
                   </div>
                 )}
                 <a className="link" href={`mailto:${CONTACT.email}`}>
