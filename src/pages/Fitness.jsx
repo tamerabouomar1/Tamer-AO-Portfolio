@@ -1,6 +1,6 @@
 import { motion } from "framer-motion";
 import Page, { container, cardIn } from "../components/Page";
-import { CONTACT, SCHEDULE } from "../siteData";
+import { CONTACT, SCHEDULE, PT_PACKAGES } from "../siteData";
 
 export default function Fitness() {
   return (
@@ -81,6 +81,49 @@ export default function Fitness() {
             ))}
           </div>
         </motion.div>
+      </section>
+
+      {/* personal training packages */}
+      <section className="proj-section">
+        <h3 className="section-title">Personal Training Packages</h3>
+        <motion.div
+          className="price-grid"
+          variants={container}
+          initial="hidden"
+          animate="show"
+        >
+          {PT_PACKAGES.map((p) => (
+            <motion.article
+              className={"card price-card" + (p.featured ? " price-card--featured" : "")}
+              key={p.name}
+              variants={cardIn}
+            >
+              {p.featured && <span className="price-card__badge">Best value</span>}
+              <div className="price-card__head">
+                <h4 className="price-card__name">{p.name}</h4>
+                <p className="price-card__tagline">{p.tagline}</p>
+              </div>
+              <div className="price-card__price">
+                <span className="price-card__amount">{p.price}</span>
+                <span className="price-card__period">{p.period}</span>
+              </div>
+              <ul className="price-card__features">
+                {p.features.map((f) => (
+                  <li key={f}>
+                    <span className="tick" aria-hidden="true" />
+                    {f}
+                  </li>
+                ))}
+              </ul>
+              <a className="btn-book" href={CONTACT.calendly} target="_blank" rel="noreferrer">
+                {p.cta}
+              </a>
+            </motion.article>
+          ))}
+        </motion.div>
+        <p className="price-note">
+          Prices in USD. Sessions are one-on-one, tailored to your goals and level.
+        </p>
       </section>
 
       {/* classes given */}
