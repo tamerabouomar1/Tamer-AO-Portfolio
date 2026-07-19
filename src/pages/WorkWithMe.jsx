@@ -158,7 +158,10 @@ export default function WorkWithMe() {
             </motion.article>
           ))}
         </motion.div>
-        <p className="price-note">Prices in USD. Every package is tailored to your brand.</p>
+        <p className="price-note">
+          Prices in USD. Every package is tailored to your brand. Commit for 3 months and
+          save 10%.
+        </p>
       </section>
 
       {/* Design & identities, Clothing */}
