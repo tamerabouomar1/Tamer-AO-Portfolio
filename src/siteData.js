@@ -19,7 +19,7 @@ export const SOCIAL_PACKAGES = [
   {
     name: "Starter",
     tagline: "A consistent, on-brand feed",
-    price: "$250",
+    price: "$199",
     period: "/ month",
     cta: "Book a meeting",
     features: [
@@ -30,7 +30,7 @@ export const SOCIAL_PACKAGES = [
   {
     name: "Growth",
     tagline: "Post more, move faster, stand out",
-    price: "$450",
+    price: "$449",
     period: "/ month",
     featured: true,
     cta: "Book a meeting",
@@ -44,7 +44,7 @@ export const SOCIAL_PACKAGES = [
   {
     name: "Premium",
     tagline: "Your full-service design partner",
-    price: "$750",
+    price: "$899",
     period: "/ month",
     cta: "Book a meeting",
     features: [
@@ -76,7 +76,7 @@ export const PT_PACKAGES = [
   {
     name: "10-Session Pack",
     tagline: "Commit and save",
-    price: "$400",
+    price: "$399",
     period: "$40 / session",
     featured: true,
     cta: "Book a session",
@@ -90,7 +90,7 @@ export const PT_PACKAGES = [
   {
     name: "Monthly Coaching",
     tagline: "Train like an athlete",
-    price: "$340",
+    price: "$349",
     period: "/ month",
     cta: "Book a session",
     features: [
