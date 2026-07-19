@@ -57,6 +57,51 @@ export const SOCIAL_PACKAGES = [
   },
 ];
 
+// ── Personal training (Fitness page) ─────────────────────────
+// Structured the industry-standard way: a per-session rate, a
+// discounted session pack, and a monthly plan with defined scope.
+export const PT_PACKAGES = [
+  {
+    name: "Single Session",
+    tagline: "Try it, no commitment",
+    price: "$45",
+    period: "/ session",
+    cta: "Book a session",
+    features: [
+      "1-hour one-on-one training",
+      "Technique & form focus",
+      "Free fitness assessment included",
+    ],
+  },
+  {
+    name: "10-Session Pack",
+    tagline: "Commit and save",
+    price: "$400",
+    period: "$40 / session",
+    featured: true,
+    cta: "Book a session",
+    features: [
+      "Ten 1-hour one-on-one sessions",
+      "Personalized training program",
+      "Flexible scheduling",
+      "Save $50 vs single sessions",
+    ],
+  },
+  {
+    name: "Monthly Coaching",
+    tagline: "Train like an athlete",
+    price: "$340",
+    period: "/ month",
+    cta: "Book a session",
+    features: [
+      "8 sessions (2× per week)",
+      "Personalized training program",
+      "Weekly progress check-ins",
+      "Nutrition guidance",
+    ],
+  },
+];
+
 // One-off / custom work beyond the monthly packages, by category.
 export const SERVICE_CATEGORIES = [
   {
