@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { NavLink } from "react-router-dom";
 import ShinyText from "./ShinyText";
 import { CONTACT } from "../siteData";
@@ -94,8 +94,25 @@ const SOCIALS = [
 
 export default function Sidebar() {
   const [open, setOpen] = useState(false);
+
+  // Escape closes the burger menu (tap-outside is handled by the backdrop)
+  useEffect(() => {
+    if (!open) return;
+    const onKey = (e) => e.key === "Escape" && setOpen(false);
+    window.addEventListener("keydown", onKey);
+    return () => window.removeEventListener("keydown", onKey);
+  }, [open]);
+
   return (
-    <aside className={"sidebar" + (open ? " is-open" : "")}>
+    <>
+      {open && (
+        <div
+          className="nav-backdrop"
+          onClick={() => setOpen(false)}
+          aria-hidden="true"
+        />
+      )}
+      <aside className={"sidebar" + (open ? " is-open" : "")}>
       <div className="sidebar__profile">
         <div className="avatar">
           <img src="/assets/avatar-square.jpg?v=2" alt="Portrait of Tamer AO" />
@@ -152,6 +169,7 @@ export default function Sidebar() {
           </a>
         ))}
       </div>
-    </aside>
+      </aside>
+    </>
   );
 }

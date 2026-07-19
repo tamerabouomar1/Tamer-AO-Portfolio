@@ -200,6 +200,8 @@ ul { margin: 0; padding: 0; list-style: none; }
 .social:hover { transform: translateY(-3px) scale(1.12); color: #fff; }
 
 /* hamburger toggle — hidden on desktop, shown on mobile */
+.nav-backdrop { display: none; } /* only active in the mobile media query */
+
 .nav-toggle {
   display: none;
   width: 42px; height: 42px;
@@ -959,6 +961,14 @@ ul { margin: 0; padding: 0; list-style: none; }
   .sidebar__name { font-size: 19px; }
 
   .nav-toggle { display: flex; margin-left: auto; }
+
+  /* dims the page under the open burger menu; tapping it closes the menu */
+  .nav-backdrop {
+    display: block;
+    position: fixed; inset: 0; z-index: 25;
+    background: rgba(0, 0, 0, 0.45);
+    -webkit-tap-highlight-color: transparent;
+  }
 
   /* nav + socials collapse into the burger dropdown */
   .nav, .socials { flex-basis: 100%; display: none; }
