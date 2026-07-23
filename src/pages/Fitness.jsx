@@ -98,7 +98,7 @@ export default function Fitness() {
               key={p.name}
               variants={cardIn}
             >
-              {p.featured && <span className="price-card__badge">Best value</span>}
+              {p.featured && <span className="price-card__badge">Most popular</span>}
               <div className="price-card__head">
                 <h4 className="price-card__name">{p.name}</h4>
                 <p className="price-card__tagline">{p.tagline}</p>
@@ -107,6 +107,7 @@ export default function Fitness() {
                 <span className="price-card__amount">{p.price}</span>
                 <span className="price-card__period">{p.period}</span>
               </div>
+              {p.save && <span className="price-card__save">{p.save}</span>}
               <ul className="price-card__features">
                 {p.features.map((f) => (
                   <li key={f}>
@@ -114,6 +115,12 @@ export default function Fitness() {
                     {f}
                   </li>
                 ))}
+                {p.bonus && (
+                  <li className="price-card__bonus">
+                    <span className="tick tick--gift" aria-hidden="true" />
+                    {p.bonus}
+                  </li>
+                )}
               </ul>
               <a className="btn-book" href={CONTACT.calendly} target="_blank" rel="noreferrer">
                 {p.cta}
@@ -122,7 +129,8 @@ export default function Fitness() {
           ))}
         </motion.div>
         <p className="price-note">
-          Prices in USD. Sessions are one-on-one, tailored to your goals and level.
+          Prices in USD. Sessions are one-on-one, tailored to your goals and level. New
+          clients: first session just $25.
         </p>
       </section>
 

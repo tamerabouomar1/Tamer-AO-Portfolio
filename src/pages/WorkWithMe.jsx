@@ -137,6 +137,7 @@ export default function WorkWithMe() {
                 <span className="price-card__amount">{p.price}</span>
                 <span className="price-card__period">{p.period}</span>
               </div>
+              {p.save && <span className="price-card__save">{p.save}</span>}
               <ul className="price-card__features">
                 {p.features.map((f) => (
                   <li key={f}>
@@ -144,6 +145,12 @@ export default function WorkWithMe() {
                     {f}
                   </li>
                 ))}
+                {p.bonus && (
+                  <li className="price-card__bonus">
+                    <span className="tick tick--gift" aria-hidden="true" />
+                    {p.bonus}
+                  </li>
+                )}
               </ul>
               <a
                 className="btn-book"
@@ -159,8 +166,7 @@ export default function WorkWithMe() {
           ))}
         </motion.div>
         <p className="price-note">
-          Prices in USD. Every package is tailored to your brand. Commit for 3 months and
-          save 10%.
+          Prices in USD, month-to-month, cancel anytime. Prepay 3 months and save 15%.
         </p>
       </section>
 
