@@ -13,54 +13,55 @@ export const CONTACT = {
 };
 
 // ── Work With Me ──────────────────────────────────────────────
-// Social-media management packages. Prices are in USD and fully
-// customizable — edit freely. `featured` highlights the popular tier.
+// Social-media management packages, built REELS-FIRST — short-form is
+// what drives reach (Tamer's own reels pull 200K+ views/month), so
+// every tier leads with reels. Prices in USD; `featured` = popular tier.
 export const SOCIAL_PACKAGES = [
   {
     name: "Starter",
-    tagline: "Get a consistent, pro feed",
+    tagline: "Get on reels, consistently",
     price: "$199",
     period: "/ month",
     save: "1st month $149",
     cta: "Book a meeting",
     features: [
-      "6 custom posts / month",
-      "1 platform (Instagram or Facebook)",
-      "Monthly content calendar",
-      "Captions written for you",
+      "4 custom reels / month",
+      "4 feed posts / month",
+      "1 platform (Instagram or TikTok)",
+      "Hooks & captions written for you",
     ],
     bonus: "Free profile & bio refresh to start",
   },
   {
     name: "Growth",
-    tagline: "The full growth engine",
+    tagline: "Reels that actually reach",
     price: "$449",
     period: "/ month",
     featured: true,
-    save: "Best value · $30/post",
+    save: "Best value · reels-first",
     cta: "Book a meeting",
     features: [
-      "15 custom posts + story sets / month",
-      "Up to 2 platforms",
+      "10 custom reels / month",
+      "8 feed posts + story sets",
+      "Up to 2 platforms (Reels + TikTok)",
+      "Trend & hook research",
       "Content calendar + captions",
-      "2 custom reels / month",
-      "Hashtag & growth strategy",
     ],
-    bonus: "Free monthly report + strategy call",
+    bonus: "Free monthly reach report + strategy call",
   },
   {
     name: "Premium",
-    tagline: "Your full creative team",
+    tagline: "Your full short-form studio",
     price: "$899",
     period: "/ month",
-    save: "Cheaper than one hire",
+    save: "Built to go viral",
     cta: "Book a meeting",
     features: [
-      "25+ posts, stories & reels / month",
+      "20 custom reels / month",
+      "12 feed posts + story sets",
       "Up to 3 platforms",
-      "Full content strategy + monthly report",
-      "4 custom reels / month",
-      "Priority turnaround",
+      "Full reel & growth strategy + monthly report",
+      "Priority editing & turnaround",
       "Monthly strategy meeting",
     ],
     bonus: "Free logo animation ($150 value)",
