@@ -18,87 +18,103 @@ export const CONTACT = {
 export const SOCIAL_PACKAGES = [
   {
     name: "Starter",
-    tagline: "A consistent, on-brand feed",
+    tagline: "Get a consistent, pro feed",
     price: "$199",
     period: "/ month",
+    save: "1st month $149",
     cta: "Book a meeting",
     features: [
-      "4 custom social posts / month",
+      "6 custom posts / month",
       "1 platform (Instagram or Facebook)",
+      "Monthly content calendar",
+      "Captions written for you",
     ],
+    bonus: "Free profile & bio refresh to start",
   },
   {
     name: "Growth",
-    tagline: "Post more, move faster, stand out",
+    tagline: "The full growth engine",
     price: "$449",
     period: "/ month",
     featured: true,
+    save: "Best value · $30/post",
     cta: "Book a meeting",
     features: [
-      "12 custom posts + story sets / month",
+      "15 custom posts + story sets / month",
       "Up to 2 platforms",
       "Content calendar + captions",
+      "2 custom reels / month",
+      "Hashtag & growth strategy",
     ],
+    bonus: "Free monthly report + strategy call",
   },
-  // Tier ladder is deliberate: 4 → 12 → 20+ posts, 2 → 3 → 5 features.
   {
     name: "Premium",
-    tagline: "Your full-service design partner",
+    tagline: "Your full creative team",
     price: "$899",
     period: "/ month",
+    save: "Cheaper than one hire",
     cta: "Book a meeting",
     features: [
-      "20+ posts, stories & reels / month",
+      "25+ posts, stories & reels / month",
       "Up to 3 platforms",
       "Full content strategy + monthly report",
+      "4 custom reels / month",
       "Priority turnaround",
-      "Monthly review meeting",
+      "Monthly strategy meeting",
     ],
+    bonus: "Free logo animation ($150 value)",
   },
 ];
 
 // ── Personal training (Fitness page) ─────────────────────────
-// Structured the industry-standard way: a per-session rate, a
-// discounted session pack, and a monthly plan with defined scope.
+// A per-session drop-in, a recurring monthly plan (featured, centre —
+// the best value and the business's recurring revenue), and a flexible
+// session pack for people who can't commit weekly.
 export const PT_PACKAGES = [
   {
     name: "Single Session",
-    tagline: "Try it, no commitment",
+    tagline: "Try it, zero commitment",
     price: "$45",
     period: "/ session",
     cta: "Book a session",
     features: [
       "1-hour one-on-one training",
       "Technique & form focus",
-      "Free fitness assessment included",
-    ],
-  },
-  {
-    name: "10-Session Pack",
-    tagline: "Commit and save",
-    price: "$399",
-    period: "$40 / session",
-    featured: true,
-    cta: "Book a session",
-    features: [
-      "Ten 1-hour one-on-one sessions",
-      "Personalized training program",
-      "Flexible scheduling",
-      "Save $50 vs single sessions",
+      "Free fitness assessment",
     ],
   },
   {
     name: "Monthly Coaching",
-    tagline: "Train like an athlete",
-    price: "$349",
+    tagline: "Everything, every month",
+    price: "$299",
     period: "/ month",
+    featured: true,
+    save: "Just $37 / session",
     cta: "Book a session",
     features: [
       "8 sessions (2× per week)",
       "Personalized training program",
       "Weekly progress check-ins",
-      "Nutrition guidance",
+      "Custom nutrition plan",
+      "WhatsApp support anytime",
     ],
+    bonus: "Free monthly progress tracking",
+  },
+  {
+    name: "10-Session Pack",
+    tagline: "Train on your schedule",
+    price: "$399",
+    period: "11 sessions",
+    save: "1 session free",
+    cta: "Book a session",
+    features: [
+      "Buy 10 sessions, get 1 free",
+      "Personalized training program",
+      "No weekly commitment",
+      "Valid for 4 months",
+    ],
+    bonus: "Free nutrition guide",
   },
 ];
 
