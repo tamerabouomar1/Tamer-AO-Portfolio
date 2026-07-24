@@ -2,7 +2,7 @@ import { useEffect, useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import Page, { container, cardIn } from "../components/Page";
 import useSwipe from "../components/useSwipe";
-import { CONTACT, WEBSITES, SOCIAL_POSTS, VIDEO_EDITS } from "../siteData";
+import { CONTACT, SOCIAL_POSTS, VIDEO_EDITS } from "../siteData";
 
 const LOGOMOTIONS = [
   { title: "Combat Sports Academy", src: "/assets/motion/logomotion-csa.mp4" },
@@ -11,7 +11,6 @@ const LOGOMOTIONS = [
 ];
 
 export default function Media() {
-  const [active, setActive] = useState(null); // website object or null
   const [postIdx, setPostIdx] = useState(null); // social-post index or null
 
   const nextPost = () => setPostIdx((i) => (i + 1) % SOCIAL_POSTS.images.length);
@@ -24,18 +23,12 @@ export default function Media() {
     onDown: () => setPostIdx(null),
   });
 
-  const anyOpen = active !== null || postIdx !== null;
   useEffect(() => {
-    if (!anyOpen) return;
+    if (postIdx === null) return;
     const onKey = (e) => {
-      if (e.key === "Escape") {
-        setActive(null);
-        setPostIdx(null);
-      } else if (postIdx !== null && e.key === "ArrowRight") {
-        nextPost();
-      } else if (postIdx !== null && e.key === "ArrowLeft") {
-        prevPost();
-      }
+      if (e.key === "Escape") setPostIdx(null);
+      else if (e.key === "ArrowRight") nextPost();
+      else if (e.key === "ArrowLeft") prevPost();
     };
     window.addEventListener("keydown", onKey);
     document.body.style.overflow = "hidden";
@@ -43,7 +36,7 @@ export default function Media() {
       window.removeEventListener("keydown", onKey);
       document.body.style.overflow = "";
     };
-  }, [anyOpen, postIdx]);
+  }, [postIdx]);
 
   return (
     <Page>
@@ -86,33 +79,6 @@ export default function Media() {
               <div className="web-card__body">
                 <h4 className="web-card__title">{v.title}</h4>
                 <p className="card-body">{v.desc}</p>
-              </div>
-            </motion.article>
-          ))}
-        </motion.div>
-      </section>
-
-      <section className="proj-section">
-        <h3 className="section-title">Websites</h3>
-        <motion.div className="web-grid" variants={container} initial="hidden" animate="show">
-          {WEBSITES.map((w) => (
-            <motion.article
-              className="card web-card"
-              key={w.name}
-              variants={cardIn}
-              onClick={() => setActive(w)}
-              role="button"
-              tabIndex={0}
-              onKeyDown={(e) => (e.key === "Enter" || e.key === " ") && setActive(w)}
-            >
-              <div className="web-card__shot">
-                <img src={w.image} alt={w.name} loading="lazy" />
-                <span className="web-card__badge">Scroll the site +</span>
-              </div>
-              <div className="web-card__body">
-                <span className="web-card__tag">{w.tag}</span>
-                <h4 className="web-card__title">{w.name}</h4>
-                <p className="card-body">{w.desc}</p>
               </div>
             </motion.article>
           ))}
@@ -200,40 +166,6 @@ export default function Media() {
               <button className="lb-nav lb-nav--next" onClick={nextPost} aria-label="Next">
                 ›
               </button>
-            </motion.div>
-          </motion.div>
-        )}
-      </AnimatePresence>
-
-      <AnimatePresence>
-        {active && (
-          <motion.div
-            className="lightbox"
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
-            exit={{ opacity: 0 }}
-            onClick={() => setActive(null)}
-          >
-            <motion.div
-              className="weblb__panel"
-              initial={{ scale: 0.96, opacity: 0 }}
-              animate={{ scale: 1, opacity: 1 }}
-              exit={{ scale: 0.96, opacity: 0 }}
-              transition={{ type: "spring", stiffness: 260, damping: 26 }}
-              onClick={(e) => e.stopPropagation()}
-            >
-              <div className="weblb__head">
-                <div>
-                  <span className="web-card__tag">{active.tag}</span>
-                  <h3 className="weblb__title">{active.name}</h3>
-                </div>
-                <button className="weblb__close" onClick={() => setActive(null)} aria-label="Close">
-                  ×
-                </button>
-              </div>
-              <div className="weblb__scroll">
-                <img src={active.full} alt={`${active.name} full page`} />
-              </div>
             </motion.div>
           </motion.div>
         )}
