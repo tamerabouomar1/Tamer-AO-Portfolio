@@ -7,6 +7,7 @@ import Sidebar from "./components/Sidebar";
 
 import Home from "./pages/Home";
 import Projects from "./pages/Projects";
+import Websites from "./pages/Websites";
 import Media from "./pages/Media";
 import About from "./pages/About";
 import Fitness from "./pages/Fitness";
@@ -32,6 +33,7 @@ export default function App() {
           <Routes location={location} key={location.pathname}>
             <Route path="/" element={<Home />} />
             <Route path="/projects" element={<Projects />} />
+            <Route path="/websites" element={<Websites />} />
             <Route path="/media" element={<Media />} />
             <Route path="/about" element={<About />} />
             <Route path="/fitness" element={<Fitness />} />
