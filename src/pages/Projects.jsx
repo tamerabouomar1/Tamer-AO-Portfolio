@@ -1,8 +1,9 @@
 import { useState, useEffect, useCallback } from "react";
+import { Link } from "react-router-dom";
 import { motion, AnimatePresence } from "framer-motion";
 import Page, { container, cardIn } from "../components/Page";
 import useSwipe from "../components/useSwipe";
-import { PROJECT_GROUPS, CONTACT } from "../siteData";
+import { PROJECT_GROUPS } from "../siteData";
 
 function initials(name) {
   return name
@@ -81,9 +82,9 @@ export default function Projects() {
           <h2 className="topbar__title">Graphic Designer</h2>
           <p className="topbar__sub">Student Athlete</p>
         </div>
-        <a className="link" href={`mailto:${CONTACT.email}`}>
-          Let's work together <span className="plus">+</span>
-        </a>
+        <Link className="link" to="/work-with-me">
+          Work with me <span className="plus">+</span>
+        </Link>
       </header>
 
       {PROJECT_GROUPS.map((group) => (
@@ -211,9 +212,9 @@ export default function Projects() {
                     {idx + 1} / {images.length} · swipe or use ← → to browse
                   </div>
                 )}
-                <a className="link" href={`mailto:${CONTACT.email}`}>
+                <Link className="link" to="/work-with-me">
                   Work with me <span className="plus">+</span>
-                </a>
+                </Link>
               </div>
             </motion.div>
           </motion.div>

@@ -1,4 +1,5 @@
 import { motion } from "framer-motion";
+import { Link } from "react-router-dom";
 import Page, { container, cardIn } from "../components/Page";
 import { CONTACT } from "../siteData";
 
@@ -17,9 +18,9 @@ export default function About() {
           <h2 className="topbar__title">Your Ultimate Student Athlete</h2>
           <p className="topbar__sub">What do I do</p>
         </div>
-        <a className="link" href={`mailto:${CONTACT.email}`}>
-          Let's work together <span className="plus">+</span>
-        </a>
+        <Link className="link" to="/work-with-me">
+          Work with me <span className="plus">+</span>
+        </Link>
       </header>
 
       <div className="about-grid">
@@ -48,12 +49,11 @@ export default function About() {
           <h3 className="card-title">Get In Touch</h3>
           <div className="contact-list">
             <a href={CONTACT.phoneHref}><span className="dot" />{CONTACT.phone}</a>
-            <a href={CONTACT.calendly}><span className="dot" />Book a call</a>
             <a href={`mailto:${CONTACT.email}`}><span className="dot" />{CONTACT.email}</a>
+            <a href={CONTACT.instagram} target="_blank" rel="noreferrer">
+              <span className="dot" />Instagram
+            </a>
           </div>
-          <a className="link" href={`mailto:${CONTACT.email}`}>
-            Let's work together <span className="plus">+</span>
-          </a>
         </motion.aside>
       </div>
     </Page>

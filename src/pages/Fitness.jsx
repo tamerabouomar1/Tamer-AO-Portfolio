@@ -10,8 +10,8 @@ export default function Fitness() {
           <h2 className="topbar__title">Your Ultimate Coach</h2>
           <p className="topbar__sub">2× Athletic Scholarships</p>
         </div>
-        <a className="link" href={`mailto:${CONTACT.email}`}>
-          Get in touch <span className="plus">+</span>
+        <a className="link" href={CONTACT.calendly} target="_blank" rel="noreferrer">
+          Book a session <span className="plus">+</span>
         </a>
       </header>
 
@@ -142,9 +142,6 @@ export default function Fitness() {
             As a martial arts instructor and personal trainer, I have given classes at the International
             College (IC), at Academies (CSA), and at Private Clubs (Yarz leisure club).
           </p>
-          <a className="link" href={CONTACT.calendly} target="_blank" rel="noreferrer">
-            Book a session <span className="plus">+</span>
-          </a>
         </motion.div>
       </section>
     </Page>

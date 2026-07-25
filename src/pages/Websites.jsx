@@ -1,4 +1,5 @@
 import { useEffect, useState } from "react";
+import { Link } from "react-router-dom";
 import { motion, AnimatePresence } from "framer-motion";
 import Page, { container, cardIn } from "../components/Page";
 import { CONTACT, WEBSITES } from "../siteData";
@@ -24,9 +25,9 @@ export default function Websites() {
           <h2 className="topbar__title">Websites</h2>
           <p className="topbar__sub">Designed &amp; built, end to end</p>
         </div>
-        <a className="link" href="/work-with-me">
-          Let&apos;s work together <span className="plus">+</span>
-        </a>
+        <Link className="link" to="/work-with-me">
+          Work with me <span className="plus">+</span>
+        </Link>
       </header>
 
       <section className="proj-section" style={{ marginTop: 0 }}>
