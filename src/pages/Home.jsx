@@ -1,7 +1,6 @@
 import { motion } from "framer-motion";
 import { Link } from "react-router-dom";
 import Page, { container, cardIn } from "../components/Page";
-import { CONTACT } from "../siteData";
 
 const MotionLink = motion.create(Link);
 
@@ -14,7 +13,7 @@ export default function Home() {
           <p className="topbar__sub">Student Athlete</p>
         </div>
         <Link className="link" to="/work-with-me">
-          Let's work together <span className="plus">+</span>
+          Work with me <span className="plus">+</span>
         </Link>
       </header>
 
@@ -80,9 +79,6 @@ export default function Home() {
               identities, logos, logo motion, social-media design and apparel, whether static or
               moving, digital or physical, big or small.
             </p>
-            <a className="link" href={`mailto:${CONTACT.email}`}>
-              Get in touch <span className="plus">+</span>
-            </a>
           </motion.article>
 
           <motion.article className="card cta" variants={cardIn}>
@@ -91,9 +87,6 @@ export default function Home() {
               As a martial arts instructor and personal trainer, I help people get in shape and build
               confidence, empowering the mind through the body.
             </p>
-            <Link className="link" to="/fitness">
-              Book a session <span className="plus">+</span>
-            </Link>
           </motion.article>
         </div>
       </motion.section>

@@ -978,10 +978,14 @@ ul { margin: 0; padding: 0; list-style: none; }
   z-index: 40;
   align-items: stretch;
   padding: 6px 4px calc(6px + env(safe-area-inset-bottom, 0px));
-  background: rgba(10, 10, 12, 0.94);
-  backdrop-filter: blur(14px);
-  -webkit-backdrop-filter: blur(14px);
+  /* Solid, not blurred: backdrop-filter on a fixed bar forces a full repaint
+     on every scroll frame, which stutters badly on phones. */
+  background: #0a0a0c;
   border-top: 1px solid var(--line);
+  /* own compositor layer so scrolling never repaints the bar */
+  transform: translateZ(0);
+  will-change: transform;
+  contain: layout paint;
 }
 .tab {
   flex: 1 1 0;
@@ -1067,7 +1071,8 @@ ul { margin: 0; padding: 0; list-style: none; }
     align-items: center;
     gap: 12px;
     padding: 12px 16px;
-    background: rgba(8, 8, 8, 0.92);    /* opaque so the dropdown is readable */
+    background: #08080a;                /* solid: translucency repaints while scrolling */
+    transform: translateZ(0);           /* own layer so the header never janks */
   }
   .sidebar__profile { flex-direction: row; gap: 12px; }
   .avatar { width: 46px; }

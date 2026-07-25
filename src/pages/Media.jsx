@@ -1,4 +1,5 @@
 import { useEffect, useState } from "react";
+import { Link } from "react-router-dom";
 import { motion, AnimatePresence } from "framer-motion";
 import Page, { container, cardIn } from "../components/Page";
 import useSwipe from "../components/useSwipe";
@@ -45,9 +46,9 @@ export default function Media() {
           <h2 className="topbar__title">Media</h2>
           <p className="topbar__sub">Motion, edits &amp; social</p>
         </div>
-        <a className="link" href={`mailto:${CONTACT.email}`}>
-          Get in touch <span className="plus">+</span>
-        </a>
+        <Link className="link" to="/work-with-me">
+          Work with me <span className="plus">+</span>
+        </Link>
       </header>
 
       <section className="proj-section" style={{ marginTop: 0 }}>
