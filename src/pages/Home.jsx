@@ -18,6 +18,26 @@ export default function Home() {
         </Link>
       </header>
 
+      {/* Intent routing — visitors arrive for different things, so let them
+          pick their path in the first screen instead of scrolling to find it. */}
+      <motion.div className="paths" variants={container} initial="hidden" animate="show">
+        <MotionLink className="card path" to="/projects" variants={cardIn}>
+          <span className="path__label">Design &amp; Branding</span>
+          <span className="path__desc">Logos, identities, apparel &amp; print</span>
+          <span className="path__go">See the work <span className="plus">+</span></span>
+        </MotionLink>
+        <MotionLink className="card path" to="/websites" variants={cardIn}>
+          <span className="path__label">Websites</span>
+          <span className="path__desc">Full sites, designed &amp; built</span>
+          <span className="path__go">See the sites <span className="plus">+</span></span>
+        </MotionLink>
+        <MotionLink className="card path" to="/fitness" variants={cardIn}>
+          <span className="path__label">Fitness Coaching</span>
+          <span className="path__desc">Personal training &amp; martial arts</span>
+          <span className="path__go">Train with me <span className="plus">+</span></span>
+        </MotionLink>
+      </motion.div>
+
       <motion.section className="bento" variants={container} initial="hidden" animate="show">
         <div className="row row-top">
           <div className="stats">

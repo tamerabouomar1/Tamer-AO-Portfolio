@@ -4,6 +4,7 @@ import { AnimatePresence } from "framer-motion";
 
 import VideoBackground from "./components/VideoBackground";
 import Sidebar from "./components/Sidebar";
+import MobileTabBar from "./components/MobileTabBar";
 import { preloadAllImages } from "./lib/preloadImages";
 
 import Home from "./pages/Home";
@@ -50,6 +51,7 @@ export default function App() {
           </Routes>
         </AnimatePresence>
       </div>
+      <MobileTabBar />
     </>
   );
 }
