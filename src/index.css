@@ -56,6 +56,12 @@ ul { margin: 0; padding: 0; list-style: none; }
   height: 100%;
   object-fit: cover; /* never distorts at any size */
   object-position: center;
+  /* attached after page load — fade in so it never pops */
+  animation: video-bg-in 0.9s var(--ease) both;
+}
+@keyframes video-bg-in {
+  from { opacity: 0; }
+  to { opacity: 1; }
 }
 .video-bg__overlay {
   position: absolute;

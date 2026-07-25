@@ -4,6 +4,7 @@ import { AnimatePresence } from "framer-motion";
 
 import VideoBackground from "./components/VideoBackground";
 import Sidebar from "./components/Sidebar";
+import { preloadAllImages } from "./lib/preloadImages";
 
 import Home from "./pages/Home";
 import Projects from "./pages/Projects";
@@ -23,6 +24,13 @@ function ScrollToTop() {
 
 export default function App() {
   const location = useLocation();
+
+  // Warm every project image into cache once the page is idle, so popups
+  // and page switches open instantly.
+  useEffect(() => {
+    preloadAllImages();
+  }, []);
+
   return (
     <>
       <VideoBackground />
