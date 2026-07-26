@@ -3,7 +3,9 @@ import { Link } from "react-router-dom";
 import { motion, AnimatePresence } from "framer-motion";
 import Page, { container, cardIn } from "../components/Page";
 import useSwipe from "../components/useSwipe";
-import { CONTACT, SOCIAL_POSTS, VIDEO_EDITS } from "../siteData";
+import { CONTACT, REELS, SOCIAL_POSTS, VIDEO_EDITS } from "../siteData";
+
+const reelUrl = (id) => `https://www.instagram.com/reel/${id}/`;
 
 const LOGOMOTIONS = [
   { title: "Combat Sports Academy", src: "/assets/motion/logomotion-csa.mp4" },
@@ -13,6 +15,7 @@ const LOGOMOTIONS = [
 
 export default function Media() {
   const [postIdx, setPostIdx] = useState(null); // social-post index or null
+  const [playingReel, setPlayingReel] = useState(null); // reel id whose embed is loaded
 
   const nextPost = () => setPostIdx((i) => (i + 1) % SOCIAL_POSTS.images.length);
   const prevPost = () => setPostIdx((i) => (i - 1 + SOCIAL_POSTS.images.length) % SOCIAL_POSTS.images.length);
@@ -137,6 +140,42 @@ export default function Media() {
             </div>
           </div>
         </motion.div>
+
+        {REELS.length > 0 && (
+          <motion.div className="reel-grid" variants={container} initial="hidden" animate="show">
+            {REELS.map((r) => (
+              <motion.article className="card reel-card" key={r.id} variants={cardIn}>
+                {playingReel === r.id ? (
+                  <iframe
+                    className="reel-card__embed"
+                    src={`https://www.instagram.com/reel/${r.id}/embed`}
+                    title={r.title}
+                    allow="autoplay; clipboard-write; encrypted-media; picture-in-picture"
+                    allowFullScreen
+                    loading="lazy"
+                  />
+                ) : (
+                  <button
+                    className="reel-card__facade"
+                    onClick={() => setPlayingReel(r.id)}
+                    aria-label={`Play ${r.title}`}
+                  >
+                    <span className="video-thumb__play" />
+                    <span className="reel-card__title">{r.title}</span>
+                  </button>
+                )}
+                <a
+                  className="reel-card__out"
+                  href={reelUrl(r.id)}
+                  target="_blank"
+                  rel="noreferrer"
+                >
+                  Open on Instagram <span className="plus">+</span>
+                </a>
+              </motion.article>
+            ))}
+          </motion.div>
+        )}
       </section>
 
       <AnimatePresence>

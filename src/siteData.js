@@ -330,6 +330,17 @@ export const VIDEO_EDITS = [
   },
 ];
 
+// Instagram reels — shown in the "On Instagram" section of the Media page.
+// `id` is the shortcode from the reel URL (instagram.com/reel/<id>/).
+// The embed only loads once someone clicks the card, so the page never pays
+// for Instagram's iframe up front. Add more reels by appending to this list.
+export const REELS = [
+  {
+    id: "DbJzWBfxPvD",
+    title: "Latest reel",
+  },
+];
+
 // Websites — shown on the Media page.
 export const WEBSITES = [
   {
