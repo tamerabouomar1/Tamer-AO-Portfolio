@@ -58,6 +58,17 @@ ul { margin: 0; padding: 0; list-style: none; }
   object-position: center;
   /* attached after page load — fade in so it never pops */
   animation: video-bg-in 0.9s var(--ease) both;
+  pointer-events: none;              /* purely decorative, never tappable */
+}
+/* iOS paints a native start-playback button over any video it won't
+   autoplay (e.g. Low Power Mode). This is a background, so never show it. */
+.video-bg__media::-webkit-media-controls,
+.video-bg__media::-webkit-media-controls-start-playback-button,
+.video-bg__media::-webkit-media-controls-panel,
+.video-bg__media::-webkit-media-controls-overlay-play-button {
+  display: none !important;
+  -webkit-appearance: none;
+  opacity: 0;
 }
 @keyframes video-bg-in {
   from { opacity: 0; }
