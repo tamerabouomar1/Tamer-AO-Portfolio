@@ -535,6 +535,35 @@ ul { margin: 0; padding: 0; list-style: none; }
 .media-ig__big .stat-label { font-size: clamp(13px, 1vw, 16px); }
 .media-ig__copy { flex: 1; min-width: 240px; }
 
+/* Instagram reels (Media page). The embed is third-party and heavy, so a
+   card shows a play facade first and only swaps in the iframe on click. */
+.reel-grid {
+  margin-top: var(--gap);
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(min(100%, 300px), 1fr));
+  gap: var(--gap);
+}
+.reel-card { padding: 0; overflow: hidden; display: flex; flex-direction: column; }
+.reel-card__facade,
+.reel-card__embed {
+  width: 100%;
+  aspect-ratio: 9 / 16;
+  border: 0;
+  display: block;
+  background: #0b0b0d;
+}
+.reel-card__facade {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 14px;
+  cursor: pointer;
+  color: inherit;
+}
+.reel-card__title { font-size: 13px; font-weight: 600; }
+.reel-card__out { display: block; padding: 12px 14px; font-size: 13px; }
+
 /* Logo-motion grid on the Media page */
 .motion-grid {
   display: grid;
