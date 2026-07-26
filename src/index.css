@@ -49,6 +49,11 @@ ul { margin: 0; padding: 0; list-style: none; }
   background: #000;
   overflow: hidden;
 }
+/* The <video> is only inserted here once it is confirmed playing (see
+   VideoBackground.jsx). Until then this stays empty, so in-app browsers
+   like Instagram's — which routinely refuse autoplay — have no element to
+   paint a start-playback button on. */
+.video-bg__holder { position: absolute; inset: 0; }
 .video-bg__media {
   position: absolute;
   inset: 0;
@@ -56,12 +61,11 @@ ul { margin: 0; padding: 0; list-style: none; }
   height: 100%;
   object-fit: cover; /* never distorts at any size */
   object-position: center;
-  /* attached after page load — fade in so it never pops */
+  /* inserted after it starts playing — fade in so it never pops */
   animation: video-bg-in 0.9s var(--ease) both;
   pointer-events: none;              /* purely decorative, never tappable */
 }
-/* iOS paints a native start-playback button over any video it won't
-   autoplay (e.g. Low Power Mode). This is a background, so never show it. */
+/* Belt and braces: suppress any native media UI should a browser add it. */
 .video-bg__media::-webkit-media-controls,
 .video-bg__media::-webkit-media-controls-start-playback-button,
 .video-bg__media::-webkit-media-controls-panel,
