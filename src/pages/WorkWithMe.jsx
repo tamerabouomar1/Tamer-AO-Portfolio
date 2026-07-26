@@ -1,6 +1,7 @@
 import { useState } from "react";
 import { motion } from "framer-motion";
 import Page, { container, cardIn } from "../components/Page";
+import { TrustedBy, Testimonials } from "../components/SocialProof";
 import { CONTACT, SOCIAL_PACKAGES, SERVICE_CATEGORIES } from "../siteData";
 
 // Calendly inline embed, themed to match the site.
@@ -112,6 +113,10 @@ export default function WorkWithMe() {
           or send a message below.
         </p>
       </motion.section>
+
+      {/* Credibility before the ask */}
+      <TrustedBy title="Brands I've worked with" />
+      <Testimonials />
 
       {/* Social media */}
       <section className="proj-section">

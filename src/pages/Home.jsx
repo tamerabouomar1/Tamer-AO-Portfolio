@@ -1,6 +1,7 @@
 import { motion } from "framer-motion";
 import { Link } from "react-router-dom";
 import Page, { container, cardIn } from "../components/Page";
+import { TrustedBy, Testimonials } from "../components/SocialProof";
 
 const MotionLink = motion.create(Link);
 
@@ -90,6 +91,9 @@ export default function Home() {
           </motion.article>
         </div>
       </motion.section>
+
+      <TrustedBy />
+      <Testimonials />
     </Page>
   );
 }

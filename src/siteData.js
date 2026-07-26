@@ -68,6 +68,33 @@ export const SOCIAL_PACKAGES = [
   },
 ];
 
+// ── Social proof ──────────────────────────────────────────────
+// Real brands Tamer has delivered work for — every one of these has a
+// project in PROJECT_GROUPS or WEBSITES below. Only add a name here once
+// the work is actually done and shippable.
+export const CLIENTS = [
+  "FabricAid",
+  "BioGarden",
+  "OKIRO",
+  "10th Planet Jiu Jitsu",
+  "KARV Pilates Studio",
+  "Contracts Design",
+  "Charbel Farah",
+  "Kitchen Garage",
+  "Snack Faysal",
+  "Saifi Barbershop",
+  "Sinar",
+  "MoCars",
+  "Playwear Club",
+  "Qasr Al Hyatt",
+];
+
+// Client testimonials. INTENTIONALLY EMPTY: only add quotes people
+// actually said, with their real name and role. The section hides itself
+// while this is empty, so the site never shows a hollow "reviews" block.
+// Shape: { quote, name, role, project }
+export const TESTIMONIALS = [];
+
 // ── Personal training (Fitness page) ─────────────────────────
 // A per-session drop-in, a recurring monthly plan (featured, centre —
 // the best value and the business's recurring revenue), and a flexible
