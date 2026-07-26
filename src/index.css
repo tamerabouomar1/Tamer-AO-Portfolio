@@ -49,11 +49,38 @@ ul { margin: 0; padding: 0; list-style: none; }
   background: #000;
   overflow: hidden;
 }
-/* The <video> is only inserted here once it is confirmed playing (see
-   VideoBackground.jsx). Until then this stays empty, so in-app browsers
-   like Instagram's — which routinely refuse autoplay — have no element to
+/* The <video> is only inserted here once it is confirmed playing, and on
+   phones it is never created at all (see VideoBackground.jsx) — so in-app
+   browsers like Instagram's, which refuse autoplay, have no element to
    paint a start-playback button on. */
 .video-bg__holder { position: absolute; inset: 0; }
+
+/* Animated backdrop: the motion phones get instead of the video. Pure
+   CSS, no download, and it drifts like the clip it replaces. Two slow
+   counter-rotating light pools, animated on transform only so it stays
+   on the compositor and never costs a repaint. */
+.video-bg__anim {
+  position: absolute;
+  inset: -30%;
+  background:
+    radial-gradient(38% 42% at 30% 35%, rgba(74, 139, 238, 0.5), transparent 70%),
+    radial-gradient(34% 38% at 70% 60%, rgba(100, 206, 251, 0.36), transparent 72%),
+    radial-gradient(45% 50% at 50% 80%, rgba(30, 64, 140, 0.42), transparent 75%);
+  filter: blur(28px);
+  animation: bg-drift 26s ease-in-out infinite alternate;
+  will-change: transform;
+}
+/* the video, once live, covers the animation */
+.video-bg.is-live .video-bg__anim { opacity: 0; transition: opacity 0.9s var(--ease); }
+
+@keyframes bg-drift {
+  from { transform: translate3d(-4%, -3%, 0) scale(1.05) rotate(0deg); }
+  50%  { transform: translate3d(4%, 2%, 0) scale(1.15) rotate(6deg); }
+  to   { transform: translate3d(-2%, 4%, 0) scale(1.08) rotate(-4deg); }
+}
+@media (prefers-reduced-motion: reduce) {
+  .video-bg__anim { animation: none; }
+}
 .video-bg__media {
   position: absolute;
   inset: 0;
