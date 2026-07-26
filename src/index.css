@@ -969,6 +969,50 @@ ul { margin: 0; padding: 0; list-style: none; }
 }
 
 /* ---------------------------------------------------------- */
+/*  Social proof — client roster + testimonials                */
+/* ---------------------------------------------------------- */
+.trusted__title {
+  font-size: clamp(11px, 0.95vw, 13px);
+  font-weight: 600; letter-spacing: 0.14em; text-transform: uppercase;
+  color: var(--faint);
+  margin-bottom: clamp(10px, 1.2vw, 16px);
+}
+.trusted__row {
+  display: flex; flex-wrap: wrap;
+  gap: clamp(8px, 0.9vw, 12px);
+  list-style: none;
+}
+.trusted__item {
+  padding: 9px 16px; border-radius: 999px;
+  font-size: clamp(12.5px, 1vw, 15px); font-weight: 600;
+  color: var(--muted);
+  background: rgba(255, 255, 255, 0.04);
+  border: 1px solid var(--line);
+  white-space: nowrap;
+  transition: color 0.3s var(--ease), border-color 0.3s var(--ease);
+}
+.trusted__item:hover { color: var(--text); border-color: rgba(100, 206, 251, 0.35); }
+
+.quote-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(min(100%, 300px), 1fr));
+  gap: var(--gap);
+}
+.quote {
+  display: flex; flex-direction: column; gap: 14px;
+  padding: clamp(22px, 2.2vw, 32px);
+}
+.quote__text {
+  font-size: clamp(14px, 1.15vw, 17px); line-height: 1.6;
+  color: var(--text); font-weight: 300;
+}
+.quote__text::before { content: "\201C"; color: var(--shiny); font-weight: 700; }
+.quote__text::after { content: "\201D"; color: var(--shiny); font-weight: 700; }
+.quote__who { margin-top: auto; display: flex; flex-direction: column; gap: 2px; }
+.quote__name { font-size: clamp(13px, 1.05vw, 15px); font-weight: 700; color: var(--shiny); }
+.quote__role { font-size: clamp(12px, 0.95vw, 13.5px); color: var(--faint); font-weight: 300; }
+
+/* ---------------------------------------------------------- */
 /*  Mobile bottom tab bar (hidden on desktop)                  */
 /* ---------------------------------------------------------- */
 .tabbar {
