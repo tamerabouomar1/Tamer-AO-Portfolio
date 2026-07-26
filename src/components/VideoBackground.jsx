@@ -1,92 +1,105 @@
-import { useEffect, useRef } from "react";
+import { useEffect, useRef, useState } from "react";
 import { VIDEO_SRC } from "../siteData";
 
 /**
  * Fixed, full-screen looping video background.
  *
- * iOS only allows autoplay when the element carries the real `muted`
- * ATTRIBUTE (plus playsinline). React sets `muted` as a property and never
- * writes the attribute, which makes iOS refuse to autoplay and paint its
- * native play button over the page — so the element is always rendered and
- * both are set imperatively via the ref instead.
+ * A decorative background must never show playback UI. iOS paints its own
+ * start-playback button over any <video> it declines to autoplay (Low Power
+ * Mode, data saver, a source that fails to load), and CSS alone does not
+ * reliably suppress it. So the element is proven before it is trusted:
  *
- * The source is attached only after the page has loaded, so this decorative
- * video never competes with real content for bandwidth on first paint. The
- * dark gradient backdrop stands in until it plays, and remains the graceful
- * fallback when the device blocks autoplay outright (e.g. iOS Low Power
- * Mode) — the video is decorative, so no controls are ever shown.
+ *   1. It is created detached, off-document, with the autoplay-critical
+ *      `muted` / `playsinline` ATTRIBUTES set (React sets muted only as a
+ *      property, which iOS ignores when deciding autoplay).
+ *   2. It is only inserted into the page once it is genuinely playing.
+ *   3. If it has not started within a few seconds, it is discarded.
+ *
+ * No element in the document means no play button can ever be drawn. When
+ * playback does not happen the dark gradient backdrop simply remains, which
+ * is the intended look anyway.
  */
 export default function VideoBackground() {
-  const videoRef = useRef(null);
-
-  // Guarantee the autoplay-critical attributes exist in the DOM.
-  const setNode = (node) => {
-    videoRef.current = node;
-    if (!node) return;
-    node.muted = true;
-    node.defaultMuted = true;
-    node.setAttribute("muted", "");
-    node.setAttribute("playsinline", "");
-    node.setAttribute("webkit-playsinline", "");
-  };
+  const holderRef = useRef(null);
+  const [live, setLive] = useState(false);
 
   useEffect(() => {
-    const v = videoRef.current;
-    if (!v) return;
+    let video = null;
+    let timeoutId = null;
+    let cancelled = false;
 
-    const tryPlay = () => v.play().catch(() => {});
-
-    const attach = () => {
-      const run = () => {
-        if (!v.src) {
-          v.src = VIDEO_SRC;
-          v.load();
-        }
-        tryPlay();
-      };
-      if ("requestIdleCallback" in window) {
-        window.requestIdleCallback(run, { timeout: 2000 });
-      } else {
-        setTimeout(run, 600);
+    const cleanup = () => {
+      if (timeoutId) clearTimeout(timeoutId);
+      if (video) {
+        video.pause?.();
+        video.removeAttribute("src");
+        video.load?.();
+        video.remove();
+        video = null;
       }
     };
 
-    if (document.readyState === "complete") attach();
-    else window.addEventListener("load", attach, { once: true });
+    const start = () => {
+      if (cancelled) return;
 
-    // Retry when the clip is ready, when returning to the tab, and on the
-    // first touch — covers browsers that defer autoplay until interaction.
-    v.addEventListener("canplay", tryPlay);
-    const onVisible = () => document.visibilityState === "visible" && tryPlay();
-    document.addEventListener("visibilitychange", onVisible);
-    const onFirstTouch = () => tryPlay();
-    window.addEventListener("touchstart", onFirstTouch, { once: true, passive: true });
-    window.addEventListener("click", onFirstTouch, { once: true });
+      video = document.createElement("video");
+      video.className = "video-bg__media";
+      // attributes, not just properties — iOS checks these
+      video.setAttribute("muted", "");
+      video.setAttribute("playsinline", "");
+      video.setAttribute("webkit-playsinline", "");
+      video.setAttribute("loop", "");
+      video.setAttribute("preload", "auto");
+      video.setAttribute("aria-hidden", "true");
+      video.muted = true;
+      video.defaultMuted = true;
+      video.loop = true;
+      video.controls = false;
+      video.disablePictureInPicture = true;
+      video.tabIndex = -1;
+
+      // Only adopt it once frames are actually advancing.
+      const onPlaying = () => {
+        if (cancelled || !video || !holderRef.current) return;
+        if (timeoutId) clearTimeout(timeoutId);
+        holderRef.current.appendChild(video);
+        setLive(true);
+      };
+      video.addEventListener("playing", onPlaying, { once: true });
+
+      // Never adopt a stalled or blocked video — bin it and keep the gradient.
+      timeoutId = setTimeout(() => {
+        if (!video || video.parentNode) return;
+        cleanup();
+      }, 6000);
+
+      video.src = VIDEO_SRC;
+      video.play().catch(() => {
+        /* autoplay refused: the timeout discards it */
+      });
+    };
+
+    const schedule = () => {
+      if ("requestIdleCallback" in window) {
+        window.requestIdleCallback(start, { timeout: 2000 });
+      } else {
+        setTimeout(start, 600);
+      }
+    };
+
+    if (document.readyState === "complete") schedule();
+    else window.addEventListener("load", schedule, { once: true });
 
     return () => {
-      window.removeEventListener("load", attach);
-      v.removeEventListener("canplay", tryPlay);
-      document.removeEventListener("visibilitychange", onVisible);
-      window.removeEventListener("touchstart", onFirstTouch);
-      window.removeEventListener("click", onFirstTouch);
+      cancelled = true;
+      window.removeEventListener("load", schedule);
+      cleanup();
     };
   }, []);
 
   return (
-    <div className="video-bg" aria-hidden="true">
-      <video
-        ref={setNode}
-        className="video-bg__media"
-        autoPlay
-        loop
-        muted
-        playsInline
-        controls={false}
-        preload="none"
-        disablePictureInPicture
-        disableRemotePlayback
-        tabIndex={-1}
-      />
+    <div className={"video-bg" + (live ? " is-live" : "")} aria-hidden="true">
+      <div className="video-bg__holder" ref={holderRef} />
       <div className="video-bg__overlay" />
     </div>
   );
