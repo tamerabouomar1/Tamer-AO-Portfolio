@@ -1,42 +1,42 @@
 import { useEffect, useRef, useState } from "react";
 import { VIDEO_SRC } from "../siteData";
 
-/**
- * Fixed, full-screen looping video background.
- *
- * A decorative background must never show playback UI. iOS paints its own
- * start-playback button over any <video> it declines to autoplay (Low Power
- * Mode, data saver, a source that fails to load), and CSS alone does not
- * reliably suppress it. So the element is proven before it is trusted:
- *
- *   1. It is created detached, off-document, with the autoplay-critical
- *      `muted` / `playsinline` ATTRIBUTES set (React sets muted only as a
- *      property, which iOS ignores when deciding autoplay).
- *   2. It is only inserted into the page once it is genuinely playing.
- *   3. If it has not started within a few seconds, it is discarded.
- *
- * No element in the document means no play button can ever be drawn. When
- * playback does not happen the dark gradient backdrop simply remains, which
- * is the intended look anyway.
- */
+/* Phones never get the video. iOS paints its own start-playback button over
+   any <video> that is not actively playing, and on phones that happens
+   constantly: in-app browsers (the Instagram bio link opens in one) refuse
+   autoplay, and Low Power Mode — which iOS turns on by itself around 20%
+   battery — suspends playback. Instead of fighting it, small screens get an
+   animated CSS gradient: real motion, no download, and no element that
+   could ever show a play button. Desktop, where autoplay is reliable,
+   keeps the video. */
+const PHONE_QUERY = "(max-width: 760px), (pointer: coarse)";
+
 export default function VideoBackground() {
   const holderRef = useRef(null);
   const [live, setLive] = useState(false);
 
   useEffect(() => {
+    if (window.matchMedia(PHONE_QUERY).matches) return; // animated gradient only
+
     let video = null;
-    let timeoutId = null;
+    let startTimer = null;
     let cancelled = false;
 
-    const cleanup = () => {
-      if (timeoutId) clearTimeout(timeoutId);
+    const destroy = () => {
+      if (startTimer) clearTimeout(startTimer);
+      startTimer = null;
       if (video) {
-        video.pause?.();
-        video.removeAttribute("src");
-        video.load?.();
+        try {
+          video.pause();
+          video.removeAttribute("src");
+          video.load();
+        } catch {
+          /* already torn down */
+        }
         video.remove();
         video = null;
       }
+      if (!cancelled) setLive(false);
     };
 
     const start = () => {
@@ -44,10 +44,8 @@ export default function VideoBackground() {
 
       video = document.createElement("video");
       video.className = "video-bg__media";
-      // attributes, not just properties — iOS checks these
       video.setAttribute("muted", "");
       video.setAttribute("playsinline", "");
-      video.setAttribute("webkit-playsinline", "");
       video.setAttribute("loop", "");
       video.setAttribute("preload", "auto");
       video.setAttribute("aria-hidden", "true");
@@ -58,24 +56,29 @@ export default function VideoBackground() {
       video.disablePictureInPicture = true;
       video.tabIndex = -1;
 
-      // Only adopt it once frames are actually advancing.
-      const onPlaying = () => {
+      // Adopt only once frames are genuinely advancing.
+      video.addEventListener("playing", () => {
         if (cancelled || !video || !holderRef.current) return;
-        if (timeoutId) clearTimeout(timeoutId);
-        holderRef.current.appendChild(video);
+        if (startTimer) clearTimeout(startTimer);
+        if (!video.parentNode) holderRef.current.appendChild(video);
         setLive(true);
+      });
+      // A background has no reason to sit paused or broken — bin it and
+      // fall back to the gradient rather than risk any playback chrome.
+      video.addEventListener("error", destroy);
+      const onPause = () => {
+        if (!video) return;
+        video.play().catch(destroy);
       };
-      video.addEventListener("playing", onPlaying, { once: true });
+      video.addEventListener("pause", onPause);
 
-      // Never adopt a stalled or blocked video — bin it and keep the gradient.
-      timeoutId = setTimeout(() => {
-        if (!video || video.parentNode) return;
-        cleanup();
+      startTimer = setTimeout(() => {
+        if (video && !video.parentNode) destroy();
       }, 6000);
 
       video.src = VIDEO_SRC;
       video.play().catch(() => {
-        /* autoplay refused: the timeout discards it */
+        /* refused: the timer discards it */
       });
     };
 
@@ -93,12 +96,13 @@ export default function VideoBackground() {
     return () => {
       cancelled = true;
       window.removeEventListener("load", schedule);
-      cleanup();
+      destroy();
     };
   }, []);
 
   return (
     <div className={"video-bg" + (live ? " is-live" : "")} aria-hidden="true">
+      <div className="video-bg__anim" />
       <div className="video-bg__holder" ref={holderRef} />
       <div className="video-bg__overlay" />
     </div>
