@@ -3,7 +3,8 @@ import { Link } from "react-router-dom";
 import { motion, AnimatePresence } from "framer-motion";
 import Page, { container, cardIn } from "../components/Page";
 import useSwipe from "../components/useSwipe";
-import { CONTACT, SOCIAL_POSTS, VIDEO_EDITS } from "../siteData";
+import InstagramEmbed from "../components/InstagramEmbed";
+import { CONTACT, INSTAGRAM_POSTS, SOCIAL_POSTS, VIDEO_EDITS } from "../siteData";
 
 const LOGOMOTIONS = [
   { title: "Combat Sports Academy", src: "/assets/motion/logomotion-csa.mp4" },
@@ -103,6 +104,24 @@ export default function Media() {
           ))}
         </motion.div>
       </section>
+
+      {INSTAGRAM_POSTS.length > 0 && (
+        <section className="proj-section">
+          <h3 className="section-title">Reels</h3>
+          <motion.div
+            className="ig-grid"
+            variants={container}
+            initial="hidden"
+            animate="show"
+          >
+            {INSTAGRAM_POSTS.map((p) => (
+              <motion.div key={p.url} variants={cardIn}>
+                <InstagramEmbed url={p.url} caption={p.caption} />
+              </motion.div>
+            ))}
+          </motion.div>
+        </section>
+      )}
 
       <section className="proj-section">
         <h3 className="section-title">On Instagram</h3>

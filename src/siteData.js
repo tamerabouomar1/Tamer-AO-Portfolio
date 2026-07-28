@@ -348,6 +348,22 @@ export const SOCIAL_POSTS = {
   images: imgs("tenp-soc", 6),
 };
 
+// Live Instagram posts — embedded on the Media page.
+//
+// These are the real posts, pulled from Instagram at view time, so likes,
+// views and captions stay current instead of going stale like an exported
+// copy would. Nothing loads until the post scrolls near the viewport.
+//
+// TO ADD ONE: open the post on Instagram → Share → Copy link, and paste the
+// plain URL below. Reels and feed posts both work; the /embed suffix is added
+// automatically. Only public posts can embed.
+//   { url: "https://www.instagram.com/reel/ABC123xyz/", caption: "..." }
+//
+// INTENTIONALLY EMPTY until real links are added — the section hides itself
+// while this is empty rather than showing an empty shelf, the same way
+// TESTIMONIALS does.
+export const INSTAGRAM_POSTS = [];
+
 // Video edits — shown on the Media page.
 export const VIDEO_EDITS = [
   {
