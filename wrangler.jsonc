@@ -3,10 +3,13 @@
   // produces ./dist, and this file is what tells `wrangler deploy` to publish
   // it — Workers has no "output directory" field in the UI, unlike Pages.
   //
+  // NOTE: this must match the Worker name in the Cloudflare dashboard
+  // exactly, or Workers Builds fails the deploy. It was renamed to
+  // "portfolio" there, so it is renamed here too.
   // There is no "main" entry on purpose: with only an "assets" block this is a
   // static-asset Worker, so no Worker script runs and every request is served
   // straight from Cloudflare's edge.
-  "name": "tamer-ao-portfolio",
+  "name": "portfolio",
   "compatibility_date": "2026-07-01",
 
   "assets": {
