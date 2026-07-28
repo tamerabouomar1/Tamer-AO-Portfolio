@@ -59,17 +59,17 @@ export const Icon = {
 
 /* Full navigation, in sidebar order.
    `tab` marks the four items that get a permanent slot in the mobile bottom
-   bar. The bar only fits four plus "More", so the slots go to the pages
-   people can act on: Home, the design work, the Store (the one page that
-   sells something directly) and coaching. Websites — the archive of client
-   builds — moved behind "More" when the Store took its slot; flip the `tab`
-   flags to swap them back.
+   bar — Home plus the three audiences people actually arrive for (design
+   work, websites, coaching). The rest live behind "More".
+
+   The ready-made site store deliberately has NO nav entry of its own: it is
+   a section of the Websites page, which is where someone shopping for a
+   website already goes.
    `short` is the compact label used in the narrow tab bar. */
 export const NAV = [
   { to: "/", label: "Home", short: "Home", end: true, icon: Icon.home, tab: true },
   { to: "/projects", label: "Projects", short: "Projects", icon: Icon.projects, tab: true },
-  { to: "/templates", label: "Website Store", short: "Store", icon: Icon.store, tab: true },
-  { to: "/websites", label: "Websites", short: "Websites", icon: Icon.websites },
+  { to: "/websites", label: "Websites", short: "Websites", icon: Icon.websites, tab: true },
   { to: "/media", label: "Media", short: "Media", icon: Icon.videos },
   { to: "/about", label: "About", short: "About", icon: Icon.about },
   { to: "/fitness", label: "Fitness", short: "Fitness", icon: Icon.fitness, tab: true },

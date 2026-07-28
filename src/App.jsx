@@ -1,5 +1,5 @@
 import { useEffect } from "react";
-import { Routes, Route, useLocation, matchPath } from "react-router-dom";
+import { Routes, Route, Navigate, useLocation, matchPath } from "react-router-dom";
 import { AnimatePresence } from "framer-motion";
 
 import VideoBackground from "./components/VideoBackground";
@@ -10,7 +10,6 @@ import { preloadAllImages } from "./lib/preloadImages";
 import Home from "./pages/Home";
 import Projects from "./pages/Projects";
 import Websites from "./pages/Websites";
-import Templates from "./pages/Templates";
 import TemplatePreview from "./pages/TemplatePreview";
 import Media from "./pages/Media";
 import About from "./pages/About";
@@ -62,7 +61,8 @@ export default function App() {
             <Route path="/" element={<Home />} />
             <Route path="/projects" element={<Projects />} />
             <Route path="/websites" element={<Websites />} />
-            <Route path="/templates" element={<Templates />} />
+            {/* The store is a section of Websites now, not its own page. */}
+            <Route path="/templates" element={<Navigate to="/websites" replace />} />
             <Route path="/media" element={<Media />} />
             <Route path="/about" element={<About />} />
             <Route path="/fitness" element={<Fitness />} />

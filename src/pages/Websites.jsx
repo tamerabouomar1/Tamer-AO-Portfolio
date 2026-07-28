@@ -2,12 +2,20 @@ import { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import { motion, AnimatePresence } from "framer-motion";
 import Page, { container, cardIn } from "../components/Page";
-import TemplateMockup from "../components/TemplateMockup";
+import LiveThumb from "../components/LiveThumb";
+import { BuyModalHost } from "../components/BuyModal";
 import { prefetchTemplate } from "../templates/registry";
-import { CONTACT, TEMPLATES, WEBSITES } from "../siteData";
+import { CONTACT, TEMPLATES, TEMPLATE_PACKAGES, WEBSITES } from "../siteData";
+
+/* One page covers both halves of the same question: sites already built for
+   clients, and sites you can buy today. The store used to be its own
+   destination in the nav; it lives here instead, under the heading people
+   already click when they want a website. Client work comes first — it is the
+   proof — and the offer follows it. */
 
 export default function Websites() {
-  const [active, setActive] = useState(null); // website object or null
+  const [active, setActive] = useState(null); // client site, or null
+  const [buying, setBuying] = useState(null); // template being bought, or null
 
   useEffect(() => {
     if (!active) return;
@@ -19,6 +27,8 @@ export default function Websites() {
       document.body.style.overflow = "";
     };
   }, [active]);
+
+  const from = Math.min(...TEMPLATES.map((t) => t.price));
 
   return (
     <Page>
@@ -32,48 +42,7 @@ export default function Websites() {
         </Link>
       </header>
 
-      {/* Anyone browsing client work is already thinking "could I have one of
-          these" — so the store sits above the portfolio rather than below it,
-          where it would only be found by people who scrolled to the end. */}
-      <motion.section
-        className="card webstore"
-        initial={{ opacity: 0, y: 20 }}
-        animate={{ opacity: 1, y: 0 }}
-        transition={{ duration: 0.5, ease: [0.22, 1, 0.36, 1] }}
-      >
-        <div className="webstore__copy">
-          <span className="webstore__flag">Buy online</span>
-          <h3 className="card-title">Want one without the wait?</h3>
-          <p className="card-body">
-            Four websites are already built and ready to go live. Open any of them as a
-            real, working site — scroll it, click it, resize it — then take the source
-            files or have me put it on your domain with your words and photos in it.
-          </p>
-          <Link className="btn-book webstore__cta" to="/templates">
-            Browse the store — from ${Math.min(...TEMPLATES.map((t) => t.price))}
-          </Link>
-        </div>
-
-        <div className="webstore__strip">
-          {TEMPLATES.map((t) => (
-            <Link
-              key={t.slug}
-              to={`/templates/${t.slug}`}
-              className="webstore__tile"
-              style={{ background: t.bg }}
-              onMouseEnter={() => prefetchTemplate(t.slug)}
-              aria-label={`Open the ${t.name} live preview`}
-            >
-              <TemplateMockup kind={t.mockup} />
-              <span className="webstore__tile-name">
-                {t.name} <em>${t.price}</em>
-              </span>
-            </Link>
-          ))}
-        </div>
-      </motion.section>
-
-      <section className="proj-section">
+      <section className="proj-section" style={{ marginTop: 0 }}>
         <h3 className="proj-section__title">Client work</h3>
         <motion.div className="web-grid" variants={container} initial="hidden" animate="show">
           {WEBSITES.map((w) => (
@@ -100,6 +69,145 @@ export default function Websites() {
         </motion.div>
       </section>
 
+      {/* ── Ready-made sites ─────────────────────────────────── */}
+      <section className="proj-section" id="store">
+        <div className="storehead">
+          <div>
+            <span className="webstore__flag">Buy online</span>
+            <h3 className="storehead__title">Ready-made sites, from ${from}</h3>
+            <p className="card-body">
+              Every one below is a real, working build — what you see in the card is the
+              site itself, running. Open it, scroll it, resize it. When one fits, take the
+              source files or have me put it live on your domain with your own words and
+              photos in it.
+            </p>
+          </div>
+          <a className="link" href={CONTACT.calendly} target="_blank" rel="noreferrer noopener">
+            Not sure which? Book a call <span className="plus">+</span>
+          </a>
+        </div>
+
+        <motion.div className="tpl-grid" variants={container} initial="hidden" animate="show">
+          {TEMPLATES.map((t) => (
+            <motion.article className="card tpl-card" key={t.slug} variants={cardIn}>
+              <Link
+                className="tpl-card__link"
+                to={`/templates/${t.slug}`}
+                onMouseEnter={() => prefetchTemplate(t.slug)}
+                aria-label={`Open the ${t.name} live preview`}
+              >
+                <div className="tpl-card__shot">
+                  <LiveThumb slug={t.slug} bg={t.bg} label={t.name} />
+                  <span className="tpl-card__badge">Open live preview +</span>
+                </div>
+              </Link>
+
+              <div className="tpl-card__body">
+                <div className="tpl-card__row">
+                  <div>
+                    <span className="web-card__tag">{t.tag}</span>
+                    <h4 className="web-card__title">
+                      {t.name} <span className="tpl-card__kicker">— {t.kicker}</span>
+                    </h4>
+                  </div>
+                  <div className="tpl-card__price">
+                    <span className="tpl-card__from">from</span>
+                    <span className="tpl-card__amount">${t.price}</span>
+                  </div>
+                </div>
+
+                <p className="card-body">{t.desc}</p>
+
+                <ul className="tpl-card__feats">
+                  {t.highlights.map((h) => (
+                    <li key={h}>
+                      <span className="tick" />
+                      {h}
+                    </li>
+                  ))}
+                </ul>
+
+                <p className="tpl-card__meta">
+                  <strong>Best for</strong> {t.bestFor} · {t.stack}
+                </p>
+
+                <div className="tpl-card__actions">
+                  <Link
+                    className="btn-book tpl-card__preview"
+                    to={`/templates/${t.slug}`}
+                    onMouseEnter={() => prefetchTemplate(t.slug)}
+                  >
+                    Live preview
+                  </Link>
+                  <button className="btn-book tpl-card__buy" onClick={() => setBuying(t)}>
+                    Buy this site
+                  </button>
+                </div>
+              </div>
+            </motion.article>
+          ))}
+        </motion.div>
+      </section>
+
+      <section className="proj-section">
+        <h3 className="proj-section__title">What every package includes</h3>
+        <div className="price-grid">
+          {TEMPLATE_PACKAGES.map((p) => (
+            <article
+              className={`card price-card${p.featured ? " price-card--featured" : ""}`}
+              key={p.id}
+            >
+              {p.save && <span className="price-card__badge">{p.save}</span>}
+              <div className="price-card__head">
+                <h4 className="price-card__name">{p.name}</h4>
+                <p className="price-card__tagline">{p.tagline}</p>
+              </div>
+              <div className="price-card__price">
+                <span className="price-card__amount">
+                  {p.from ? `$${p.from}+` : p.add ? `+$${p.add}` : "Base"}
+                </span>
+                <span className="price-card__period">
+                  {p.from
+                    ? "quoted per project"
+                    : p.add
+                      ? "on top of the template"
+                      : "template price"}
+                </span>
+              </div>
+              <ul className="price-card__features">
+                {p.features.map((f) => (
+                  <li key={f}>
+                    <span className="tick" />
+                    {f}
+                  </li>
+                ))}
+                {p.bonus && (
+                  <li>
+                    <span className="tick tick--gift" />
+                    <span className="price-card__bonus">{p.bonus}</span>
+                  </li>
+                )}
+              </ul>
+              <a
+                className="btn-book"
+                href={CONTACT.calendly}
+                target="_blank"
+                rel="noreferrer noopener"
+              >
+                Talk it through
+              </a>
+            </article>
+          ))}
+        </div>
+        <p className="price-note">
+          Want something that isn&apos;t here? I build custom sites from scratch too —{" "}
+          <Link className="link" to="/work-with-me">
+            see how we&apos;d work together <span className="plus">+</span>
+          </Link>
+        </p>
+      </section>
+
+      {/* full-page screenshot of a client site */}
       <AnimatePresence>
         {active && (
           <motion.div
@@ -133,6 +241,8 @@ export default function Websites() {
           </motion.div>
         )}
       </AnimatePresence>
+
+      <BuyModalHost template={buying} onClose={() => setBuying(null)} />
     </Page>
   );
 }

@@ -26,15 +26,10 @@ export default function Home() {
           <span className="path__desc">Logos, identities, apparel &amp; print</span>
           <span className="path__go">See the work <span className="plus">+</span></span>
         </MotionLink>
-        <MotionLink className="card path path--store" to="/templates" variants={cardIn}>
+        <MotionLink className="card path path--store" to="/websites" variants={cardIn}>
           <span className="path__flag">Buy online</span>
-          <span className="path__label">Website Store</span>
-          <span className="path__desc">Ready-made sites from $119</span>
-          <span className="path__go">Preview them live <span className="plus">+</span></span>
-        </MotionLink>
-        <MotionLink className="card path" to="/websites" variants={cardIn}>
           <span className="path__label">Websites</span>
-          <span className="path__desc">Full sites, designed &amp; built</span>
+          <span className="path__desc">Client builds &amp; ready-made sites from $119</span>
           <span className="path__go">See the sites <span className="plus">+</span></span>
         </MotionLink>
         <MotionLink className="card path" to="/fitness" variants={cardIn}>

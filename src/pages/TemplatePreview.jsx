@@ -26,6 +26,11 @@ export default function TemplatePreview() {
   const [buying, setBuying] = useState(null);
   const [hidden, setHidden] = useState(false);
 
+  // This same route is what the store's card thumbnails embed. Inside an
+  // iframe the Store/Buy bar would be scaled-down furniture sitting on top of
+  // the design, so it only renders when the route is the actual page.
+  const embedded = typeof window !== "undefined" && window.self !== window.top;
+
   const tpl = TEMPLATES.find((t) => t.slug === slug);
   const View = TEMPLATE_VIEWS[slug];
 
@@ -48,6 +53,7 @@ export default function TemplatePreview() {
         <View />
       </Suspense>
 
+      {!embedded && (
       <div className={`tplview__bar${hidden ? " is-hidden" : ""}`}>
         <Link className="tplview__back" to="/templates">
           ‹ Store
@@ -68,8 +74,9 @@ export default function TemplatePreview() {
           ×
         </button>
       </div>
+      )}
 
-      {hidden && (
+      {!embedded && hidden && (
         <button className="tplview__show" onClick={() => setHidden(false)}>
           Show preview bar
         </button>
