@@ -1,0 +1,21 @@
+{
+  // Cloudflare Workers config. The dashboard's "Build command" (npm run build)
+  // produces ./dist, and this file is what tells `wrangler deploy` to publish
+  // it — Workers has no "output directory" field in the UI, unlike Pages.
+  //
+  // There is no "main" entry on purpose: with only an "assets" block this is a
+  // static-asset Worker, so no Worker script runs and every request is served
+  // straight from Cloudflare's edge.
+  "name": "tamer-ao-portfolio",
+  "compatibility_date": "2026-07-01",
+
+  "assets": {
+    "directory": "./dist",
+
+    // Serves index.html (200) for any path that isn't a real file, which is
+    // what makes React Router's routes survive a direct load or refresh —
+    // /templates and /templates/jack would otherwise 404. This is the Workers
+    // equivalent of the SPA rule in netlify.toml and public/_redirects.
+    "not_found_handling": "single-page-application"
+  }
+}
