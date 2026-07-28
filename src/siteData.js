@@ -409,9 +409,7 @@ export const WEBSITES = [
   },
   {
     name: "Sinar",
-    // No `demo`: the only copy of this site is a browser "save page as"
-    // export whose "SINAR - SINAR_files" asset folder was never kept, so it
-    // renders as unstyled HTML. Falls back to the full-page screenshot.
+    demo: "/demo/sinar/index.html",
     tag: "Website design",
     image: "/assets/projects/web-sinar.jpg",
     full: "/assets/projects/web-sinar-full.jpg",
