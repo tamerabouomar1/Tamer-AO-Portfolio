@@ -72,9 +72,14 @@ export default function VideoBackground() {
       };
       video.addEventListener("pause", onPause);
 
+      // Give the clip a realistic window to start. It is ~7MB, and on a
+      // normal connection the old 6s deadline could expire while it was
+      // still buffering — which binned it permanently and left the page on
+      // the fallback gradient with no retry. This only guards against a
+      // video that never plays at all, so it can afford to be patient.
       startTimer = setTimeout(() => {
         if (video && !video.parentNode) destroy();
-      }, 6000);
+      }, 20000);
 
       video.src = VIDEO_SRC;
       video.play().catch(() => {

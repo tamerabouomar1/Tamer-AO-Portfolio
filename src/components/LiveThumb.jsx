@@ -29,9 +29,16 @@ export default function LiveThumb({ src, bg, label, poster, mode = "eager" }) {
   const [loaded, setLoaded] = useState(false);
   const [scale, setScale] = useState(0.25);
 
+  // Not every entry has a runnable copy (Sinar's export is missing its asset
+  // folder). Without this guard those render a src-less iframe, which still
+  // fires onLoad — fading the screenshot out to reveal nothing. Declared up
+  // here because the effect below lists it as a dependency, and a dependency
+  // array is evaluated during render.
+  const canEmbed = Boolean(src);
+
   // Eager mode: arm as soon as the card is near the viewport.
   useEffect(() => {
-    if (mode !== "eager") return;
+    if (mode !== "eager" || !canEmbed) return;
     const el = box.current;
     if (!el) return;
     const io = new IntersectionObserver(
@@ -45,7 +52,7 @@ export default function LiveThumb({ src, bg, label, poster, mode = "eager" }) {
     );
     io.observe(el);
     return () => io.disconnect();
-  }, [mode]);
+  }, [mode, canEmbed]);
 
   // Keep the 1440px frame scaled to whatever width the grid gives the card.
   useEffect(() => {
@@ -59,7 +66,7 @@ export default function LiveThumb({ src, bg, label, poster, mode = "eager" }) {
     return () => ro.disconnect();
   }, []);
 
-  const arm = () => setArmed(true);
+  const arm = () => canEmbed && setArmed(true);
 
   return (
     <div
@@ -80,7 +87,7 @@ export default function LiveThumb({ src, bg, label, poster, mode = "eager" }) {
         />
       )}
 
-      {armed && (
+      {armed && canEmbed && (
         <iframe
           className={`livethumb__frame${loaded ? " is-loaded" : ""}`}
           src={src}
@@ -94,7 +101,9 @@ export default function LiveThumb({ src, bg, label, poster, mode = "eager" }) {
         />
       )}
 
-      {!poster && !loaded && <span className="livethumb__spinner" aria-hidden="true" />}
+      {!poster && !loaded && canEmbed && (
+        <span className="livethumb__spinner" aria-hidden="true" />
+      )}
     </div>
   );
 }
