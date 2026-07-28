@@ -1,9 +1,0 @@
-# SPA fallback: every client-side route (/templates, /templates/jack, /projects…)
-# must serve index.html so React Router can handle it on a direct load or refresh.
-#
-# This file is the PORTABLE version of the redirect in netlify.toml. Netlify,
-# Cloudflare Pages and Render all read _redirects, so the site can move between
-# hosts without its routes 404ing. On Netlify the netlify.toml rule wins and
-# this is simply ignored — keeping both costs nothing and means one less thing
-# to remember when switching host.
-/*    /index.html   200

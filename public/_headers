@@ -1,21 +1,18 @@
-# Portable caching rules — the _headers equivalent of the [[headers]] blocks in
-# netlify.toml, so the same cache behaviour follows the site to Cloudflare Pages
-# or any other host that reads this format.
-
-# Images and videos: cache for 30 days so repeat visits and page switches are
-# instant, but still refresh within a month if a file is replaced in place.
+# Caching rules, in the format Cloudflare Workers reads natively. This mirrors
+# the [[headers]] blocks in netlify.toml so the same behaviour applies whichever
+# host is serving the site.
+#
+# Deliberately ONE broad rule rather than a rule per bundle: everything Vite
+# emits into /assets is content-hashed (index-<hash>.js, JackSite-<hash>.css),
+# so a changed file always arrives under a new name and can never be served
+# stale. The unhashed files in here are images, which a month of caching suits
+# anyway — and stale-while-revalidate refreshes them in the background if one
+# is replaced in place.
+#
+# NOTE: there is deliberately no _redirects file next to this one. SPA routing
+# is handled by "not_found_handling": "single-page-application" in
+# wrangler.jsonc. Cloudflare rejects the usual `/*  /index.html  200` rule
+# outright — it strips `.html` and `/index` itself, so it reads that rule as an
+# infinite redirect loop and fails the whole deploy with error 100324.
 /assets/*
   Cache-Control: public, max-age=2592000, stale-while-revalidate=86400
-
-# Vite fingerprints every bundle (index-<hash>.js, JackSite-<hash>.js), so a new
-# build always has a new filename — these are safe to cache forever.
-/assets/index-*
-  Cache-Control: public, max-age=31536000, immutable
-/assets/JackSite-*
-  Cache-Control: public, max-age=31536000, immutable
-/assets/VexSite-*
-  Cache-Control: public, max-age=31536000, immutable
-/assets/ToonhubSite-*
-  Cache-Control: public, max-age=31536000, immutable
-/assets/OddySite-*
-  Cache-Control: public, max-age=31536000, immutable
