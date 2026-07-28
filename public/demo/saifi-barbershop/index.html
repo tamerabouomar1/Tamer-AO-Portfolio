@@ -1,0 +1,529 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Saifi Barber Shop — Precision Cuts, Premium Style</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Bodoni+Moda:ital,opsz,wght@0,6..96,400;0,6..96,500;0,6..96,700;0,6..96,900;1,6..96,500&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+
+  <!-- NAV -->
+  <nav id="nav">
+    <div class="nav-inner">
+      <a class="nav-logo" href="#hero">✦ SAIFI</a>
+      <ul class="nav-links">
+        <li><a href="#services">Services</a></li>
+        <li><a href="#membership">Membership</a></li>
+        <li><a href="#booking">Book</a></li>
+        <li><a href="#location">Find Us</a></li>
+        <li><a href="#booking" class="btn-nav">Book Now</a></li>
+      </ul>
+      <button class="nav-burger" id="burger" aria-label="Menu">
+        <span></span><span></span><span></span>
+      </button>
+    </div>
+  </nav>
+
+  <!-- HERO -->
+  <section id="hero">
+
+    <!-- CINEMATIC BARBER-TOOLS FLAT-LAY SCENE (scroll-driven) -->
+    <div class="hero-scene" id="hero-scene">
+      <div class="scene-surface"></div>
+
+      <svg class="scene-tools" id="scene-tools" viewBox="0 0 1600 900" preserveAspectRatio="xMidYMid slice" xmlns="http://www.w3.org/2000/svg">
+        <defs>
+          <linearGradient id="chrome" x1="0" y1="0" x2="1" y2="1">
+            <stop offset="0%"  stop-color="#23262b"/>
+            <stop offset="22%" stop-color="#8b9097"/>
+            <stop offset="40%" stop-color="#eef1f4"/>
+            <stop offset="52%" stop-color="#5c6168"/>
+            <stop offset="70%" stop-color="#c3c8ce"/>
+            <stop offset="85%" stop-color="#3a3e44"/>
+            <stop offset="100%" stop-color="#1a1c20"/>
+          </linearGradient>
+          <linearGradient id="chrome2" x1="0" y1="1" x2="1" y2="0">
+            <stop offset="0%"  stop-color="#1d2024"/>
+            <stop offset="30%" stop-color="#9aa0a8"/>
+            <stop offset="48%" stop-color="#f4f6f8"/>
+            <stop offset="60%" stop-color="#70757c"/>
+            <stop offset="80%" stop-color="#b9bec4"/>
+            <stop offset="100%" stop-color="#24272c"/>
+          </linearGradient>
+          <linearGradient id="steel" x1="0" y1="0" x2="0" y2="1">
+            <stop offset="0%"  stop-color="#34383d"/>
+            <stop offset="50%" stop-color="#15171a"/>
+            <stop offset="100%" stop-color="#0c0d0f"/>
+          </linearGradient>
+          <linearGradient id="wood" x1="0" y1="0" x2="1" y2="0">
+            <stop offset="0%"  stop-color="#3a2414"/>
+            <stop offset="45%" stop-color="#6b3f1d"/>
+            <stop offset="60%" stop-color="#8a5226"/>
+            <stop offset="100%" stop-color="#2c1a0d"/>
+          </linearGradient>
+          <linearGradient id="amber" x1="0" y1="0" x2="1" y2="1">
+            <stop offset="0%"  stop-color="#7a2c12"/>
+            <stop offset="45%" stop-color="#c25a1e"/>
+            <stop offset="65%" stop-color="#e07b2c"/>
+            <stop offset="100%" stop-color="#5e1f0c"/>
+          </linearGradient>
+          <linearGradient id="gold" x1="0" y1="0" x2="1" y2="1">
+            <stop offset="0%"  stop-color="#6e521b"/>
+            <stop offset="35%" stop-color="#e7c869"/>
+            <stop offset="50%" stop-color="#fff7d4"/>
+            <stop offset="65%" stop-color="#c9a84c"/>
+            <stop offset="100%" stop-color="#6e521b"/>
+          </linearGradient>
+          <radialGradient id="bristle" cx="0.5" cy="0.3" r="0.8">
+            <stop offset="0%"  stop-color="#d9d2c4"/>
+            <stop offset="60%" stop-color="#8a8273"/>
+            <stop offset="100%" stop-color="#3a352c"/>
+          </radialGradient>
+          <!-- fine comb / blade teeth -->
+          <pattern id="teeth" width="11" height="70" patternUnits="userSpaceOnUse">
+            <rect width="11" height="70" fill="#0d0e10"/>
+            <rect x="4" width="3" height="70" fill="url(#chrome)"/>
+          </pattern>
+          <pattern id="teethFine" width="7" height="50" patternUnits="userSpaceOnUse">
+            <rect width="7" height="50" fill="#0c0d0f"/>
+            <rect x="2.5" width="2" height="50" fill="#aab0b6"/>
+          </pattern>
+          <filter id="soft" x="-40%" y="-40%" width="180%" height="180%">
+            <feGaussianBlur stdDeviation="9"/>
+          </filter>
+          <linearGradient id="edge" x1="0" y1="0" x2="1" y2="0">
+            <stop offset="0%" stop-color="#ffffff" stop-opacity="0"/>
+            <stop offset="50%" stop-color="#ffffff" stop-opacity="0.9"/>
+            <stop offset="100%" stop-color="#ffffff" stop-opacity="0"/>
+          </linearGradient>
+        </defs>
+
+        <!-- contact shadows -->
+        <g fill="#000" opacity="0.55" filter="url(#soft)">
+          <ellipse cx="730" cy="640" rx="220" ry="70"/>
+          <ellipse cx="1180" cy="540" rx="200" ry="55"/>
+          <ellipse cx="1250" cy="270" rx="170" ry="60"/>
+          <ellipse cx="980" cy="420" rx="150" ry="55"/>
+          <ellipse cx="360" cy="320" rx="200" ry="50"/>
+          <ellipse cx="250" cy="670" rx="140" ry="45"/>
+          <ellipse cx="180" cy="480" rx="120" ry="40"/>
+        </g>
+
+        <!-- ORANGE COMB (warm accent, left edge) -->
+        <g transform="translate(175,470) rotate(-58)">
+          <rect x="-150" y="-13" width="300" height="26" rx="13" fill="url(#amber)"/>
+          <rect x="-150" y="16" width="270" height="40" fill="url(#teethFine)" opacity="0.85"/>
+          <rect x="-150" y="-13" width="300" height="7" rx="4" fill="#ffae6a" opacity="0.4"/>
+        </g>
+
+        <!-- LONG COMB (dark, upper-left) -->
+        <g transform="translate(370,300) rotate(-34)">
+          <rect x="-185" y="-9" width="370" height="18" rx="9" fill="url(#steel)"/>
+          <rect x="-185" y="9" width="360" height="46" fill="url(#teeth)"/>
+          <rect x="-185" y="-9" width="370" height="5" rx="3" fill="#6a7077" opacity="0.5"/>
+        </g>
+
+        <!-- BARBER BRUSH (bottom-left) -->
+        <g transform="translate(245,665) rotate(28)">
+          <rect x="-20" y="0" width="40" height="150" rx="18" fill="url(#wood)"/>
+          <rect x="-26" y="-14" width="52" height="26" rx="8" fill="url(#chrome)"/>
+          <ellipse cx="0" cy="-46" rx="46" ry="42" fill="url(#bristle)"/>
+          <g stroke="#0c0b08" stroke-width="1.4" opacity="0.5">
+            <line x1="-30" y1="-30" x2="-40" y2="-78"/>
+            <line x1="-14" y1="-40" x2="-18" y2="-92"/>
+            <line x1="2" y1="-44" x2="2" y2="-96"/>
+            <line x1="18" y1="-40" x2="24" y2="-90"/>
+            <line x1="32" y1="-30" x2="42" y2="-76"/>
+          </g>
+        </g>
+
+        <!-- CLIPPER GUARD BLADES (center, the metallic combs) -->
+        <g transform="translate(960,400) rotate(-8)">
+          <g transform="translate(0,0)">
+            <rect x="-95" y="-60" width="190" height="70" rx="10" fill="url(#chrome2)"/>
+            <rect x="-95" y="-60" width="190" height="16" rx="8" fill="#0e0f11" opacity="0.8"/>
+            <rect x="-80" y="-30" width="160" height="8" rx="4" fill="#0c0d0f"/>
+            <rect x="-95" y="6" width="190" height="36" fill="url(#teeth)"/>
+          </g>
+          <g transform="translate(150,70) rotate(6)">
+            <rect x="-90" y="-58" width="180" height="66" rx="10" fill="url(#chrome)"/>
+            <rect x="-90" y="-58" width="180" height="15" rx="8" fill="#0e0f11" opacity="0.8"/>
+            <rect x="-76" y="-28" width="152" height="8" rx="4" fill="#0c0d0f"/>
+            <rect x="-90" y="4" width="180" height="34" fill="url(#teeth)"/>
+          </g>
+        </g>
+
+        <!-- TRIMMER / CLIPPER (top-right) -->
+        <g transform="translate(1245,255) rotate(-16)">
+          <rect x="-150" y="-52" width="300" height="104" rx="34" fill="url(#steel)"/>
+          <rect x="-150" y="-52" width="300" height="30" rx="20" fill="#3c4147" opacity="0.55"/>
+          <rect x="-120" y="-36" width="150" height="72" rx="14" fill="#0c0d0f" opacity="0.6"/>
+          <line x1="-90" y1="-40" x2="-90" y2="40" stroke="#000" stroke-width="3" opacity="0.5"/>
+          <line x1="-60" y1="-40" x2="-60" y2="40" stroke="#2b2f34" stroke-width="2"/>
+          <circle cx="40" cy="0" r="22" fill="url(#chrome)"/>
+          <circle cx="40" cy="0" r="22" fill="none" stroke="#0c0d0f" stroke-width="3"/>
+          <!-- chrome cutting head -->
+          <g transform="translate(150,0)">
+            <path d="M0 -46 L70 -34 L70 34 L0 46 Z" fill="url(#chrome2)"/>
+            <rect x="58" y="-34" width="26" height="68" fill="url(#teethFine)"/>
+            <path d="M0 -46 L70 -34" stroke="url(#edge)" stroke-width="3"/>
+          </g>
+        </g>
+
+        <!-- STRAIGHT RAZOR (open, right) -->
+        <g transform="translate(1150,540) rotate(18)">
+          <!-- handle / scales -->
+          <rect x="10" y="-22" width="250" height="44" rx="20" fill="url(#wood)"/>
+          <rect x="10" y="-22" width="250" height="12" rx="8" fill="#a9712f" opacity="0.4"/>
+          <circle cx="14" cy="0" r="12" fill="url(#chrome)" stroke="#0c0d0f" stroke-width="2"/>
+          <!-- blade -->
+          <path d="M6 -20 L-250 -30 L-262 -8 L-258 6 L-6 18 Z" fill="url(#chrome)"/>
+          <path d="M-250 -30 L-262 -8" stroke="#0c0d0f" stroke-width="2" opacity="0.6"/>
+          <path d="M-6 18 L-258 6" stroke="url(#edge)" stroke-width="3.5"/>
+          <circle cx="2" cy="0" r="9" fill="#0c0d0f"/>
+        </g>
+
+        <!-- HAIR SHEARS (open, center foreground) -->
+        <g transform="translate(720,560) rotate(4)">
+          <!-- blades -->
+          <path d="M0 0 L-170 -150 L-150 -168 L14 -10 Z" fill="url(#chrome)"/>
+          <path d="M0 0 L168 -150 L150 -170 L-12 -12 Z" fill="url(#chrome2)"/>
+          <path d="M-150 -168 L0 -2"  stroke="url(#edge)" stroke-width="3.5"/>
+          <path d="M150 -170 L0 -2"  stroke="url(#edge)" stroke-width="3.5"/>
+          <!-- shanks -->
+          <path d="M0 0 C -40 60, -70 90, -86 130" stroke="url(#chrome)" stroke-width="16" fill="none" stroke-linecap="round"/>
+          <path d="M0 0 C 40 62, 78 96, 96 138"  stroke="url(#chrome2)" stroke-width="16" fill="none" stroke-linecap="round"/>
+          <!-- finger rings -->
+          <ellipse cx="-104" cy="158" rx="30" ry="34" fill="none" stroke="url(#chrome)" stroke-width="15"/>
+          <ellipse cx="116" cy="166" rx="30" ry="34" fill="none" stroke="url(#chrome2)" stroke-width="15"/>
+          <circle cx="150" cy="150" r="9" fill="none" stroke="url(#chrome)" stroke-width="7"/>
+          <!-- pivot screw -->
+          <circle cx="0" cy="0" r="15" fill="url(#chrome)"/>
+          <circle cx="0" cy="0" r="6" fill="#0c0d0f"/>
+        </g>
+      </svg>
+
+      <!-- Real footage layer (drops on top of the SVG fallback). Plays natively; scroll drives the camera.
+           hero-tools-loop.mp4 is a pre-rendered forward+reverse (ping-pong) cut so the native loop
+           plays back and forth seamlessly. -->
+      <video class="scene-video" id="scene-video" muted playsinline autoplay loop preload="auto">
+        <source src="assets/hero-tools-loop.mp4?v=3" type="video/mp4" />
+      </video>
+
+      <div class="scene-sheen" id="scene-sheen"></div>
+      <div class="scene-vignette"></div>
+      <div class="scene-grain"></div>
+    </div>
+
+    <!-- Hero text layers -->
+    <div class="hero-content" id="hero-content">
+      <div class="hero-badge">EST. 2017</div>
+      <h1 class="hero-title">
+        <span class="line1">PRECISION</span>
+        <span class="line2 gold-text">CUTS &amp;</span>
+        <span class="line3">PREMIUM</span>
+        <span class="line4 gold-text">STYLE</span>
+      </h1>
+      <p class="hero-sub">Where every cut tells your story</p>
+      <div class="hero-cta">
+        <a href="#booking" class="btn-primary">Book Your Appointment</a>
+        <a href="#services" class="btn-ghost">View Services</a>
+      </div>
+    </div>
+
+    <div class="scroll-hint">
+      <span>SCROLL</span>
+      <div class="scroll-line"></div>
+    </div>
+  </section>
+
+  <!-- MARQUEE STRIP -->
+  <div class="marquee-strip">
+    <div class="marquee-inner">
+      <span>SAIFI BARBER SHOP</span>
+      <span class="dot">✦</span>
+      <span>PRECISION CUTS</span>
+      <span class="dot">✦</span>
+      <span>BEARD TRIMS</span>
+      <span class="dot">✦</span>
+      <span>FADES &amp; TAPERS</span>
+      <span class="dot">✦</span>
+      <span>SAIFI BARBER SHOP</span>
+      <span class="dot">✦</span>
+      <span>PRECISION CUTS</span>
+      <span class="dot">✦</span>
+      <span>BEARD TRIMS</span>
+      <span class="dot">✦</span>
+      <span>FADES &amp; TAPERS</span>
+      <span class="dot">✦</span>
+    </div>
+  </div>
+
+  <!-- SERVICES -->
+  <section id="services" class="section-dark">
+    <div class="container">
+      <div class="section-header">
+        <span class="section-tag">What We Offer</span>
+        <h2 class="section-title">Our Services</h2>
+        <p class="section-desc">Classic techniques meet modern artistry. Every service is a masterpiece.</p>
+      </div>
+
+      <div class="services-grid">
+        <div class="service-card" data-delay="0">
+          <div class="service-icon">
+            <svg viewBox="0 0 48 48" fill="none"><circle cx="12" cy="13" r="5"/><circle cx="12" cy="35" r="5"/><path d="M16.3 16 L40 32"/><path d="M16.3 32 L40 16"/><circle cx="25" cy="24" r="1.4" fill="currentColor" stroke="none"/></svg>
+          </div>
+          <h3>Classic Cut</h3>
+          <p>Traditional scissor cut tailored to your face shape and personal style. The foundation of great grooming.</p>
+          <div class="service-footer">
+            <span class="service-price">From $25</span>
+            <a href="#booking" class="service-book">Book →</a>
+          </div>
+        </div>
+
+        <div class="service-card featured" data-delay="100">
+          <div class="service-badge">Most Popular</div>
+          <div class="service-icon">
+            <svg viewBox="0 0 48 48" fill="none"><rect x="16" y="6" width="16" height="24" rx="4"/><line x1="20" y1="12" x2="28" y2="12"/><path d="M15 30 L11 42 M19.5 30 L18 42 M24 30 L24 42 M28.5 30 L30 42 M33 30 L37 42"/></svg>
+          </div>
+          <h3>Fade &amp; Taper</h3>
+          <p>Clean, precise fades — from skin to shadow to low. Machine mastery that frames your face perfectly.</p>
+          <div class="service-footer">
+            <span class="service-price">From $30</span>
+            <a href="#booking" class="service-book">Book →</a>
+          </div>
+        </div>
+
+        <div class="service-card" data-delay="200">
+          <div class="service-icon">
+            <svg viewBox="0 0 48 48" fill="none"><rect x="6" y="14" width="36" height="8" rx="3"/><path d="M9.5 22 V34 M14.5 22 V34 M19.5 22 V34 M24 22 V35 M28.5 22 V34 M33.5 22 V34 M38.5 22 V34"/></svg>
+          </div>
+          <h3>Beard Trim &amp; Shape</h3>
+          <p>Sculpted beards that define your jawline and enhance your natural features. Sharp lines guaranteed.</p>
+          <div class="service-footer">
+            <span class="service-price">From $20</span>
+            <a href="#booking" class="service-book">Book →</a>
+          </div>
+        </div>
+
+        <div class="service-card" data-delay="300">
+          <div class="service-icon">
+            <svg viewBox="0 0 48 48" fill="none"><path d="M8 33 L10 15 L18.5 25 L24 11 L29.5 25 L38 15 L40 33 Z" stroke-linejoin="round"/><line x1="9" y1="38" x2="39" y2="38"/></svg>
+          </div>
+          <h3>VIP Full Groom</h3>
+          <p>The complete experience — haircut, beard shape, hot towel, and scalp massage. Pure luxury.</p>
+          <div class="service-footer">
+            <span class="service-price">From $60</span>
+            <a href="#booking" class="service-book">Book →</a>
+          </div>
+        </div>
+
+        <div class="service-card" data-delay="400">
+          <div class="service-icon">
+            <svg viewBox="0 0 48 48" fill="none"><rect x="8" y="27" width="32" height="13" rx="4"/><line x1="8" y1="32" x2="40" y2="32"/><path d="M17 22 c-2.5 -3 2.5 -5 0 -8" stroke-linecap="round"/><path d="M24 22 c-2.5 -3 2.5 -5 0 -8" stroke-linecap="round"/><path d="M31 22 c-2.5 -3 2.5 -5 0 -8" stroke-linecap="round"/></svg>
+          </div>
+          <h3>Hot Towel Shave</h3>
+          <p>Straight razor tradition with a modern touch. Hot towel preparation for the ultimate close shave.</p>
+          <div class="service-footer">
+            <span class="service-price">From $35</span>
+            <a href="#booking" class="service-book">Book →</a>
+          </div>
+        </div>
+
+        <div class="service-card" data-delay="500">
+          <div class="service-icon">
+            <svg viewBox="0 0 48 48" fill="none"><path d="M14 24 v-7 a4 4 0 0 1 4 -4 h12 a4 4 0 0 1 4 4 v7" stroke-linejoin="round"/><rect x="10" y="24" width="28" height="6" rx="2"/><path d="M15 30 v9 M33 30 v9"/><path d="M14 17 h-4 a3 3 0 0 0 -3 3 v3"/></svg>
+          </div>
+          <h3>Kids Cut</h3>
+          <p>Patient, skilled cuts for the little ones. We make it fun and easy for kids of all ages.</p>
+          <div class="service-footer">
+            <span class="service-price">From $18</span>
+            <a href="#booking" class="service-book">Book →</a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- STATS BANNER -->
+  <div class="stats-banner">
+    <div class="stat">
+      <span class="stat-num">7+</span>
+      <span class="stat-label">Years Experience</span>
+    </div>
+    <div class="stat-divider"></div>
+    <div class="stat">
+      <span class="stat-num">5K+</span>
+      <span class="stat-label">Happy Clients</span>
+    </div>
+    <div class="stat-divider"></div>
+    <div class="stat">
+      <span class="stat-num">100%</span>
+      <span class="stat-label">Satisfaction</span>
+    </div>
+    <div class="stat-divider"></div>
+    <div class="stat">
+      <span class="stat-num">5★</span>
+      <span class="stat-label">Rating</span>
+    </div>
+  </div>
+
+  <!-- MEMBERSHIP -->
+  <section id="membership" class="section-dark membership">
+    <div class="container">
+      <div class="section-header">
+        <span class="section-tag">Members Only</span>
+        <h2 class="section-title">The Saifi Club</h2>
+        <p class="section-desc">One membership. Unlimited sharp. Priority chairs, free cuts, and the full grooming experience every month.</p>
+      </div>
+
+      <div class="membership-card">
+        <div class="membership-glow"></div>
+        <div class="membership-top">
+          <div>
+            <span class="membership-tier">Premium Membership</span>
+            <div class="membership-price">
+              <span class="currency">$</span><span class="amount">75</span><span class="period">/month</span>
+            </div>
+          </div>
+          <div class="membership-seal">✦</div>
+        </div>
+
+        <ul class="membership-perks">
+          <li><span class="perk-check">✓</span> Unlimited haircuts — come as often as you like</li>
+          <li><span class="perk-check">✓</span> Priority booking — skip the queue, members' chairs reserved</li>
+          <li><span class="perk-check">✓</span> Free beard trim &amp; line-up with every visit</li>
+          <li><span class="perk-check">✓</span> One complimentary hot-towel shave each month</li>
+          <li><span class="perk-check">✓</span> 15% off all products &amp; guest cuts</li>
+          <li><span class="perk-check">✓</span> Exclusive member-only events &amp; early drops</li>
+        </ul>
+
+        <div class="membership-footer">
+          <a href="#" class="btn-primary membership-join" id="join-club">Become a Member</a>
+          <p class="membership-note">Cancel anytime · Billed monthly · Limited spots</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- BOOKING -->
+  <section id="booking" class="section-light">
+    <div class="container">
+      <div class="section-header">
+        <span class="section-tag">Reserve Your Spot</span>
+        <h2 class="section-title">Book Your Appointment</h2>
+        <p class="section-desc">Skip the wait — lock in your time slot online in seconds.</p>
+      </div>
+
+      <div class="calendly-wrapper">
+        <div class="calendly-inner">
+          <!-- Calendly inline widget -->
+          <div class="calendly-inline-widget"
+               data-url="https://calendly.com/saifi1997barber/saifi1997barber?hide_gdpr_banner=1&background_color=0a0a0a&text_color=f5f0e8&primary_color=C9A84C"
+               style="min-width:320px;height:700px;">
+          </div>
+          <script type="text/javascript" src="https://assets.calendly.com/assets/external/widget.js" async></script>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- LOCATION -->
+  <section id="location" class="section-dark">
+    <div class="container">
+      <div class="section-header">
+        <span class="section-tag">Come Visit Us</span>
+        <h2 class="section-title">Find Us</h2>
+        <p class="section-desc">Walk-ins welcome. Appointments preferred.</p>
+      </div>
+
+      <div class="location-grid">
+        <div class="location-info">
+          <div class="info-block">
+            <div class="info-icon">📍</div>
+            <div>
+              <h4>Address</h4>
+              <!-- UPDATE THIS ADDRESS with the actual barbershop address -->
+              <p>Saifi Village, Gemmayzeh<br/>Beirut, Lebanon</p>
+            </div>
+          </div>
+
+          <div class="info-block">
+            <div class="info-icon">🕐</div>
+            <div>
+              <h4>Opening Hours</h4>
+              <p>Mon – Fri: 9:00 AM – 8:00 PM<br/>
+                 Sat: 9:00 AM – 6:00 PM<br/>
+                 Sun: Closed</p>
+            </div>
+          </div>
+
+          <div class="info-block">
+            <div class="info-icon">📱</div>
+            <div>
+              <h4>Follow &amp; Connect</h4>
+              <div class="social-links">
+                <a href="https://www.instagram.com/saifi.barbershop/" target="_blank" class="social-link">
+                  <svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zm0-2.163c-3.259 0-3.667.014-4.947.072-4.358.2-6.78 2.618-6.98 6.98-.059 1.281-.073 1.689-.073 4.948 0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98 1.281.058 1.689.072 4.948.072 3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98-1.281-.059-1.69-.073-4.949-.073zm0 5.838c-3.403 0-6.162 2.759-6.162 6.162s2.759 6.163 6.162 6.163 6.162-2.759 6.162-6.163c0-3.403-2.759-6.162-6.162-6.162zm0 10.162c-2.209 0-4-1.79-4-4 0-2.209 1.791-4 4-4s4 1.791 4 4c0 2.21-1.791 4-4 4zm6.406-11.845c-.796 0-1.441.645-1.441 1.44s.645 1.44 1.441 1.44c.795 0 1.439-.645 1.439-1.44s-.644-1.44-1.439-1.44z"/></svg>
+                  @saifi.barbershop
+                </a>
+              </div>
+            </div>
+          </div>
+
+          <a href="#booking" class="btn-primary btn-location">Book an Appointment</a>
+        </div>
+
+        <div class="map-container">
+          <!-- Google Maps embed — update "Saifi Village, Beirut" to exact address if different -->
+          <iframe
+            src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3312.3!2d35.5132!3d33.8938!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x151f17215880a78f%3A0x729182bae99836b4!2sSaifi%20Village%2C%20Beirut%2C%20Lebanon!5e0!3m2!1sen!2s!4v1700000000000!5m2!1sen!2s"
+            width="100%"
+            height="100%"
+            style="border:0;"
+            allowfullscreen=""
+            loading="lazy"
+            referrerpolicy="no-referrer-when-downgrade"
+            title="Saifi Barber Shop Location">
+          </iframe>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- INSTAGRAM FEED CTA -->
+  <section class="insta-cta">
+    <div class="insta-cta-inner">
+      <div class="insta-icon">
+        <svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zm0-2.163c-3.259 0-3.667.014-4.947.072-4.358.2-6.78 2.618-6.98 6.98-.059 1.281-.073 1.689-.073 4.948 0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98 1.281.058 1.689.072 4.948.072 3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98-1.281-.059-1.69-.073-4.949-.073zm0 5.838c-3.403 0-6.162 2.759-6.162 6.162s2.759 6.163 6.162 6.163 6.162-2.759 6.162-6.163c0-3.403-2.759-6.162-6.162-6.162zm0 10.162c-2.209 0-4-1.79-4-4 0-2.209 1.791-4 4-4s4 1.791 4 4c0 2.21-1.791 4-4 4zm6.406-11.845c-.796 0-1.441.645-1.441 1.44s.645 1.44 1.441 1.44c.795 0 1.439-.645 1.439-1.44s-.644-1.44-1.439-1.44z"/></svg>
+      </div>
+      <div class="insta-text">
+        <h3>Follow Our Work</h3>
+        <p>See the latest cuts, fades, and transformations on Instagram</p>
+      </div>
+      <a href="https://www.instagram.com/saifi.barbershop/" target="_blank" class="btn-gold">@saifi.barbershop ↗</a>
+    </div>
+  </section>
+
+  <!-- FOOTER -->
+  <footer class="footer">
+    <div class="footer-inner">
+      <div class="footer-logo">✦ SAIFI</div>
+      <p class="footer-tagline">Precision Cuts. Premium Style.</p>
+      <nav class="footer-nav">
+        <a href="#services">Services</a>
+        <a href="#booking">Book</a>
+        <a href="#location">Location</a>
+        <a href="https://www.instagram.com/saifi.barbershop/" target="_blank">Instagram</a>
+      </nav>
+      <p class="footer-copy">© 2024 Saifi Barber Shop. All rights reserved.</p>
+    </div>
+  </footer>
+
+  <script src="main.js"></script>
+</body>
+</html>

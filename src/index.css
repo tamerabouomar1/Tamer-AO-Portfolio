@@ -1607,23 +1607,98 @@ ul { margin: 0; padding: 0; list-style: none; }
   animation: tpl-spin 0.8s linear infinite;
 }
 
-/* Store heading inside the Websites page */
+
+/* ── Store section header ──────────────────────────────────────
+   This is the only block on the site that directly asks for money, so it is
+   allowed more room and more weight than a normal section title. */
 .storehead {
-  display: flex;
-  justify-content: space-between;
-  align-items: flex-start;
-  gap: 20px;
-  flex-wrap: wrap;
-  margin-bottom: clamp(14px, 1.6vw, 22px);
+  max-width: 78ch;
+  margin-bottom: clamp(20px, 2.4vw, 34px);
 }
-.storehead__title {
-  font-size: clamp(20px, 2vw, 30px);
-  font-weight: 700;
-  margin: 8px 0 8px;
-}
-.storehead .webstore__flag {
+.storehead__flag {
   display: inline-block;
-  font-size: 10px; font-weight: 700; letter-spacing: 0.09em; text-transform: uppercase;
-  padding: 4px 10px; border-radius: 999px;
+  font-size: 10px; font-weight: 700; letter-spacing: 0.1em; text-transform: uppercase;
+  padding: 5px 11px; border-radius: 999px;
   background: var(--shiny); color: #07121f;
 }
+.storehead__title {
+  font-size: clamp(26px, 3.2vw, 46px);
+  font-weight: 700;
+  line-height: 1.08;
+  letter-spacing: -0.015em;
+  margin: 14px 0 12px;
+}
+.storehead__accent {
+  background: linear-gradient(92deg, var(--shiny), var(--accent));
+  -webkit-background-clip: text;
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
+  color: transparent;
+}
+.storehead__lede {
+  font-size: clamp(14px, 1.15vw, 18px);
+  font-weight: 300;
+  line-height: 1.6;
+  color: var(--muted);
+}
+
+/* three reasons to buy, sitting on a hairline rule */
+.storeprops {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: clamp(14px, 1.6vw, 26px);
+  margin: clamp(18px, 2vw, 28px) 0 clamp(14px, 1.6vw, 20px);
+  padding-top: clamp(16px, 1.8vw, 24px);
+  border-top: 1px solid var(--line);
+}
+.storeprops li {
+  font-size: clamp(12.5px, 1vw, 14.5px);
+  font-weight: 300;
+  line-height: 1.5;
+  color: var(--faint);
+}
+.storeprops strong {
+  display: block;
+  margin-bottom: 4px;
+  font-size: clamp(13.5px, 1.05vw, 15.5px);
+  font-weight: 600;
+  color: var(--shiny);
+}
+.storehead__ask { font-weight: 500; }
+
+@media (min-width: 720px) {
+  .storeprops { grid-template-columns: repeat(3, 1fr); }
+}
+
+/* ── Live client-site lightbox ─────────────────────────────────
+   The panel hands its whole body to the real site so it can be used, not
+   just looked at. */
+.weblb__live {
+  display: block;
+  margin-top: 4px;
+  font-style: normal;
+  font-size: 11px; font-weight: 600; letter-spacing: 0.07em; text-transform: uppercase;
+  color: var(--shiny);
+}
+/* When the panel is showing a live site it takes a definite height, so the
+   iframe has room to actually be used. Without this the panel sizes to its
+   header and the site gets a ~400px slot to live in. */
+.weblb__panel--live { height: 92vh; }
+.weblb__live-frame {
+  flex: 1 1 auto;
+  width: 100%;
+  min-height: 0;
+  border: 0;
+  background: #fff;
+  display: block;
+}
+.livethumb__poster {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: top center;
+  transition: opacity 0.6s var(--ease);
+}
+.livethumb__poster.is-hidden { opacity: 0; }

@@ -357,10 +357,14 @@ export const VIDEO_EDITS = [
   },
 ];
 
-// Websites — shown on the Media page.
+// Client websites. `demo` points at a real, runnable copy of the site served
+// from /public/demo — so the card can show it live and the lightbox can let
+// people actually use it, instead of showing a flat screenshot. `image` is
+// still the fast, static card art; the live copy only loads on hover.
 export const WEBSITES = [
   {
     name: "Kitchen Garage",
+    demo: "/demo/kitchen-garage/index.html",
     tag: "Website design",
     image: "/assets/projects/web-kg.jpg",
     full: "/assets/projects/web-kg-full.jpg",
@@ -368,6 +372,7 @@ export const WEBSITES = [
   },
   {
     name: "Snack Faysal",
+    demo: "/demo/snack-faysal/index.html",
     tag: "Website design",
     image: "/assets/projects/web-snack.jpg",
     full: "/assets/projects/web-snack-full.jpg",
@@ -375,6 +380,7 @@ export const WEBSITES = [
   },
   {
     name: "Saifi Barbershop",
+    demo: "/demo/saifi-barbershop/index.html",
     tag: "Website design",
     image: "/assets/projects/web-saifi.jpg",
     full: "/assets/projects/web-saifi-full.jpg",
@@ -382,6 +388,7 @@ export const WEBSITES = [
   },
   {
     name: "Sinar",
+    demo: "/demo/sinar/index.html",
     tag: "Website design",
     image: "/assets/projects/web-sinar.jpg",
     full: "/assets/projects/web-sinar-full.jpg",

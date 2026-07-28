@@ -56,8 +56,14 @@ export default function Websites() {
               onKeyDown={(e) => (e.key === "Enter" || e.key === " ") && setActive(w)}
             >
               <div className="web-card__shot">
-                <img src={w.image} alt={w.name} loading="lazy" />
-                <span className="web-card__badge">Scroll the site +</span>
+                <LiveThumb
+                  src={w.demo}
+                  poster={w.image}
+                  bg="#0b0b0d"
+                  label={w.name}
+                  mode="hover"
+                />
+                <span className="web-card__badge">Open the real site +</span>
               </div>
               <div className="web-card__body">
                 <span className="web-card__tag">{w.tag}</span>
@@ -72,18 +78,40 @@ export default function Websites() {
       {/* ── Ready-made sites ─────────────────────────────────── */}
       <section className="proj-section" id="store">
         <div className="storehead">
-          <div>
-            <span className="webstore__flag">Buy online</span>
-            <h3 className="storehead__title">Ready-made sites, from ${from}</h3>
-            <p className="card-body">
-              Every one below is a real, working build — what you see in the card is the
-              site itself, running. Open it, scroll it, resize it. When one fits, take the
-              source files or have me put it live on your domain with your own words and
-              photos in it.
-            </p>
-          </div>
-          <a className="link" href={CONTACT.calendly} target="_blank" rel="noreferrer noopener">
-            Not sure which? Book a call <span className="plus">+</span>
+          <span className="storehead__flag">Ready to buy</span>
+          <h3 className="storehead__title">
+            Skip the six-week build.
+            <br />
+            <span className="storehead__accent">Launch this week instead.</span>
+          </h3>
+          <p className="storehead__lede">
+            Four websites, already designed and already built. What you see in each card
+            below is the site itself running — not a screenshot. Open it, scroll it, break
+            it if you like. When one fits, it&apos;s yours from ${from}.
+          </p>
+
+          <ul className="storeprops">
+            <li>
+              <strong>Live in days</strong>
+              Your words and photos in, deployed on your domain — not next quarter.
+            </li>
+            <li>
+              <strong>Yours to keep</strong>
+              Full source code and a one-project licence. No monthly platform rent.
+            </li>
+            <li>
+              <strong>Hand-built</strong>
+              Real React, not a page builder. Fast on a phone, and it stays that way.
+            </li>
+          </ul>
+
+          <a
+            className="link storehead__ask"
+            href={CONTACT.calendly}
+            target="_blank"
+            rel="noreferrer noopener"
+          >
+            Not sure which one fits? Book a free 30-minute call <span className="plus">+</span>
           </a>
         </div>
 
@@ -97,7 +125,7 @@ export default function Websites() {
                 aria-label={`Open the ${t.name} live preview`}
               >
                 <div className="tpl-card__shot">
-                  <LiveThumb slug={t.slug} bg={t.bg} label={t.name} />
+                  <LiveThumb src={`/templates/${t.slug}`} bg={t.bg} label={t.name} />
                   <span className="tpl-card__badge">Open live preview +</span>
                 </div>
               </Link>
@@ -218,7 +246,7 @@ export default function Websites() {
             onClick={() => setActive(null)}
           >
             <motion.div
-              className="weblb__panel"
+              className={`weblb__panel${active.demo ? " weblb__panel--live" : ""}`}
               initial={{ scale: 0.96, opacity: 0 }}
               animate={{ scale: 1, opacity: 1 }}
               exit={{ scale: 0.96, opacity: 0 }}
@@ -228,15 +256,30 @@ export default function Websites() {
               <div className="weblb__head">
                 <div>
                   <span className="web-card__tag">{active.tag}</span>
-                  <h3 className="weblb__title">{active.name}</h3>
+                  <h3 className="weblb__title">
+                    {active.name}
+                    {active.demo && <em className="weblb__live">Live · fully interactive</em>}
+                  </h3>
                 </div>
                 <button className="weblb__close" onClick={() => setActive(null)} aria-label="Close">
                   ×
                 </button>
               </div>
-              <div className="weblb__scroll">
-                <img src={active.full} alt={`${active.name} full page`} />
-              </div>
+
+              {/* The real site, running — click the menu, open the cart, play
+                  the video. Sites without a runnable copy fall back to the
+                  full-page screenshot they always had. */}
+              {active.demo ? (
+                <iframe
+                  className="weblb__live-frame"
+                  src={active.demo}
+                  title={`${active.name} — live site`}
+                />
+              ) : (
+                <div className="weblb__scroll">
+                  <img src={active.full} alt={`${active.name} full page`} />
+                </div>
+              )}
             </motion.div>
           </motion.div>
         )}

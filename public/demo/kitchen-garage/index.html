@@ -1,0 +1,203 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Kitchen Garage — Order Online</title>
+  <meta name="description" content="Kitchen Garage — bold comfort food, smashed burgers & loaded sides. Order online for pickup or delivery." />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Anton&family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="styles.css" />
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🔧</text></svg>" />
+</head>
+<body>
+  <!-- Skip link for accessibility -->
+  <a href="#menu" class="skip-link">Skip to menu</a>
+
+  <!-- ============ HEADER / NAV ============ -->
+  <header class="nav" id="nav">
+    <div class="nav__inner">
+      <a href="#home" class="brand" aria-label="Kitchen Garage home">
+        <span class="brand__mark">🔧</span>
+        <span class="brand__text">KITCHEN<span>GARAGE</span></span>
+      </a>
+
+      <nav class="nav__links" aria-label="Primary">
+        <a href="#menu">Menu</a>
+        <a href="#reviews">Reviews</a>
+        <a href="#location">Location</a>
+        <a href="#contact">Contact</a>
+      </nav>
+
+      <div class="nav__actions">
+        <button class="btn btn--ghost" id="accountBtn" aria-label="Account">
+          <span class="ico">👤</span><span class="nav__actionLabel" id="accountLabel">Sign in</span>
+        </button>
+        <button class="btn btn--cart" id="cartBtn" aria-label="Open cart">
+          <span class="ico">🛒</span>
+          <span class="nav__actionLabel">Cart</span>
+          <span class="cart-badge" id="cartBadge" hidden>0</span>
+        </button>
+        <button class="nav__burger" id="burgerBtn" aria-label="Open menu" aria-expanded="false">☰</button>
+      </div>
+    </div>
+    <!-- mobile dropdown -->
+    <nav class="nav__mobile" id="navMobile" aria-label="Mobile">
+      <a href="#menu">Menu</a>
+      <a href="#reviews">Reviews</a>
+      <a href="#location">Location</a>
+      <a href="#contact">Contact</a>
+    </nav>
+  </header>
+
+  <main>
+    <!-- ============ HERO ============ -->
+    <section class="hero" id="home">
+      <div class="hero__bg" aria-hidden="true"></div>
+      <div class="hero__content">
+        <span class="hero__eyebrow">🔥 Made to order • Pickup &amp; Delivery</span>
+        <h1 class="hero__title" id="heroTitle">KITCHEN<br><span>GARAGE</span></h1>
+        <p class="hero__tagline" id="heroTagline"></p>
+        <div class="hero__cta">
+          <a href="#menu" class="btn btn--primary btn--lg">Order Now</a>
+          <a href="#menu" class="btn btn--outline btn--lg">View Menu</a>
+        </div>
+        <div class="hero__meta" id="heroMeta"></div>
+      </div>
+    </section>
+
+    <!-- ============ INFO STRIP ============ -->
+    <section class="strip" aria-label="Highlights">
+      <div class="strip__item"><span>⚡</span><div><strong>20–30 min</strong><small>Avg. delivery</small></div></div>
+      <div class="strip__item"><span>🛵</span><div><strong id="stripDelivery">$3 delivery</strong><small>Free over $30</small></div></div>
+      <div class="strip__item"><span>⭐</span><div><strong id="stripRating">4.8 rating</strong><small>Google reviews</small></div></div>
+      <div class="strip__item"><span>💳</span><div><strong>All payments</strong><small>Cash, card, crypto</small></div></div>
+    </section>
+
+    <!-- ============ FEATURED ============ -->
+    <section class="section" id="featured">
+      <div class="section__head">
+        <h2 class="section__title">Fan favorites</h2>
+        <p class="section__sub">The ones people keep driving back to Aley for.</p>
+      </div>
+      <div class="featured" id="featuredGrid"></div>
+    </section>
+
+    <!-- ============ MENU ============ -->
+    <section class="section" id="menu">
+      <div class="section__head">
+        <h2 class="section__title">The Menu</h2>
+        <p class="section__sub">Tap <strong>Add</strong> to build your order. Prices in USD.</p>
+      </div>
+
+      <div class="menu-tabs" id="menuTabs" role="tablist" aria-label="Menu categories"></div>
+      <div class="menu" id="menuGrid"></div>
+    </section>
+
+    <!-- ============ WING FLAVORS ============ -->
+    <section class="section section--alt" id="flavors">
+      <div class="section__head">
+        <h2 class="section__title">Pick your flavors</h2>
+        <p class="section__sub">15 hand-tossed wing flavors — mix &amp; match any two.</p>
+      </div>
+      <div class="flavors" id="flavorsGrid"></div>
+    </section>
+
+    <!-- ============ REVIEWS ============ -->
+    <section class="section section--alt" id="reviews">
+      <div class="section__head">
+        <h2 class="section__title">What people say</h2>
+        <p class="section__sub" id="reviewsSummary"></p>
+      </div>
+      <div class="reviews" id="reviewsGrid"></div>
+      <div class="section__cta">
+        <a href="#" id="googleReviewsLink" class="btn btn--outline" target="_blank" rel="noopener">
+          <span class="ico">⭐</span> Read all reviews on Google
+        </a>
+      </div>
+    </section>
+
+    <!-- ============ LOCATION ============ -->
+    <section class="section" id="location">
+      <div class="section__head">
+        <h2 class="section__title">Find us</h2>
+        <p class="section__sub">Dine in, pick up, or get it delivered.</p>
+      </div>
+      <div class="location">
+        <div class="location__info">
+          <div class="location__row"><span>📍</span><div><strong>Address</strong><p id="locAddress"></p>
+            <a href="#" id="directionsLink" target="_blank" rel="noopener" class="link">Get directions →</a></div></div>
+          <div class="location__row"><span>🕒</span><div><strong>Hours</strong><ul id="locHours" class="hours"></ul></div></div>
+          <div class="location__row"><span>📞</span><div><strong>Contact</strong>
+            <p><a href="#" id="locPhone" class="link"></a></p>
+            <p><a href="#" id="locInsta" class="link" target="_blank" rel="noopener">@kitchengaragelb on Instagram</a></p></div></div>
+        </div>
+        <div class="location__map">
+          <iframe id="mapFrame" title="Kitchen Garage location map" loading="lazy"
+            referrerpolicy="no-referrer-when-downgrade" allowfullscreen></iframe>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <!-- ============ FOOTER ============ -->
+  <footer class="footer" id="contact">
+    <div class="footer__inner">
+      <div class="footer__brand">
+        <span class="brand__mark">🔧</span>
+        <span class="brand__text">KITCHEN<span>GARAGE</span></span>
+        <p id="footerBlurb"></p>
+      </div>
+      <div class="footer__col">
+        <h4>Order</h4>
+        <a href="#menu">Browse menu</a>
+        <a href="#" id="footerCart" class="js-open-cart">Your cart</a>
+        <a href="#" id="footerAccount" class="js-open-account">Account &amp; saved info</a>
+      </div>
+      <div class="footer__col">
+        <h4>Visit</h4>
+        <a href="#location">Location &amp; hours</a>
+        <a href="#" id="footerDirections" target="_blank" rel="noopener">Directions</a>
+        <a href="#reviews">Reviews</a>
+      </div>
+      <div class="footer__col">
+        <h4>Connect</h4>
+        <a href="#" id="footerInsta" target="_blank" rel="noopener">Instagram</a>
+        <a href="#" id="footerWhatsapp" target="_blank" rel="noopener">WhatsApp</a>
+        <a href="#" id="footerPhone">Call us</a>
+      </div>
+    </div>
+    <div class="footer__bar">
+      <p>© <span id="year"></span> Kitchen Garage. Made with care in Lebanon.</p>
+      <p class="footer__note">Demo ordering site — connect a payment provider to go live.</p>
+    </div>
+  </footer>
+
+  <!-- ============ CART DRAWER ============ -->
+  <div class="overlay" id="overlay" hidden></div>
+
+  <aside class="drawer" id="cartDrawer" aria-hidden="true" aria-label="Your order">
+    <div class="drawer__head">
+      <h3>Your order</h3>
+      <button class="iconbtn" id="cartClose" aria-label="Close cart">✕</button>
+    </div>
+    <div class="drawer__body" id="cartBody"></div>
+    <div class="drawer__foot" id="cartFoot"></div>
+  </aside>
+
+  <!-- ============ MODAL (account / checkout / confirmation) ============ -->
+  <div class="modal" id="modal" aria-hidden="true" role="dialog" aria-modal="true" aria-labelledby="modalTitle">
+    <div class="modal__panel">
+      <button class="iconbtn modal__close" id="modalClose" aria-label="Close">✕</button>
+      <div id="modalContent"></div>
+    </div>
+  </div>
+
+  <!-- Toast -->
+  <div class="toast" id="toast" role="status" aria-live="polite" hidden></div>
+
+  <script src="data.js"></script>
+  <script src="app.js"></script>
+</body>
+</html>

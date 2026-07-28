@@ -1,38 +1,43 @@
 import { useEffect, useRef, useState } from "react";
 
-/* A card thumbnail that is the actual site, not a drawing of it.
+/* A card thumbnail that is the actual website, not a picture of one.
 
-   It renders the real /templates/:slug route inside an iframe at desktop
-   width (1440px) and scales that down to whatever the card is, so what you
-   see is exactly what opens when you click — fonts, layout, imagery and all.
-   Earlier this slot held a hand-drawn CSS approximation, which was cheap but
-   didn't actually show the website.
+   It renders the real site inside an iframe at desktop width (1440px) and
+   scales that down to whatever the card is, so what you see is exactly what
+   opens when you click — fonts, layout, animation and all.
 
-   Three things keep it from being expensive:
-   - the iframe is only created once the card scrolls into view, and never
-     torn down afterwards;
-   - the iframes share the parent's already-cached JS/CSS bundle, so each one
-     really only fetches its own small template chunk;
-   - pointer-events are off, so the whole card stays a single link to the
-     full-size, genuinely interactive preview. */
+   Two loading modes, because the two grids have different economics:
+
+   - `eager` (the ready-made templates): the iframe builds as soon as the card
+     nears the viewport. These share the parent's already-cached JS bundle, so
+     each one really only pulls its own small template chunk.
+
+   - `hover` (client work): the card leads with its static screenshot and only
+     builds the iframe once someone shows interest. Those are whole separate
+     websites with their own video and imagery — several megabytes each — and
+     loading four of them on arrival would undo the point of a fast page.
+
+   pointer-events stay off either way, so the card remains a single link to
+   the full-size, genuinely interactive version. */
 
 const FRAME_W = 1440;
 const FRAME_H = 900;
 
-export default function LiveThumb({ slug, bg, label }) {
+export default function LiveThumb({ src, bg, label, poster, mode = "eager" }) {
   const box = useRef(null);
-  const [visible, setVisible] = useState(false);
+  const [armed, setArmed] = useState(false);
   const [loaded, setLoaded] = useState(false);
   const [scale, setScale] = useState(0.25);
 
-  // Only build the iframe once the card is near the viewport.
+  // Eager mode: arm as soon as the card is near the viewport.
   useEffect(() => {
+    if (mode !== "eager") return;
     const el = box.current;
     if (!el) return;
     const io = new IntersectionObserver(
       ([e]) => {
         if (e.isIntersecting) {
-          setVisible(true);
+          setArmed(true);
           io.disconnect();
         }
       },
@@ -40,9 +45,9 @@ export default function LiveThumb({ slug, bg, label }) {
     );
     io.observe(el);
     return () => io.disconnect();
-  }, []);
+  }, [mode]);
 
-  // Keep the 1440px frame scaled to the card, whatever the grid gives it.
+  // Keep the 1440px frame scaled to whatever width the grid gives the card.
   useEffect(() => {
     const el = box.current;
     if (!el) return;
@@ -54,26 +59,42 @@ export default function LiveThumb({ slug, bg, label }) {
     return () => ro.disconnect();
   }, []);
 
+  const arm = () => setArmed(true);
+
   return (
-    <div className="livethumb" ref={box} style={{ background: bg }}>
-      {visible && (
+    <div
+      className="livethumb"
+      ref={box}
+      style={{ background: bg }}
+      onMouseEnter={mode === "hover" ? arm : undefined}
+      onTouchStart={mode === "hover" ? arm : undefined}
+      onFocus={mode === "hover" ? arm : undefined}
+    >
+      {poster && (
+        <img
+          className={`livethumb__poster${loaded ? " is-hidden" : ""}`}
+          src={poster}
+          alt={label}
+          loading="lazy"
+          decoding="async"
+        />
+      )}
+
+      {armed && (
         <iframe
           className={`livethumb__frame${loaded ? " is-loaded" : ""}`}
-          src={`/templates/${slug}`}
+          src={src}
           title={`${label} preview`}
           onLoad={() => setLoaded(true)}
           loading="lazy"
           scrolling="no"
           tabIndex={-1}
           aria-hidden="true"
-          style={{
-            width: FRAME_W,
-            height: FRAME_H,
-            transform: `scale(${scale})`,
-          }}
+          style={{ width: FRAME_W, height: FRAME_H, transform: `scale(${scale})` }}
         />
       )}
-      {!loaded && <span className="livethumb__spinner" aria-hidden="true" />}
+
+      {!poster && !loaded && <span className="livethumb__spinner" aria-hidden="true" />}
     </div>
   );
 }
