@@ -3,10 +3,14 @@ import { motion, useScroll, useTransform } from "framer-motion";
 import useTemplateFont from "../useTemplateFont";
 import "./jack.css";
 
-/* ── Jack — 3D Creator ─────────────────────────────────────────
+/* ── Onyx — Creator Portfolio ──────────────────────────────────
    Dark full-length portfolio. Five sections: hero, scroll-linked
    marquee, about, services (white), stacking projects.
-   All styles are scoped under .jk so nothing leaks into the portfolio. */
+   All styles are scoped under .jk so nothing leaks into the portfolio.
+
+   Every word and image here is Tamer's own — his face, his services, his
+   shipped work. The demo doubles as a real portfolio rather than a fake
+   persona, and a buyer's own content replaces it under "Done For You". */
 
 const EASE = [0.25, 0.1, 0.25, 1];
 
@@ -39,11 +43,11 @@ const DECOR = `${FIGMA}/ebb2b8f25d8e24d5f0a5ca8af4c950de81aa2fd7`;
 const PORTRAIT = `${FIGMA}/d24c01ad3a56fc65e942a1f501eb73db42d7cf9a/Rectangle_40443.81459862.png`;
 
 const SERVICES = [
-  ["01", "3D Modeling", "Creation of detailed objects, characters, or environments tailored to specific client needs, ideal for games, products, and visualizations."],
-  ["02", "Rendering", "High-quality, photorealistic renders that showcase designs with custom lighting, textures, and materials to bring concepts to life."],
-  ["03", "Motion Design", "Dynamic animations and motion graphics that add energy and storytelling to brands, products, and digital experiences."],
-  ["04", "Branding", "Crafting cohesive visual identities — from logos to full brand systems — that communicate a clear and memorable presence."],
-  ["05", "Web Design", "Designing clean, modern, and conversion-focused websites with attention to layout, typography, and user experience."],
+  ["01", "Brand Identity", "Full visual identities — logo, type, colour and the rules that hold them together — built so a brand looks like itself everywhere it shows up."],
+  ["02", "Logo & Motion", "Marks designed to work small, flat and moving, finished with a logo animation that gives the brand a signature on screen."],
+  ["03", "Apparel Design", "Rashguards, fight kits and tees taken from concept to print-ready artwork, delivered ready for the manufacturer."],
+  ["04", "Company Profiles", "Editorial, multi-page profiles and catalogues that make a company read as established, credible and worth talking to."],
+  ["05", "Web Design", "Clean, modern, conversion-focused websites, designed and built end to end with real attention to layout and typography."],
 ];
 
 const shot = (id) =>
@@ -52,24 +56,24 @@ const shot = (id) =>
 const PROJECTS = [
   {
     n: "01",
-    name: "Nextlevel Studio",
-    cat: "Client",
+    name: "Charbel Farah",
+    cat: "Athlete profile",
     a: shot("20260412_055344_5eff02e0-87a5-41ce-b64f-eb08da8f33db"),
     b: shot("20260412_055431_11d841fd-8b41-46a5-82e4-b04f2407a7d8"),
     c: shot("20260412_055451_e317bf2d-28d4-48cc-86b0-6f72f25b6327"),
   },
   {
     n: "02",
-    name: "Aura Brand Identity",
-    cat: "Personal",
+    name: "OKIRO Fight Kits",
+    cat: "Apparel",
     a: shot("20260412_055654_911201c5-36d9-4bc6-bac7-331adfce159f"),
     b: shot("20260412_055723_5ceda0b8-d9c2-4665-b2e3-83ba19ba76d1"),
     c: shot("20260412_055753_adc5dcbd-a8e6-49c0-b43a-9b030d835cea"),
   },
   {
     n: "03",
-    name: "Solaris Digital",
-    cat: "Client",
+    name: "BioGarden",
+    cat: "Brand & packaging",
     a: shot("20260412_055759_963cfb0b-4bd1-4b0f-9d0a-09bd6cf95b2f"),
     b: shot("20260412_060108_438f781a-9846-4dcc-89ab-c4e6cb830f5b"),
     c: shot("20260412_055818_9d062121-ad7e-46b9-999a-1a6a692ef1ee"),
@@ -198,14 +202,14 @@ function Hero() {
 
       <div className="jk-hero__headwrap">
         <FadeIn y={40} delay={0.15}>
-          <h1 className="jk-gradient jk-hero__head">Hi, i&apos;m jack</h1>
+          <h1 className="jk-gradient jk-hero__head">Hi, i&apos;m tamer</h1>
         </FadeIn>
       </div>
 
       <div className="jk-hero__bottom">
         <FadeIn y={20} delay={0.35}>
           <p className="jk-hero__lede">
-            a 3d creator driven by crafting striking and unforgettable projects
+            a graphic designer driven by crafting striking and unforgettable brands
           </p>
         </FadeIn>
         <FadeIn y={20} delay={0.5}>
@@ -215,7 +219,7 @@ function Hero() {
 
       <FadeIn y={30} delay={0.6} className="jk-hero__portrait">
         <Magnet>
-          <img src={PORTRAIT} alt="Jack" fetchpriority="high" decoding="async" />
+          <img src={PORTRAIT} alt="Tamer Abou Omar" fetchpriority="high" decoding="async" />
         </Magnet>
       </FadeIn>
     </section>
@@ -293,7 +297,7 @@ function About() {
         <h2 className="jk-gradient jk-about__head">About me</h2>
       </FadeIn>
 
-      <AnimatedText text="With more than five years of experience in design, i focus on branding, web design, and user experience, i truly enjoy working with businesses that aim to stand out and present their best image. Let's build something incredible together!" />
+      <AnimatedText text="I'm Tamer Abou Omar, a graphic designer based in Beirut. I build brand identities, logos, logo motion, apparel and websites — static or moving, digital or physical. I enjoy working with people who want their brand to look like it means business. Let's build something worth looking at." />
 
       <ContactButton />
     </section>

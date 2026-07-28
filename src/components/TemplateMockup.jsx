@@ -7,13 +7,13 @@
    on any screen. The real animated preview only loads on hover/tap. */
 
 export default function TemplateMockup({ kind }) {
-  if (kind === "jack") {
+  if (kind === "onyx") {
     return (
       <div className="mk mk--jack" aria-hidden="true">
         <div className="mk-nav">
           <i /><i /><i /><i />
         </div>
-        <div className="mk-jack__head">HI, I&apos;M JACK</div>
+        <div className="mk-jack__head">HI, I&apos;M TAMER</div>
         <div className="mk-jack__figure" />
         <div className="mk-jack__foot">
           <span className="mk-line" />
@@ -23,20 +23,20 @@ export default function TemplateMockup({ kind }) {
     );
   }
 
-  if (kind === "vex") {
+  if (kind === "vantage") {
     return (
       <div className="mk mk--vex" aria-hidden="true">
         <div className="mk-vex__sky" />
         <div className="mk-vex__nav">
-          <b>VEX</b>
+          <b>TAMER AO</b>
           <span className="mk-line" />
           <span className="mk-pill mk-pill--white" />
         </div>
         <div className="mk-vex__body">
           <div className="mk-vex__head">
-            Shaping tomorrow
+            Designing brands
             <br />
-            with vision and action.
+            that refuse to blend in.
           </div>
           <div className="mk-vex__row">
             <span className="mk-pill mk-pill--white" />
@@ -47,10 +47,10 @@ export default function TemplateMockup({ kind }) {
     );
   }
 
-  if (kind === "toonhub") {
+  if (kind === "drop") {
     return (
       <div className="mk mk--toon" aria-hidden="true">
-        <div className="mk-toon__ghost">3D SHAPE</div>
+        <div className="mk-toon__ghost">OKIRO</div>
         <span className="mk-toon__fig mk-toon__fig--l" />
         <span className="mk-toon__fig mk-toon__fig--c" />
         <span className="mk-toon__fig mk-toon__fig--r" />
@@ -62,14 +62,14 @@ export default function TemplateMockup({ kind }) {
     );
   }
 
-  // oddy
+  // atelier
   return (
     <div className="mk mk--oddy" aria-hidden="true">
-      <div className="mk-oddy__logo">Viktor Oddy</div>
+      <div className="mk-oddy__logo">Tamer AO</div>
       <div className="mk-oddy__head">
-        Build the next <em>wave,</em>
+        Build a <em>brand</em>
         <br />
-        the <em>bold way.</em>
+        that <em>gets noticed.</em>
       </div>
       <span className="mk-line" />
       <span className="mk-line mk-line--short" />

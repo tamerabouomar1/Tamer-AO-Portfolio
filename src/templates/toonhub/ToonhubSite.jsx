@@ -2,10 +2,12 @@ import { useCallback, useEffect, useRef, useState } from "react";
 import useTemplateFont from "../useTemplateFont";
 import "./toonhub.css";
 
-/* ── TOONHUB — Figurines ───────────────────────────────────────
-   A four-item carousel where the entire page palette morphs with the
-   figurine on stage. Everything (colour, position, scale, blur) crossfades
-   together over one 650ms curve, which is what sells the effect. */
+/* ── Drop — Product Showcase ───────────────────────────────────
+   A four-item carousel where the entire page palette morphs with the piece
+   on stage. Everything (colour, position, scale, blur) crossfades together
+   over one 650ms curve, which is what sells the effect.
+
+   Demo artwork stays as shipped with the template. */
 
 const BASE =
   "https://fifth-gentle-45902158.figma.site/_components/v2/4de492f6d9cf8244ad5293233e5c6f52407d42fc";
@@ -146,7 +148,7 @@ export default function ToonhubSite() {
           3D SHAPE
         </div>
 
-        <span className="th-brand">TOONHUB</span>
+        <span className="th-brand">TAMER AO</span>
 
         <div className="th-carousel">
           {IMAGES.map((item, i) => (
@@ -157,7 +159,7 @@ export default function ToonhubSite() {
         </div>
 
         <div className="th-bl">
-          <p className="th-bl__title">TOONHUB FIGURINES</p>
+          <p className="th-bl__title">TAMER AO FIGURINES</p>
           <p className="th-bl__copy">
             The artwork is stunning, shipped fully prepared. The finish is a vision, the 3D
             craft is flawless. Many thanks! Wishing you the win. Order now.

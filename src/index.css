@@ -1577,3 +1577,51 @@ ul { margin: 0; padding: 0; list-style: none; }
    previewed the template's nav moves up to sit above the bar rather than
    under it. On its own domain the template is untouched. */
 .tplview .od-bottomnav { bottom: calc(max(16px, env(safe-area-inset-bottom)) + 62px); }
+
+/* Store promo on the Websites page. Someone browsing client builds is already
+   asking "could I have one of these", so this sits above the portfolio grid
+   rather than after it. */
+.webstore {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: clamp(18px, 2vw, 30px);
+  padding: clamp(22px, 2.4vw, 36px);
+  margin-bottom: var(--gap);
+  border-color: rgba(100, 206, 251, 0.35);
+}
+.webstore__copy { display: flex; flex-direction: column; gap: 12px; align-items: flex-start; }
+.webstore__flag {
+  font-size: 10px; font-weight: 700; letter-spacing: 0.09em; text-transform: uppercase;
+  padding: 4px 10px; border-radius: 999px;
+  background: var(--shiny); color: #07121f;
+}
+.webstore__cta {
+  margin-top: 4px;
+  background: var(--shiny); border-color: var(--shiny); color: #07121f;
+}
+.webstore__cta:hover { background: var(--shiny); box-shadow: 0 12px 30px rgba(100, 206, 251, 0.35); }
+
+.webstore__strip { display: grid; grid-template-columns: repeat(2, 1fr); gap: 10px; }
+.webstore__tile {
+  position: relative;
+  aspect-ratio: 16 / 10;
+  border-radius: var(--radius);
+  overflow: hidden;
+  border: 1px solid var(--line);
+  transition: transform 0.35s var(--ease), border-color 0.35s var(--ease);
+}
+.webstore__tile:hover { transform: translateY(-3px); border-color: rgba(100, 206, 251, 0.55); }
+.webstore__tile-name {
+  position: absolute; left: 8px; right: 8px; bottom: 8px; z-index: 3;
+  display: flex; justify-content: space-between; align-items: baseline; gap: 8px;
+  font-size: 11px; font-weight: 700; color: #fff;
+  padding: 5px 9px; border-radius: 999px;
+  background: rgba(0, 0, 0, 0.62);
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  backdrop-filter: blur(4px);
+}
+.webstore__tile-name em { font-style: normal; font-weight: 600; color: var(--shiny); }
+
+@media (min-width: 860px) {
+  .webstore { grid-template-columns: 1fr 1.05fr; align-items: center; }
+}

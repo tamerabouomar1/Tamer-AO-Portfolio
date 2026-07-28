@@ -2,7 +2,7 @@ import { useCallback, useEffect, useRef, useState } from "react";
 import useTemplateFont from "../useTemplateFont";
 import "./oddy.css";
 
-/* ── Viktor Oddy — Creative Studio ─────────────────────────────
+/* ── Atelier — Studio Site ─────────────────────────────────────
    The full studio site: hero, marquee, quote + parallax portrait,
    pricing, auto-scrolling testimonials, projects, an interactive
    partner CTA, footer and a floating bottom nav.
@@ -25,8 +25,10 @@ const GIFS = [
   "hero-nexora-preview-cx5HmUgo",
 ].map((n) => `https://motionsites.ai/assets/${n}.gif`);
 
-const PORTRAIT =
-  "https://images.higgs.ai/?default=1&output=webp&url=https%3A%2F%2Fd8j0ntlcm91z4.cloudfront.net%2Fuser_38xzZboKViGWJOttwIXH07lWA1P%2Fhf_20260330_103804_7aa5494f-4d5b-432e-9dc7-20715275f143.png&w=1280&q=85";
+/* The parallax slot held a founder headshot. This is a template, so it shows
+   work instead of a face — nothing here should imply the site belongs to one
+   particular person. */
+const PARALLAX = "https://motionsites.ai/assets/hero-velorah-preview-CJNTtbpd.gif";
 
 const AVATAR = (id, w = 96) =>
   `https://images.pexels.com/photos/${id}/pexels-photo-${id}.jpeg?auto=compress&cs=tinysrgb&w=${w}`;
@@ -42,7 +44,7 @@ const TESTIMONIALS = [
   },
   {
     quote:
-      "Viktor led the creation of our best fundraising deck to date! We closed the round three weeks after sending the first version out.",
+      "They led the creation of our best fundraising deck to date. We closed the round three weeks after sending the first version out.",
     name: "alexwu",
     role: "Founder",
     company: "Nexgate",
@@ -50,7 +52,7 @@ const TESTIMONIALS = [
   },
   {
     quote:
-      "Working with Viktor transformed our product vision into something the whole company could rally behind. The clarity alone was worth it.",
+      "Working with the studio turned our product vision into something the whole company could rally behind. The clarity alone was worth it.",
     name: "James Mitchell",
     role: "VP Product",
     company: "LaunchPad",
@@ -167,27 +169,27 @@ function Hero() {
   return (
     <header className="od-hero">
       <Reveal delay={0.1}>
-        <div className="od-serif od-logo">Viktor Oddy</div>
+        <div className="od-serif od-logo">Atelier</div>
       </Reveal>
       <Reveal delay={0.2}>
-        <p className="od-mono">The creative studio of Viktor Oddy</p>
+        <p className="od-mono">An independent design studio</p>
       </Reveal>
       <Reveal delay={0.3}>
         <h1 className="od-h1">
-          Build the next <span className="od-serif">wave,</span>
+          Build a <span className="od-serif">brand</span>
           <br />
-          the <span className="od-serif">bold way.</span>
+          that <span className="od-serif">gets noticed.</span>
         </h1>
       </Reveal>
       <Reveal delay={0.4} className="od-hero__copy">
         <p>
-          I spent seven years at Apple crafting products used by over a billion people. I
-          founded Vortex Studio to bring that same level of thinking to innovators shaping
-          what comes next.
+          A small studio built around brand and product design — identity systems,
+          websites and the launch material that carries them, made for teams shaping
+          something new.
         </p>
         <p>
-          The studio is deliberately small. I guide the creative vision on every project,
-          backed by a veteran design crew that moves fast without cutting corners.
+          Deliberately small by design. Senior attention on every project, a short line
+          between decision and delivery, and a pace that does not cut corners.
         </p>
         <p>Projects start at $5,000 per month.</p>
       </Reveal>
@@ -272,20 +274,22 @@ function QuoteSection() {
       </Reveal>
       <Reveal delay={0.2}>
         <p className="od-h1">
-          I left <span className="od-serif">Apple</span> to build the studio I always wanted
-          to work with
+          The studio we always <span className="od-serif">wanted</span> to work with
         </p>
       </Reveal>
       <Reveal delay={0.3}>
-        <p className="od-quote__author">Viktor Oddy</p>
+        <p className="od-quote__author">Studio manifesto</p>
       </Reveal>
+      {/* Placeholder client marks. Deliberately neutral names — the originals
+          were real employers, which made the page read as one person's CV
+          rather than a template a buyer drops their own logos into. */}
       <Reveal delay={0.4} className="od-logos">
-        <span style={{ width: 80 }}>Apple</span>
-        <span style={{ width: 83 }}>IDEO</span>
-        <span style={{ width: 110 }}>Polygon</span>
+        <span style={{ width: 96 }}>Northwind</span>
+        <span style={{ width: 80 }}>Lumen</span>
+        <span style={{ width: 104 }}>Fieldwork</span>
       </Reveal>
       <Reveal delay={0.5}>
-        <ParallaxImage src={PORTRAIT} alt="Viktor Oddy" />
+        <ParallaxImage src={PARALLAX} alt="" />
       </Reveal>
     </section>
   );
@@ -300,7 +304,7 @@ function Pricing() {
           <p className="od-price__desc">
             A dedicated creative design team.
             <br />
-            You work directly with Viktor.
+            You work directly with the founder.
           </p>
           <div className="od-price__amount">$5,000</div>
           <p className="od-price__period">Monthly</p>
@@ -452,9 +456,10 @@ function PartnerSection() {
         />
       ))}
       <h2 className="od-serif od-partner__head">Partner with us</h2>
+      {/* No founder headshot on the CTA — the page is a template, so it must
+          not look like it belongs to one particular person. */}
       <a className="od-btn od-btn--primary od-partner__cta" href={BOOK}>
-        <img src={AVATAR(415829, 80)} alt="" loading="lazy" decoding="async" />
-        Start chat with Viktor
+        Start a chat
       </a>
     </section>
   );
@@ -498,12 +503,12 @@ export default function OddySite() {
       <Footer />
 
       <div className="od-copyright">
-        <span>Vortex Studio Limited</span>
-        <span>Austin, USA</span>
+        <span>Atelier Studio</span>
+        <span>Working worldwide</span>
       </div>
 
       <nav className="od-bottomnav">
-        <span className="od-serif od-bottomnav__mark">V</span>
+        <span className="od-serif od-bottomnav__mark">A</span>
         <Button>Start a chat</Button>
       </nav>
     </div>

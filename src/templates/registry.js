@@ -8,11 +8,14 @@ import { lazy } from "react";
    loader on hover to warm the chunk (and its CSS) before the click — by the
    time the preview route mounts the code is usually already parsed. */
 
+/* Keys are the public slugs from TEMPLATES. The folder names are the original
+   internal codenames and deliberately left alone — renaming them would churn
+   every import and CSS prefix for no user-visible gain. */
 const loaders = {
-  jack: () => import("./jack/JackSite"),
-  vex: () => import("./vex/VexSite"),
-  toonhub: () => import("./toonhub/ToonhubSite"),
-  oddy: () => import("./oddy/OddySite"),
+  onyx: () => import("./jack/JackSite"),
+  vantage: () => import("./vex/VexSite"),
+  drop: () => import("./toonhub/ToonhubSite"),
+  atelier: () => import("./oddy/OddySite"),
 };
 
 export const TEMPLATE_VIEWS = Object.fromEntries(

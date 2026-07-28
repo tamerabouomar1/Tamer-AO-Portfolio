@@ -2,14 +2,15 @@ import { useEffect, useState } from "react";
 import useTemplateFont from "../useTemplateFont";
 import "./vex.css";
 
-/* ── VEX — Ventures ────────────────────────────────────────────
+/* ── Vantage — Venture Landing ─────────────────────────────────
    One screen. Raw full-bleed video (no dimming overlay by design),
-   liquid-glass chrome, and a headline that types itself in. */
+   liquid-glass chrome, and a headline that types itself in.
+   Demoed with Tamer's own brand and copy. */
 
 const VIDEO =
   "https://d8j0ntlcm91z4.cloudfront.net/user_38xzZboKViGWJOttwIXH07lWA1P/hf_20260403_050628_c4e32401-fab4-4a27-b7a8-6e9291cd5959.mp4";
 
-const HEADING = "Shaping tomorrow\nwith vision and action.";
+const HEADING = "Designing brands\nthat refuse to blend in.";
 const CHAR_DELAY = 30;
 const START_DELAY = 200;
 
@@ -110,16 +111,16 @@ export default function VexSite() {
       <div className="vx-shell">
         <div className="vx-pad vx-navwrap">
           <nav className="vx-nav liquid-glass">
-            <span className="vx-logo">VEX</span>
+            <span className="vx-logo">TAMER AO</span>
             <div className="vx-nav__links">
-              {["Story", "Investing", "Building", "Advisory"].map((l) => (
+              {["Work", "Brands", "Apparel", "Contact"].map((l) => (
                 <a key={l} href={`#${l.toLowerCase()}`}>
                   {l}
                 </a>
               ))}
             </div>
-            <a className="vx-btn vx-btn--solid vx-btn--sm" href="#chat">
-              Start a Chat
+            <a className="vx-btn vx-btn--solid vx-btn--sm" href="#contact">
+              Start a project
             </a>
           </nav>
         </div>
@@ -129,20 +130,23 @@ export default function VexSite() {
             <div>
               <AnimatedHeading text={HEADING} />
               <FadeIn delay={800} className="vx-sub">
-                <p>We back visionaries and craft ventures that define what comes next.</p>
+                <p>
+                  Identities, apparel and websites for people building something worth
+                  looking at.
+                </p>
               </FadeIn>
               <FadeIn delay={1200} className="vx-actions">
-                <a className="vx-btn vx-btn--solid" href="#chat">
-                  Start a Chat
+                <a className="vx-btn vx-btn--solid" href="#contact">
+                  Start a project
                 </a>
-                <a className="vx-btn vx-btn--glass liquid-glass" href="#explore">
-                  Explore Now
+                <a className="vx-btn vx-btn--glass liquid-glass" href="#work">
+                  See the work
                 </a>
               </FadeIn>
             </div>
 
             <FadeIn delay={1400} className="vx-tagwrap">
-              <div className="vx-tag liquid-glass">Investing. Building. Advisory.</div>
+              <div className="vx-tag liquid-glass">Brands. Apparel. Websites.</div>
             </FadeIn>
           </div>
         </div>
