@@ -42,6 +42,12 @@ export const Icon = {
       <path d="M3 12.5h18" />
     </svg>
   ),
+  store: (
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round">
+      <path d="M4 8h16l-1.2 11a2 2 0 0 1-2 1.8H7.2a2 2 0 0 1-2-1.8L4 8Z" />
+      <path d="M9 8V6a3 3 0 0 1 6 0v2" />
+    </svg>
+  ),
   more: (
     <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.2" strokeLinecap="round">
       <circle cx="5" cy="12" r="1.1" fill="currentColor" stroke="none" />
@@ -53,13 +59,17 @@ export const Icon = {
 
 /* Full navigation, in sidebar order.
    `tab` marks the four items that get a permanent slot in the mobile bottom
-   bar — Home plus the three audiences people actually arrive for (design
-   work, websites, coaching). The rest live behind "More".
+   bar. The bar only fits four plus "More", so the slots go to the pages
+   people can act on: Home, the design work, the Store (the one page that
+   sells something directly) and coaching. Websites — the archive of client
+   builds — moved behind "More" when the Store took its slot; flip the `tab`
+   flags to swap them back.
    `short` is the compact label used in the narrow tab bar. */
 export const NAV = [
   { to: "/", label: "Home", short: "Home", end: true, icon: Icon.home, tab: true },
   { to: "/projects", label: "Projects", short: "Projects", icon: Icon.projects, tab: true },
-  { to: "/websites", label: "Websites", short: "Websites", icon: Icon.websites, tab: true },
+  { to: "/templates", label: "Website Store", short: "Store", icon: Icon.store, tab: true },
+  { to: "/websites", label: "Websites", short: "Websites", icon: Icon.websites },
   { to: "/media", label: "Media", short: "Media", icon: Icon.videos },
   { to: "/about", label: "About", short: "About", icon: Icon.about },
   { to: "/fitness", label: "Fitness", short: "Fitness", icon: Icon.fitness, tab: true },

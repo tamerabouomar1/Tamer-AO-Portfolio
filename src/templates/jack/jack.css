@@ -1,0 +1,369 @@
+/* Jack — 3D Creator. Everything is scoped under .jk so this file can never
+   affect the portfolio shell it is previewed inside. */
+
+.jk {
+  --jk-bg: #0c0c0c;
+  --jk-ink: #d7e2ea;
+  background: var(--jk-bg);
+  color: var(--jk-ink);
+  font-family: "Kanit", system-ui, sans-serif;
+  overflow-x: clip;
+}
+
+.jk * { box-sizing: border-box; }
+.jk img { display: block; max-width: 100%; }
+.jk a { color: inherit; text-decoration: none; }
+.jk h1, .jk h2, .jk h3, .jk p { margin: 0; }
+
+/* the signature silver gradient headline */
+.jk-gradient {
+  background: linear-gradient(180deg, #646973 0%, #bbccd7 100%);
+  -webkit-background-clip: text;
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
+  color: transparent;
+}
+
+/* ── hero ─────────────────────────────────────────────────── */
+.jk-hero {
+  position: relative;
+  height: 100svh;
+  min-height: 520px;
+  display: flex;
+  flex-direction: column;
+  overflow-x: clip;
+}
+
+.jk-nav {
+  display: flex;
+  justify-content: space-between;
+  padding: 24px 24px 0;
+  font-size: 14px;
+  font-weight: 500;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+}
+.jk-nav a { transition: opacity 0.2s ease; }
+.jk-nav a:hover { opacity: 0.7; }
+
+.jk-hero__headwrap { overflow: hidden; }
+.jk-hero__head {
+  font-size: 14vw;
+  font-weight: 900;
+  text-transform: uppercase;
+  letter-spacing: -0.02em;
+  line-height: 1;
+  white-space: nowrap;
+  width: 100%;
+  margin-top: 24px;
+}
+
+.jk-hero__bottom {
+  margin-top: auto;
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-end;
+  gap: 20px;
+  padding: 0 24px 28px;
+  position: relative;
+  z-index: 20;
+}
+.jk-hero__lede {
+  font-size: clamp(0.75rem, 1.4vw, 1.5rem);
+  font-weight: 300;
+  text-transform: uppercase;
+  letter-spacing: 0.02em;
+  line-height: 1.35;
+  max-width: 160px;
+}
+
+/* The portrait is a FadeIn, and framer-motion writes its animation straight
+   into `transform` — so centring it with `transform: translate(-50%,-50%)`
+   gets overwritten the moment the animation runs. Horizontal centring is done
+   with auto margins instead, and the vertical half-step uses the standalone
+   `translate` property, which composes with `transform` rather than replacing
+   it. */
+.jk-hero__portrait {
+  position: absolute;
+  left: 0;
+  right: 0;
+  margin-inline: auto;
+  top: 50%;
+  translate: 0 -50%;
+  width: 280px;
+  z-index: 10;
+  pointer-events: none;
+}
+
+/* ── buttons ──────────────────────────────────────────────── */
+.jk .jk-btn-contact {
+  display: inline-block;
+  padding: 12px 32px;
+  border-radius: 999px;
+  font-size: 12px;
+  font-weight: 500;
+  text-transform: uppercase;
+  letter-spacing: 0.12em;
+  color: #fff;
+  background: linear-gradient(123deg, #18011f 7%, #b600a8 37%, #7621b0 72%, #be4c00 100%);
+  box-shadow:
+    0 4px 4px rgba(181, 1, 167, 0.25),
+    4px 4px 12px #7721b1 inset;
+  outline: 2px solid #fff;
+  outline-offset: -3px;
+  transition: transform 0.3s ease;
+}
+.jk .jk-btn-contact:hover { transform: translateY(-2px); }
+
+.jk .jk-btn-ghost {
+  display: inline-block;
+  flex: none;
+  padding: 12px 32px;
+  border-radius: 999px;
+  border: 2px solid var(--jk-ink);
+  color: var(--jk-ink);
+  font-size: 14px;
+  font-weight: 500;
+  text-transform: uppercase;
+  letter-spacing: 0.12em;
+  transition: background 0.3s ease;
+}
+.jk .jk-btn-ghost:hover { background: rgba(215, 226, 234, 0.1); }
+
+/* ── marquee ──────────────────────────────────────────────── */
+.jk-marquee {
+  background: var(--jk-bg);
+  padding: 96px 0 40px;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  overflow: hidden;
+}
+.jk-marquee__row {
+  display: flex;
+  gap: 12px;
+  will-change: transform;
+}
+.jk-marquee__row img {
+  flex: none;
+  width: 420px;
+  height: 270px;
+  object-fit: cover;
+  border-radius: 16px;
+  background: #141414;
+}
+
+/* ── about ────────────────────────────────────────────────── */
+.jk-about {
+  position: relative;
+  min-height: 100svh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 40px;
+  padding: 80px 20px;
+  text-align: center;
+}
+.jk-about__head {
+  font-size: clamp(3rem, 12vw, 160px);
+  font-weight: 900;
+  text-transform: uppercase;
+  line-height: 1;
+  letter-spacing: -0.02em;
+}
+.jk-about__copy {
+  max-width: 560px;
+  font-size: clamp(1rem, 2vw, 1.35rem);
+  font-weight: 500;
+  line-height: 1.7;
+  color: var(--jk-ink);
+}
+.jk-about > .jk-btn-contact { margin-top: 24px; }
+
+/* character-by-character scroll reveal: the ghost holds the layout, the
+   live copy sits on top of it and fades from 0.2 → 1 */
+.jk-char { position: relative; display: inline-block; white-space: pre; }
+.jk-char__ghost { opacity: 0; }
+.jk-char__live { position: absolute; left: 0; top: 0; }
+
+.jk-decor { position: absolute; pointer-events: none; z-index: 0; }
+.jk-decor img { width: 100%; }
+.jk-decor--tl { top: 4%; left: 1%; width: 120px; }
+.jk-decor--tr { top: 4%; right: 1%; width: 120px; }
+.jk-decor--bl { bottom: 8%; left: 3%; width: 100px; }
+.jk-decor--br { bottom: 8%; right: 3%; width: 130px; }
+
+/* ── services (light section) ─────────────────────────────── */
+.jk-services {
+  background: #fff;
+  color: #0c0c0c;
+  border-radius: 40px 40px 0 0;
+  padding: 80px 20px;
+  position: relative;
+  z-index: 2;
+}
+.jk-services__head {
+  font-size: clamp(3rem, 12vw, 160px);
+  font-weight: 900;
+  text-transform: uppercase;
+  text-align: center;
+  line-height: 1;
+  margin-bottom: 64px;
+}
+.jk-services__list { max-width: 1024px; margin: 0 auto; }
+.jk-service {
+  display: flex;
+  align-items: flex-start;
+  gap: clamp(16px, 3vw, 48px);
+  padding: 32px 0;
+  border-top: 1px solid rgba(12, 12, 12, 0.15);
+}
+.jk-services__list > div:last-child .jk-service {
+  border-bottom: 1px solid rgba(12, 12, 12, 0.15);
+}
+.jk-service__n {
+  flex: none;
+  font-size: clamp(3rem, 10vw, 140px);
+  font-weight: 900;
+  line-height: 0.9;
+}
+.jk-service__name {
+  font-size: clamp(1rem, 2.2vw, 2.1rem);
+  font-weight: 500;
+  text-transform: uppercase;
+}
+.jk-service__desc {
+  margin-top: 8px;
+  max-width: 42rem;
+  font-size: clamp(0.85rem, 1.6vw, 1.25rem);
+  font-weight: 300;
+  line-height: 1.6;
+  opacity: 0.6;
+}
+
+/* ── projects (sticky stack) ──────────────────────────────── */
+.jk-projects {
+  position: relative;
+  z-index: 10;
+  background: var(--jk-bg);
+  border-radius: 40px 40px 0 0;
+  margin-top: -40px;
+  padding: 64px 16px 0;
+}
+.jk-projects__head {
+  font-size: clamp(3rem, 12vw, 160px);
+  font-weight: 900;
+  text-transform: uppercase;
+  text-align: center;
+  line-height: 1;
+  letter-spacing: -0.02em;
+  margin-bottom: 40px;
+}
+.jk-proj__slot { height: 85vh; }
+.jk-proj {
+  position: sticky;
+  top: 96px;
+  border: 2px solid var(--jk-ink);
+  border-radius: 40px;
+  background: var(--jk-bg);
+  padding: 16px;
+  transform-origin: top center;
+}
+.jk-proj__top {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  flex-wrap: wrap;
+  margin-bottom: 16px;
+}
+.jk-proj__n {
+  font-size: clamp(2.5rem, 7vw, 100px);
+  font-weight: 900;
+  line-height: 0.9;
+}
+.jk-proj__meta { margin-right: auto; }
+.jk-proj__cat {
+  font-size: 12px;
+  text-transform: uppercase;
+  letter-spacing: 0.12em;
+  opacity: 0.6;
+}
+.jk-proj__name {
+  font-size: clamp(1.1rem, 2.4vw, 2rem);
+  font-weight: 500;
+  text-transform: uppercase;
+}
+.jk-proj__grid { display: grid; grid-template-columns: 40% 60%; gap: 12px; }
+.jk-proj__col1 { display: flex; flex-direction: column; gap: 12px; }
+.jk-proj__col1 img:first-child { height: clamp(130px, 16vw, 230px); }
+.jk-proj__col1 img:last-child { height: clamp(160px, 22vw, 340px); }
+.jk-proj__col2 img { height: 100%; }
+.jk-proj img {
+  width: 100%;
+  object-fit: cover;
+  border-radius: 40px;
+  background: #141414;
+}
+
+.jk-foot {
+  display: flex;
+  justify-content: center;
+  padding: 80px 20px 120px;
+}
+
+/* ── responsive ───────────────────────────────────────────── */
+@media (min-width: 640px) {
+  .jk-nav { font-size: 16px; padding: 24px 40px 0; }
+  .jk-hero__head { font-size: 15vw; margin-top: 16px; }
+  .jk-hero__bottom { padding: 0 40px 32px; }
+  .jk-hero__lede { max-width: 220px; }
+  .jk-hero__portrait { width: 360px; top: auto; bottom: 0; translate: none; }
+  .jk .jk-btn-contact { padding: 14px 40px; font-size: 14px; }
+  .jk-marquee { padding: 128px 0 40px; }
+  .jk-about { padding: 80px 32px; gap: 56px; }
+  .jk-decor--tl, .jk-decor--tr { width: 160px; }
+  .jk-decor--bl { width: 140px; }
+  .jk-decor--br { width: 170px; }
+  .jk-services { border-radius: 50px 50px 0 0; padding: 96px 32px; }
+  .jk-projects { border-radius: 50px 50px 0 0; margin-top: -48px; padding: 80px 24px 0; }
+  .jk-proj { border-radius: 50px; padding: 24px; }
+  .jk-proj img { border-radius: 50px; }
+}
+
+@media (min-width: 768px) {
+  .jk-nav { font-size: 1.4rem; }
+  .jk-hero__head { font-size: 16vw; margin-top: -20px; }
+  .jk-hero__lede { max-width: 260px; }
+  .jk-hero__portrait { width: 440px; }
+  .jk-hero__bottom { padding: 0 40px 40px; }
+  .jk .jk-btn-contact { padding: 16px 48px; font-size: 16px; }
+  .jk-marquee { padding: 160px 0 40px; }
+  .jk-about { gap: 64px; }
+  .jk-decor--tl, .jk-decor--tr { width: 210px; }
+  .jk-decor--bl { width: 180px; }
+  .jk-decor--br { width: 220px; }
+  .jk-decor--tl, .jk-decor--tr { left: auto; }
+  .jk-decor--tl { left: 4%; }
+  .jk-decor--tr { right: 4%; }
+  .jk-decor--bl { left: 10%; }
+  .jk-decor--br { right: 10%; }
+  .jk-services { border-radius: 60px 60px 0 0; padding: 128px 40px; }
+  .jk-service { padding: 48px 0; }
+  .jk-projects { border-radius: 60px 60px 0 0; margin-top: -56px; }
+  .jk-proj { top: 128px; border-radius: 60px; padding: 32px; }
+  .jk-proj img { border-radius: 60px; }
+}
+
+@media (min-width: 1024px) {
+  .jk-hero__head { font-size: 17.5vw; }
+  .jk-hero__portrait { width: 520px; }
+}
+
+/* Scroll-linked motion is the whole point of this template, but honour a
+   reduced-motion request by pinning the stack instead of scaling it. */
+@media (prefers-reduced-motion: reduce) {
+  .jk-proj__slot { height: auto; margin-bottom: 24px; }
+  .jk-proj { position: static; transform: none !important; }
+  .jk-marquee__row { transform: none !important; }
+}

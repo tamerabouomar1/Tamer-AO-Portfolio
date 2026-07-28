@@ -1,5 +1,5 @@
 import { useEffect } from "react";
-import { Routes, Route, useLocation } from "react-router-dom";
+import { Routes, Route, useLocation, matchPath } from "react-router-dom";
 import { AnimatePresence } from "framer-motion";
 
 import VideoBackground from "./components/VideoBackground";
@@ -10,6 +10,8 @@ import { preloadAllImages } from "./lib/preloadImages";
 import Home from "./pages/Home";
 import Projects from "./pages/Projects";
 import Websites from "./pages/Websites";
+import Templates from "./pages/Templates";
+import TemplatePreview from "./pages/TemplatePreview";
 import Media from "./pages/Media";
 import About from "./pages/About";
 import Fitness from "./pages/Fitness";
@@ -26,11 +28,28 @@ function ScrollToTop() {
 export default function App() {
   const location = useLocation();
 
+  // A template preview takes over the whole screen: no sidebar, no tab bar
+  // and no video background, so the site being previewed is seen exactly as
+  // its own visitors would see it.
+  const isPreview = !!matchPath("/templates/:slug", location.pathname);
+
   // Warm every project image into cache once the page is idle, so popups
-  // and page switches open instantly.
+  // and page switches open instantly. Skipped inside a preview — that route
+  // has its own images to fetch and shouldn't compete with them.
   useEffect(() => {
-    preloadAllImages();
-  }, []);
+    if (!isPreview) preloadAllImages();
+  }, [isPreview]);
+
+  if (isPreview) {
+    return (
+      <>
+        <ScrollToTop />
+        <Routes location={location}>
+          <Route path="/templates/:slug" element={<TemplatePreview />} />
+        </Routes>
+      </>
+    );
+  }
 
   return (
     <>
@@ -43,6 +62,7 @@ export default function App() {
             <Route path="/" element={<Home />} />
             <Route path="/projects" element={<Projects />} />
             <Route path="/websites" element={<Websites />} />
+            <Route path="/templates" element={<Templates />} />
             <Route path="/media" element={<Media />} />
             <Route path="/about" element={<About />} />
             <Route path="/fitness" element={<Fitness />} />

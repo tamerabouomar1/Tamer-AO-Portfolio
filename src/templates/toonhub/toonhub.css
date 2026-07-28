@@ -1,0 +1,165 @@
+/* TOONHUB — Figurines. Scoped under .th. */
+
+.th {
+  position: relative;
+  width: 100%;
+  overflow: hidden;
+  font-family: "Inter", system-ui, sans-serif;
+  transition: background-color 650ms cubic-bezier(0.4, 0, 0.2, 1);
+}
+.th * { box-sizing: border-box; }
+.th p { margin: 0; }
+.th a { text-decoration: none; }
+
+.th-stage {
+  position: relative;
+  width: 100%;
+  height: 100svh;
+  min-height: 520px;
+  overflow: hidden;
+}
+
+.th-grain {
+  position: absolute;
+  inset: 0;
+  z-index: 50;
+  pointer-events: none;
+  opacity: 0.4;
+  background-size: 200px 200px;
+  background-repeat: repeat;
+}
+
+/* the oversized word the figurines stand in front of */
+.th-ghost {
+  position: absolute;
+  top: 18%;
+  left: 0;
+  right: 0;
+  z-index: 2;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  pointer-events: none;
+  user-select: none;
+  font-family: "Anton", system-ui, sans-serif;
+  font-size: clamp(90px, 28vw, 380px);
+  font-weight: 900;
+  color: #fff;
+  line-height: 1;
+  text-transform: uppercase;
+  letter-spacing: -0.02em;
+  white-space: nowrap;
+}
+
+.th-brand {
+  position: absolute;
+  top: 24px;
+  left: 16px;
+  z-index: 60;
+  font-size: 12px;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.18em;
+  color: #fff;
+  opacity: 0.9;
+}
+
+.th-carousel { position: absolute; inset: 0; z-index: 3; }
+
+.th-item {
+  position: absolute;
+  aspect-ratio: 0.6 / 1;
+  will-change: transform, filter, opacity;
+  transition:
+    transform 650ms cubic-bezier(0.4, 0, 0.2, 1),
+    filter 650ms cubic-bezier(0.4, 0, 0.2, 1),
+    opacity 650ms cubic-bezier(0.4, 0, 0.2, 1),
+    left 650ms cubic-bezier(0.4, 0, 0.2, 1),
+    bottom 650ms cubic-bezier(0.4, 0, 0.2, 1),
+    height 650ms cubic-bezier(0.4, 0, 0.2, 1);
+}
+.th-item img {
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+  object-position: bottom center;
+  display: block;
+}
+
+/* ── bottom-left copy + controls ──────────────────────────── */
+.th-bl {
+  position: absolute;
+  bottom: 24px;
+  left: 16px;
+  z-index: 60;
+  max-width: 320px;
+  color: #fff;
+}
+.th-bl__title {
+  font-size: 16px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.02em;
+  opacity: 0.95;
+  margin-bottom: 8px;
+}
+.th-bl__copy {
+  display: none;
+  font-size: 14px;
+  line-height: 1.6;
+  opacity: 0.85;
+  margin-bottom: 20px;
+}
+.th-bl__nav { display: flex; gap: 12px; }
+.th-bl__nav button {
+  width: 48px;
+  height: 48px;
+  display: grid;
+  place-items: center;
+  border-radius: 50%;
+  background: transparent;
+  border: 2px solid #fff;
+  color: #fff;
+  cursor: pointer;
+  padding: 0;
+  transition: transform 150ms ease, background-color 150ms ease;
+}
+.th-bl__nav button:hover { transform: scale(1.08); background: rgba(255, 255, 255, 0.12); }
+.th-bl__nav svg { width: 26px; height: 26px; }
+
+/* ── bottom-right link ────────────────────────────────────── */
+.th-discover {
+  position: absolute;
+  bottom: 24px;
+  right: 16px;
+  z-index: 60;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-family: "Anton", system-ui, sans-serif;
+  font-size: clamp(20px, 4vw, 56px);
+  font-weight: 400;
+  color: #fff;
+  opacity: 0.95;
+  line-height: 1;
+  letter-spacing: -0.02em;
+  text-transform: uppercase;
+  transition: opacity 200ms ease;
+}
+.th-discover:hover { opacity: 1; }
+.th-discover svg { width: 20px; height: 20px; }
+
+/* ── responsive ───────────────────────────────────────────── */
+@media (min-width: 640px) {
+  .th-brand { left: 32px; }
+  .th-bl { bottom: 80px; left: 96px; }
+  .th-bl__title { font-size: 22px; margin-bottom: 12px; }
+  .th-bl__copy { display: block; }
+  .th-bl__nav button { width: 64px; height: 64px; }
+  .th-discover { bottom: 80px; right: 40px; }
+  .th-discover svg { width: 32px; height: 32px; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .th, .th-item { transition-duration: 1ms !important; }
+}

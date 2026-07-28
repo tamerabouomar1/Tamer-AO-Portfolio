@@ -1,0 +1,354 @@
+/* Viktor Oddy — Creative Studio. Scoped under .od. */
+
+@font-face {
+  font-family: "PP Neue Montreal";
+  src: url("https://assets.website-files.com/6009ec8cda7f305645c9d91b/60176f9bb43e36419997ecfe_PPNeueMontreal-Book.otf") format("opentype");
+  font-weight: 400;
+  font-display: swap;
+}
+@font-face {
+  font-family: "PP Neue Montreal";
+  src: url("https://assets.website-files.com/6009ec8cda7f305645c9d91b/60176f9b39c5673e51a86f5a_PPNeueMontreal-Medium.otf") format("opentype");
+  font-weight: 500;
+  font-display: swap;
+}
+/* PP Mondwest is licensed and has no free CDN. Drop the file into /public
+   and this picks it up; until then .od-serif uses the fallback stack below. */
+@font-face {
+  font-family: "PP Mondwest";
+  src: url("/PPMondwest-Regular.woff2") format("woff2");
+  font-weight: 400;
+  font-display: swap;
+}
+
+.od {
+  --od-dark: #051a24;
+  --od-dark2: #0d212c;
+  --od-muted: #273c46;
+  --od-light: #f6fcff;
+  --od-light2: #e0ebf0;
+  --od-card: 427.5px;
+  --od-shadow-primary:
+    0 1px 2px 0 rgba(5, 26, 36, 0.1),
+    0 4px 4px 0 rgba(5, 26, 36, 0.09),
+    0 9px 6px 0 rgba(5, 26, 36, 0.05),
+    0 17px 7px 0 rgba(5, 26, 36, 0.01),
+    inset 0 2px 8px 0 rgba(255, 255, 255, 0.5);
+  --od-shadow-secondary: 0 0 0 0.5px rgba(0, 0, 0, 0.05), 0 4px 30px rgba(0, 0, 0, 0.08);
+
+  background: #fff;
+  color: var(--od-dark);
+  font-family: "PP Neue Montreal", system-ui, -apple-system, sans-serif;
+  -webkit-font-smoothing: antialiased;
+  padding-bottom: 96px;
+  overflow-x: hidden;
+}
+
+.od * { box-sizing: border-box; }
+.od img { display: block; max-width: 100%; }
+.od a { color: inherit; text-decoration: none; }
+.od h1, .od h2, .od h3, .od p { margin: 0; }
+.od ul { margin: 0; padding: 0; list-style: none; }
+
+.od-serif { font-family: "PP Mondwest", "Iowan Old Style", Georgia, "Times New Roman", serif; }
+.od-mono { font-family: ui-monospace, SFMono-Regular, Menlo, monospace; font-size: 12px; }
+
+/* shared big-heading scale used by the hero, the quote and the carousel */
+.od-h1 {
+  font-size: 32px;
+  line-height: 1.1;
+  letter-spacing: -0.02em;
+  color: var(--od-dark2);
+  font-weight: 400;
+}
+
+/* ── reveal animation ─────────────────────────────────────── */
+@keyframes od-fade-in-up {
+  from { opacity: 0; transform: translateY(30px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+.od-out { opacity: 0; }
+.od-in { animation: od-fade-in-up 0.8s ease-out forwards; opacity: 0; }
+@media (prefers-reduced-motion: reduce) {
+  .od-out, .od-in { opacity: 1; animation: none; }
+}
+
+/* ── buttons ──────────────────────────────────────────────── */
+.od-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  padding: 12px 28px;
+  border-radius: 999px;
+  font-size: 15px;
+  font-weight: 500;
+  white-space: nowrap;
+  transition: transform 0.3s ease;
+}
+.od-btn:hover { transform: translateY(-2px); }
+/* Scoped with .od so these outrank `.od a { color: inherit }` — otherwise a
+   button inherits its section's text colour and vanishes into its own fill. */
+.od .od-btn--primary { background: var(--od-dark); color: #fff; box-shadow: var(--od-shadow-primary); }
+.od .od-btn--secondary { background: #fff; color: var(--od-dark); box-shadow: var(--od-shadow-secondary); }
+.od .od-btn--tertiary {
+  background: #fff;
+  color: var(--od-dark);
+  box-shadow: var(--od-shadow-secondary), var(--od-shadow-primary);
+}
+.od .od-price--dark .od-btn--secondary { background: rgba(255, 255, 255, 0.1); color: var(--od-light); box-shadow: none; }
+
+/* ── hero ─────────────────────────────────────────────────── */
+.od-hero {
+  max-width: 440px;
+  margin: 0 auto;
+  padding: 48px 24px 0;
+}
+.od-logo { font-size: 32px; font-weight: 600; letter-spacing: -0.02em; margin-bottom: 16px; }
+.od-hero .od-mono { margin-bottom: 8px; }
+.od-hero .od-h1 { white-space: nowrap; }
+.od-hero__copy { display: flex; flex-direction: column; gap: 24px; margin-top: 20px; }
+.od-hero__copy p { font-size: 14px; line-height: 1.65; }
+.od-hero__cta { display: flex; flex-direction: column; gap: 12px; margin-top: 20px; align-items: flex-start; }
+
+/* ── marquee ──────────────────────────────────────────────── */
+.od-marquee { margin: 64px 0; overflow: hidden; }
+.od-marquee__track {
+  display: flex;
+  width: max-content;
+  animation: od-marquee 10s linear infinite;
+}
+.od-marquee__track img {
+  height: 280px;
+  margin: 0 12px;
+  border-radius: 16px;
+  object-fit: cover;
+  box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1);
+  background: #eef2f4;
+}
+@keyframes od-marquee {
+  from { transform: translateX(0); }
+  to { transform: translateX(-50%); }
+}
+@media (prefers-reduced-motion: reduce) {
+  .od-marquee__track { animation: none; }
+}
+
+/* ── quote ────────────────────────────────────────────────── */
+.od-quote {
+  max-width: 42rem;
+  margin: 0 auto;
+  padding: 48px 24px;
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+.od-qmark { width: 24px; height: 24px; color: var(--od-dark2); }
+.od-quote__author { font-style: italic; font-size: 14px; color: var(--od-muted); }
+.od-logos { display: flex; gap: 24px; flex-wrap: wrap; align-items: baseline; margin-top: 8px; }
+.od-logos span { font-size: 24px; font-weight: 500; color: var(--od-dark2); }
+
+.od-parallax { width: 100%; max-width: 20rem; border-radius: 16px; overflow: hidden; box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1); margin-top: 16px; }
+.od-parallax img { width: 100%; will-change: transform; }
+
+/* ── pricing ──────────────────────────────────────────────── */
+.od-pricing { padding: 48px 24px; }
+.od-pricing__grid { display: grid; grid-template-columns: 1fr; gap: 32px; }
+.od-price {
+  border-radius: 40px;
+  padding: 40px 40px 40px;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+.od-price h3 { font-size: 22px; font-weight: 500; }
+.od-price__desc { font-size: 15px; line-height: 1.6; }
+.od-price__amount { font-size: 24px; font-weight: 500; margin-top: 12px; }
+.od-price__period { font-size: 14px; opacity: 0.75; }
+.od-price__cta { display: flex; flex-wrap: wrap; gap: 12px; margin-top: 20px; }
+.od-price--dark {
+  background: var(--od-dark);
+  color: var(--od-light);
+  box-shadow: inset 0 2px 20px rgba(255, 255, 255, 0.08);
+}
+.od-price--dark .od-price__desc { color: var(--od-light2); }
+.od-price--light { background: #fff; box-shadow: 0 4px 16px rgba(0, 0, 0, 0.08); }
+.od-price--light .od-price__amount { color: var(--od-dark2); }
+
+/* ── testimonial carousel ─────────────────────────────────── */
+.od-carousel { padding: 80px 0; }
+.od-carousel__head {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px;
+  padding: 0 24px;
+  margin-bottom: 32px;
+}
+.od-clutch { display: flex; align-items: center; gap: 10px; font-size: 15px; }
+.od-stars { display: inline-flex; gap: 2px; color: #000; }
+.od-stars svg { width: 20px; height: 20px; }
+
+.od-carousel__viewport { overflow: hidden; padding: 0 24px; }
+.od-carousel__track {
+  display: flex;
+  gap: 24px;
+  transition: transform 0.8s cubic-bezier(0.4, 0, 0.2, 1);
+}
+.od-tcard {
+  flex: none;
+  width: var(--od-card);
+  max-width: calc(100vw - 48px);
+  background: #fff;
+  border-radius: 32px;
+  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.08);
+  padding: 32px 24px;
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+.od-tcard__quote { font-size: 16px; line-height: 1.65; color: var(--od-dark2); flex: 1; }
+.od-tcard__who { display: flex; align-items: center; gap: 12px; }
+.od-tcard__who img { width: 48px; height: 48px; border-radius: 50%; object-fit: cover; background: #eef2f4; }
+.od-tcard__name { font-size: 14px; font-weight: 600; }
+.od-tcard__role { font-size: 13px; color: var(--od-muted); }
+
+.od-carousel__nav { display: flex; gap: 12px; padding: 24px 24px 0; }
+.od-carousel__nav button {
+  width: 48px;
+  height: 48px;
+  border-radius: 50%;
+  border: 1px solid rgba(13, 33, 44, 0.2);
+  background: #fff;
+  color: var(--od-dark2);
+  font-size: 24px;
+  line-height: 1;
+  cursor: pointer;
+  transition: background 0.2s ease;
+}
+.od-carousel__nav button:hover { background: #f2f6f8; }
+
+/* ── projects ─────────────────────────────────────────────── */
+.od-projects {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 48px 24px;
+  display: flex;
+  flex-direction: column;
+  gap: 64px;
+}
+.od-project__text { margin-left: 80px; margin-bottom: 16px; }
+.od-project__text h3 { font-size: 24px; font-weight: 600; }
+.od-project__text p { font-size: 14px; color: rgba(5, 26, 36, 0.7); margin-top: 4px; }
+.od-project img {
+  width: 100%;
+  border-radius: 16px;
+  object-fit: cover;
+  box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1);
+  background: #eef2f4;
+}
+
+/* ── partner ──────────────────────────────────────────────── */
+.od-partner {
+  position: relative;
+  overflow: hidden;
+  max-width: 80rem;
+  margin: 48px auto;
+  padding: 160px 24px;
+  border-radius: 40px;
+  background: #fff;
+  box-shadow: var(--od-shadow-secondary);
+  text-align: center;
+}
+.od-partner__head { font-size: 48px; color: var(--od-dark2); margin-bottom: 48px; }
+.od-partner__cta { position: relative; z-index: 2; padding: 10px 24px 10px 10px; }
+.od-partner__cta img { width: 40px; height: 40px; border-radius: 50%; object-fit: cover; }
+
+@keyframes od-drip {
+  from { opacity: 0.85; transform: translate(-50%, -50%) rotate(var(--od-rot)) scale(1); }
+  to { opacity: 0; transform: translate(-50%, -50%) rotate(var(--od-rot)) scale(0.6); }
+}
+.od-partner__drip {
+  position: absolute;
+  z-index: 1;
+  width: 130px;
+  border-radius: 12px;
+  pointer-events: none;
+  animation: od-drip 1000ms ease-out forwards;
+}
+@media (prefers-reduced-motion: reduce) {
+  .od-partner__drip { display: none; }
+}
+
+/* ── footer ───────────────────────────────────────────────── */
+.od-footer {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 48px 24px;
+  display: flex;
+  flex-direction: column;
+  gap: 32px;
+  justify-content: space-between;
+}
+.od-footer__links { display: flex; gap: 40px; align-items: flex-start; }
+.od-arrow { width: 22px; height: 22px; flex: none; }
+.od-footer__links ul { display: flex; flex-direction: column; gap: 10px; }
+.od-footer__links a { font-size: 16px; transition: opacity 0.2s ease; }
+.od-footer__links a:hover { opacity: 0.7; }
+
+.od-copyright {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 16px 24px;
+  display: flex;
+  justify-content: space-between;
+  font-size: 14px;
+}
+
+/* ── floating bottom nav ──────────────────────────────────── */
+.od-bottomnav {
+  position: fixed;
+  z-index: 50;
+  bottom: 24px;
+  left: 50%;
+  transform: translateX(-50%);
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  background: #fff;
+  border-radius: 999px;
+  padding: 8px 8px 8px 28px;
+  box-shadow: var(--od-shadow-secondary), 0 12px 40px rgba(5, 26, 36, 0.16);
+}
+.od-bottomnav__mark { font-size: 24px; font-weight: 600; color: var(--od-dark); }
+
+/* ── responsive ───────────────────────────────────────────── */
+@media (min-width: 768px) {
+  .od-h1 { font-size: 40px; }
+  .od-hero { padding-top: 64px; }
+  .od-logo { font-size: 40px; }
+  .od-hero .od-mono { font-size: 14px; }
+  .od-hero__copy p { font-size: 16px; }
+  .od-hero__cta { flex-direction: row; gap: 16px; }
+  .od-marquee__track { animation-duration: 30s; }
+  .od-marquee__track img { height: 500px; }
+  .od-pricing__grid {
+    grid-template-columns: 1fr 1fr;
+    max-width: 56rem;
+    margin-left: auto;
+  }
+  .od-price { padding-right: 96px; }
+  .od-carousel__head { max-width: 56rem; margin-left: auto; }
+  .od-tcard { border-radius: 40px; padding: 32px 96px 32px 40px; }
+  .od-project__text { margin-left: 112px; }
+  .od-project__text h3 { font-size: 30px; }
+  .od-project__text p { font-size: 16px; }
+  .od-partner__head { font-size: 64px; }
+  .od-footer { flex-direction: row; align-items: flex-start; }
+}
+
+@media (min-width: 1024px) {
+  .od-h1 { font-size: 44px; }
+  .od-logo { font-size: 44px; }
+  .od-partner__head { font-size: 80px; }
+}

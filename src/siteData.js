@@ -389,6 +389,128 @@ export const WEBSITES = [
   },
 ];
 
+// ── Website Store ─────────────────────────────────────────────
+// Ready-made websites sold as packages. Every template has a LIVE preview
+// at /templates/:slug (its own lazy-loaded chunk — none of this code is in
+// the portfolio's main bundle) and is bought through the package modal.
+//
+// EDITING: prices, features and copy are all here. `accent`/`bg`/`ink` drive
+// the store card's zero-weight CSS mockup, so a new template needs no image.
+// `media` is the animated preview, and it is ONLY fetched on hover/tap.
+export const TEMPLATES = [
+  {
+    slug: "jack",
+    name: "Jack",
+    kicker: "3D Creator",
+    tag: "Portfolio",
+    price: 149,
+    desc: "A full-length dark portfolio for 3D artists, motion designers and studios. Scroll-driven marquees, magnetic hero portrait and stacking project cards.",
+    highlights: ["5 sections", "Scroll-linked marquee", "Sticky project stack", "Fully responsive"],
+    bestFor: "3D artists · Motion designers · Studios",
+    stack: "React · Framer Motion",
+    accent: "#BBCCD7",
+    bg: "#0C0C0C",
+    ink: "#D7E2EA",
+    mockup: "jack",
+    media: "https://motionsites.ai/assets/hero-stellar-ai-v2-preview-DjvxjG3C.gif",
+  },
+  {
+    slug: "vex",
+    name: "VEX",
+    kicker: "Ventures",
+    tag: "Landing page",
+    price: 129,
+    desc: "A cinematic single-screen landing page built on full-bleed video, liquid-glass UI and a typewriter headline. Made to convert the first scroll.",
+    highlights: ["Full-screen video hero", "Liquid-glass navbar", "Character entrance animation", "One-screen, zero scroll"],
+    bestFor: "VC funds · Agencies · Startups",
+    stack: "React · CSS",
+    accent: "#ffffff",
+    bg: "#0a0a0a",
+    ink: "#ffffff",
+    mockup: "vex",
+    video: "https://d8j0ntlcm91z4.cloudfront.net/user_38xzZboKViGWJOttwIXH07lWA1P/hf_20260403_050628_c4e32401-fab4-4a27-b7a8-6e9291cd5959.mp4",
+  },
+  {
+    slug: "toonhub",
+    name: "TOONHUB",
+    kicker: "Figurines",
+    tag: "Product showcase",
+    price: 119,
+    desc: "A colour-shifting product carousel where the whole page changes palette with the item on screen. Built for collectibles, drops and character work.",
+    highlights: ["Colour-morphing carousel", "Depth-blurred stage", "Grain overlay", "Touch + arrow controls"],
+    bestFor: "Collectibles · Toy brands · Drops",
+    stack: "React · CSS",
+    accent: "#F4845F",
+    bg: "#F4845F",
+    ink: "#ffffff",
+    mockup: "toonhub",
+    media: "https://fifth-gentle-45902158.figma.site/_components/v2/4de492f6d9cf8244ad5293233e5c6f52407d42fc/1.02464a56.png",
+  },
+  {
+    slug: "oddy",
+    name: "Viktor Oddy",
+    kicker: "Creative Studio",
+    tag: "Studio site",
+    price: 169,
+    desc: "The complete studio site: hero, marquee, testimonials, pricing, project showcase and an interactive partner section. Everything a solo studio needs to sell.",
+    highlights: ["10 sections", "Pricing + testimonials", "Auto-scrolling carousel", "Mouse-trail CTA"],
+    bestFor: "Design studios · Freelancers · Consultants",
+    stack: "React · CSS",
+    accent: "#051A24",
+    bg: "#ffffff",
+    ink: "#051A24",
+    mockup: "oddy",
+    media: "https://motionsites.ai/assets/hero-velorah-preview-CJNTtbpd.gif",
+  },
+];
+
+// The three ways to buy any template above. `add` is added to the template's
+// own price; `from` means the tier is quoted, not fixed.
+export const TEMPLATE_PACKAGES = [
+  {
+    id: "source",
+    name: "Source Files",
+    tagline: "You host it, you own it",
+    add: 0,
+    features: [
+      "Full React source code",
+      "All assets & fonts wired up",
+      "One-project license",
+      "Deploy guide (Netlify / Vercel)",
+    ],
+  },
+  {
+    id: "setup",
+    name: "Done For You",
+    tagline: "Live on your domain this week",
+    add: 200,
+    featured: true,
+    save: "Most popular",
+    features: [
+      "Everything in Source Files",
+      "Your copy, photos & branding applied",
+      "Deployed on your domain + SSL",
+      "Contact form or booking hooked up",
+      "1 round of revisions",
+    ],
+    bonus: "Free logo animation for your hero",
+  },
+  {
+    id: "custom",
+    name: "Custom Build",
+    tagline: "Start here, go anywhere",
+    from: 600,
+    features: [
+      "Template as the design starting point",
+      "Redesigned around your brand",
+      "Extra pages, shop or booking system",
+      "Performance & SEO pass",
+      "30 days of post-launch support",
+    ],
+    bonus: "Free 30-minute strategy call first",
+  },
+];
+
 // Weekly class schedule (Fitness page).
 export const SCHEDULE = [
   { day: "MON", classes: ["S&C"] },
