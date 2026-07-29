@@ -63,7 +63,7 @@ export default function TemplatePreview() {
           <em>Live preview</em>
         </span>
         <button className="tplview__buy" onClick={() => setBuying(tpl)}>
-          Buy — from ${tpl.price}
+          Buy from ${tpl.price}
         </button>
         <button
           className="tplview__hide"

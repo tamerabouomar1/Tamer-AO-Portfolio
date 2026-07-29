@@ -84,7 +84,7 @@ export default function LedgerSite() {
           relationships.
         </h1>
         <p className="lg-sub">
-          Conversational AI platform for modern financial institutions — agents that
+          Conversational AI platform for modern financial institutions. Agents that
           handle the full borrower lifecycle across email, SMS, and voice.
         </p>
         <a className="lg-btn lg-btn--lg" href="#demo">

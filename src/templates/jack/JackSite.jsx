@@ -43,7 +43,7 @@ const DECOR = `${FIGMA}/ebb2b8f25d8e24d5f0a5ca8af4c950de81aa2fd7`;
 const PORTRAIT = `${FIGMA}/d24c01ad3a56fc65e942a1f501eb73db42d7cf9a/Rectangle_40443.81459862.png`;
 
 const SERVICES = [
-  ["01", "Brand Identity", "Full visual identities — logo, type, colour and the rules that hold them together — built so a brand looks like itself everywhere it shows up."],
+  ["01", "Brand Identity", "Full visual identities. Logo, type, colour and the rules that hold them together, built so a brand looks like itself everywhere it shows up."],
   ["02", "Logo & Motion", "Marks designed to work small, flat and moving, finished with a logo animation that gives the brand a signature on screen."],
   ["03", "Apparel Design", "Rashguards, fight kits and tees taken from concept to print-ready artwork, delivered ready for the manufacturer."],
   ["04", "Company Profiles", "Editorial, multi-page profiles and catalogues that make a company read as established, credible and worth talking to."],
@@ -297,7 +297,7 @@ function About() {
         <h2 className="jk-gradient jk-about__head">About me</h2>
       </FadeIn>
 
-      <AnimatedText text="I'm Tamer Abou Omar, a graphic designer based in Beirut. I build brand identities, logos, logo motion, apparel and websites — static or moving, digital or physical. I enjoy working with people who want their brand to look like it means business. Let's build something worth looking at." />
+      <AnimatedText text="I'm Tamer Abou Omar, a graphic designer based in Beirut. I build brand identities, logos, logo motion, apparel and websites, static or moving, digital or physical. I enjoy working with people who want their brand to look like it means business. Let's build something worth looking at." />
 
       <ContactButton />
     </section>

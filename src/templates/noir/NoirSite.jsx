@@ -127,7 +127,7 @@ export default function NoirSite() {
         </div>
 
         <p className="nr-note nr-note--right">
-          Describe what you see in your head — get images that actually match.
+          Describe what you see in your head, and get images that actually match.
         </p>
       </div>
     </div>

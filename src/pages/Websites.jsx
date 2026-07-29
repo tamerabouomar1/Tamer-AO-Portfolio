@@ -81,30 +81,34 @@ export default function Websites() {
       {/* ── Ready-made sites ─────────────────────────────────── */}
       <section className="proj-section" id="store">
         <div className="storehead">
-          <span className="storehead__flag">Ready to buy</span>
+          <span className="storehead__flag">Built with AI</span>
           <h3 className="storehead__title">
-            Skip the six-week build.
+            High-end websites,
             <br />
-            <span className="storehead__accent">Launch this week instead.</span>
+            <span className="storehead__accent">built in days, not months.</span>
           </h3>
           <p className="storehead__lede">
-            Four websites, already designed and already built. What you see in each card
-            below is the site itself running — not a screenshot. Open it, scroll it, break
-            it if you like. When one fits, it&apos;s yours from ${from}.
+            {TEMPLATES.length} premium sites, designed and built with AI and finished by
+            hand. That is how work at this level costs hundreds instead of thousands.
+            What you see in each card below is the site itself running, not a screenshot.
+            Open it, scroll it, break it if you like. When one fits, it&apos;s yours from
+            ${from}.
           </p>
 
           <ul className="storeprops">
             <li>
+              <strong>AI speed, designer&apos;s eye</strong>
+              AI does the heavy lifting. Every layout, colour and line of type is still
+              judged by a designer before it ships.
+            </li>
+            <li>
               <strong>Live in days</strong>
-              Your words and photos in, deployed on your domain — not next quarter.
+              Your words and photos in, deployed on your domain, not next quarter.
             </li>
             <li>
               <strong>Yours to keep</strong>
-              Full source code and a one-project licence. No monthly platform rent.
-            </li>
-            <li>
-              <strong>Hand-built</strong>
-              Real React, not a page builder. Fast on a phone, and it stays that way.
+              Real React you own outright, not rented page-builder output. Fast on a
+              phone, and it stays that way.
             </li>
           </ul>
 
@@ -138,7 +142,7 @@ export default function Websites() {
                   <div>
                     <span className="web-card__tag">{t.tag}</span>
                     <h4 className="web-card__title">
-                      {t.name} <span className="tpl-card__kicker">— {t.kicker}</span>
+                      {t.name} <span className="tpl-card__kicker">{t.kicker}</span>
                     </h4>
                   </div>
                   <div className="tpl-card__price">
@@ -231,7 +235,7 @@ export default function Websites() {
           ))}
         </div>
         <p className="price-note">
-          Want something that isn&apos;t here? I build custom sites from scratch too —{" "}
+          Want something that isn&apos;t here? I build custom sites from scratch too.{" "}
           <Link className="link" to="/work-with-me">
             see how we&apos;d work together <span className="plus">+</span>
           </Link>
@@ -278,7 +282,7 @@ export default function Websites() {
                   <iframe
                     className="weblb__live-frame"
                     src={active.demo}
-                    title={`${active.name} — live site`}
+                    title={`${active.name} live site`}
                     onLoad={() => setSiteReady(true)}
                   />
                 </>

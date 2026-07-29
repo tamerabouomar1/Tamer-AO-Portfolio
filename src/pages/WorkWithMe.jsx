@@ -122,7 +122,7 @@ export default function WorkWithMe() {
       <section className="proj-section">
         <h3 className="proj-section__title">Social media</h3>
         <p className="page-lead" style={{ marginTop: "-4px" }}>
-          Reels are what actually reach people — mine pull 200K+ views a month. Every plan
+          Reels are what actually reach people. Mine pull 200K+ views a month, and every plan
           is built reels-first to get you seen.
         </p>
         <motion.div

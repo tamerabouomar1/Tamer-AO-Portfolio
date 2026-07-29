@@ -36,14 +36,14 @@ export default function BuyModal({ template, onClose }) {
   const price = priceOf(template, pkg);
 
   const message =
-    `Hi Tamer — I'd like the "${template.name}" website template.\n` +
+    `Hi Tamer, I'd like the "${template.name}" website template.\n` +
     `Package: ${pkg.name} (${price.label})\n\n` +
     `Here's a bit about my business: `;
 
   const wa = `https://wa.me/${waNumber}?text=${encodeURIComponent(message)}`;
   const mail =
     `mailto:${CONTACT.email}` +
-    `?subject=${encodeURIComponent(`${template.name} template — ${pkg.name}`)}` +
+    `?subject=${encodeURIComponent(`${template.name} template: ${pkg.name}`)}` +
     `&body=${encodeURIComponent(message)}`;
 
   return (
@@ -114,7 +114,7 @@ export default function BuyModal({ template, onClose }) {
 
         <div className="buy__actions">
           <a className="btn-book buy-go" href={wa} target="_blank" rel="noreferrer noopener">
-            {pkg.from ? `Get a quote — ${price.label}` : `Buy on WhatsApp — ${price.label}`}
+            {pkg.from ? `Get a quote, ${price.label}` : `Buy on WhatsApp for ${price.label}`}
           </a>
           <a className="btn-book buy-alt" href={mail}>
             Email instead

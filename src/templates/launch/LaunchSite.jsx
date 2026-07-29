@@ -70,7 +70,7 @@ export default function LaunchSite() {
         <p className="ax-sub">
           Eliminate your tedious browser work and 10x your team&apos;s capacity. Put
           intelligent agents on every routine process so you grow faster and deliver
-          more for clients — effortlessly.
+          more for clients, effortlessly.
         </p>
 
         <a className="ax-cta" href="#access">

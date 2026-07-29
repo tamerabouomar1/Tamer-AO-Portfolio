@@ -183,7 +183,7 @@ function Hero() {
       </Reveal>
       <Reveal delay={0.4} className="od-hero__copy">
         <p>
-          A small studio built around brand and product design — identity systems,
+          A small studio built around brand and product design: identity systems,
           websites and the launch material that carries them, made for teams shaping
           something new.
         </p>

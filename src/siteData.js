@@ -201,7 +201,7 @@ export const PROJECT_GROUPS = [
             desc: "A company profile for FabricAid, the social enterprise working on clothing waste and accessibility. The layout carries their mission, programs and reach in a clear, impact-driven tone.",
           },
           {
-            label: "Company Profile — Arabic",
+            label: "Company Profile (Arabic)",
             images: imgs("fabricaid-ar", 8),
             desc: "The Arabic edition of the FabricAid company profile: the full eight-page document rebuilt right-to-left, with the type, grid and photography reset around Arabic rather than poured into the English layout.",
           },
