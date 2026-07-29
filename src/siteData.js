@@ -182,7 +182,7 @@ export const PROJECT_GROUPS = [
       {
         name: "Contracts Design Company Profile",
         tag: "Corporate",
-        images: imgs("contracts", 5),
+        images: imgs("contracts", 14),
         desc: "A company profile and logo system for Contracts Design, with clean, confident corporate layouts across the cover, services and team.",
       },
       {
@@ -226,7 +226,7 @@ export const PROJECT_GROUPS = [
       {
         name: "Contracts Design",
         tag: "Logo",
-        images: pick("contracts-5"),
+        images: pick("contracts-logo"),
         desc: "The Contracts Design logo: a refined CD monogram in serif type, built for an engineering design firm.",
       },
       {
@@ -322,20 +322,58 @@ export const PROJECT_GROUPS = [
       {
         name: "Environmental",
         tag: "Awareness campaign",
-        images: imgs("environmental", 2),
-        desc: "An environmental awareness campaign, with flyer and certificate design.",
+        images: [...imgs("environmental", 2), ...pick("notebook-1")],
+        desc: "An environmental awareness campaign: the flyer, the certificate and the notebook cover that carried the same identity across print.",
       },
       {
         name: "RFACE Brochure",
         tag: "Brochure",
-        images: imgs("reface", 2),
+        images: imgs("reface", 1),
         desc: "Brochure design built on a structured, photography-led layout system.",
       },
+    ],
+  },
+  {
+    // Coursework from the AUB graphic design degree. Kept as its own group at
+    // the end so it reads as academic work rather than sitting alongside paid
+    // client projects.
+    title: "University",
+    items: [
       {
-        name: "Notebook Cover",
-        tag: "Print",
-        images: imgs("notebook", 1),
-        desc: "Notebook cover design.",
+        name: "Experimental Typography",
+        tag: "Type 2 · poster series",
+        images: imgs("uni-type", 3),
+        desc: "A three-poster series building letterforms out of real objects: skipping ropes, mats and sparring gear photographed and composed into type. The subject and the material are the same thing.",
+      },
+      {
+        name: "Illustration",
+        tag: "Illustration · editorial & book",
+        images: imgs("uni-illus", 3),
+        desc: "Illustration work across a Dead Poets Society editorial piece, a children's book spread, and a bound collection of the term's drawing.",
+      },
+      {
+        name: "Interaction Pitch Deck",
+        tag: "Interaction design · 18 slides",
+        images: imgs("uni-pitch", 18),
+        desc: "An eighteen-slide pitch deck for an interaction design concept, taking it from the problem through to the interface and the case for building it.",
+      },
+      {
+        name: "Visual Theory",
+        tag: "Publication",
+        images: imgs("uni-vt", 5),
+        desc: "A short publication produced for visual theory, where the argument and the typography are doing the same work.",
+      },
+      {
+        name: "Packaging",
+        tag: "Packaging · labels & stickers",
+        images: imgs("uni-pack", 2),
+        desc: "Packaging coursework: a sticker set and a product label taken through to print-ready artwork.",
+      },
+      {
+        name: "Calendar",
+        tag: "Type 2 · print",
+        images: imgs("uni-cal", 1),
+        desc: "A calendar built as a typographic exercise, where the grid of the year and the grid of the page are the same problem.",
       },
     ],
   },
@@ -365,7 +403,31 @@ export const SOCIAL_POSTS = {
 export const INSTAGRAM_POSTS = [];
 
 // Video edits — shown on the Media page.
+// NOTE ON SOURCES: the three "From Instagram" entries below were taken from
+// ~/Desktop/Portfolio/videos portfolio intors/ — "Instagram Video from
+// Snapinsta copy.mp4", "Comp 1.mp4" and "No audio 1.mp4" — because there was
+// no way to pull the posts themselves. If any of these is the wrong clip, swap
+// the file in public/assets/motion/ and keep the name.
+//
+// Live embeds are still the better option and the code is already in place:
+// paste post links into INSTAGRAM_POSTS above and a Reels section appears with
+// real view and like counts.
 export const VIDEO_EDITS = [
+  {
+    title: "Reel: Short-form Edit",
+    src: "/assets/motion/edit-instagram-1.mp4",
+    desc: "A short-form edit made for Instagram, cut for the feed rather than the timeline.",
+  },
+  {
+    title: "Reel: Motion Composite",
+    src: "/assets/motion/edit-instagram-2.mp4",
+    desc: "Motion and compositing work built for social, where the first second has to earn the next five.",
+  },
+  {
+    title: "Reel: Silent Cut",
+    src: "/assets/motion/edit-instagram-3.mp4",
+    desc: "An edit built to read with the sound off, which is how most of the feed is actually watched.",
+  },
   {
     title: "Athletes Night at AUB",
     src: "/assets/motion/edit-athletes-night.mp4",

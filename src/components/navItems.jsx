@@ -73,7 +73,7 @@ export const NAV = [
   { to: "/media", label: "Media", short: "Media", icon: Icon.videos },
   { to: "/about", label: "About", short: "About", icon: Icon.about },
   { to: "/fitness", label: "Fitness", short: "Fitness", icon: Icon.fitness, tab: true },
-  { to: "/work-with-me", label: "Work With Me", short: "Hire Me", icon: Icon.work },
+  { to: "/work-with-me", label: "Services", short: "Services", icon: Icon.work },
 ];
 
 export const TAB_ITEMS = NAV.filter((n) => n.tab);

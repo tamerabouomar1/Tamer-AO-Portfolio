@@ -27,10 +27,12 @@ export default function Home() {
           <span className="path__go">See the work <span className="plus">+</span></span>
         </MotionLink>
         <MotionLink className="card path path--store" to="/websites" variants={cardIn}>
-          <span className="path__flag">Buy online</span>
           <span className="path__label">Websites</span>
-          <span className="path__desc">Client builds &amp; ready-made sites from $119</span>
-          <span className="path__go">See the sites <span className="plus">+</span></span>
+          <span className="path__desc">Client builds &amp; ready-made sites from $109</span>
+          <span className="path__go">
+            See the sites <span className="plus">+</span>
+            <span className="path__flag">Buy online</span>
+          </span>
         </MotionLink>
         <MotionLink className="card path" to="/fitness" variants={cardIn}>
           <span className="path__label">Fitness Coaching</span>

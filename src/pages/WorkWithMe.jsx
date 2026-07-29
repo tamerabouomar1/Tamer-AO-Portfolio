@@ -76,8 +76,8 @@ export default function WorkWithMe() {
     <Page>
       <header className="topbar">
         <div>
-          <h2 className="topbar__title">Work With Me</h2>
-          <p className="topbar__sub">Social media, branding &amp; digital design</p>
+          <h2 className="topbar__title">Services &amp; Pricing</h2>
+          <p className="topbar__sub">Social media, branding, websites &amp; design</p>
         </div>
       </header>
 
@@ -88,18 +88,28 @@ export default function WorkWithMe() {
         initial="hidden"
         animate="show"
       >
-        <div className="work-booking__head">
-          <h3 className="card-title">Book a free 30-min meeting</h3>
-          <p className="card-body">
-            Content that sells and design that stands out. Pick a time and let&apos;s plan
-            it together.
-          </p>
+        <div className="work-booking__grid">
+          <div className="work-booking__head">
+            <h3 className="card-title">Book a free 30-min call</h3>
+            <p className="card-body">
+              Content that sells and design that stands out. Pick a time and we&apos;ll
+              plan it together. No pitch, no obligation.
+            </p>
+            <a
+              className="btn-book work-booking__direct"
+              href={CONTACT.calendly}
+              target="_blank"
+              rel="noreferrer"
+            >
+              Open in Calendly
+            </a>
+          </div>
+          <iframe
+            className="calendly-frame"
+            src={CALENDLY_EMBED}
+            title="Book a free 30-minute meeting with Tamer"
+          />
         </div>
-        <iframe
-          className="calendly-frame"
-          src={CALENDLY_EMBED}
-          title="Book a free 30-minute meeting with Tamer"
-        />
         <p className="price-note">
           Calendar not loading?{" "}
           <a

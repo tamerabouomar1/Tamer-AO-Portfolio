@@ -949,7 +949,7 @@ ul { margin: 0; padding: 0; list-style: none; }
 .work-booking .card-body { max-width: 68ch; }
 .calendly-frame {
   width: 100%;
-  height: clamp(620px, 78vh, 780px);
+  height: clamp(460px, 58vh, 620px);
   border: 0;
   border-radius: var(--radius);
   background: var(--card-solid);
@@ -957,7 +957,13 @@ ul { margin: 0; padding: 0; list-style: none; }
 .work-booking__fallback { color: var(--shiny); text-decoration: underline; text-underline-offset: 3px; }
 .work-booking__fallback:hover { opacity: 0.85; }
 .work-booking--hero { margin-bottom: clamp(8px, 1vw, 14px); }
-.work-booking__head { display: flex; flex-direction: column; gap: 6px; }
+.work-booking__head { display: flex; flex-direction: column; gap: 10px; align-items: flex-start; }
+.work-booking__grid { display: grid; grid-template-columns: 1fr; gap: clamp(16px, 1.8vw, 26px); }
+.work-booking__direct { margin-top: 2px; }
+@media (min-width: 900px) {
+  .work-booking__grid { grid-template-columns: minmax(240px, 0.8fr) 1.4fr; align-items: start; }
+  .work-booking__head { position: sticky; top: 16px; }
+}
 
 /* send-a-message form (Netlify Forms) */
 .work-message {
@@ -1027,7 +1033,7 @@ ul { margin: 0; padding: 0; list-style: none; }
 .path__go {
   margin-top: auto; padding-top: 10px;
   font-size: clamp(12.5px, 1vw, 14px); font-weight: 600; color: var(--text);
-  display: inline-flex; align-items: center; gap: 6px;
+  display: flex; align-items: center; gap: 6px;
 }
 
 /* ---------------------------------------------------------- */
@@ -1585,7 +1591,8 @@ ul { margin: 0; padding: 0; list-style: none; }
 .path--store { border-color: rgba(100, 206, 251, 0.45); }
 .path--store:hover { border-color: var(--shiny); }
 .path__flag {
-  align-self: flex-start;
+  margin-left: auto;
+  align-self: center;
   font-size: 10px; font-weight: 700; letter-spacing: 0.09em; text-transform: uppercase;
   padding: 3px 9px; border-radius: 999px;
   background: var(--shiny); color: #07121f;
