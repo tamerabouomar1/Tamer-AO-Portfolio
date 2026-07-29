@@ -1,0 +1,225 @@
+/* Strata — Interactive Hero. Scoped under .st. */
+
+.st {
+  min-height: 100svh;
+  background: #fff;
+  letter-spacing: -0.02em;
+  font-family: "Inter", system-ui, sans-serif;
+}
+.st * { box-sizing: border-box; }
+.st h1, .st p { margin: 0; }
+
+.st-hero {
+  position: relative;
+  width: 100%;
+  height: 100svh;
+  min-height: 560px;
+  overflow: hidden;
+  background: #000;
+}
+
+/* ── image layers ─────────────────────────────────────────── */
+.st-base {
+  position: absolute;
+  inset: 0;
+  z-index: 10;
+  background-position: center;
+  background-size: cover;
+  background-repeat: no-repeat;
+}
+/* Sized to the viewport and never shown: it exists only to be turned into
+   a mask image, because canvas can express a multi-stop falloff that a CSS
+   gradient mask cannot. */
+.st-canvas { position: absolute; inset: 0; pointer-events: none; display: none; }
+.st-reveal {
+  position: absolute;
+  inset: 0;
+  z-index: 30;
+  background-position: center;
+  background-size: cover;
+  background-repeat: no-repeat;
+  pointer-events: none;
+}
+
+/* ── nav ──────────────────────────────────────────────────── */
+.st-nav {
+  position: absolute;
+  top: 0; left: 0; right: 0;
+  z-index: 100;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 16px;
+}
+.st-brand { display: inline-flex; align-items: center; gap: 10px; }
+.st-logo { width: 26px; height: 26px; flex: none; }
+.st-wordmark {
+  color: #fff;
+  font-size: 24px;
+  font-family: "Playfair Display", Georgia, serif;
+  font-style: italic;
+}
+.st-pill {
+  display: none;
+  position: absolute;
+  left: 50%;
+  transform: translateX(-50%);
+  align-items: center;
+  gap: 4px;
+  padding: 8px;
+  border-radius: 9999px;
+  background: rgba(255, 255, 255, 0.2);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  border: 1px solid rgba(255, 255, 255, 0.3);
+}
+.st-pill button {
+  padding: 6px 16px;
+  border: 0;
+  border-radius: 9999px;
+  background: transparent;
+  color: rgba(255, 255, 255, 0.8);
+  font: inherit;
+  font-size: 14px;
+  font-weight: 500;
+  cursor: pointer;
+  transition: background 0.2s ease, color 0.2s ease;
+}
+.st-pill button:hover { background: rgba(255, 255, 255, 0.2); color: #fff; }
+.st-pill button.is-active { color: #fff; }
+
+.st-signup {
+  display: none;
+  padding: 10px 24px;
+  border: 0;
+  border-radius: 9999px;
+  background: #fff;
+  color: #111827;
+  font: inherit;
+  font-size: 14px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: background 0.2s ease;
+}
+.st-signup:hover { background: #f3f4f6; }
+
+/* ── heading ──────────────────────────────────────────────── */
+.st-heading {
+  position: absolute;
+  top: 14%;
+  left: 0; right: 0;
+  z-index: 50;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  padding: 0 20px;
+  pointer-events: none;
+}
+.st-heading h1 { color: #fff; line-height: 0.95; }
+.st-line1 {
+  display: block;
+  font-family: "Playfair Display", Georgia, serif;
+  font-style: italic;
+  font-weight: 400;
+  font-size: 3rem;
+  letter-spacing: -0.05em;
+}
+.st-line2 {
+  display: block;
+  font-weight: 400;
+  font-size: 3rem;
+  letter-spacing: -0.08em;
+  margin-top: -4px;
+}
+
+/* ── copy blocks ──────────────────────────────────────────── */
+.st-left {
+  display: none;
+  position: absolute;
+  bottom: 56px;
+  left: 40px;
+  z-index: 50;
+  max-width: 260px;
+}
+.st-left p { font-size: 14px; color: rgba(255, 255, 255, 0.8); line-height: 1.65; }
+
+.st-right {
+  position: absolute;
+  bottom: 40px;
+  left: 20px;
+  right: 20px;
+  z-index: 50;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 16px;
+}
+.st-right p { font-size: 12px; color: rgba(255, 255, 255, 0.8); line-height: 1.65; }
+.st-cta {
+  padding: 12px 28px;
+  border: 0;
+  border-radius: 9999px;
+  background: #e8702a;
+  color: #fff;
+  font: inherit;
+  font-size: 14px;
+  font-weight: 500;
+  cursor: pointer;
+  transition: background 0.2s ease, transform 0.2s ease, box-shadow 0.2s ease;
+}
+.st-cta:hover {
+  background: #d2611f;
+  transform: scale(1.03);
+  box-shadow: 0 10px 24px rgba(232, 112, 42, 0.3);
+}
+.st-cta:active { transform: scale(0.95); }
+
+/* ── entrance ─────────────────────────────────────────────── */
+@keyframes st-heroReveal {
+  0%   { opacity: 0; transform: translateY(28px); filter: blur(12px); }
+  100% { opacity: 1; transform: translateY(0); filter: blur(0); }
+}
+@keyframes st-heroFadeUp {
+  0%   { opacity: 0; transform: translateY(20px); }
+  100% { opacity: 1; transform: translateY(0); }
+}
+@keyframes st-heroZoom {
+  0%   { transform: scale(1.12); }
+  100% { transform: scale(1); }
+}
+.st .hero-anim {
+  opacity: 0;
+  animation-fill-mode: forwards;
+  animation-timing-function: cubic-bezier(0.16, 1, 0.3, 1);
+}
+.st .hero-reveal { animation-name: st-heroReveal; animation-duration: 1.1s; }
+.st .hero-fade { animation-name: st-heroFadeUp; animation-duration: 1s; }
+.st .hero-zoom { animation: st-heroZoom 1.8s cubic-bezier(0.16, 1, 0.3, 1) forwards; }
+
+@media (prefers-reduced-motion: reduce) {
+  .st .hero-anim, .st .hero-zoom { animation: none; opacity: 1; }
+}
+
+/* ── responsive ───────────────────────────────────────────── */
+@media (min-width: 640px) {
+  .st-nav { padding: 20px; }
+  .st-left { display: block; }
+  .st-line1, .st-line2 { font-size: 4.5rem; }
+  .st-right {
+    bottom: 96px;
+    left: auto;
+    right: 40px;
+    max-width: 260px;
+    gap: 20px;
+  }
+  .st-right p { font-size: 14px; }
+}
+
+@media (min-width: 768px) {
+  .st-pill { display: flex; }
+  .st-signup { display: block; }
+  .st-line1, .st-line2 { font-size: 6rem; }
+  .st-left { left: 56px; }
+  .st-right { right: 56px; }
+}

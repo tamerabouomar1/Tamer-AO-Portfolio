@@ -19,6 +19,9 @@ const loaders = {
   ledger: () => import("./ledger/LedgerSite"),
   noir: () => import("./noir/NoirSite"),
   launch: () => import("./launch/LaunchSite"),
+  strata: () => import("./strata/StrataSite"),
+  reel: () => import("./reel/ReelSite"),
+  calm: () => import("./calm/CalmSite"),
 };
 
 export const TEMPLATE_VIEWS = Object.fromEntries(

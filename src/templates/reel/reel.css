@@ -1,0 +1,259 @@
+/* Reel — Streaming Hero. Scoped under .rl. */
+
+.rl {
+  position: relative;
+  height: 100svh;
+  min-height: 560px;
+  overflow: hidden;
+  background: #000;
+  color: #fff;
+  font-family: "Inter", system-ui, sans-serif;
+  display: flex;
+  flex-direction: column;
+}
+.rl * { box-sizing: border-box; }
+.rl a { color: inherit; text-decoration: none; }
+.rl h1, .rl p { margin: 0; }
+
+.rl-video {
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+/* Blur without darkening: masked so it only exists across the bottom and
+   fades out by mid-screen. A dark scrim would have been simpler but it
+   kills the colour in the footage; this keeps the image alive and still
+   gives the copy a surface. */
+.rl-blur {
+  position: absolute;
+  inset: 0;
+  z-index: 1;
+  pointer-events: none;
+  backdrop-filter: blur(24px);
+  -webkit-backdrop-filter: blur(24px);
+  -webkit-mask-image: linear-gradient(to top, #000 0%, transparent 45%);
+  mask-image: linear-gradient(to top, #000 0%, transparent 45%);
+}
+
+/* ── liquid glass ─────────────────────────────────────────── */
+.rl .liquid-glass {
+  background: rgba(255, 255, 255, 0.01);
+  background-blend-mode: luminosity;
+  backdrop-filter: blur(4px);
+  -webkit-backdrop-filter: blur(4px);
+  border: none;
+  box-shadow: inset 0 1px 1px rgba(255, 255, 255, 0.1);
+  position: relative;
+  overflow: hidden;
+}
+.rl .liquid-glass::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  border-radius: inherit;
+  padding: 1.4px;
+  background: linear-gradient(180deg,
+    rgba(255,255,255,0.45) 0%, rgba(255,255,255,0.15) 20%,
+    rgba(255,255,255,0) 40%, rgba(255,255,255,0) 60%,
+    rgba(255,255,255,0.15) 80%, rgba(255,255,255,0.45) 100%);
+  -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+  -webkit-mask-composite: xor;
+  mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+  mask-composite: exclude;
+  pointer-events: none;
+}
+
+/* ── entrance ─────────────────────────────────────────────── */
+@keyframes rl-blurFadeUp {
+  from { opacity: 0; filter: blur(20px); transform: translateY(40px); }
+  to   { opacity: 1; filter: blur(0); transform: translateY(0); }
+}
+.rl .animate-blur-fade-up {
+  opacity: 0;
+  animation: rl-blurFadeUp 1s ease-out forwards;
+}
+@media (prefers-reduced-motion: reduce) {
+  .rl .animate-blur-fade-up { animation: none; opacity: 1; filter: none; transform: none; }
+}
+
+/* ── nav ──────────────────────────────────────────────────── */
+.rl-nav {
+  position: relative;
+  z-index: 50;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px;
+  padding: 16px;
+}
+.rl-logo { font-size: 20px; font-weight: 700; letter-spacing: 0.08em; }
+.rl-links { display: none; align-items: center; gap: 28px; }
+.rl-links a { font-size: 14px; transition: color 0.2s ease; }
+.rl-links a:hover { color: #d1d5db; }
+
+.rl-actions { display: flex; align-items: center; gap: 10px; }
+.rl-search {
+  display: none;
+  align-items: center;
+  gap: 8px;
+  padding: 8px 20px;
+  border: 0;
+  border-radius: 9999px;
+  color: #fff;
+  font: inherit;
+  font-size: 14px;
+  cursor: pointer;
+}
+.rl-circle {
+  width: 40px;
+  height: 40px;
+  border: 0;
+  border-radius: 9999px;
+  display: grid;
+  place-items: center;
+  color: #fff;
+  cursor: pointer;
+}
+.rl-circle:not(.rl-burger) { display: none; }
+.rl-burger { position: relative; }
+/* Both icons stacked; the swap is a rotate-and-scale rather than a swap of
+   elements, so there is no flash between states. */
+.rl-ico {
+  position: absolute;
+  inset: 0;
+  display: grid;
+  place-items: center;
+  transition: opacity 0.5s ease-out, transform 0.5s ease-out;
+}
+.rl-ico.is-off { opacity: 0; transform: rotate(180deg) scale(0.5); }
+
+/* ── mobile sheet ─────────────────────────────────────────── */
+.rl-sheet {
+  position: absolute;
+  top: 72px;
+  left: 0; right: 0;
+  z-index: 40;
+  display: flex;
+  flex-direction: column;
+  padding: 8px 16px 16px;
+  background: rgba(17, 24, 39, 0.95);
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+  border-top: 1px solid #1f2937;
+  border-bottom: 1px solid #1f2937;
+  box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.6);
+  transform: translateY(-16px);
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.5s ease-out, transform 0.5s ease-out;
+}
+.rl-sheet.is-open { transform: translateY(0); opacity: 1; pointer-events: auto; }
+.rl-sheet a {
+  padding: 12px;
+  border-radius: 8px;
+  font-size: 15px;
+  transition: background 0.2s ease;
+}
+.rl-sheet a:hover { background: rgba(31, 41, 55, 0.5); }
+
+/* ── hero ─────────────────────────────────────────────────── */
+.rl-hero {
+  position: relative;
+  z-index: 10;
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-end;
+  padding: 0 16px 32px;
+}
+.rl-hero__row { display: flex; flex-direction: column; align-items: flex-start; gap: 32px; }
+.rl-hero__main { flex: 1; }
+
+.rl-meta {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 12px;
+  margin-bottom: 24px;
+  font-size: 12px;
+}
+.rl-meta span { display: inline-flex; align-items: center; gap: 6px; }
+.rl-meta strong { font-weight: 500; }
+.rl-ic { flex: none; }
+
+.rl-title {
+  font-size: 1.875rem;
+  font-weight: 400;
+  letter-spacing: -0.04em;
+  line-height: 1.05;
+  margin-bottom: 16px;
+}
+.rl-desc {
+  font-size: 1rem;
+  color: #9ca3af;
+  margin-bottom: 24px;
+  max-width: 42rem;
+}
+.rl-ctas { display: flex; flex-wrap: wrap; gap: 12px; }
+.rl-watch,
+.rl-learn {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 10px 24px;
+  border: 0;
+  border-radius: 9999px;
+  font: inherit;
+  font-size: 15px;
+  font-weight: 500;
+  cursor: pointer;
+  transition: background 0.2s ease;
+}
+.rl .rl-watch { background: #fff; color: #000; }
+.rl .rl-watch:hover { background: #e5e7eb; }
+.rl .rl-learn { color: #fff; }
+
+.rl-arrows { display: flex; gap: 12px; }
+.rl-arrow {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 10px 20px;
+  border: 0;
+  border-radius: 9999px;
+  color: #fff;
+  font: inherit;
+  font-size: 15px;
+  font-weight: 500;
+  cursor: pointer;
+}
+
+/* ── responsive ───────────────────────────────────────────── */
+@media (min-width: 640px) {
+  .rl-nav { padding: 16px 24px; }
+  .rl-hero { padding: 0 24px 32px; }
+  .rl-search { display: inline-flex; }
+  .rl-circle:not(.rl-burger) { display: grid; }
+  .rl-meta { gap: 24px; font-size: 14px; }
+  .rl-title { font-size: 3rem; }
+  .rl-desc { font-size: 1.125rem; }
+}
+
+@media (min-width: 768px) {
+  .rl-nav { padding: 24px 48px; }
+  .rl-hero { padding: 0 48px 64px; }
+  .rl-hero__row { flex-direction: row; align-items: flex-end; }
+  .rl-arrows { justify-content: flex-end; }
+  .rl-title { font-size: 3.75rem; }
+  .rl-desc { font-size: 1.25rem; margin-bottom: 48px; }
+}
+
+@media (min-width: 1024px) {
+  .rl-links { display: flex; }
+  .rl-burger { display: none; }
+  .rl-sheet { display: none; }
+  .rl-title { font-size: 4.5rem; }
+}
