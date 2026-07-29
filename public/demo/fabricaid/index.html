@@ -1,0 +1,321 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>FabricAID Uniforms | Quality Uniforms with Impact Woven In</title>
+<meta name="description" content="FabricAID designs and manufactures high-quality uniforms and corporate merchandise in its ISO-certified Beirut facility. Competitive prices, custom branding, and measurable social impact." />
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@600;700;800;900&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet" />
+<link rel="stylesheet" href="styles.css" />
+<style>
+  /* Home-specific */
+  .bighero{position:relative;min-height:min(92vh,900px);display:flex;align-items:center;overflow:hidden;background:var(--dark)}
+  .bighero .bgs{position:absolute;inset:0}
+  .bighero .bg{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;opacity:0;transform:scale(1.001) translateZ(0);transition:opacity 1.8s ease;will-change:transform,opacity;backface-visibility:hidden}
+  .bighero .bg.active{opacity:1;animation:kenburns 8s ease-out forwards}
+  @keyframes kenburns{from{transform:scale(1.001)}to{transform:scale(1.09)}}
+  .bighero .shade{position:absolute;inset:0;background:linear-gradient(100deg,rgba(18,22,24,.92) 0%,rgba(18,22,24,.72) 42%,rgba(18,22,24,.28) 100%)}
+  .heroin{position:relative;z-index:2;color:#fff;padding:110px 0;max-width:660px}
+  .bighero .eyebrow{color:#7fe3f3}
+  .bighero h1{color:#fff;font-size:clamp(2.6rem,5.6vw,4.2rem);letter-spacing:-.02em;margin-top:1rem}
+  .bighero p.lead{font-size:1.14rem;color:rgba(255,255,255,.82);max-width:44ch;margin:1.4rem 0 2rem}
+  .hero-actions{display:flex;flex-wrap:wrap;gap:.8rem;align-items:center}
+  .btn-glass{background:rgba(255,255,255,.12);border-color:rgba(255,255,255,.4);color:#fff;backdrop-filter:blur(6px)}
+  .btn-glass:hover{background:rgba(255,255,255,.22);transform:translateY(-2px)}
+  .hero-trust{display:flex;align-items:center;gap:1.4rem;margin-top:2.4rem;flex-wrap:wrap}
+  .hero-trust .pill{display:inline-flex;align-items:center;gap:.5rem;font-size:.85rem;font-weight:600;color:rgba(255,255,255,.88)}
+  .statrow{display:grid;grid-template-columns:repeat(4,1fr);gap:20px}
+  .statrow .num-card b{font-size:clamp(1.35rem,2.3vw,1.85rem);white-space:nowrap}
+  .statrow .num-card b .u{font-size:.6em;color:var(--muted);font-weight:700}
+  @media(max-width:940px){.statrow{grid-template-columns:repeat(2,1fr)}}
+  .clients .client-logos{display:flex;gap:.4rem 1.2rem;flex-wrap:wrap;justify-content:center;align-items:center;width:100%;margin-top:.4rem}
+  .clients .client-logos img{height:62px;width:124px;object-fit:contain}
+  .pricing{border-top:1px solid var(--line);padding:30px 0}
+  .pricing-row{display:flex;align-items:center;justify-content:space-between;gap:40px;flex-wrap:wrap}
+  .pricing-lead{flex:0 1 240px}
+  .pricing-lead p{font-family:'Montserrat',sans-serif;font-weight:700;font-size:1.16rem;color:var(--ink);letter-spacing:-.02em}
+  .pricing-points{list-style:none;flex:1 1 520px;display:grid;grid-template-columns:repeat(auto-fit,minmax(165px,1fr));gap:22px}
+  .pricing-points li{display:flex;align-items:center;gap:.7rem}
+  .pp-ic{width:40px;height:40px;border-radius:11px;display:grid;place-items:center;flex:none}
+  .pricing-points b{display:block;font-family:'Montserrat',sans-serif;font-weight:700;font-size:.9rem;line-height:1.25}
+  .pricing-points small{font-size:.78rem;color:var(--muted)}
+  .modelcard{border:1px solid var(--line);border-radius:20px;padding:32px 30px;background:#fff;position:relative;overflow:hidden;transition:transform .3s var(--ease),box-shadow .3s var(--ease)}
+  .modelcard:hover{transform:translateY(-5px);box-shadow:var(--shadow-lg)}
+  .modelcard::after{content:"";position:absolute;top:0;left:0;right:0;height:4px;background:var(--cyan)}
+  .modelcard.co::after{background:var(--coral)}
+  .modelcard h3{font-size:1.35rem;margin-bottom:.6rem}
+  .modelcard p{color:var(--ink-2);font-size:.96rem;margin-bottom:1.1rem}
+  .modelcard ul{list-style:none;display:grid;gap:.55rem;margin-bottom:1.4rem}
+  .modelcard li{display:flex;gap:.6rem;align-items:flex-start;font-size:.9rem;color:var(--ink-2)}
+  .modelcard li svg{flex:none;margin-top:4px}
+  .impact-grid{display:grid;grid-template-columns:1.05fr 1fr;gap:46px;align-items:center;position:relative}
+  .impact p.k{color:rgba(255,255,255,.75);margin:1rem 0 1.6rem;font-size:1.02rem}
+  .impact .nums{display:grid;grid-template-columns:repeat(2,1fr);gap:20px}
+  @media(max-width:940px){.hero-grid{grid-template-columns:1fr;gap:38px}.impact-grid{grid-template-columns:1fr;gap:30px}}
+</style>
+</head>
+<body class="navdark">
+
+<header>
+  <div class="wrap nav">
+    <a class="logo" href="index.html" aria-label="FabricAID"><img src="fabricaid-logo.png" alt="FabricAID" class="logo-img logo-dark" /><img src="fabricaid-logo-white.png" alt="FabricAID" class="logo-img logo-white" /></a>
+    <ul class="nav-links" id="navLinks">
+      <li><a href="index.html" class="active">Home</a></li>
+      <li><a href="about.html">About Us</a></li>
+      <li><a href="portfolio.html">Portfolio</a></li>
+      <li><a href="merch.html">Merchandise</a></li>
+      <li><a href="faqs.html">Orders &amp; FAQ</a></li>
+      <li><a href="contact.html">Contact</a></li>
+    </ul>
+    <div class="nav-cta">
+      <a href="contact.html" class="btn btn-primary">Book a Free 30-Minute Call
+        <svg width="15" height="15" viewBox="0 0 24 24" fill="none"><rect x="3" y="5" width="18" height="16" rx="2.5" stroke="currentColor" stroke-width="1.8"/><path d="M3 9h18M8 3v4M16 3v4" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/></svg>
+      </a>
+      <button class="menu-btn" id="menuBtn" aria-label="Menu"><span></span><span></span><span></span></button>
+    </div>
+  </div>
+</header>
+
+<!-- HERO -->
+<section class="bighero">
+  <div class="bgs" aria-hidden="true">
+    <img class="bg active" src="assets/facility-floor.jpg" alt="" />
+    <img class="bg" src="assets/facility-tailor.jpg" alt="" loading="lazy" />
+    <img class="bg" src="assets/facility-sewing.jpg" alt="" loading="lazy" />
+    <img class="bg" src="assets/facility-cutting.jpg" alt="" loading="lazy" />
+  </div>
+  <div class="shade"></div>
+  <div class="wrap">
+    <div class="heroin reveal">
+      <span class="eyebrow">FabricAID Production · Uniforms</span>
+      <h1>Quality Uniforms at Factory Prices, with Impact Woven In.</h1>
+      <p class="lead">Uniforms and corporate merchandise, made in our ISO-certified Beirut facility by tailors trained in our own school.</p>
+      <div class="hero-actions">
+        <a href="portfolio.html" class="btn btn-glass">View our work</a>
+      </div>
+      <div class="hero-trust">
+        <span class="pill"><svg width="18" height="18" viewBox="0 0 24 24" fill="none"><path d="M12 3l7 3v5c0 4.5-3 7.5-7 9-4-1.5-7-4.5-7-9V6l7-3z" stroke="#7fe3f3" stroke-width="1.7" stroke-linejoin="round"/><path d="M9 12l2 2 4-4" stroke="#7fe3f3" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"/></svg>ISO-certified facility</span>
+        <span class="pill"><svg width="18" height="18" viewBox="0 0 24 24" fill="none"><path d="M4 20v-1a6 6 0 0112 0v1M10 11a3.5 3.5 0 100-7 3.5 3.5 0 000 7z" stroke="#ff9db0" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"/></svg>In-house tailoring school</span>
+        <span class="pill"><svg width="18" height="18" viewBox="0 0 24 24" fill="none"><path d="M12 21s-7-4-7-10a4 4 0 017-2.6A4 4 0 0119 11c0 6-7 10-7 10z" stroke="#9ff0d2" stroke-width="1.7" stroke-linejoin="round"/></svg>Made in Lebanon</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- PRICING BAND -->
+<section class="pricing">
+  <div class="wrap pricing-row reveal">
+    <div class="pricing-lead">
+      <span class="eyebrow" style="margin-bottom:.55rem">Competitive pricing</span>
+      <p>Factory prices, direct from our production floor.</p>
+    </div>
+    <ul class="pricing-points">
+      <li><span class="pp-ic ic-cy"><svg width="19" height="19" viewBox="0 0 24 24" fill="none"><path d="M12 3l9 5-9 5-9-5 9-5z" stroke="#13b5cf" stroke-width="1.7" stroke-linejoin="round"/><path d="M3 13l9 5 9-5" stroke="#13b5cf" stroke-width="1.7" stroke-linejoin="round"/></svg></span><div><b>Production at scale</b><small>Efficient bulk runs</small></div></li>
+      <li><span class="pp-ic ic-co"><svg width="19" height="19" viewBox="0 0 24 24" fill="none"><path d="M3 6h10v9H3z" stroke="#ec3a59" stroke-width="1.7" stroke-linejoin="round"/><path d="M13 9h4l3 3v3h-7z" stroke="#ec3a59" stroke-width="1.7" stroke-linejoin="round"/><circle cx="7" cy="17.5" r="1.5" stroke="#ec3a59" stroke-width="1.5"/><circle cx="16.5" cy="17.5" r="1.5" stroke="#ec3a59" stroke-width="1.5"/></svg></span><div><b>Strong supplier network</b><small>Better material rates</small></div></li>
+      <li><span class="pp-ic ic-gr"><svg width="19" height="19" viewBox="0 0 24 24" fill="none"><path d="M12 4l9 4-9 4-9-4 9-4z" stroke="#2ec38d" stroke-width="1.7" stroke-linejoin="round"/><path d="M7 10v4c0 1.6 2.5 3 5 3s5-1.4 5-3v-4" stroke="#2ec38d" stroke-width="1.7"/></svg></span><div><b>In-house tailoring school</b><small>Skilled, fairly-paid team</small></div></li>
+    </ul>
+  </div>
+</section>
+
+<!-- CLIENTS -->
+<div class="clients">
+  <div class="wrap reveal">
+    <p>Trusted by organisations across sectors</p>
+    <div class="client-logos">
+      <img src="assets/logos/unicef.png" alt="UNICEF" loading="lazy" />
+      <img src="assets/logos/undp.png" alt="UNDP" loading="lazy" />
+      <img src="assets/logos/savethechildren.png" alt="Save the Children" loading="lazy" />
+      <img src="assets/logos/lrc.png" alt="Lebanese Red Cross" loading="lazy" />
+      <img src="assets/logos/care.png" alt="CARE International" loading="lazy" />
+      <img src="assets/logos/anera.png" alt="ANERA" loading="lazy" />
+      <img src="assets/logos/deloitte.png" alt="Deloitte" loading="lazy" />
+      <img src="assets/logos/aramex.png" alt="Aramex" loading="lazy" />
+    </div>
+  </div>
+</div>
+
+<!-- FEATURES -->
+<section>
+  <div class="wrap">
+    <div class="sec-head reveal">
+      <span class="eyebrow">Designed better, made stronger</span>
+      <h2>Details That Make a Uniform Last.</h2>
+      <p>Comfortable and practical all day, built to stay sharp wash after wash.</p>
+    </div>
+    <div class="grid-4">
+      <article class="fcard reveal">
+        <span class="ic ic-cy"><svg width="24" height="24" viewBox="0 0 24 24" fill="none"><path d="M4 7l8-3 8 3-8 3-8-3z" stroke="#13b5cf" stroke-width="1.7" stroke-linejoin="round"/><path d="M4 7v6l8 3 8-3V7" stroke="#13b5cf" stroke-width="1.7" stroke-linejoin="round"/></svg></span>
+        <h3>Quality Fabrics</h3><p>Durable, breathable fabrics from trusted mills.</p>
+      </article>
+      <article class="fcard reveal">
+        <span class="ic ic-co"><svg width="24" height="24" viewBox="0 0 24 24" fill="none"><path d="M5 19l9-9M14 6l4 4M12 8l-7 7-1 4 4-1" stroke="#ec3a59" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"/></svg></span>
+        <h3>Digital Patterns and Plotting</h3><p>Precise digital patterns, plotted for consistent sizing.</p>
+      </article>
+      <article class="fcard reveal">
+        <span class="ic ic-gr"><svg width="24" height="24" viewBox="0 0 24 24" fill="none"><path d="M12 3v18M5 8c3 2 11 2 14 0M5 16c3-2 11-2 14 0" stroke="#2ec38d" stroke-width="1.6" stroke-linecap="round"/></svg></span>
+        <h3>Durable Embroidery</h3><p>Clean, long-lasting logos, machine embroidered.</p>
+      </article>
+      <article class="fcard reveal">
+        <span class="ic ic-dk"><svg width="24" height="24" viewBox="0 0 24 24" fill="none"><rect x="4" y="4" width="16" height="16" rx="3" stroke="#2b2b2b" stroke-width="1.7"/><path d="M8 12h8M12 8v8" stroke="#2b2b2b" stroke-width="1.7" stroke-linecap="round"/></svg></span>
+        <h3>DTF Printing</h3><p>Bold, vibrant prints that survive industrial washing.</p>
+      </article>
+    </div>
+  </div>
+</section>
+
+<!-- CUSTOM VS READY -->
+<section style="padding-top:0">
+  <div class="wrap">
+    <div class="sec-head reveal">
+      <span class="eyebrow">How you can order</span>
+      <h2>Custom-Made or Ready-Made. Your Call.</h2>
+    </div>
+    <div class="grid-2">
+      <article class="modelcard reveal">
+        <h3>Custom-Made Uniforms</h3>
+        <p>Designed with you from scratch, with a free choice of materials, colors and designs.</p>
+        <ul>
+          <li><svg width="16" height="16" viewBox="0 0 24 24" fill="none"><path d="M5 13l4 4L19 7" stroke="#13b5cf" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/></svg>Design &amp; pattern development with our team</li>
+          <li><svg width="16" height="16" viewBox="0 0 24 24" fill="none"><path d="M5 13l4 4L19 7" stroke="#13b5cf" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/></svg>Pre-production samples with free adjustments</li>
+          <li><svg width="16" height="16" viewBox="0 0 24 24" fill="none"><path d="M5 13l4 4L19 7" stroke="#13b5cf" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/></svg>Full branding: embroidery, printing, labels</li>
+        </ul>
+      </article>
+      <article class="modelcard co reveal">
+        <h3>Ready-Made Programs</h3>
+        <p>Proven staples like polos, tees, aprons and vests, branded with your logo and delivered fast.</p>
+        <ul>
+          <li><svg width="16" height="16" viewBox="0 0 24 24" fill="none"><path d="M5 13l4 4L19 7" stroke="#ec3a59" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/></svg>Faster lead times on standard items</li>
+          <li><svg width="16" height="16" viewBox="0 0 24 24" fill="none"><path d="M5 13l4 4L19 7" stroke="#ec3a59" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/></svg>Lower minimum order quantities</li>
+          <li><svg width="16" height="16" viewBox="0 0 24 24" fill="none"><path d="M5 13l4 4L19 7" stroke="#ec3a59" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/></svg>Logo simulation approved before production</li>
+        </ul>
+      </article>
+    </div>
+  </div>
+</section>
+
+<!-- PORTFOLIO TEASER -->
+<section style="padding-top:0">
+  <div class="wrap">
+    <div class="sec-head reveal">
+      <span class="eyebrow">Recent work</span>
+      <h2>Uniforms We've Produced.</h2>
+    </div>
+    <div class="grid-3">
+      <article class="pcard reveal">
+        <div class="ph"><img src="assets/uniform-polo-cat.jpg" alt="Black branded workwear polos, front and back" /></div>
+        <div class="info"><span class="tag">Workwear</span><h3>The Foreman Polo</h3><p>Heavy-duty piqué polos with front and back branding.</p></div>
+      </article>
+      <article class="pcard reveal">
+        <div class="ph"><img src="assets/uniform-apron-bk.jpg" alt="Branded hospitality apron" /></div>
+        <div class="info"><span class="tag co">Hospitality</span><h3>The Service Apron</h3><p>Hard-wearing cotton aprons with embroidered branding.</p></div>
+      </article>
+      <article class="pcard reveal">
+        <div class="ph"><img src="assets/uniform-pants-cat.jpg" alt="Cargo work pants with branded pocket" /></div>
+        <div class="info"><span class="tag gr">Industrial</span><h3>The Site Cargo</h3><p>Reinforced cargo trousers built for the field.</p></div>
+      </article>
+    </div>
+    <div style="text-align:center;margin-top:34px" class="reveal">
+      <a href="portfolio.html" class="btn btn-primary">See the full portfolio
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none"><path d="M5 12h14M13 6l6 6-6 6" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+      </a>
+    </div>
+  </div>
+</section>
+
+<!-- STATS -->
+<section style="padding-top:0">
+  <div class="wrap">
+    <div class="sec-head center reveal">
+      <span class="eyebrow" style="justify-content:center">Impact to date</span>
+      <h2>Numbers We're Proud to Wear.</h2>
+    </div>
+    <div class="statrow">
+      <div class="num-card" style="border-color:var(--line);background:#fff"><b style="color:var(--cyan-deep)">785,000<span class="u"> items</span></b><span style="color:var(--ink-2)">Clothing items given a second life</span></div>
+      <div class="num-card" style="border-color:var(--line);background:#fff"><b style="color:var(--coral)">2,700,000<span class="u"> kg</span></b><span style="color:var(--ink-2)">Kilograms of clothing collected to date</span></div>
+      <div class="num-card" style="border-color:var(--line);background:#fff"><b style="color:#1d9c6e">300<span class="u"> tailors</span></b><span style="color:var(--ink-2)">Tailors trained through our school</span></div>
+      <div class="num-card" style="border-color:var(--line);background:#fff"><b style="color:var(--ink)">12<span class="u"> stores</span></b><span style="color:var(--ink-2)">Stores across Lebanon and Jordan</span></div>
+    </div>
+  </div>
+</section>
+
+<!-- CTA -->
+<section style="padding-top:0">
+  <div class="wrap">
+    <div class="cta-band reveal">
+      <h2>Let's Tailor Your Uniforms.</h2>
+      <p>Book a meeting with our team and we'll map out garments, branding and timelines together.</p>
+      <div class="actions">
+        <a href="contact.html" class="btn btn-light">Book a Free 30-Minute Call
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none"><rect x="3" y="5" width="18" height="16" rx="2.5" stroke="currentColor" stroke-width="1.8"/><path d="M3 9h18M8 3v4M16 3v4" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/></svg>
+        </a>
+        <a href="about.html#facility" class="btn btn-outline" style="border-color:rgba(255,255,255,.55);color:#fff">Visit our facility</a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <div class="wrap">
+    <div class="foot-grid">
+      <div class="foot-brand">
+        <a class="foot-logo" href="index.html" aria-label="FabricAID"><img src="fabricaid-logo-white.png" alt="FabricAID" class="logo-img" /></a>
+        <p>A Lebanese social enterprise building a circular, dignified value chain for clothing across the MENA region.</p>
+      </div>
+      <div>
+        <h5>Uniforms</h5>
+        <ul>
+          <li><a href="portfolio.html">Portfolio</a></li>
+      <li><a href="merch.html">Merchandise</a></li>
+          <li><a href="about.html#facility">Our Facility</a></li>
+          <li><a href="faqs.html">Orders &amp; FAQ</a></li>
+          <li><a href="contact.html">Book a Free 30-Minute Call</a></li>
+        </ul>
+      </div>
+      <div>
+        <h5>Organisation</h5>
+        <ul>
+          <li><a href="about.html">About Us</a></li>
+          <li><a href="https://fabricaid.me" target="_blank" rel="noopener">fabricaid.me</a></li>
+          <li><a href="about.html#impact">Our impact</a></li>
+        </ul>
+      </div>
+      <div>
+        <h5>Get in touch</h5>
+        <ul>
+          <li><a href="mailto:admin@fabricaid.me">admin@fabricaid.me</a></li>
+          <li><a href="tel:+96176900230">+961 76 900 230</a></li>
+          <li><a href="contact.html">Mkalles, Beirut, Lebanon</a></li>
+        </ul>
+      </div>
+    </div>
+    <div class="foot-bottom">
+      <span>© 2026 FabricAID. Uniforms with a conscience.</span>
+      <div class="socials">
+        <a href="#" aria-label="Instagram"><svg width="18" height="18" viewBox="0 0 24 24" fill="none"><rect x="3" y="3" width="18" height="18" rx="5" stroke="#fff" stroke-width="1.6"/><circle cx="12" cy="12" r="4" stroke="#fff" stroke-width="1.6"/><circle cx="17.5" cy="6.5" r="1.2" fill="#fff"/></svg></a>
+        <a href="#" aria-label="LinkedIn"><svg width="18" height="18" viewBox="0 0 24 24" fill="none"><rect x="3" y="3" width="18" height="18" rx="4" stroke="#fff" stroke-width="1.6"/><path d="M7 10v7M7 7v.01M11 17v-4a2 2 0 014 0v4" stroke="#fff" stroke-width="1.6" stroke-linecap="round"/></svg></a>
+        <a href="#" aria-label="Facebook"><svg width="18" height="18" viewBox="0 0 24 24" fill="none"><path d="M14 8h2V5h-2a3 3 0 00-3 3v2H9v3h2v6h3v-6h2l1-3h-3V8a1 1 0 011-1z" stroke="#fff" stroke-width="1.4" stroke-linejoin="round"/></svg></a>
+      </div>
+    </div>
+  </div>
+</footer>
+
+<script src="site.js"></script>
+<script>
+  (function(){
+    var hero = document.querySelector('.bighero');
+    var slides = document.querySelectorAll('.bighero .bg');
+    if (slides.length < 2 || matchMedia('(prefers-reduced-motion: reduce)').matches) return;
+    var i = 0, visible = true;
+    new IntersectionObserver(function (es) { visible = es[0].isIntersecting; }).observe(hero);
+    setInterval(function(){
+      if (!visible || document.hidden) return;
+      slides[i].classList.remove('active');
+      i = (i + 1) % slides.length;
+      slides[i].classList.add('active');
+    }, 6000);
+  })();
+</script>
+</body>
+</html>

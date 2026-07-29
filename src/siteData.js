@@ -384,6 +384,14 @@ export const VIDEO_EDITS = [
 // still the fast, static card art; the live copy only loads on hover.
 export const WEBSITES = [
   {
+    name: "FabricAID Uniforms",
+    demo: "/demo/fabricaid/index.html",
+    tag: "Website design",
+    image: "/assets/projects/web-fabricaid.jpg",
+    full: "/assets/projects/web-fabricaid.jpg",
+    desc: "A seven-page site for FabricAID's uniform arm: workwear made in their own facility, with the social impact woven through rather than bolted on. Browse the range, the facility and the partner logos.",
+  },
+  {
     name: "Kitchen Garage",
     demo: "/demo/kitchen-garage/index.html",
     tag: "Website design",

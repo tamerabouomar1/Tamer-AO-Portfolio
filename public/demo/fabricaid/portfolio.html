@@ -1,0 +1,175 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Portfolio | FabricAID Uniforms</title>
+<meta name="description" content="A selection of uniforms, workwear and upcycled merchandise produced by FabricAID for corporations, NGOs and institutions." />
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@600;700;800;900&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet" />
+<link rel="stylesheet" href="styles.css" />
+<style>
+  .partners{display:grid;grid-template-columns:repeat(4,1fr);gap:14px}
+  .partner{background:#fff;border:1px solid var(--line);border-radius:14px;padding:20px 16px;text-align:center;transition:transform .3s var(--ease),box-shadow .3s var(--ease)}
+  .partner:hover{transform:translateY(-3px);box-shadow:var(--shadow)}
+  .partner img{height:88px;width:100%;object-fit:contain;margin:0 auto 10px;display:block}
+  .partner b{display:block;font-family:'Montserrat',sans-serif;font-weight:800;font-size:.96rem;color:var(--ink)}
+  .partner small{font-size:.72rem;font-weight:600;letter-spacing:.08em;text-transform:uppercase;color:var(--muted)}
+    transition:transform .3s var(--ease),box-shadow .3s var(--ease)}
+  @media(max-width:940px){.partners{grid-template-columns:repeat(2,1fr)}}
+</style>
+</head>
+<body>
+
+<header>
+  <div class="wrap nav">
+    <a class="logo" href="index.html" aria-label="FabricAID"><img src="fabricaid-logo.png" alt="FabricAID" class="logo-img logo-dark" /><img src="fabricaid-logo-white.png" alt="FabricAID" class="logo-img logo-white" /></a>
+    <ul class="nav-links" id="navLinks">
+      <li><a href="index.html">Home</a></li>
+      <li><a href="about.html">About Us</a></li>
+      <li><a href="portfolio.html" class="active">Portfolio</a></li>
+      <li><a href="merch.html">Merchandise</a></li>
+      <li><a href="faqs.html">Orders &amp; FAQ</a></li>
+      <li><a href="contact.html">Contact</a></li>
+    </ul>
+    <div class="nav-cta">
+      <a href="contact.html" class="btn btn-primary">Book a Free 30-Minute Call
+        <svg width="15" height="15" viewBox="0 0 24 24" fill="none"><rect x="3" y="5" width="18" height="16" rx="2.5" stroke="currentColor" stroke-width="1.8"/><path d="M3 9h18M8 3v4M16 3v4" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/></svg>
+      </a>
+      <button class="menu-btn" id="menuBtn" aria-label="Menu"><span></span><span></span><span></span></button>
+    </div>
+  </div>
+</header>
+
+<div class="page-hero">
+  <div class="wrap">
+    <h1>Work We're Proud&nbsp;Of.</h1>
+    <p class="sub">Uniforms and upcycled merchandise, produced in Beirut for teams across the region.</p>
+  </div>
+</div>
+
+<!-- PARTNERSHIPS -->
+<section style="background:var(--soft);border-top:1px solid var(--line);border-bottom:1px solid var(--line)">
+  <div class="wrap">
+    <div class="sec-head center reveal">
+      <span class="eyebrow" style="justify-content:center">Partnerships</span>
+      <h2>Organisations We Work With.</h2>
+    </div>
+    <div class="partners">
+      <div class="partner reveal"><img src="assets/logos/unicef.png" alt="UNICEF logo" loading="lazy" /><small>UN agency</small></div>
+      <div class="partner reveal"><img src="assets/logos/undp.png" alt="UNDP logo" loading="lazy" /><small>UN agency</small></div>
+      <div class="partner reveal"><img src="assets/logos/lrc.png" alt="Lebanese Red Cross logo" loading="lazy" /><small>Humanitarian</small></div>
+      <div class="partner reveal"><img src="assets/logos/savethechildren.png" alt="Save the Children logo" loading="lazy" /><small>INGO</small></div>
+      <div class="partner reveal"><img src="assets/logos/care.png" alt="CARE International logo" loading="lazy" /><small>INGO</small></div>
+      <div class="partner reveal"><img src="assets/logos/anera.png" alt="ANERA logo" loading="lazy" /><small>INGO</small></div>
+      <div class="partner reveal"><img src="assets/logos/mercycorps.png" alt="Mercy Corps logo" loading="lazy" /><small>INGO</small></div>
+      <div class="partner reveal"><img src="assets/logos/caritas.png" alt="Caritas logo" loading="lazy" /><small>NGO</small></div>
+      <div class="partner reveal"><img src="assets/logos/deloitte.png" alt="Deloitte logo" loading="lazy" /><small>Corporate</small></div>
+      <div class="partner reveal"><img src="assets/logos/aramex.png" alt="Aramex logo" loading="lazy" /><small>Logistics</small></div>
+      <div class="partner reveal"><img src="assets/logos/spinneys.png" alt="Spinneys logo" loading="lazy" /><small>Retail</small></div>
+      <div class="partner reveal"><img src="assets/logos/boecker.png" alt="Rentokil Boecker logo" loading="lazy" /><small>Corporate</small></div>
+    </div>
+  </div>
+</section>
+
+
+<section style="background:var(--soft);border-top:1px solid var(--line);border-bottom:1px solid var(--line)">
+  <div class="wrap">
+    <div class="sec-head center reveal">
+      <span class="eyebrow" style="justify-content:center">Sample Products</span>
+      <h2>A Selection of What We Make.</h2>
+    </div>
+    <div class="filter-bar reveal" style="justify-content:center">
+      <button class="active" data-filter="all">All</button>
+      <button data-filter="uniforms">Uniforms</button>
+      <button data-filter="workwear">Workwear</button>
+      <button data-filter="hospitality">Hospitality</button>
+    </div>
+
+    <div class="grid-3">
+      <article class="pcard reveal" data-cat="uniforms">
+        <div class="ph"><img src="assets/uniform-polo-bk.jpg" alt="Beige branded polo uniforms, front and back view" /></div>
+        <div class="info"><span class="tag">Uniforms</span><h3>The Crew Polo</h3><p>Piqué polos with chest and back branding for front-line teams.</p></div>
+      </article>
+      <article class="pcard reveal" data-cat="uniforms workwear">
+        <div class="ph"><img src="assets/uniform-polo-cat.jpg" alt="Black workwear polos with front and back print" /></div>
+        <div class="info"><span class="tag gr">Workwear</span><h3>The Foreman Polo</h3><p>Dark-tone polos engineered for industrial teams.</p></div>
+      </article>
+      <article class="pcard reveal" data-cat="workwear">
+        <div class="ph"><img src="assets/uniform-pants-cat.jpg" alt="Cargo work trousers with branded pocket flap" /></div>
+        <div class="info"><span class="tag gr">Workwear</span><h3>The Site Cargo</h3><p>Reinforced cargo trousers with branded detailing.</p></div>
+      </article>
+      <article class="pcard reveal" data-cat="hospitality uniforms">
+        <div class="ph"><img src="assets/uniform-apron-bk.jpg" alt="Cotton service apron with embroidered logo" /></div>
+        <div class="info"><span class="tag co">Hospitality</span><h3>The Service Apron</h3><p>Cotton aprons with embroidered branding for F&amp;B teams.</p></div>
+      </article>
+      <article class="pcard reveal" data-cat="uniforms workwear">
+        <div class="ph"><img src="assets/uniform-boecker-action.jpg" alt="Branded field uniform worn on the job" /></div>
+        <div class="info"><span class="tag">Uniforms</span><h3>The Route Uniform</h3><p>Two-tone branded uniforms in daily service use.</p></div>
+      </article>
+      <article class="pcard reveal" data-cat="uniforms">
+        <div class="ph"><img src="assets/facility-tailor.jpg" alt="Tailor sewing a custom uniform at FabricAID" /></div>
+        <div class="info"><span class="tag">Custom</span><h3>The Custom Line</h3><p>Made-to-spec garments developed with your team.</p></div>
+      </article>
+    </div>
+
+    <p style="text-align:center;color:var(--ink-2);font-size:.98rem;margin-top:36px" class="reveal">Looking for branded gifts and bags? Explore our <a href="merch.html" style="color:var(--cyan-deep);font-weight:600;text-decoration:underline">upcycled merchandise</a>.</p>
+    <div style="text-align:center;margin-top:22px" class="reveal">
+      <a href="contact.html" class="btn btn-primary">Book a Free 30-Minute Call
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none"><rect x="3" y="5" width="18" height="16" rx="2.5" stroke="currentColor" stroke-width="1.8"/><path d="M3 9h18M8 3v4M16 3v4" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/></svg>
+      </a>
+    </div>
+  </div>
+</section>
+
+
+
+<footer>
+  <div class="wrap">
+    <div class="foot-grid">
+      <div class="foot-brand">
+        <a class="foot-logo" href="index.html" aria-label="FabricAID"><img src="fabricaid-logo-white.png" alt="FabricAID" class="logo-img" /></a>
+        <p>A Lebanese social enterprise building a circular, dignified value chain for clothing across the MENA region.</p>
+      </div>
+      <div>
+        <h5>Uniforms</h5>
+        <ul>
+          <li><a href="portfolio.html">Portfolio</a></li>
+          <li><a href="merch.html">Merchandise</a></li>
+          <li><a href="about.html#facility">Our Facility</a></li>
+          <li><a href="faqs.html">Orders &amp; FAQ</a></li>
+          <li><a href="contact.html">Book a Free 30-Minute Call</a></li>
+        </ul>
+      </div>
+      <div>
+        <h5>Organisation</h5>
+        <ul>
+          <li><a href="about.html">About Us</a></li>
+          <li><a href="https://fabricaid.me" target="_blank" rel="noopener">fabricaid.me</a></li>
+          <li><a href="about.html#impact">Our impact</a></li>
+        </ul>
+      </div>
+      <div>
+        <h5>Get in touch</h5>
+        <ul>
+          <li><a href="mailto:admin@fabricaid.me">admin@fabricaid.me</a></li>
+          <li><a href="tel:+96176900230">+961 76 900 230</a></li>
+          <li><a href="contact.html">Mkalles, Beirut, Lebanon</a></li>
+        </ul>
+      </div>
+    </div>
+    <div class="foot-bottom">
+      <span>© 2026 FabricAID. Uniforms with a conscience.</span>
+      <div class="socials">
+        <a href="#" aria-label="Instagram"><svg width="18" height="18" viewBox="0 0 24 24" fill="none"><rect x="3" y="3" width="18" height="18" rx="5" stroke="#fff" stroke-width="1.6"/><circle cx="12" cy="12" r="4" stroke="#fff" stroke-width="1.6"/><circle cx="17.5" cy="6.5" r="1.2" fill="#fff"/></svg></a>
+        <a href="#" aria-label="LinkedIn"><svg width="18" height="18" viewBox="0 0 24 24" fill="none"><rect x="3" y="3" width="18" height="18" rx="4" stroke="#fff" stroke-width="1.6"/><path d="M7 10v7M7 7v.01M11 17v-4a2 2 0 014 0v4" stroke="#fff" stroke-width="1.6" stroke-linecap="round"/></svg></a>
+        <a href="#" aria-label="Facebook"><svg width="18" height="18" viewBox="0 0 24 24" fill="none"><path d="M14 8h2V5h-2a3 3 0 00-3 3v2H9v3h2v6h3v-6h2l1-3h-3V8a1 1 0 011-1z" stroke="#fff" stroke-width="1.4" stroke-linejoin="round"/></svg></a>
+      </div>
+    </div>
+  </div>
+</footer>
+
+<script src="site.js"></script>
+</body>
+</html>
