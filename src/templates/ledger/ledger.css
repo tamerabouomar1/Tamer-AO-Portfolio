@@ -1,0 +1,204 @@
+/* Ledger — Fintech Landing. Scoped under .lg. */
+
+/* The display serif. Loaded here rather than through useTemplateFont
+   because it comes from a font CDN, not Google Fonts. */
+@import url("https://db.onlinewebfonts.com/c/9d4d074c9335825a23cce178ee03b498?family=P22+Mackinac+W01+Book");
+
+.lg {
+  --lg-ink: #191919;
+  position: relative;
+  height: 100svh;
+  min-height: 560px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  overflow: hidden;
+  background: #fff;
+  color: var(--lg-ink);
+  font-family: "Inter", system-ui, sans-serif;
+  -webkit-font-smoothing: antialiased;
+}
+.lg * { box-sizing: border-box; }
+.lg a { color: inherit; text-decoration: none; }
+.lg h1, .lg h2, .lg p { margin: 0; }
+
+/* ── background video ─────────────────────────────────────── */
+.lg-bg { position: absolute; inset: 0; z-index: 0; overflow: hidden; }
+/* Slightly oversized and anchored to the top so the crop never reveals an
+   edge while the frames ping-pong. */
+.lg-bg__inner {
+  width: 100%;
+  height: 100%;
+  transform: scale(1.15);
+  transform-origin: top;
+  overflow: hidden;
+}
+.lg-bg video,
+.lg-bg canvas {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: top;
+  display: block;
+}
+
+/* ── nav ──────────────────────────────────────────────────── */
+.lg-nav {
+  position: absolute;
+  top: 0; left: 0; right: 0;
+  z-index: 50;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px;
+  padding: 16px 24px;
+}
+.lg-brand {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  font-size: 16px;
+  font-weight: 600;
+  letter-spacing: -0.02em;
+}
+.lg-logo { width: 24px; height: 24px; flex: none; }
+.lg-nav__links { display: none; gap: 28px; }
+.lg-nav__links a {
+  font-size: 14px;
+  color: rgba(25, 25, 25, 0.7);
+  transition: color 0.2s ease;
+}
+.lg-nav__links a:hover { color: var(--lg-ink); }
+
+.lg .lg-btn {
+  display: inline-block;
+  padding: 10px 20px;
+  border-radius: 8px;
+  background: var(--lg-ink);
+  color: #fff;
+  font-size: 14px;
+  font-weight: 500;
+  white-space: nowrap;
+  transition: background 0.2s ease;
+}
+.lg .lg-btn:hover { background: rgba(25, 25, 25, 0.9); }
+.lg .lg-btn--lg { padding: 12px 24px; }
+
+/* ── hero copy ────────────────────────────────────────────── */
+.lg-hero {
+  position: relative;
+  z-index: 10;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  padding: 96px 16px 0;
+}
+.lg-h1 {
+  font-family: "P22 Mackinac W01 Book", Georgia, serif;
+  font-weight: 400;
+  font-size: 2.25rem;
+  line-height: 1.1;
+  letter-spacing: -0.04em;
+}
+.lg-sub {
+  max-width: 24rem;
+  margin-top: 20px;
+  font-size: 14px;
+  line-height: 1.65;
+  color: rgba(25, 25, 25, 0.7);
+}
+.lg-hero .lg-btn--lg { margin-top: 24px; }
+
+/* ── bottom panel ─────────────────────────────────────────── */
+.lg-panelwrap {
+  position: relative;
+  z-index: 10;
+  margin-top: auto;   /* pins the panel to the bottom of the viewport */
+  width: 100%;
+  max-width: 64rem;
+  padding: 0 16px;
+}
+.lg-panel {
+  background: rgba(255, 255, 255, 0.9);
+  backdrop-filter: blur(6px);
+  -webkit-backdrop-filter: blur(6px);
+  border: 1px solid #e5e7eb;
+  border-bottom: 0;          /* flush with the viewport edge */
+  padding: 32px 20px 0;
+  box-shadow: 0 1px 2px rgba(0, 0, 0, 0.05);
+}
+.lg-panel__top { display: grid; grid-template-columns: 1fr; gap: 24px; }
+.lg-kicker {
+  font-size: 11px;
+  font-weight: 500;
+  text-transform: uppercase;
+  letter-spacing: 0.2em;
+  color: rgba(25, 25, 25, 0.5);
+}
+.lg-h2 {
+  margin-top: 12px;
+  font-family: "P22 Mackinac W01 Book", Georgia, serif;
+  font-weight: 400;
+  font-size: 1.5rem;
+  line-height: 1.2;
+  letter-spacing: -0.02em;
+}
+.lg-panel__body {
+  font-size: 14px;
+  line-height: 1.65;
+  color: rgba(25, 25, 25, 0.7);
+  align-self: end;
+}
+.lg-rule { height: 1px; width: 100%; background: #e5e7eb; margin-top: 24px; }
+
+.lg-features { display: grid; grid-template-columns: 1fr; gap: 8px; padding: 16px 0; }
+.lg-feature {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  padding: 14px 16px;
+  background: #f4f3f3;
+  font-size: 14px;
+  transition: background 0.2s ease;
+  cursor: pointer;
+}
+.lg-feature:hover { background: #eaeaea; }
+.lg-feature__n { color: rgba(25, 25, 25, 0.4); }
+.lg-feature__slash { margin: 0 8px; color: rgba(25, 25, 25, 0.3); }
+.lg-feature__label { font-weight: 500; }
+.lg-arrow { width: 16px; height: 16px; color: #9ca3af; transition: color 0.2s ease, transform 0.2s ease; }
+.lg-feature:hover .lg-arrow { color: #374151; transform: translateX(2px); }
+
+/* ── responsive ───────────────────────────────────────────── */
+@media (min-width: 640px) {
+  .lg-nav { padding: 20px 40px; }
+  .lg-hero { padding-top: 104px; }
+  .lg-h1 { font-size: 3rem; }
+  .lg-sub { max-width: 28rem; margin-top: 24px; }
+  .lg-hero .lg-btn--lg { margin-top: 32px; padding: 14px 32px; }
+  .lg-panelwrap { padding: 0 24px; }
+  .lg-panel { padding: 48px 32px 0; }
+  .lg-h2 { font-size: 1.875rem; }
+  .lg-features { grid-template-columns: repeat(3, 1fr); gap: 12px; }
+  .lg-feature { padding: 16px 24px; }
+}
+
+@media (min-width: 768px) {
+  .lg-nav { padding: 20px 56px; }
+  .lg-nav__links { display: flex; }
+  .lg-hero { padding-top: 128px; }
+  .lg-h1 { font-size: 4.5rem; }
+  .lg-sub { font-size: 16px; margin-top: 32px; }
+  .lg-hero .lg-btn--lg { margin-top: 40px; }
+  .lg-panel { padding: 64px 48px 0; }
+  .lg-panel__top { grid-template-columns: 1fr 1fr; gap: 64px; }
+  .lg-h2 { font-size: 2.25rem; }
+  .lg-panel__body { font-size: 15px; }
+  .lg-rule { margin-top: 40px; }
+}
+
+@media (min-width: 1024px) {
+  .lg-h1 { font-size: 6rem; }
+}

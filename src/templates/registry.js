@@ -16,6 +16,9 @@ const loaders = {
   vantage: () => import("./vex/VexSite"),
   drop: () => import("./toonhub/ToonhubSite"),
   atelier: () => import("./oddy/OddySite"),
+  ledger: () => import("./ledger/LedgerSite"),
+  noir: () => import("./noir/NoirSite"),
+  launch: () => import("./launch/LaunchSite"),
 };
 
 export const TEMPLATE_VIEWS = Object.fromEntries(
