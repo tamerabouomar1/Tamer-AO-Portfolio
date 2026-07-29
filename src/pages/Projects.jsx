@@ -2,6 +2,7 @@ import { useState, useEffect, useCallback } from "react";
 import { Link } from "react-router-dom";
 import { motion, AnimatePresence } from "framer-motion";
 import Page, { container, cardIn } from "../components/Page";
+import { LoadBar, LoadingImage } from "../components/LoadBar";
 import useSwipe from "../components/useSwipe";
 import { PROJECT_GROUPS } from "../siteData";
 
@@ -21,6 +22,10 @@ export default function Projects() {
   const [idx, setIdx] = useState(0);
   const [docIdx, setDocIdx] = useState(0);
   const [dir, setDir] = useState(0); // slide direction: 1 next, -1 prev
+  // Whether the slide currently on screen has finished downloading. These
+  // are full-page scans, so on a phone connection there is a real wait and
+  // the panel would otherwise sit empty with no explanation.
+  const [shotReady, setShotReady] = useState(false);
 
   // A card can hold either a single image set, or several named documents.
   const docs = active && active.docs ? active.docs : null;
@@ -42,10 +47,12 @@ export default function Projects() {
   const close = () => setActive(null);
   const next = useCallback(() => {
     setDir(1);
+    setShotReady(false);
     setIdx((i) => (i + 1) % images.length);
   }, [images.length]);
   const prev = useCallback(() => {
     setDir(-1);
+    setShotReady(false);
     setIdx((i) => (i - 1 + images.length) % images.length);
   }, [images.length]);
 
@@ -112,7 +119,7 @@ export default function Projects() {
                   return (
                     <>
                       <div className="proj-card__media">
-                        <img src={cover[0]} alt={item.name} loading="lazy" />
+                        <LoadingImage src={cover[0]} alt={item.name} loading="lazy" />
                       </div>
                       {item.docs ? (
                         <span className="proj-card__count">{item.docs.length} docs</span>
@@ -161,11 +168,14 @@ export default function Projects() {
               </button>
 
               <div className="lightbox__media" {...swipe}>
+                {!shotReady && <LoadBar label={`Loading ${active.name}`} />}
                 <AnimatePresence mode="wait">
                   <motion.img
                     key={idx}
                     src={images[idx]}
                     alt={`${active.name} ${idx + 1}`}
+                    onLoad={() => setShotReady(true)}
+                    onError={() => setShotReady(true)}
                     initial={{ opacity: 0, x: 44 * dir }}
                     animate={{ opacity: 1, x: 0 }}
                     exit={{ opacity: 0, x: -44 * dir }}
@@ -181,7 +191,10 @@ export default function Projects() {
                         <button
                           key={i}
                           className={"lb-dot" + (i === idx ? " is-on" : "")}
-                          onClick={() => setIdx(i)}
+                          onClick={() => {
+                            setShotReady(false);
+                            setIdx(i);
+                          }}
                           aria-label={`Image ${i + 1}`}
                         />
                       ))}

@@ -1,4 +1,5 @@
 import { useEffect, useRef, useState } from "react";
+import { LoadBar } from "./LoadBar";
 
 /* A card thumbnail that is the actual website, not a picture of one.
 
@@ -100,6 +101,10 @@ export default function LiveThumb({ src, bg, label, poster, mode = "eager" }) {
           style={{ width: FRAME_W, height: FRAME_H, transform: `scale(${scale})` }}
         />
       )}
+
+      {/* Shown whenever a real site is still arriving — including behind a
+          poster, where there was previously no sign anything was happening. */}
+      {canEmbed && armed && !loaded && <LoadBar label={`Loading ${label}`} />}
 
       {!poster && !loaded && canEmbed && (
         <span className="livethumb__spinner" aria-hidden="true" />

@@ -3,6 +3,7 @@ import { Link } from "react-router-dom";
 import { motion, AnimatePresence } from "framer-motion";
 import Page, { container, cardIn } from "../components/Page";
 import LiveThumb from "../components/LiveThumb";
+import { LoadBar, LoadingImage } from "../components/LoadBar";
 import { BuyModalHost } from "../components/BuyModal";
 import { prefetchTemplate } from "../templates/registry";
 import { CONTACT, TEMPLATES, TEMPLATE_PACKAGES, WEBSITES } from "../siteData";
@@ -16,8 +17,10 @@ import { CONTACT, TEMPLATES, TEMPLATE_PACKAGES, WEBSITES } from "../siteData";
 export default function Websites() {
   const [active, setActive] = useState(null); // client site, or null
   const [buying, setBuying] = useState(null); // template being bought, or null
+  const [siteReady, setSiteReady] = useState(false); // popup iframe loaded?
 
   useEffect(() => {
+    setSiteReady(false);
     if (!active) return;
     const onKey = (e) => e.key === "Escape" && setActive(null);
     window.addEventListener("keydown", onKey);
@@ -270,14 +273,18 @@ export default function Websites() {
                   the video. Sites without a runnable copy fall back to the
                   full-page screenshot they always had. */}
               {active.demo ? (
-                <iframe
-                  className="weblb__live-frame"
-                  src={active.demo}
-                  title={`${active.name} — live site`}
-                />
+                <>
+                  {!siteReady && <LoadBar label={`Loading ${active.name}`} />}
+                  <iframe
+                    className="weblb__live-frame"
+                    src={active.demo}
+                    title={`${active.name} — live site`}
+                    onLoad={() => setSiteReady(true)}
+                  />
+                </>
               ) : (
                 <div className="weblb__scroll">
-                  <img src={active.full} alt={`${active.name} full page`} />
+                  <LoadingImage src={active.full} alt={`${active.name} full page`} />
                 </div>
               )}
             </motion.div>
