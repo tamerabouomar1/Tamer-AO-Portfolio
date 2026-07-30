@@ -19,3 +19,8 @@ npm-debug.log*
 .env
 .env.local
 .env.*.local
+
+# local Worker secrets (LEADS_TOKEN); the real one lives in
+# `npx wrangler secret put LEADS_TOKEN`
+.dev.vars
+.wrangler

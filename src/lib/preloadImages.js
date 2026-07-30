@@ -1,17 +1,25 @@
 import { PROJECT_GROUPS, WEBSITES, SOCIAL_POSTS } from "../siteData";
+import { PREVIEW_MAX } from "../components/CardPreview";
 
 /**
  * Background image warming.
  *
- * Every project/website/post image is fetched into the browser cache once the
+ * Project, website and post images are fetched into the browser cache once the
  * page is idle, so opening a popup or switching pages is instant instead of
  * waiting on a download. Quality is untouched — these are the same files the
  * UI uses, just requested early at low priority.
+ *
+ * Two tiers, because the library grew: the grid covers and the frames each
+ * card actually cycles through are needed to render the Projects page itself,
+ * while the deep pages of a 29-spread magazine are only needed if someone
+ * opens it. The second tier is skipped on metered or slow connections rather
+ * than spending someone's data on documents they may never look at.
  */
 
 // Ordered by how soon a visitor is likely to need them.
 export function collectImageUrls() {
   const covers = [];
+  const preview = [];
   const rest = [];
 
   for (const group of PROJECT_GROUPS) {
@@ -21,6 +29,8 @@ export function collectImageUrls() {
         images.forEach((src, j) => {
           // first image of the first doc is the grid cover -> highest priority
           if (i === 0 && j === 0) covers.push(src);
+          // the rest of the card's visible reel comes next
+          else if (i === 0 && j < PREVIEW_MAX) preview.push(src);
           else rest.push(src);
         });
       });
@@ -34,7 +44,17 @@ export function collectImageUrls() {
 
   rest.push(...SOCIAL_POSTS.images);
 
-  return [...new Set([...covers, ...rest])];
+  const needed = [...new Set([...covers, ...preview])];
+  const deep = [...new Set(rest)].filter((src) => !needed.includes(src));
+  return { needed, deep };
+}
+
+/** Don't pull the deep pages over a metered or slow connection. */
+function wantsDeepWarming() {
+  const c = navigator.connection;
+  if (!c) return true; // no signal either way -> behave as before
+  if (c.saveData) return false;
+  return !["slow-2g", "2g", "3g"].includes(c.effectiveType);
 }
 
 /** Fetch one image; resolves either way so a 404 never stalls the queue. */
@@ -70,7 +90,11 @@ export function preloadAllImages() {
   started = true;
 
   const start = () => {
-    const run = () => warmAll(collectImageUrls());
+    const run = async () => {
+      const { needed, deep } = collectImageUrls();
+      await warmAll(needed);
+      if (wantsDeepWarming()) await warmAll(deep, 3);
+    };
     if ("requestIdleCallback" in window) {
       window.requestIdleCallback(run, { timeout: 2500 });
     } else {

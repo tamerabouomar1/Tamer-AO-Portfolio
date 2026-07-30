@@ -6,19 +6,32 @@
   // NOTE: this must match the Worker name in the Cloudflare dashboard
   // exactly, or Workers Builds fails the deploy. It was renamed to
   // "portfolio" there, so it is renamed here too.
-  // There is no "main" entry on purpose: with only an "assets" block this is a
-  // static-asset Worker, so no Worker script runs and every request is served
-  // straight from Cloudflare's edge.
+  // "main" exists only to serve /api/*: the free-template download records who
+  // took it (worker/index.js). Every other path is still served straight from
+  // the edge by the asset handler without the script running at all.
   "name": "portfolio",
+  "main": "worker/index.js",
   "compatibility_date": "2026-07-01",
 
   "assets": {
     "directory": "./dist",
+    "binding": "ASSETS",
 
     // Serves index.html (200) for any path that isn't a real file, which is
     // what makes React Router's routes survive a direct load or refresh —
     // /templates and /templates/jack would otherwise 404. This is the Workers
     // equivalent of the SPA rule in netlify.toml and public/_redirects.
-    "not_found_handling": "single-page-application"
-  }
+    "not_found_handling": "single-page-application",
+
+    // Without this, the SPA rule above would answer /api/lead with index.html
+    // before the Worker ever saw it. Only these paths run the script first.
+    "run_worker_first": ["/api/*"]
+  },
+
+  // Lead records from the free template downloads. Created 2026-07-30.
+  // Read them back with /api/leads?token=... once you have set the secret:
+  //   npx wrangler secret put LEADS_TOKEN
+  "kv_namespaces": [
+    { "binding": "LEADS", "id": "b389ac6a055e437db5d5bc9ee6155058" }
+  ]
 }

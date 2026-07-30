@@ -31,8 +31,6 @@ export default function Websites() {
     };
   }, [active]);
 
-  const from = Math.min(...TEMPLATES.map((t) => t.price));
-
   return (
     <Page>
       <header className="topbar">
@@ -81,34 +79,35 @@ export default function Websites() {
       {/* ── Ready-made sites ─────────────────────────────────── */}
       <section className="proj-section" id="store">
         <div className="storehead">
-          <span className="storehead__flag">Built with AI</span>
+          <span className="storehead__flag">Built with AI · Free to take</span>
           <h3 className="storehead__title">
-            High-end websites,
+            {TEMPLATES.length} high-end websites.
             <br />
-            <span className="storehead__accent">built in days, not months.</span>
+            <span className="storehead__accent">Take any of them, free.</span>
           </h3>
           <p className="storehead__lede">
-            {TEMPLATES.length} premium sites, designed and built with AI and finished by
-            hand. That is how work at this level costs hundreds instead of thousands.
-            What you see in each card below is the site itself running, not a screenshot.
-            Open it, scroll it, break it if you like. When one fits, it&apos;s yours from
-            ${from}.
+            Premium sites, designed and built with AI and finished by hand, and the source
+            code is yours for nothing. What you see in each card below is the site itself
+            running, not a screenshot. Open it, scroll it, break it if you like. When one
+            fits, download it, run two commands and it is live on your machine. Pay me only
+            if you would rather I put it on your domain for you.
           </p>
 
           <ul className="storeprops">
+            <li>
+              <strong>Free, genuinely</strong>
+              The full React project, a deploy guide and a license to use it on client work.
+              No payment, no card, no email course.
+            </li>
             <li>
               <strong>AI speed, designer&apos;s eye</strong>
               AI does the heavy lifting. Every layout, colour and line of type is still
               judged by a designer before it ships.
             </li>
             <li>
-              <strong>Live in days</strong>
-              Your words and photos in, deployed on your domain, not next quarter.
-            </li>
-            <li>
-              <strong>Yours to keep</strong>
-              Real React you own outright, not rented page-builder output. Fast on a
-              phone, and it stays that way.
+              <strong>Or live in days</strong>
+              Send your words and photos and I will have it on your domain this week, from
+              $200.
             </li>
           </ul>
 
@@ -146,8 +145,8 @@ export default function Websites() {
                     </h4>
                   </div>
                   <div className="tpl-card__price">
-                    <span className="tpl-card__from">from</span>
-                    <span className="tpl-card__amount">${t.price}</span>
+                    <span className="tpl-card__from">source</span>
+                    <span className="tpl-card__amount">Free</span>
                   </div>
                 </div>
 
@@ -175,7 +174,7 @@ export default function Websites() {
                     Live preview
                   </Link>
                   <button className="btn-book tpl-card__buy" onClick={() => setBuying(t)}>
-                    Buy this site
+                    Get it free
                   </button>
                 </div>
               </div>
@@ -199,14 +198,14 @@ export default function Websites() {
               </div>
               <div className="price-card__price">
                 <span className="price-card__amount">
-                  {p.from ? `$${p.from}+` : p.add ? `+$${p.add}` : "Base"}
+                  {p.free ? "$0" : p.from ? `$${p.from}+` : `$${p.flat}`}
                 </span>
                 <span className="price-card__period">
-                  {p.from
-                    ? "quoted per project"
-                    : p.add
-                      ? "on top of the template"
-                      : "template price"}
+                  {p.free
+                    ? "any template, no catch"
+                    : p.from
+                      ? "quoted per project"
+                      : "flat, any template"}
                 </span>
               </div>
               <ul className="price-card__features">
@@ -223,14 +222,22 @@ export default function Websites() {
                   </li>
                 )}
               </ul>
-              <a
-                className="btn-book"
-                href={CONTACT.calendly}
-                target="_blank"
-                rel="noreferrer noopener"
-              >
-                Talk it through
-              </a>
+              {/* The free tier's action is the grid above, not a call: the
+                  whole point is that nobody has to talk to anyone to get it. */}
+              {p.free ? (
+                <button className="btn-book" onClick={() => setBuying(TEMPLATES[0])}>
+                  Download one now
+                </button>
+              ) : (
+                <a
+                  className="btn-book"
+                  href={CONTACT.calendly}
+                  target="_blank"
+                  rel="noreferrer noopener"
+                >
+                  Talk it through
+                </a>
+              )}
             </article>
           ))}
         </div>

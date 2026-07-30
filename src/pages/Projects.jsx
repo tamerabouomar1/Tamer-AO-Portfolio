@@ -2,23 +2,16 @@ import { useState, useEffect, useCallback } from "react";
 import { Link } from "react-router-dom";
 import { motion, AnimatePresence } from "framer-motion";
 import Page, { container, cardIn } from "../components/Page";
-import { LoadBar, LoadingImage } from "../components/LoadBar";
+import { LoadBar } from "../components/LoadBar";
+import CardPreview from "../components/CardPreview";
 import useSwipe from "../components/useSwipe";
 import { PROJECT_GROUPS } from "../siteData";
 
-function initials(name) {
-  return name
-    .replace(/[^a-zA-Z0-9 ]/g, "")
-    .split(" ")
-    .filter(Boolean)
-    .slice(0, 2)
-    .map((w) => w[0])
-    .join("")
-    .toUpperCase();
-}
-
 export default function Projects() {
   const [active, setActive] = useState(null);
+  // Which card is leafing through its images. Exactly one at a time: the
+  // preview is a response to the pointer, not ambient motion.
+  const [hovered, setHovered] = useState(null);
   const [idx, setIdx] = useState(0);
   const [docIdx, setDocIdx] = useState(0);
   const [dir, setDir] = useState(0); // slide direction: 1 next, -1 prev
@@ -100,10 +93,19 @@ export default function Projects() {
           <motion.div className="proj-grid" variants={container} initial="hidden" animate="show">
             {group.items.map((item) => (
               <motion.article
-                className={"card proj-card" + (group.product ? " proj-card--product" : "")}
+                className={
+                  "card proj-card" +
+                  (group.product ? " proj-card--product" : "") +
+                  (item.phone ? " proj-card--phone" : "")
+                }
                 key={item.name}
                 variants={cardIn}
                 onClick={() => open(item)}
+                onMouseEnter={() => setHovered(item.name)}
+                onMouseLeave={() => setHovered((n) => (n === item.name ? null : n))}
+                /* keyboard users get the same preview by tabbing to the card */
+                onFocus={() => setHovered(item.name)}
+                onBlur={() => setHovered((n) => (n === item.name ? null : n))}
                 role="button"
                 tabIndex={0}
                 aria-label={`Open ${item.name}`}
@@ -119,7 +121,13 @@ export default function Projects() {
                   return (
                     <>
                       <div className="proj-card__media">
-                        <LoadingImage src={cover[0]} alt={item.name} loading="lazy" />
+                        {/* leafs through the first few images on hover, so the
+                            grid shows what is inside without being opened */}
+                        <CardPreview
+                          images={cover}
+                          name={item.name}
+                          playing={hovered === item.name && !active}
+                        />
                       </div>
                       {item.docs ? (
                         <span className="proj-card__count">{item.docs.length} docs</span>

@@ -1,7 +1,44 @@
 # Deploying the portfolio (live + editable)
 
+> **Where it actually lives now:** Cloudflare Workers, at
+> `tamer-ao-portfolio.tamerabouomar1.workers.dev`, configured by `wrangler.jsonc`.
+> The Netlify instructions further down are kept as a fallback only. To publish:
+>
+> ```bash
+> npm run build && npx wrangler deploy
+> ```
+
+## Free template downloads and leads (one-time setup)
+
+The store gives the template source away free and records who took it. Two things
+to do once, then it looks after itself:
+
+1. **Set the password that lets you read your leads.** Pick anything long:
+   ```bash
+   npx wrangler secret put LEADS_TOKEN
+   ```
+2. **Read them** any time, newest first, at:
+   - `https://<your-site>/api/leads?token=YOUR_TOKEN` (on screen)
+   - `https://<your-site>/api/leads?token=YOUR_TOKEN&format=csv` (opens in Excel/Sheets)
+
+   Without the token the endpoint returns 401, so nobody else can read your list.
+
+Leads are stored in the `portfolio-leads` KV namespace (already created and wired up
+in `wrangler.jsonc`). Each record is the name, the email or WhatsApp they gave, which
+template they took, the date, and their country.
+
+**After changing any template**, rebuild the downloadable zips or people will get
+stale code:
+
+```bash
+npm run build:zips
+```
+
+---
+
 This is a Vite + React app. To keep it **live and editable**, host it on a service
-that auto-rebuilds when you push code changes. Recommended: **GitHub + Netlify** (free).
+that auto-rebuilds when you push code changes. The original setup below was
+**GitHub + Netlify** (free).
 
 ## One-time setup
 

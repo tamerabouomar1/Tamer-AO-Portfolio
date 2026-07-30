@@ -188,8 +188,8 @@ export const PROJECT_GROUPS = [
       {
         name: "BioGarden",
         tag: "Company profile",
-        images: imgs("biogarden", 4),
-        desc: "A company profile and product catalogue for BioGarden, a natural, organic food brand.",
+        images: imgs("biogarden", 20),
+        desc: "The full twenty-page company profile for BioGarden, the natural food arm of Green Gardens Agro Industries. It runs from who they are, their vision and mission through why they stand out, their origin and their standards, then turns into a product catalogue: tomato base, olive base, extra virgin and infused olive oils, cold-pressed seed oils, pomegranate molasses, vinegars, tahini, thyme, floral waters and butter spreads.",
       },
       {
         name: "FabricAid",
@@ -340,22 +340,93 @@ export const PROJECT_GROUPS = [
     title: "University",
     items: [
       {
+        // Publication project 3. Shown as reading SPREADS, not single pages:
+        // the contents list and most features run across the gutter, so a
+        // page-at-a-time carousel would cut every one of them in half.
+        //
+        // Tamer produced the whole issue. The source file's masthead spread
+        // (pages 8-9) listed other names, so it is excluded here and the four
+        // feature bylines were reset to his; see scratchpad/fix_madar.py.
+        name: "MADAR Magazine",
+        tag: "Publication · 56 pages",
+        images: imgs("uni-madar", 28),
+        desc: "MADAR, Issue #1: a fifty-six page bilingual magazine about the architecture of Beirut, laid out here as reading spreads. Five features carry it, from the old houses with soul through the Brutalists, layers of time, the future of Beirut and its resilient spaces, with English and Arabic sharing one grid rather than one language being poured into the other's layout.",
+      },
+      {
+        name: "Peaks",
+        tag: "Interaction design · ski app",
+        phone: true, // tall app screens: crop from the top, not the middle
+        images: imgs("uni-peaks", 12),
+        desc: "Peaks, an app for the Mzaar slopes that puts your group on one live piste map. Tap a friend to see their altitude, speed and runs for the day, then ping them, message them or pull their route. Groups and chats sit behind the map, the weather and lift status are one panel away, and a held SOS button starts a countdown that sends your position to the whole group.",
+      },
+      {
+        name: "Charles Hostler Student Center",
+        tag: "Interaction design · campus app",
+        phone: true, // tall app screens: crop from the top, not the middle
+        images: imgs("uni-chsc", 8),
+        desc: "A rebuild of the app for AUB's Charles Hostler Student Center, designed around the two things students actually open it for: what is on today and how to get a slot. The home screen leads with upcoming classes and quick actions, varsity teams and featured classes sit above the facility list, and booking the gym, a court or a personal trainer is picking a day and a time from what is genuinely free.",
+      },
+      {
+        // The pitch deck belongs to Peaks; it was on the site as a nameless
+        // "interaction design concept" before the app itself was here.
+        name: "Peaks Pitch Deck",
+        tag: "Business models · 18 slides",
+        images: imgs("uni-pitch", 18),
+        desc: "The eighteen-slide deck that pitches Peaks as a business, not a screen: the problem on the mountain, who it is for, how the app answers it, and the case for building it.",
+      },
+      {
+        // Publication project 4. Pages 2 to 32 of the source are already
+        // laid out as spreads; the blank back matter is dropped.
+        name: "Letters to My Daughter",
+        tag: "Publication · Arabic spreads",
+        images: imgs("uni-letters", 32),
+        desc: "رسائل إلى ابنتي, an Arabic publication built as a sequence of letters. Charcoal drawing and the type are treated as one material: the text pulls apart, tilts and compacts into blocks as the letters go on, so the page carries the tone before it is read.",
+      },
+      {
+        // Publication project 2, a 12-page saddle-stitched booklet: front and
+        // back covers stand alone, the interior reads two-up.
+        name: "Musical Night",
+        tag: "Publication · programme",
+        images: imgs("uni-musical", 7),
+        desc: "The programme for Beit Kanafesh's first Musical Night, a twelve-page booklet in teal and white. Photography of the grounds runs against the mission, the programme schedule and the featured acts, with a leaf line drawing threading the whole thing together.",
+      },
+      {
+        name: "Ossa Kbire",
+        tag: "GD2 · brand identity",
+        images: imgs("uni-ossa", 20),
+        desc: "A complete black-and-white identity for Ossa Kbire, taken past the logo into everything it has to live on: the street sign, stationery, seal and envelopes, toilet signage cut from the same geometry, tote bags, bookmarks and a bookmark lamp, then the Facebook page, the Vagabond posters and the Instagram posts and stories.",
+      },
+      {
+        name: "Blow Up",
+        tag: "GD3 · poster series",
+        images: imgs("uni-blowup", 8),
+        desc: "Eight poster variations for Antonioni's Blow Up (1966), all on the same grainy park photograph. The image never changes; the typography does, and each version reads as a different film.",
+      },
+      {
+        // The mats-and-ropes poster came out; the tik tik BOOM poster leads,
+        // which is why the display image is the last of the original three.
         name: "Experimental Typography",
         tag: "Type 2 · poster series",
-        images: imgs("uni-type", 3),
-        desc: "A three-poster series building letterforms out of real objects: skipping ropes, mats and sparring gear photographed and composed into type. The subject and the material are the same thing.",
+        images: pick("uni-type-3", "uni-type-2"),
+        desc: "Two posters where the letterforms are made of the subject rather than set in it: hands and rubble for a tik tik BOOM countdown, and a heap of donated clothing built into a call for action.",
+      },
+      {
+        name: "Ayn El Mrayseh",
+        tag: "GD2 · Arabic logotype",
+        images: imgs("uni-ayn", 7),
+        desc: "An Arabic wordmark for the Beirut neighbourhood of Ayn El Mrayseh, drawn on a strict horizontal and vertical geometry so the letters read as built structure. The sheets follow it from first lockup to the final mark, past a photograph of the street it came from.",
+      },
+      {
+        name: "Knafeh",
+        tag: "GD2 · logo & identity",
+        images: imgs("uni-knafeh", 6),
+        desc: "A logo for a knafeh shop built from concentric rings, the tray seen from above. It works bilingually as كنافة and KNAFEH, and the sheets carry the variations and the sketch and photography work behind it.",
       },
       {
         name: "Illustration",
         tag: "Illustration · editorial & book",
         images: imgs("uni-illus", 3),
         desc: "Illustration work across a Dead Poets Society editorial piece, a children's book spread, and a bound collection of the term's drawing.",
-      },
-      {
-        name: "Interaction Pitch Deck",
-        tag: "Interaction design · 18 slides",
-        images: imgs("uni-pitch", 18),
-        desc: "An eighteen-slide pitch deck for an interaction design concept, taking it from the problem through to the interface and the case for building it.",
       },
       {
         name: "Visual Theory",
@@ -365,9 +436,9 @@ export const PROJECT_GROUPS = [
       },
       {
         name: "Packaging",
-        tag: "Packaging · labels & stickers",
-        images: imgs("uni-pack", 2),
-        desc: "Packaging coursework: a sticker set and a product label taken through to print-ready artwork.",
+        tag: "Packaging · print artwork",
+        images: imgs("uni-pack", 1),
+        desc: "The final print sheet for L'Arôme, a rosemary-led bath and body range: shampoo, hair wax, sea essence, lotion bar and hair mask labels laid out together as they go to print, so the palette and type hold as one family across five different formats.",
       },
       {
         name: "Calendar",
@@ -488,24 +559,29 @@ export const WEBSITES = [
 ];
 
 // ── Website Store ─────────────────────────────────────────────
-// Ready-made websites sold as packages. Every template has a LIVE preview
+// Ready-made websites, FREE to download. Every template has a LIVE preview
 // at /templates/:slug (its own lazy-loaded chunk — none of this code is in
-// the portfolio's main bundle) and is bought through the package modal.
+// the portfolio's main bundle) and its source is handed over as a zip through
+// the package modal. There is deliberately no per-template price any more:
+// the source costs nothing to copy, so the money is in TEMPLATE_PACKAGES,
+// which sells getting it live rather than getting the file.
 //
-// EDITING: prices, features and copy are all here. `accent`/`bg`/`ink` drive
-// the store card's zero-weight CSS mockup, so a new template needs no image.
+// EDITING: features and copy are all here. `accent`/`bg`/`ink` drive the
+// store card's zero-weight CSS mockup, so a new template needs no image.
 // `media` is the animated preview, and it is ONLY fetched on hover/tap.
 // Product names are styles, not invented people, and the demo copy carries
 // Tamer's name rather than a fictional persona. The demo ARTWORK is the
-// template's own — it shows what the layout does; a buyer's photos replace it
-// under "Done For You".
+// template's own — it shows what the layout does; a client's photos replace
+// it under "Done For You".
+//
+// A new template needs: an entry here, a loader in templates/registry.js,
+// and `npm run build:zips` to produce its downloadable source.
 export const TEMPLATES = [
   {
     slug: "onyx",
     name: "Onyx",
     kicker: "Creator Portfolio",
     tag: "Portfolio",
-    price: 149,
     desc: "A full-length dark portfolio built around your work. Scroll-driven marquee, a magnetic hero portrait and project cards that stack as you scroll.",
     highlights: ["5 sections", "Scroll-linked marquee", "Sticky project stack", "Fully responsive"],
     bestFor: "Designers · Photographers · Studios",
@@ -520,7 +596,6 @@ export const TEMPLATES = [
     name: "Vantage",
     kicker: "Venture Landing",
     tag: "Landing page",
-    price: 129,
     desc: "A cinematic single-screen landing page built on full-bleed video, liquid-glass UI and a headline that types itself in. Made to convert on the first screen.",
     highlights: ["Full-screen video hero", "Liquid-glass navbar", "Character entrance animation", "One screen, zero scroll"],
     bestFor: "Agencies · Startups · Consultants",
@@ -535,7 +610,6 @@ export const TEMPLATES = [
     name: "Drop",
     kicker: "Product Showcase",
     tag: "Product showcase",
-    price: 119,
     desc: "A colour-shifting product carousel where the whole page changes palette with the piece on screen. Built for collectibles, drops and character work.",
     highlights: ["Colour-morphing carousel", "Depth-blurred stage", "Grain overlay", "Touch + arrow controls"],
     bestFor: "Apparel · Product drops · Collections",
@@ -550,7 +624,6 @@ export const TEMPLATES = [
     name: "Atelier",
     kicker: "Studio Site",
     tag: "Studio site",
-    price: 169,
     desc: "The complete studio site: hero, marquee, work carousel, pricing, project showcase and an interactive contact section. Everything a solo studio needs to sell.",
     highlights: ["10 sections", "Pricing + work carousel", "Auto-scrolling showcase", "Mouse-trail CTA"],
     bestFor: "Design studios · Freelancers · Consultants",
@@ -565,7 +638,6 @@ export const TEMPLATES = [
     name: "Ledger",
     kicker: "Fintech Landing",
     tag: "Landing page",
-    price: 149,
     desc: "A calm, credible one-screen landing page for regulated industries. Serif headline over a seamlessly looping video, with a glass panel anchored to the bottom edge.",
     highlights: ["Boomerang video loop", "Glass bottom panel", "Serif display type", "One screen, no scroll"],
     bestFor: "Fintech · SaaS · B2B",
@@ -579,7 +651,6 @@ export const TEMPLATES = [
     name: "Noir",
     kicker: "Creative Hero",
     tag: "Landing page",
-    price: 139,
     desc: "One enormous italic word over a video that leans with your cursor, framed by floating liquid-glass chrome. Built to be remembered, not read.",
     highlights: ["Cursor parallax", "Boomerang video loop", "Liquid-glass nav", "Oversized display type"],
     bestFor: "Studios · AI tools · Portfolios",
@@ -593,7 +664,6 @@ export const TEMPLATES = [
     name: "Launch",
     kicker: "Startup Hero",
     tag: "Landing page",
-    price: 109,
     desc: "The startup announcement page: glass nav, a credibility badge, an oversized serif promise and one call to action over full-bleed video.",
     highlights: ["Credibility badge", "Glass nav pill", "Full-bleed video", "Single clear CTA"],
     bestFor: "Startups · Launches · Waitlists",
@@ -607,7 +677,6 @@ export const TEMPLATES = [
     name: "Strata",
     kicker: "Interactive Hero",
     tag: "Landing page",
-    price: 139,
     desc: "Two photographs stacked, with a soft spotlight that follows the cursor and reveals the second one through the first. People play with it before they read a word.",
     highlights: ["Cursor spotlight reveal", "Canvas-masked lighting", "Staggered blur entrance", "Glass pill nav"],
     bestFor: "Museums · Editorial · Tourism",
@@ -621,7 +690,6 @@ export const TEMPLATES = [
     name: "Reel",
     kicker: "Streaming Hero",
     tag: "Landing page",
-    price: 129,
     desc: "A cinema-poster hero: full-bleed video, ratings and runtime, and everything rising into place on a staggered blur. Blur instead of a dark scrim, so the footage keeps its colour.",
     highlights: ["Masked blur, no scrim", "Staggered blur entrance", "Liquid-glass controls", "Mobile menu built in"],
     bestFor: "Film · Events · Media",
@@ -635,7 +703,6 @@ export const TEMPLATES = [
     name: "Calm",
     kicker: "Product Landing",
     tag: "Product site",
-    price: 179,
     desc: "A full three-section product page: video hero, a warm about band that overlaps it, and a features section where a sticky menu tracks whichever card you are reading.",
     highlights: ["3 full sections", "Scroll-tracking sticky menu", "Video feature cards", "Overlapping section edges"],
     bestFor: "Apps · SaaS · Product launches",
@@ -646,26 +713,35 @@ export const TEMPLATES = [
   },
 ];
 
-// The three ways to buy any template above. `add` is added to the template's
-// own price; `from` means the tier is quoted, not fixed.
+// The three ways to get any template above.
+//
+// The source files are FREE. Copying a file costs nothing, so charging for it
+// only stopped people from ever seeing how good the work is. What is actually
+// scarce is getting it live, on brand, with real content, which is what the two
+// paid tiers sell. `free` means no price at all; `flat` is a fixed price that
+// no longer depends on which template; `from` means the tier is quoted.
 export const TEMPLATE_PACKAGES = [
   {
     id: "source",
     name: "Source Files",
-    tagline: "You host it, you own it",
-    add: 0,
+    tagline: "Yours to keep, free",
+    free: true,
+    // Downloading hands over the lead: the form asks for a name and a way to
+    // reach them before the zip starts.
+    gated: true,
     features: [
       "Full React source code",
-      "All assets & fonts wired up",
-      "One-project license",
-      "Deploy guide (Netlify / Vercel)",
+      "Runs with two commands, no setup",
+      "Free for personal and client work",
+      "Deploy guide for Netlify, Vercel and Cloudflare",
     ],
+    bonus: "No payment, no email course, no catch",
   },
   {
     id: "setup",
     name: "Done For You",
     tagline: "Live on your domain this week",
-    add: 200,
+    flat: 200,
     featured: true,
     save: "Most popular",
     features: [
@@ -692,6 +768,9 @@ export const TEMPLATE_PACKAGES = [
     bonus: "Free 30-minute strategy call first",
   },
 ];
+
+/** Where a template's free source zip lives. Built by npm run build:zips. */
+export const templateZip = (slug) => `/downloads/${slug}-template.zip`;
 
 // Weekly class schedule (Fitness page).
 export const SCHEDULE = [
