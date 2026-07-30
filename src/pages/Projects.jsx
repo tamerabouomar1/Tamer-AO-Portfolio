@@ -93,11 +93,7 @@ export default function Projects() {
           <motion.div className="proj-grid" variants={container} initial="hidden" animate="show">
             {group.items.map((item) => (
               <motion.article
-                className={
-                  "card proj-card" +
-                  (group.product ? " proj-card--product" : "") +
-                  (item.phone ? " proj-card--phone" : "")
-                }
+                className={"card proj-card" + (group.product ? " proj-card--product" : "")}
                 key={item.name}
                 variants={cardIn}
                 onClick={() => open(item)}

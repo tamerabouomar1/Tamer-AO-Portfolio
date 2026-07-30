@@ -463,12 +463,6 @@ ul { margin: 0; padding: 0; list-style: none; }
 .proj-card--product .proj-card__overlay { display: none; }
 .proj-card--product .proj-card__meta { padding: 12px 16px 16px; border-top: 1px solid var(--line); }
 
-/* App screens are far taller than the 16:10 card, so a centred crop shows a
-   sliver of the middle of a screen and reads as nothing. Anchoring to the top
-   gives the header and the first block of real content, which is how an app is
-   recognised. */
-.proj-card--phone .proj-card__media img { object-position: center top; }
-
 /* clickable cards -> open popup */
 .proj-card { cursor: pointer; }
 .proj-card__expand {

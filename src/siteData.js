@@ -353,34 +353,26 @@ export const PROJECT_GROUPS = [
         desc: "MADAR, Issue #1: a fifty-six page bilingual magazine about the architecture of Beirut, laid out here as reading spreads. Five features carry it, from the old houses with soul through the Brutalists, layers of time, the future of Beirut and its resilient spaces, with English and Arabic sharing one grid rather than one language being poured into the other's layout.",
       },
       {
-        name: "Peaks",
-        tag: "Interaction design · ski app",
-        phone: true, // tall app screens: crop from the top, not the middle
-        images: imgs("uni-peaks", 12),
-        desc: "Peaks, an app for the Mzaar slopes that puts your group on one live piste map. Tap a friend to see their altitude, speed and runs for the day, then ping them, message them or pull their route. Groups and chats sit behind the map, the weather and lift status are one panel away, and a held SOS button starts a countdown that sends your position to the whole group.",
-      },
-      {
-        name: "Charles Hostler Student Center",
-        tag: "Interaction design · campus app",
-        phone: true, // tall app screens: crop from the top, not the middle
-        images: imgs("uni-chsc", 8),
-        desc: "A rebuild of the app for AUB's Charles Hostler Student Center, designed around the two things students actually open it for: what is on today and how to get a slot. The home screen leads with upcoming classes and quick actions, varsity teams and featured classes sit above the facility list, and booking the gym, a court or a personal trainer is picking a day and a time from what is genuinely free.",
-      },
-      {
-        // The pitch deck belongs to Peaks; it was on the site as a nameless
-        // "interaction design concept" before the app itself was here.
+        // The two app projects this deck came out of (the Peaks and Charles
+        // Hostler interfaces) were pulled from the site; the deck stands on its
+        // own, so it carries the concept by itself now.
         name: "Peaks Pitch Deck",
         tag: "Business models · 18 slides",
         images: imgs("uni-pitch", 18),
-        desc: "The eighteen-slide deck that pitches Peaks as a business, not a screen: the problem on the mountain, who it is for, how the app answers it, and the case for building it.",
+        desc: "An eighteen-slide deck pitching Peaks, an app for the Mzaar slopes, as a business rather than a screen: the problem on the mountain, who it is for, how the app answers it, and the case for building it.",
       },
       {
-        // Publication project 4. Pages 2 to 32 of the source are already
-        // laid out as spreads; the blank back matter is dropped.
+        // Publication project 4, the final draft (43 single pages, from the
+        // exports/ folder). Arabic reads right to left, so each spread puts the
+        // LOWER page number on the RIGHT: pairs are given to the exporter as
+        // 3-2, 5-4 and so on. Verified rather than assumed. Comparing the pixel
+        // columns either side of the gutter, that arrangement scores 19.5 mean
+        // edge difference against 44.8 for the left-to-right one, and the
+        // full-bleed family photographs join up with no seam.
         name: "Letters to My Daughter",
-        tag: "Publication · Arabic spreads",
-        images: imgs("uni-letters", 32),
-        desc: "رسائل إلى ابنتي, an Arabic publication built as a sequence of letters. Charcoal drawing and the type are treated as one material: the text pulls apart, tilts and compacts into blocks as the letters go on, so the page carries the tone before it is read.",
+        tag: "Publication · book design",
+        images: imgs("uni-letters", 22),
+        desc: "رسائل إلى ابنتي, a book designed around five letters from a mother to her daughter, read right to left as it was made to be. Charcoal drawing, family photographs that run full-bleed across the gutter, and type treated as the same material as the images: the text pulls apart, tilts and compacts into blocks as the letters go on, so a page carries its tone before it is read. Text by Najwa Sabbah; design and art direction by Tamer.",
       },
       {
         // Publication project 2, a 12-page saddle-stitched booklet: front and
