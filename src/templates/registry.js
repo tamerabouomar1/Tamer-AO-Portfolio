@@ -22,6 +22,12 @@ const loaders = {
   strata: () => import("./strata/StrataSite"),
   reel: () => import("./reel/ReelSite"),
   calm: () => import("./calm/CalmSite"),
+  atlas: () => import("./atlas/AtlasSite"),
+  halo: () => import("./halo/HaloSite"),
+  lumen: () => import("./lumen/LumenSite"),
+  orbit: () => import("./orbit/OrbitSite"),
+  quiet: () => import("./quiet/QuietSite"),
+  frame: () => import("./frame/FrameSite"),
 };
 
 export const TEMPLATE_VIEWS = Object.fromEntries(

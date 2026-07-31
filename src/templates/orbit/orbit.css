@@ -1,0 +1,301 @@
+/* Orbit — Talent Marketplace. Scoped under .orb. */
+
+/* Registering the angle as a real typed property is what lets the conic
+   gradient animate at all: an unregistered custom property is a string and
+   jumps between keyframes instead of interpolating. */
+@property --orb-angle {
+  syntax: "<angle>";
+  initial-value: 0deg;
+  inherits: false;
+}
+
+.orb {
+  --accent: #a068ff;
+  position: relative;
+  min-height: 100svh;
+  overflow: hidden;
+  background-color: #0a0a0a;
+  background-position: center center;
+  background-size: cover;
+  background-repeat: no-repeat;
+  color: #fff;
+  font-family: "Inter", system-ui, sans-serif;
+}
+.orb * { box-sizing: border-box; }
+.orb button { border: 0; font: inherit; cursor: pointer; }
+.orb a { color: inherit; text-decoration: none; }
+.orb h1 { margin: 0; }
+
+/* ── header ─────────────────────────────────────────────────── */
+.orb-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 24px;
+  max-width: 1920px;
+  margin: 0 auto;
+  padding: 24px 64px;
+  animation: orb-down 0.8s cubic-bezier(0.22, 1, 0.36, 1) both;
+}
+.orb-header-left { display: flex; align-items: center; gap: 48px; }
+.orb-logo { height: 32px; width: auto; }
+.orb-nav { display: flex; align-items: center; gap: 32px; }
+.orb-nav a, .orb-login { position: relative; font-size: 15px; }
+.orb-nav a { color: #000; font-weight: 400; }
+.orb-login { color: #fff; font-weight: 500; }
+/* underline grows from the left rather than fading, so it reads as a draw */
+.orb-nav a::after, .orb-login::after {
+  content: "";
+  position: absolute;
+  left: 0; bottom: -3px;
+  width: 100%; height: 1px;
+  background: currentColor;
+  transform: scaleX(0);
+  transform-origin: left;
+  transition: transform 0.3s ease;
+}
+.orb-nav a:hover::after, .orb-login:hover::after { transform: scaleX(1); }
+.orb-header-right { display: flex; align-items: center; gap: 26px; }
+
+/* ── buttons ────────────────────────────────────────────────── */
+.orb-borderwrap { position: relative; border-radius: 50px; }
+.orb-borderwrap::before {
+  content: "";
+  position: absolute;
+  inset: -3px;
+  padding: 3px;
+  border-radius: inherit;
+  background: conic-gradient(from var(--orb-angle), #a068ff, #070319, #a068ff, #070319, #a068ff);
+  -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+  -webkit-mask-composite: xor;
+  mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+  mask-composite: exclude;
+  animation: orb-spin-angle 3s linear infinite;
+  pointer-events: none;
+}
+@keyframes orb-spin-angle { to { --orb-angle: 360deg; } }
+
+.orb-btn {
+  position: relative;
+  overflow: hidden;
+  padding: 12px 26px;
+  border-radius: 50px;
+  background: #000;
+  color: #fff;
+  font-size: 15px;
+  font-weight: 500;
+}
+.orb-btn::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+  background: var(--accent);
+  transform: translateX(-100%);
+  transition: transform 0.4s cubic-bezier(0.22, 1, 0.36, 1);
+}
+.orb-btn:hover::after { transform: translateX(0); }
+.orb-btn > * , .orb-btn { position: relative; }
+.orb-btn svg, .orb-btn span { position: relative; z-index: 1; }
+.orb-btn-lg {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 14px 28px;
+  background: #060218;
+  font-size: 16px;
+}
+.orb-btn-lg::after { transform: translateX(100%); }
+.orb-btn-lg:hover::after { transform: translateX(0); }
+
+/* ── hero ───────────────────────────────────────────────────── */
+.orb-hero {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 32px;
+  max-width: 1920px;
+  margin: 0 auto;
+  padding: 0 64px;
+}
+.orb-left { flex: 0 1 600px; padding-top: 40px; animation: orb-up 1s cubic-bezier(0.22, 1, 0.36, 1) both; }
+.orb-title {
+  font-family: "Urbanist", system-ui, sans-serif;
+  font-size: 64px;
+  font-weight: 600;
+  line-height: 64px;
+  letter-spacing: -1.5px;
+  min-height: 4.2em; /* reserves the block so the button never jumps as it types */
+}
+.orb-ink { color: #000; }
+.orb-paper { color: #fff; }
+.orb-caret {
+  display: inline-block;
+  width: 3px;
+  height: 0.85em;
+  margin-left: 4px;
+  background: var(--accent);
+  vertical-align: text-bottom;
+  animation: orb-blink 1s step-end infinite;
+}
+@keyframes orb-blink { 0%, 100% { opacity: 1; } 50% { opacity: 0; } }
+
+.orb-start { display: inline-block; opacity: 0; transform: translateY(10px); transition: opacity .5s, transform .5s; }
+.orb-start.is-in { opacity: 1; transform: translateY(0); }
+.orb-cursor {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  margin-left: 290px;
+  margin-top: 40px;
+  opacity: 0;
+  transform: translateY(10px);
+  transition: opacity .5s .2s, transform .5s .2s;
+}
+.orb-cursor.is-in { opacity: 1; transform: translateY(0); }
+.orb-tag {
+  padding: 8px 16px;
+  border-radius: 20px;
+  background: var(--accent);
+  color: #fff;
+  font-size: 16px;
+  font-weight: 500;
+}
+
+/* ── circles ────────────────────────────────────────────────── */
+.orb-right { flex: 0 0 auto; animation: orb-scale 1.2s cubic-bezier(0.22, 1, 0.36, 1) .3s both; }
+.orb-circles {
+  position: relative;
+  width: 720px;
+  height: 720px;
+  margin: 0 auto;
+}
+.orb-ring {
+  position: absolute;
+  top: 50%; left: 50%;
+  margin: -0.5px 0 0 -0.5px;
+  border-radius: 50%;
+  transform-origin: center;
+  animation-name: orb-turn;
+  animation-timing-function: linear;
+  animation-iteration-count: infinite;
+  translate: -50% -50%;
+}
+/* 1px ring drawn as a masked gradient so it can fade out top and bottom */
+.orb-ring::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  padding: 1px;
+  border-radius: 50%;
+  background: linear-gradient(180deg, rgba(217, 161, 255, 0) 0%, rgba(217, 161, 255, 1) 43%, rgba(217, 161, 255, 0) 100%);
+  -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+  -webkit-mask-composite: xor;
+  mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+  mask-composite: exclude;
+}
+@keyframes orb-turn { to { rotate: 360deg; } }
+
+.orb-centre {
+  position: absolute;
+  top: 50%; left: 50%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 4px;
+  translate: -50% -50%;
+  text-align: center;
+  animation-name: orb-turn;
+  animation-timing-function: linear;
+  animation-iteration-count: infinite;
+}
+.orb-centre strong {
+  font-family: "Urbanist", system-ui, sans-serif;
+  font-size: 64px;
+  font-weight: 500;
+  line-height: 1;
+  color: #fff;
+}
+.orb-centre span {
+  font-family: "Urbanist", system-ui, sans-serif;
+  font-size: 16px;
+  font-weight: 600;
+  color: #fff;
+}
+
+.orb-av { position: absolute; top: 50%; left: 50%; }
+.orb-av-spin {
+  width: 100%; height: 100%;
+  animation-name: orb-turn;
+  animation-timing-function: linear;
+  animation-iteration-count: infinite;
+}
+.orb-av-img {
+  width: 100%; height: 100%;
+  object-fit: cover;
+  animation: orb-flyin 0.9s cubic-bezier(0.22, 1, 0.36, 1) both;
+}
+@keyframes orb-flyin {
+  from { opacity: 0; transform: scale(0.3) rotate(-180deg); filter: blur(8px); }
+  to   { opacity: 1; transform: none; filter: blur(0); }
+}
+.orb-glow-purple { box-shadow: 0 0 30px rgba(160, 104, 255, 0.65); }
+.orb-glow-yellow { box-shadow: 0 0 30px rgba(255, 214, 102, 0.65); }
+.orb-glow-pink   { box-shadow: 0 0 30px rgba(255, 122, 193, 0.65); }
+.orb-glow-blue   { box-shadow: 0 0 30px rgba(104, 173, 255, 0.65); }
+.orb-glow-orange { box-shadow: 0 0 30px rgba(255, 154, 92, 0.65); }
+
+/* ── ticker ─────────────────────────────────────────────────── */
+.orb-ticker {
+  overflow: hidden;
+  padding: 32px 0 40px;
+  -webkit-mask: linear-gradient(90deg, transparent, #000 12%, #000 88%, transparent);
+  mask: linear-gradient(90deg, transparent, #000 12%, #000 88%, transparent);
+  animation: orb-up 1s cubic-bezier(0.22, 1, 0.36, 1) .6s both;
+}
+.orb-ticker-track {
+  display: flex;
+  align-items: center;
+  gap: 64px;
+  width: max-content;
+  animation: orb-slide 20s linear infinite;
+}
+.orb-ticker-track img { width: 137px; height: 40px; object-fit: contain; }
+/* Four identical sets; shifting by exactly one set's width loops seamlessly. */
+@keyframes orb-slide { to { transform: translateX(-25%); } }
+
+/* ── entrances ──────────────────────────────────────────────── */
+@keyframes orb-down  { from { opacity: 0; transform: translateY(-20px); } }
+@keyframes orb-up    { from { opacity: 0; transform: translateY(40px); } }
+@keyframes orb-scale { from { opacity: 0; transform: scale(0.85); } }
+
+/* ── responsive ─────────────────────────────────────────────── */
+@media (max-width: 1280px) { .orb-circles { transform: scale(0.85); } }
+@media (max-width: 1024px) {
+  .orb-hero { flex-direction: column; align-items: center; padding: 0 32px; }
+  .orb-header { padding: 24px 32px; }
+  .orb-header-left { gap: 24px; }
+  .orb-nav { gap: 18px; }
+  .orb-title { font-size: 48px; line-height: 50px; }
+  .orb-left { flex: 1 1 auto; }
+  .orb-circles { transform: scale(0.7); }
+  .orb-cursor { margin-left: 180px; }
+}
+@media (max-width: 768px) {
+  .orb-nav { display: none; }
+  .orb-title { font-size: 36px; line-height: 38px; letter-spacing: -1px; }
+  .orb-circles { transform: scale(0.5); }
+  .orb-cursor { margin-left: 80px; }
+}
+@media (max-width: 480px) {
+  .orb-header { padding: 18px; }
+  .orb-hero { padding: 0 18px; }
+  .orb-title { font-size: 28px; line-height: 30px; }
+  .orb-circles { transform: scale(0.4); }
+  .orb-btn { padding: 10px 20px; font-size: 14px; }
+  .orb-ticker-track img { width: 100px; height: 30px; }
+  .orb-cursor { margin-left: 20px; }
+}
+@media (prefers-reduced-motion: reduce) {
+  .orb-ring, .orb-centre, .orb-av-spin, .orb-ticker-track, .orb-borderwrap::before { animation: none; }
+}

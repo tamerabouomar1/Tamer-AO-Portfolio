@@ -1,0 +1,282 @@
+/* Lumen — Focus App Hero. Scoped under .lum. */
+
+.lum {
+  --ink: #ffffff;
+  position: relative;
+  width: 100%;
+  height: 100svh;
+  overflow: hidden;
+  background: #000; /* stops a white flash before the first frame decodes */
+  color: #fff;
+  font-family: "Instrument Serif", Georgia, serif;
+}
+.lum.is-dark { --ink: #182c41; }
+.lum * { box-sizing: border-box; }
+.lum button { border: 0; font: inherit; cursor: pointer; }
+.lum a { color: inherit; text-decoration: none; }
+.lum h1, .lum p { margin: 0; }
+
+/* ── scenes ─────────────────────────────────────────────────── */
+.lum-videos { position: absolute; inset: 0; z-index: 0; }
+.lum-video {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  opacity: 0;
+  transition: opacity 1000ms ease-in-out;
+}
+.lum-video.is-on { opacity: 1; }
+
+/* Held slightly oversized so the 6px bob never reveals the plate's edge. */
+.lum-overlay {
+  position: absolute;
+  inset: 0;
+  z-index: 1;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  pointer-events: none;
+  animation: lum-bob 3s ease-in-out infinite;
+}
+@keyframes lum-bob {
+  0%, 100% { transform: translateY(0) scale(1.03); }
+  50%      { transform: translateY(-6px) scale(1.03); }
+}
+
+.lum-content {
+  position: relative;
+  z-index: 2;
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+  padding: 20px;
+}
+
+/* ── liquid glass ───────────────────────────────────────────── */
+.lum-glass {
+  position: relative;
+  overflow: hidden;
+  border: none;
+  background: rgba(255, 255, 255, 0.01);
+  background-blend-mode: luminosity;
+  backdrop-filter: blur(4px);
+  -webkit-backdrop-filter: blur(4px);
+  box-shadow: inset 0 1px 1px rgba(255, 255, 255, 0.1);
+}
+.lum-glass::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  border-radius: inherit;
+  padding: 1.4px;
+  background: linear-gradient(
+    180deg,
+    rgba(255, 255, 255, 0.45) 0%,
+    rgba(255, 255, 255, 0.15) 20%,
+    rgba(255, 255, 255, 0) 40%,
+    rgba(255, 255, 255, 0) 60%,
+    rgba(255, 255, 255, 0.15) 80%,
+    rgba(255, 255, 255, 0.45) 100%
+  );
+  -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+  -webkit-mask-composite: xor;
+  mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+  mask-composite: exclude;
+  pointer-events: none;
+}
+
+/* ── nav ────────────────────────────────────────────────────── */
+/* Nav and stats stay white on every scene: they sit over the vignetted
+   corners, which are dark in all four clips. */
+.lum-nav { display: flex; align-items: center; justify-content: space-between; gap: 16px; }
+.lum-logo { color: #fff; font-size: 1.25rem; font-style: italic; }
+.lum-pill {
+  display: none;
+  align-items: center;
+  gap: 24px;
+  padding: 8px 8px 8px 24px;
+  border-radius: 999px;
+}
+.lum-pill a {
+  color: rgba(255, 255, 255, 0.9);
+  font-family: system-ui, sans-serif;
+  font-size: 0.875rem;
+  transition: color 0.2s;
+}
+.lum-pill a:hover { color: #fff; }
+.lum-cta {
+  padding: 8px 20px;
+  border-radius: 999px;
+  background: #fff;
+  color: #111;
+  font-family: system-ui, sans-serif;
+  font-size: 0.875rem;
+  font-weight: 500;
+}
+.lum-menubtn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 42px; height: 42px;
+  border-radius: 14px;
+  color: #fff;
+  background: transparent;
+}
+.lum-burger { position: relative; width: 20px; height: 20px; }
+.lum-burger svg {
+  position: absolute;
+  inset: 0;
+  transition: transform 300ms, opacity 300ms;
+}
+.lum-burger svg:first-child.is-out { transform: rotate(90deg) scale(0.75); opacity: 0; }
+.lum-burger svg:last-child { transform: rotate(0deg); opacity: 1; }
+.lum-burger svg:last-child.is-out { transform: rotate(-90deg); opacity: 0; }
+
+/* ── mobile sheet ───────────────────────────────────────────── */
+.lum-sheet {
+  position: fixed;
+  inset: 0;
+  z-index: 50;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: rgba(0, 0, 0, 0.6);
+  backdrop-filter: blur(4px);
+  -webkit-backdrop-filter: blur(4px);
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 500ms cubic-bezier(0.4, 0, 0.2, 1);
+}
+.lum-sheet.is-open { opacity: 1; pointer-events: auto; }
+.lum-sheet-inner { display: flex; flex-direction: column; align-items: center; gap: 24px; }
+.lum-sheet-inner a,
+.lum-sheet-inner .lum-cta {
+  color: #fff;
+  font-size: 1.875rem;
+  opacity: 0;
+  transform: translateY(16px);
+  transition: opacity 500ms cubic-bezier(0.4, 0, 0.2, 1),
+              transform 500ms cubic-bezier(0.4, 0, 0.2, 1);
+}
+.lum-sheet-inner .lum-cta { color: #111; transform: scale(0.9); font-size: 1rem; }
+.lum-sheet.is-open .lum-sheet-inner a { opacity: 1; transform: translateY(0); }
+.lum-sheet.is-open .lum-sheet-inner .lum-cta { opacity: 1; transform: scale(1); }
+
+/* ── hero ───────────────────────────────────────────────────── */
+.lum-hero {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 20px;
+  text-align: center;
+  color: var(--ink);
+  transition: color 700ms ease;
+}
+.lum-badge {
+  padding: 8px 20px;
+  border-radius: 999px;
+  color: var(--ink);
+  font-family: system-ui, sans-serif;
+  font-size: 0.8rem;
+  transition: color 700ms ease;
+}
+.lum-title {
+  max-width: 56rem;
+  font-size: 2.25rem;
+  font-weight: 400;
+  line-height: 1.1;
+  color: var(--ink);
+  transition: color 700ms ease;
+}
+.lum-sub {
+  max-width: 36rem;
+  color: var(--ink);
+  font-family: system-ui, sans-serif;
+  font-size: 0.95rem;
+  line-height: 1.6;
+  opacity: 0.85;
+  transition: color 700ms ease;
+}
+.lum-email {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  width: 100%;
+  max-width: 320px;
+  padding: 6px 6px 6px 18px;
+  border-radius: 999px;
+}
+.lum-email input {
+  flex: 1;
+  min-width: 0;
+  border: 0;
+  outline: none;
+  background: transparent;
+  color: var(--ink);
+  font-family: system-ui, sans-serif;
+  font-size: 0.875rem;
+  transition: color 700ms ease;
+}
+.lum-email input::placeholder { color: var(--ink); opacity: 0.55; }
+.lum-email button {
+  padding: 10px 18px;
+  border-radius: 999px;
+  background: #fff;
+  color: #111;
+  font-family: system-ui, sans-serif;
+  font-size: 0.8rem;
+  font-weight: 500;
+  white-space: nowrap;
+}
+.lum-switch { display: flex; flex-wrap: wrap; justify-content: center; gap: 18px; margin-top: 8px; }
+.lum-switch button {
+  padding: 4px 2px;
+  border-bottom: 1px solid transparent;
+  background: transparent;
+  color: var(--ink);
+  font-family: system-ui, sans-serif;
+  font-size: 0.8rem;
+  opacity: 0.5;
+  transition: opacity 0.25s, color 700ms ease, border-color 0.25s;
+}
+.lum-switch button:hover { opacity: 0.8; }
+.lum-switch button.is-on { opacity: 1; border-bottom-color: currentColor; }
+
+/* ── stats ──────────────────────────────────────────────────── */
+.lum-stats {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 8px 4px;
+  padding-bottom: 8px;
+  color: rgba(255, 255, 255, 0.7);
+  font-family: system-ui, sans-serif;
+  font-size: 0.75rem;
+}
+.lum-stats b { font-weight: 600; }
+.lum-div { display: none; margin: 0 12px; font-style: normal; opacity: 0.5; }
+
+@media (min-width: 640px) {
+  .lum-content { padding: 28px; }
+  .lum-logo { font-size: 1.5rem; }
+  .lum-title { font-size: 3rem; }
+  .lum-email { max-width: 24rem; }
+  .lum-stats { font-size: 0.875rem; }
+  .lum-div { display: inline; }
+}
+@media (min-width: 768px) {
+  .lum-pill { display: flex; }
+  .lum-menubtn { display: none; }
+  .lum-title { font-size: 4.5rem; }
+}
+@media (min-width: 1024px) {
+  .lum-title { font-size: 5.5rem; }
+}
+@media (prefers-reduced-motion: reduce) {
+  .lum-overlay { animation: none; transform: scale(1.03); }
+  .lum-video { transition: none; }
+}

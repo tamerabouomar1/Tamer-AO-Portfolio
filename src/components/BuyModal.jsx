@@ -49,14 +49,19 @@ export default function BuyModal({ template, onClose }) {
   const pkg = TEMPLATE_PACKAGES.find((p) => p.id === picked);
   const price = priceOf(template, pkg);
 
+  // The library tier is not about the template that opened this modal, so it
+  // gets its own opening line rather than asking for one site by name.
   const message = pkg.free
     ? `Hi Tamer, I just downloaded the free "${template.name}" template.\n` +
       `Name: ${who.name || "(not given)"}\n` +
       `Best contact: ${who.reach || "(this WhatsApp)"}\n\n` +
       `What I'm building: `
-    : `Hi Tamer, I'd like the "${template.name}" website template.\n` +
-      `Package: ${pkg.name} (${price.label})\n\n` +
-      `Here's a bit about my business: `;
+    : pkg.library || pkg.id === "library"
+      ? `Hi Tamer, I'd like the Full Library (${price.label}) - all the templates plus the new ones.\n\n` +
+        `Here's a bit about my business: `
+      : `Hi Tamer, I'd like the "${template.name}" website template.\n` +
+        `Package: ${pkg.name} (${price.label})\n\n` +
+        `Here's a bit about my business: `;
 
   const wa = `https://wa.me/${waNumber}?text=${encodeURIComponent(message)}`;
   const mail =

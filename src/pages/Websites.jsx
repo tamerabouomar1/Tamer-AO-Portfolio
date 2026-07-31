@@ -201,11 +201,12 @@ export default function Websites() {
                   {p.free ? "$0" : p.from ? `$${p.from}+` : `$${p.flat}`}
                 </span>
                 <span className="price-card__period">
-                  {p.free
-                    ? "any template, no catch"
-                    : p.from
-                      ? "quoted per project"
-                      : "flat, any template"}
+                  {p.period ??
+                    (p.free
+                      ? "any template, no catch"
+                      : p.from
+                        ? "quoted per project"
+                        : "flat, any template")}
                 </span>
               </div>
               <ul className="price-card__features">
