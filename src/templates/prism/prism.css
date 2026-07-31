@@ -1,0 +1,244 @@
+/* Prism — Studio Editorial (Signature). Scoped under .prs.
+
+   Two hard rules, both load-bearing:
+     1. No chromatic UI. Black, white and grey only. The iridescent hero field
+        is media and is the sole colour anywhere on the page.
+     2. Radius is 0px or 75px. Never anything between. Cards, images and inputs
+        stay sharp; buttons and tags are full pills. */
+
+.prs {
+  --obsidian: #000000;
+  --paper: #ffffff;
+  --inkstone: #181818;
+  --felt: #6d6d6d;
+  --slate: #636363;
+  --ease: cubic-bezier(0.19, 1, 0.22, 1);
+
+  position: relative;
+  min-height: 100svh;
+  background: var(--paper);
+  color: var(--obsidian);
+  font-family: "Inter", ui-sans-serif, system-ui, sans-serif;
+}
+.prs * { box-sizing: border-box; }
+.prs button { border: 0; font: inherit; cursor: pointer; }
+.prs a { color: inherit; text-decoration: none; }
+.prs h1, .prs h2, .prs h3, .prs p { margin: 0; }
+
+/* ── nav ────────────────────────────────────────────────────── */
+/* Invisible until content scrolls behind it: no fill, no blur, no shadow. */
+.prs-nav {
+  position: absolute;
+  top: 0; left: 0; right: 0;
+  z-index: 20;
+  display: flex;
+  align-items: center;
+  gap: 28px;
+  height: 66px;
+  padding: 0 clamp(16px, 4vw, 48px);
+  color: var(--paper);
+}
+.prs-word { font-size: 16px; font-weight: 400; }
+.prs-locale { display: flex; gap: 12px; margin: 0 auto; }
+.prs-locale button {
+  padding: 0;
+  background: transparent;
+  color: inherit;
+  font-size: 12px;
+  font-weight: 400;
+  opacity: 0.6;
+  transition: opacity 0.4s ease;
+}
+.prs-locale button.is-on, .prs-locale button:hover { opacity: 1; }
+.prs-menu { display: none; gap: 20px; }
+.prs-menu a {
+  font-size: 11px;
+  font-weight: 400;
+  line-height: 1.36;
+  text-transform: uppercase;
+  opacity: 0.8;
+  transition: opacity 0.4s ease;
+}
+.prs-menu a:hover { opacity: 1; }
+
+/* ── hero ───────────────────────────────────────────────────── */
+.prs-hero {
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 100svh;
+  overflow: hidden;
+  background: var(--obsidian);
+}
+.prs-field {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  /* Blurring the half-res canvas is what turns four blobs into liquid. */
+  filter: blur(46px) saturate(1.25);
+  transform: scale(1.18);
+}
+.prs-display {
+  position: relative;
+  z-index: 1;
+  padding: 0 20px;
+  color: var(--paper);
+  font-size: clamp(56px, 15.6vw, 225px);
+  font-weight: 400;
+  line-height: 1.25;
+  text-align: center;
+}
+
+.prs-badge {
+  position: absolute;
+  bottom: 24px;
+  left: 24px;
+  z-index: 1;
+  width: 88px;
+  height: 88px;
+  animation: prs-turn 14s linear infinite;
+}
+.prs-badge svg { width: 100%; height: 100%; }
+.prs-badge text {
+  fill: var(--paper);
+  font-size: 11px;
+  font-weight: 400;
+  letter-spacing: 0.06em;
+}
+@keyframes prs-turn { to { transform: rotate(360deg); } }
+
+/* ── manifesto ──────────────────────────────────────────────── */
+.prs-manifesto {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 46px;
+  max-width: 1078px;
+  margin: 0 auto;
+  padding: 152px 20px;
+}
+/* Weight 300 at this scale is the point: the headline is spoken, not shouted. */
+.prs-whisper {
+  font-size: clamp(34px, 5.4vw, 78px);
+  font-weight: 300;
+  line-height: 1.1;
+}
+.prs-manifesto-copy { display: flex; flex-direction: column; align-items: flex-start; gap: 28px; }
+.prs-manifesto-copy p {
+  max-width: 46ch;
+  color: var(--inkstone);
+  font-size: 18px;
+  font-weight: 400;
+  line-height: 1.58;
+}
+
+/* ── buttons ────────────────────────────────────────────────── */
+/* 0px or 75px. These are the pills. */
+.prs-pill {
+  padding: 11px 33px;
+  border-radius: 75px;
+  background: transparent;
+  font-size: 16px;
+  font-weight: 400;
+  transition: border-color 0.8s var(--ease), letter-spacing 0.8s var(--ease),
+              color 0.8s var(--ease), background-color 0.8s var(--ease);
+}
+.prs-pill--light { border: 1px solid var(--obsidian); color: var(--obsidian); }
+.prs-pill--light:hover { letter-spacing: 0.04em; }
+.prs-pill--dark { border: 1px solid rgba(255, 255, 255, 0.3); color: var(--paper); }
+.prs-pill--dark:hover { border-color: rgba(255, 255, 255, 0.85); letter-spacing: 0.04em; }
+/* The only solid fill in the system, and it is for consent, not marketing. */
+.prs-pill--filled {
+  border: 1px solid var(--paper);
+  background: rgba(55, 55, 55, 0.78);
+  color: var(--paper);
+}
+
+/* ── work ───────────────────────────────────────────────────── */
+.prs-work { max-width: 1078px; margin: 0 auto; padding: 0 20px 152px; }
+.prs-kicker {
+  display: block;
+  margin-bottom: 46px;
+  font-size: 11px;
+  font-weight: 400;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  color: var(--felt);
+}
+.prs-row { margin-bottom: 46px; }
+/* Sharp corners, no chrome: the image is the card. */
+.prs-shot {
+  aspect-ratio: 16 / 10;
+  border-radius: 0;
+  background:
+    radial-gradient(80% 120% at 20% 10%, #2c2c2c, transparent 60%),
+    radial-gradient(70% 100% at 85% 80%, #1a1a1a, transparent 60%),
+    #111111;
+}
+.prs-row-meta {
+  display: flex;
+  align-items: baseline;
+  gap: 14px;
+  margin-top: 14px;
+  font-size: 16px;
+  font-weight: 400;
+}
+.prs-row-meta h3 { font-size: 18px; font-weight: 400; }
+.prs-row-meta span:last-child { margin-left: auto; color: var(--felt); font-size: 12px; }
+
+/* ── anchor band ────────────────────────────────────────────── */
+.prs-anchor {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 46px;
+  padding: 152px clamp(20px, 6vw, 68px);
+  background: var(--obsidian);
+  color: var(--paper);
+}
+/* 0.76 line-height so the lines nearly touch and the block reads as an object. */
+.prs-anchor-type {
+  font-size: clamp(44px, 9vw, 94px);
+  font-weight: 400;
+  line-height: 0.76;
+}
+
+/* ── footer ─────────────────────────────────────────────────── */
+.prs-foot {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(min(100%, 200px), 1fr));
+  gap: 40px;
+  max-width: 1078px;
+  margin: 0 auto;
+  padding: 68px 20px 96px;
+}
+.prs-office { display: flex; flex-direction: column; }
+.prs-office span { margin-top: 8px; color: var(--felt); font-size: 11px; font-weight: 400; line-height: 1.36; }
+.prs-office-city { color: var(--obsidian) !important; text-transform: uppercase; letter-spacing: 0.06em; }
+
+/* ── cookie ─────────────────────────────────────────────────── */
+.prs-cookie {
+  position: fixed;
+  bottom: 0; left: 0; right: 0;
+  z-index: 40;
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 20px;
+  padding: 20px clamp(16px, 4vw, 48px);
+  background: rgba(55, 55, 55, 0.78);
+  backdrop-filter: blur(6px);
+  -webkit-backdrop-filter: blur(6px);
+  color: var(--paper);
+}
+.prs-cookie p { flex: 1; min-width: 220px; font-family: system-ui, sans-serif; font-size: 16px; line-height: 1.32; }
+
+@media (min-width: 860px) {
+  .prs-menu { display: flex; }
+  .prs-manifesto { grid-template-columns: 1.1fr 0.9fr; padding: 152px 20px; }
+}
+@media (prefers-reduced-motion: reduce) {
+  .prs-badge { animation: none; }
+  .prs-pill { transition: none; }
+}

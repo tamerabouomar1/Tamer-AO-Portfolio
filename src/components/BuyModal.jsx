@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
-import { CONTACT, TEMPLATE_PACKAGES, templateZip } from "../siteData";
+import { CONTACT, TEMPLATE_PACKAGES, SIGNATURE_PACKAGES, templateZip } from "../siteData";
 
 /* The delivery step, shared by the store grid and the live preview bar.
 
@@ -24,13 +24,20 @@ function priceOf(tpl, pkg) {
 }
 
 export default function BuyModal({ template, onClose }) {
-  // Open on the free tier: it is the reason to be here, and burying it behind
-  // a click on a paid tier wastes the whole point of giving it away.
+  // Open on the free tier where there is one: it is the reason to be here, and
+  // burying it behind a click on a paid tier wastes the point of giving it
+  // away. Signature templates have no free tier, so they open on the featured
+  // Pass instead. Everything below reads `tiers`, never the list directly.
+  const tiers = template?.tier === "signature" ? SIGNATURE_PACKAGES : TEMPLATE_PACKAGES;
   const [picked, setPicked] = useState(
-    TEMPLATE_PACKAGES.find((p) => p.free)?.id ??
-      TEMPLATE_PACKAGES.find((p) => p.featured)?.id ??
-      TEMPLATE_PACKAGES[0].id
+    tiers.find((p) => p.free)?.id ?? tiers.find((p) => p.featured)?.id ?? tiers[0].id
   );
+
+  // Switching between a free and a Signature template while the modal is open
+  // would otherwise leave `picked` pointing at a tier that no longer exists.
+  useEffect(() => {
+    setPicked(tiers.find((p) => p.free)?.id ?? tiers.find((p) => p.featured)?.id ?? tiers[0].id);
+  }, [tiers]);
   const [who, setWho] = useState({ name: "", reach: "" });
   const [sent, setSent] = useState(false);
 
@@ -46,7 +53,7 @@ export default function BuyModal({ template, onClose }) {
 
   if (!template) return null;
 
-  const pkg = TEMPLATE_PACKAGES.find((p) => p.id === picked);
+  const pkg = tiers.find((p) => p.id === picked) ?? tiers[0];
   const price = priceOf(template, pkg);
 
   // The library tier is not about the template that opened this modal, so it
@@ -93,7 +100,9 @@ export default function BuyModal({ template, onClose }) {
             <span className="web-card__tag">{template.tag}</span>
             <h3 className="buy__title">{template.name}</h3>
             <p className="buy__sub">
-              The files are free. Pick how much of the work you want done for you.
+              {template.tier === "signature"
+                ? "A complete design system. Take the source, or take all four."
+                : "The files are free. Pick how much of the work you want done for you."}
             </p>
           </div>
           <button className="weblb__close" onClick={onClose} aria-label="Close">
@@ -102,7 +111,7 @@ export default function BuyModal({ template, onClose }) {
         </div>
 
         <div className="buy__tiers">
-          {TEMPLATE_PACKAGES.map((p) => {
+          {tiers.map((p) => {
             const pr = priceOf(template, p);
             const on = p.id === picked;
             return (

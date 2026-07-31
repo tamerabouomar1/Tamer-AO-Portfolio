@@ -1,0 +1,179 @@
+/* Nebula — AI Product (Signature). Scoped under .neb.
+
+   The rule that governs everything: hierarchy is scale and tracking, never
+   weight. Headlines are 400. Body is 200. Nothing is bold. If a heading looks
+   weak, make it bigger or tighten the tracking; do not reach for 600. */
+
+.neb {
+  --void: #000000;
+  --bone: #ffffff;
+  --ash: #9a9a9a;
+  --silver: #bdbdbd;
+  --iris: #8052ff;
+  --saffron: #ffb829;
+  --verdant: #15846e;
+
+  position: relative;
+  min-height: 100svh;
+  padding: 0 clamp(20px, 5vw, 60px);
+  background: var(--void);
+  color: var(--bone);
+  font-family: "Inter", ui-sans-serif, system-ui, sans-serif;
+  font-feature-settings: "ss01" on;
+}
+.neb * { box-sizing: border-box; }
+.neb button { border: 0; font: inherit; cursor: pointer; }
+.neb a { color: inherit; text-decoration: none; }
+.neb h1, .neb h2, .neb h3, .neb p { margin: 0; }
+
+/* ── type ───────────────────────────────────────────────────── */
+/* -0.04em on everything 42px and up, which is -4.52px at 113px. */
+.neb-display {
+  font-size: clamp(46px, 7.8vw, 113px);
+  font-weight: 400;
+  line-height: 1.1;
+  letter-spacing: -0.04em;
+}
+.neb-heading {
+  font-size: clamp(32px, 5.4vw, 78px);
+  font-weight: 400;
+  line-height: 1.1;
+  letter-spacing: -0.04em;
+}
+.neb-body {
+  max-width: 480px;
+  color: var(--bone);
+  font-size: 18px;
+  font-weight: 200; /* the signature — do not raise this to 400 */
+  line-height: 1.5;
+}
+.neb-label {
+  display: block;
+  color: var(--saffron);
+  font-size: 14px;
+  font-weight: 600;
+  line-height: 1.2;
+  letter-spacing: 0.025em;
+  text-transform: uppercase;
+}
+
+/* ── nav ────────────────────────────────────────────────────── */
+.neb-nav {
+  display: flex;
+  align-items: center;
+  gap: clamp(20px, 4vw, 60px);
+  max-width: 1280px;
+  margin: 0 auto;
+  padding: 30px 0;
+}
+/* The logo takes the slack so the links and the button both sit right. Doing
+   it with margin-left:auto on the button instead breaks when the links are
+   hidden on small screens: they are display:none but still a sibling, so any
+   rule keyed off them still matches and the button lands next to the logo. */
+.neb-logo { display: flex; align-items: center; gap: 12px; margin-right: auto; font-size: 18px; }
+.neb-logo svg { width: 18px; height: 18px; }
+.neb-links { display: none; gap: 36px; }
+.neb-links a {
+  color: var(--ash);
+  font-size: 14px;
+  font-weight: 600;
+  letter-spacing: 0.025em;
+  text-transform: uppercase;
+  transition: color 0.2s;
+}
+.neb-links a.is-on, .neb-links a:hover { color: var(--bone); }
+
+/* The one filled surface in the system. Never more than one per view. */
+.neb-cta {
+  padding: 14.4px 16px;
+  border-radius: 22.5px;
+  background: var(--iris);
+  color: var(--bone);
+  font-size: 14px;
+  font-weight: 600;
+  letter-spacing: 0.025em;
+  text-transform: uppercase;
+  white-space: nowrap;
+  transition: filter 0.2s;
+}
+.neb-cta:hover { filter: brightness(1.14); }
+
+/* ── hero ───────────────────────────────────────────────────── */
+.neb-hero {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 36px;
+  align-items: center;
+  max-width: 1280px;
+  margin: 0 auto;
+  padding: 60px 0 96px;
+}
+.neb-hero-copy { display: flex; flex-direction: column; align-items: flex-start; gap: 24px; }
+.neb-hero-art { position: relative; aspect-ratio: 1 / 1; width: 100%; }
+.neb-hero-art canvas { width: 100%; height: 100%; display: block; }
+
+/* ── sections ───────────────────────────────────────────────── */
+/* Zigzag: headline left / copy right, then the reverse. */
+.neb-section {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 30px;
+  max-width: 1280px;
+  margin: 0 auto;
+  padding: 60px 0;
+}
+.neb-section-copy { display: flex; flex-direction: column; gap: 18px; }
+.neb-section-copy .neb-body { color: var(--silver); max-width: 520px; }
+
+/* ── team ───────────────────────────────────────────────────── */
+.neb-team { max-width: 1280px; margin: 0 auto; padding: 96px 0 60px; }
+.neb-team-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(min(100%, 240px), 1fr));
+  gap: 36px;
+  margin-top: 60px;
+}
+.neb-member { display: flex; flex-direction: column; gap: 12px; }
+/* Portrait slot. A buyer drops a photo in here; the placeholder is a wash of
+   the brand gradient rather than a grey box so an empty card still reads. */
+.neb-portrait {
+  aspect-ratio: 4 / 5;
+  border-radius: 24px;
+  background:
+    radial-gradient(120% 90% at 30% 15%, rgba(128, 82, 255, 0.55), transparent 60%),
+    radial-gradient(120% 90% at 80% 90%, rgba(21, 132, 110, 0.5), transparent 62%),
+    #0a0a0a;
+}
+.neb-role {
+  color: var(--iris);
+  font-size: 12px;
+  font-weight: 400;
+  line-height: 1.5;
+  text-transform: uppercase;
+}
+.neb-name { font-size: 27px; font-weight: 400; line-height: 1; }
+
+.neb-dots { display: flex; gap: 12px; margin-top: 30px; }
+.neb-dots i { width: 8px; height: 8px; border-radius: 9999px; background: #2a2a2a; }
+.neb-dots i.is-on { background: var(--iris); }
+
+/* ── footer ─────────────────────────────────────────────────── */
+.neb-foot {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 30px;
+  max-width: 1280px;
+  margin: 0 auto;
+  padding: 96px 0 120px;
+}
+.neb-foot .neb-cta { margin-left: 0; }
+.neb-fine { color: var(--ash); font-size: 12px; font-weight: 200; line-height: 1.5; }
+
+@media (min-width: 900px) {
+  .neb-links { display: flex; }
+  .neb-hero { grid-template-columns: 1fr 1fr; gap: 60px; padding: 60px 0 120px; }
+  .neb-section { grid-template-columns: 1fr 1fr; gap: 60px; align-items: start; padding: 120px 0; }
+  .neb-section.is-flipped .neb-heading { order: 2; }
+  .neb-section.is-flipped .neb-section-copy { order: 1; }
+}

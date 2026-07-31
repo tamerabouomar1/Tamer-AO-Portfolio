@@ -28,6 +28,10 @@ const loaders = {
   orbit: () => import("./orbit/OrbitSite"),
   quiet: () => import("./quiet/QuietSite"),
   frame: () => import("./frame/FrameSite"),
+  nebula: () => import("./nebula/NebulaSite"),
+  prism: () => import("./prism/PrismSite"),
+  darkroom: () => import("./darkroom/DarkroomSite"),
+  abyss: () => import("./abyss/AbyssSite"),
 };
 
 export const TEMPLATE_VIEWS = Object.fromEntries(

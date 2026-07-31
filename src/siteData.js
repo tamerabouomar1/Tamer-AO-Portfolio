@@ -781,6 +781,77 @@ export const TEMPLATES = [
     bg: "#ffffff",
     ink: "#000000",
   },
+
+  // ── Signature ───────────────────────────────────────────────
+  // `tier: "signature"` splits these into their own paid section of the store
+  // and swaps the price ladder in the buy modal (SIGNATURE_PACKAGES below).
+  // These four are built from full design systems rather than single-screen
+  // briefs: multi-section pages, canvas-drawn signature visuals, and a token
+  // set a buyer can extend rather than a layout they can only recolour. That
+  // is what they are paying for, and it is why they are not in the free grid.
+  //
+  // The style references came from real companies. Names, copy and marks are
+  // all changed — the SYSTEM is the reference, never the brand.
+  {
+    slug: "nebula",
+    name: "Nebula",
+    kicker: "AI Product",
+    tag: "Signature",
+    tier: "signature",
+    price: 149,
+    desc: "A pure black stage with one violet accent and a constellation of thousands of tiny triangles that settle into a brain. Hierarchy comes from scale and tracking alone, never weight, so every headline sits at the same weight as the body.",
+    highlights: ["Canvas particle constellation", "Weight-free type hierarchy", "Team + carousel sections", "Retint from one array"],
+    bestFor: "AI products · Research labs · Deep tech",
+    stack: "React · Canvas",
+    accent: "#8052ff",
+    bg: "#000000",
+    ink: "#ffffff",
+  },
+  {
+    slug: "prism",
+    name: "Prism",
+    kicker: "Studio Editorial",
+    tag: "Signature",
+    tier: "signature",
+    price: 149,
+    desc: "Radical monochrome discipline wrapped around one iridescent hero: sage green dissolving through molten amber into oxblood, drawn live on canvas. Black and white everywhere else, and a radius that only ever goes 0px or full pill.",
+    highlights: ["Live iridescent hero field", "225px editorial display type", "Rotating scroll badge", "Strict monochrome UI"],
+    bestFor: "Design studios · Agencies · Galleries",
+    stack: "React · Canvas",
+    accent: "#a02d25",
+    bg: "#ffffff",
+    ink: "#000000",
+  },
+  {
+    slug: "darkroom",
+    name: "Darkroom",
+    kicker: "Product Story",
+    tag: "Signature",
+    tier: "signature",
+    price: 149,
+    desc: "One object treated like a museum artifact, floating in warm darkness with cream type as the only decoration. Two typographic modes and nothing else: uppercase labels, and one conversational voice that appears when the page starts talking to you.",
+    highlights: ["Product rendered in pure CSS", "Two-mode type system", "Full-viewport reveals", "No licensed imagery"],
+    bestFor: "Product launches · Makers · Objects",
+    stack: "React · CSS",
+    accent: "#dc5000",
+    bg: "#100904",
+    ink: "#ffedd7",
+  },
+  {
+    slug: "abyss",
+    name: "Abyss",
+    kicker: "Fintech Terminal",
+    tag: "Signature",
+    tier: "signature",
+    price: 149,
+    desc: "A deep-water trading terminal. A rotating particle sphere anchors the hero, and depth is built from a three-step teal surface stack instead of shadows, so panels read as floating at different depths rather than stacked on paper.",
+    highlights: ["Depth-sorted particle sphere", "Shadowless surface stack", "Rationed colour system", "Statistic + division blocks"],
+    bestFor: "Fintech · Trading · B2B platforms",
+    stack: "React · Canvas",
+    accent: "#fde9ff",
+    bg: "#012624",
+    ink: "#ffffff",
+  },
 ];
 
 // The three ways to get any template above.
@@ -790,6 +861,12 @@ export const TEMPLATES = [
 // scarce is getting it live, on brand, with real content, which is what the two
 // paid tiers sell. `free` means no price at all; `flat` is a fixed price that
 // no longer depends on which template; `from` means the tier is quoted.
+// The store shows these as two separate collections, and the buy modal offers
+// a different price ladder for each, so split them once here rather than
+// filtering by `tier` at every call site.
+export const FREE_TEMPLATES = TEMPLATES.filter((t) => t.tier !== "signature");
+export const SIGNATURE_TEMPLATES = TEMPLATES.filter((t) => t.tier === "signature");
+
 export const TEMPLATE_PACKAGES = [
   {
     id: "source",
@@ -836,10 +913,10 @@ export const TEMPLATE_PACKAGES = [
     name: "Full Library",
     tagline: "Every template, and every one I make next",
     flat: 99,
-    period: `one time, all ${TEMPLATES.length}`,
+    period: `one time, all ${FREE_TEMPLATES.length}`,
     save: "Best value",
     features: [
-      `All ${TEMPLATES.length} templates in a single download`,
+      `All ${FREE_TEMPLATES.length} free templates in a single download`,
       "Every new template added free, for life",
       "Use them on unlimited client projects",
       "No form to fill in again",
@@ -865,6 +942,65 @@ export const TEMPLATE_PACKAGES = [
 
 /** Where a template's free source zip lives. Built by npm run build:zips. */
 export const templateZip = (slug) => `/downloads/${slug}-template.zip`;
+
+// ── Signature price ladder ────────────────────────────────────
+// The free collection is a lead magnet: give the source away, capture the
+// contact. That logic does not carry to the Signature four, which are whole
+// design systems rather than one screen, so they are sold outright.
+//
+// $149 for one is anchored against the $200 Done For You: buying the system
+// costs less than having one site finished for you, which is the correct
+// relationship. The Pass at $399 is priced under three singles so anyone who
+// wants two is already most of the way to taking all four, and it folds in
+// the free library so there is never a reason to buy both.
+export const SIGNATURE_PACKAGES = [
+  {
+    id: "sig-source",
+    name: "Source Files",
+    tagline: "The whole system, yours",
+    flat: 149,
+    period: "one template",
+    features: [
+      "Full React source for this template",
+      "Every design token, documented",
+      "Signature visual included, no licensed assets",
+      "Use it on one client project",
+    ],
+    bonus: "Deploy guide for Netlify, Vercel and Cloudflare",
+  },
+  {
+    id: "sig-pass",
+    name: "Signature Pass",
+    tagline: "All four, and the free library with them",
+    flat: 399,
+    featured: true,
+    save: "Best value",
+    period: "all four, one time",
+    features: [
+      "All four Signature templates",
+      "The entire free library included",
+      "Every future Signature release, free",
+      "Unlimited client projects",
+      "Priority replies when you get stuck",
+    ],
+    bonus: "Free 30-minute call to plan the build",
+  },
+  {
+    id: "sig-setup",
+    name: "Done For You",
+    tagline: "Live on your domain this week",
+    flat: 450,
+    period: "flat, any Signature",
+    features: [
+      "Everything in Source Files",
+      "Your copy, photos and branding applied",
+      "Signature visual retuned to your palette",
+      "Deployed on your domain + SSL",
+      "2 rounds of revisions",
+    ],
+    bonus: "Free logo animation for your hero",
+  },
+];
 
 // Weekly class schedule (Fitness page).
 export const SCHEDULE = [
