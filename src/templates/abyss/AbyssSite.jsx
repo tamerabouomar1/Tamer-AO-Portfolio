@@ -1,5 +1,6 @@
 import { useEffect, useRef } from "react";
 import useTemplateFont from "../useTemplateFont";
+import "./tokens.css";
 import "./abyss.css";
 
 /* ── Abyss — Fintech Terminal (Signature) ──────────────────────

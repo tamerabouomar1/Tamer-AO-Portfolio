@@ -1,5 +1,6 @@
 import { useEffect, useRef, useState } from "react";
 import useTemplateFont from "../useTemplateFont";
+import "./tokens.css";
 import "./prism.css";
 
 /* ── Prism — Studio Editorial (Signature) ──────────────────────

@@ -7,18 +7,11 @@
         stay sharp; buttons and tags are full pills. */
 
 .prs {
-  --obsidian: #000000;
-  --paper: #ffffff;
-  --inkstone: #181818;
-  --felt: #6d6d6d;
-  --slate: #636363;
-  --ease: cubic-bezier(0.19, 1, 0.22, 1);
-
   position: relative;
   min-height: 100svh;
-  background: var(--paper);
-  color: var(--obsidian);
-  font-family: "Inter", ui-sans-serif, system-ui, sans-serif;
+  background: var(--color-paper);
+  color: var(--color-obsidian);
+  font-family: var(--font-roobert);
 }
 .prs * { box-sizing: border-box; }
 .prs button { border: 0; font: inherit; cursor: pointer; }
@@ -36,7 +29,7 @@
   gap: 28px;
   height: 66px;
   padding: 0 clamp(16px, 4vw, 48px);
-  color: var(--paper);
+  color: var(--color-paper);
 }
 .prs-word { font-size: 16px; font-weight: 400; }
 .prs-locale { display: flex; gap: 12px; margin: 0 auto; }
@@ -69,7 +62,7 @@
   justify-content: center;
   min-height: 100svh;
   overflow: hidden;
-  background: var(--obsidian);
+  background: var(--color-obsidian);
 }
 .prs-field {
   position: absolute;
@@ -84,7 +77,7 @@
   position: relative;
   z-index: 1;
   padding: 0 20px;
-  color: var(--paper);
+  color: var(--color-paper);
   font-size: clamp(56px, 15.6vw, 225px);
   font-weight: 400;
   line-height: 1.25;
@@ -102,7 +95,7 @@
 }
 .prs-badge svg { width: 100%; height: 100%; }
 .prs-badge text {
-  fill: var(--paper);
+  fill: var(--color-paper);
   font-size: 11px;
   font-weight: 400;
   letter-spacing: 0.06em;
@@ -127,7 +120,7 @@
 .prs-manifesto-copy { display: flex; flex-direction: column; align-items: flex-start; gap: 28px; }
 .prs-manifesto-copy p {
   max-width: 46ch;
-  color: var(--inkstone);
+  color: var(--color-inkstone);
   font-size: 18px;
   font-weight: 400;
   line-height: 1.58;
@@ -144,15 +137,15 @@
   transition: border-color 0.8s var(--ease), letter-spacing 0.8s var(--ease),
               color 0.8s var(--ease), background-color 0.8s var(--ease);
 }
-.prs-pill--light { border: 1px solid var(--obsidian); color: var(--obsidian); }
+.prs-pill--light { border: 1px solid var(--color-obsidian); color: var(--color-obsidian); }
 .prs-pill--light:hover { letter-spacing: 0.04em; }
-.prs-pill--dark { border: 1px solid rgba(255, 255, 255, 0.3); color: var(--paper); }
+.prs-pill--dark { border: 1px solid rgba(255, 255, 255, 0.3); color: var(--color-paper); }
 .prs-pill--dark:hover { border-color: rgba(255, 255, 255, 0.85); letter-spacing: 0.04em; }
 /* The only solid fill in the system, and it is for consent, not marketing. */
 .prs-pill--filled {
-  border: 1px solid var(--paper);
+  border: 1px solid var(--color-paper);
   background: rgba(55, 55, 55, 0.78);
-  color: var(--paper);
+  color: var(--color-paper);
 }
 
 /* ── work ───────────────────────────────────────────────────── */
@@ -164,7 +157,7 @@
   font-weight: 400;
   letter-spacing: 0.06em;
   text-transform: uppercase;
-  color: var(--felt);
+  color: var(--color-felt-gray);
 }
 .prs-row { margin-bottom: 46px; }
 /* Sharp corners, no chrome: the image is the card. */
@@ -185,7 +178,7 @@
   font-weight: 400;
 }
 .prs-row-meta h3 { font-size: 18px; font-weight: 400; }
-.prs-row-meta span:last-child { margin-left: auto; color: var(--felt); font-size: 12px; }
+.prs-row-meta span:last-child { margin-left: auto; color: var(--color-felt-gray); font-size: 12px; }
 
 /* ── anchor band ────────────────────────────────────────────── */
 .prs-anchor {
@@ -194,8 +187,8 @@
   align-items: flex-start;
   gap: 46px;
   padding: 152px clamp(20px, 6vw, 68px);
-  background: var(--obsidian);
-  color: var(--paper);
+  background: var(--color-obsidian);
+  color: var(--color-paper);
 }
 /* 0.76 line-height so the lines nearly touch and the block reads as an object. */
 .prs-anchor-type {
@@ -214,8 +207,8 @@
   padding: 68px 20px 96px;
 }
 .prs-office { display: flex; flex-direction: column; }
-.prs-office span { margin-top: 8px; color: var(--felt); font-size: 11px; font-weight: 400; line-height: 1.36; }
-.prs-office-city { color: var(--obsidian) !important; text-transform: uppercase; letter-spacing: 0.06em; }
+.prs-office span { margin-top: 8px; color: var(--color-felt-gray); font-size: 11px; font-weight: 400; line-height: 1.36; }
+.prs-office-city { color: var(--color-obsidian) !important; text-transform: uppercase; letter-spacing: 0.06em; }
 
 /* ── cookie ─────────────────────────────────────────────────── */
 .prs-cookie {
@@ -230,9 +223,9 @@
   background: rgba(55, 55, 55, 0.78);
   backdrop-filter: blur(6px);
   -webkit-backdrop-filter: blur(6px);
-  color: var(--paper);
+  color: var(--color-paper);
 }
-.prs-cookie p { flex: 1; min-width: 220px; font-family: system-ui, sans-serif; font-size: 16px; line-height: 1.32; }
+.prs-cookie p { flex: 1; min-width: 220px; font-family: var(--font-system-ui); font-size: 16px; line-height: 1.32; }
 
 @media (min-width: 860px) {
   .prs-menu { display: flex; }

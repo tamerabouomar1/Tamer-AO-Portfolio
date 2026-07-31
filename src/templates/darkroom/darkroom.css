@@ -5,18 +5,11 @@
    (#100904 to #382416), never a shadow. */
 
 .drk {
-  --cream: #ffedd7;
-  --walnut: #100904;
-  --bark: #382416;
-  --cork: #40372e;
-  --driftwood: #6c5f51;
-  --ember: #dc5000;
-
   position: relative;
   min-height: 100svh;
-  background: var(--walnut);
-  color: var(--cream);
-  font-family: "Inter", ui-sans-serif, system-ui, sans-serif;
+  background: var(--color-walnut-shadow);
+  color: var(--color-warm-cream);
+  font-family: var(--font-halyard-display-variable);
   font-feature-settings: "ss01" on;
 }
 .drk * { box-sizing: border-box; }
@@ -42,7 +35,7 @@
 .drk-display { font-size: clamp(38px, 7vw, 51px); line-height: 0.9; }
 .drk-heading { font-size: clamp(28px, 4.4vw, 41px); line-height: 0.9; max-width: 12ch; }
 .drk-tag { font-size: 12px; line-height: 1.2; letter-spacing: 0.02em; }
-.drk-fine { font-size: 12px; font-weight: 400; line-height: 1.5; color: var(--driftwood); }
+.drk-fine { font-size: 12px; font-weight: 400; line-height: 1.5; color: var(--color-driftwood); }
 
 /* ── nav ────────────────────────────────────────────────────── */
 .drk-nav {
@@ -59,7 +52,7 @@
 .drk-mark { font-size: 14px; letter-spacing: 0.04em; }
 .drk-nav nav { display: flex; gap: 18px; }
 .drk-nav a { font-size: 12px; padding-bottom: 3px; border-bottom: 1px dashed transparent; }
-.drk-nav a.is-on { border-bottom-color: var(--cork); }
+.drk-nav a.is-on { border-bottom-color: var(--color-cork-border); }
 
 /* Vertical serial number down the right margin — a product artifact. */
 .drk-side {
@@ -71,7 +64,7 @@
   letter-spacing: 0.14em;
   transform: rotate(90deg) translateX(50%);
   transform-origin: right center;
-  color: var(--driftwood);
+  color: var(--color-driftwood);
 }
 
 /* ── hero ───────────────────────────────────────────────────── */
@@ -102,12 +95,12 @@
   margin-top: 41px;
   padding: 24px;
   border-radius: 12px;
-  border: 1px solid var(--cork);
+  border: 1px solid var(--color-cork-border);
   background: rgba(56, 36, 22, 0.42);
   backdrop-filter: blur(8px);
   -webkit-backdrop-filter: blur(8px);
 }
-.drk-rule { height: 0; margin: 12px 0; border: 0; border-top: 1px dashed var(--cork); }
+.drk-rule { height: 0; margin: 12px 0; border: 0; border-top: 1px dashed var(--color-cork-border); }
 .drk-thumb {
   position: absolute;
   right: 24px;
@@ -117,7 +110,7 @@
   gap: 9px;
   padding: 10px 14px;
   border-radius: 12px;
-  border: 1px solid var(--cork);
+  border: 1px solid var(--color-cork-border);
   background: rgba(16, 9, 4, 0.6);
   font-size: 10px;
   font-weight: 500;
@@ -182,9 +175,9 @@
   justify-content: space-between;
   gap: 18px;
   padding: 18px 0;
-  border-top: 1px dashed var(--cork);
+  border-top: 1px dashed var(--color-cork-border);
 }
-.drk-specs dt { margin: 0; font-size: 12px; letter-spacing: 0.04em; color: var(--driftwood); }
+.drk-specs dt { margin: 0; font-size: 12px; letter-spacing: 0.04em; color: var(--color-driftwood); }
 .drk-specs dd { margin: 0; font-size: 18px; font-weight: 400; }
 
 /* ── footer ─────────────────────────────────────────────────── */
@@ -194,30 +187,30 @@
   align-items: center;
   gap: 18px;
   padding: 68px 24px 96px;
-  border-top: 1px dashed var(--cork);
+  border-top: 1px dashed var(--color-cork-border);
 }
 /* The only filled surface on the page. One per view, never more. */
 .drk-pill {
   padding: 14px 24px;
   border-radius: 36px;
-  background: var(--bark);
-  color: var(--cream);
+  background: var(--color-bark-brown);
+  color: var(--color-warm-cream);
   font-size: 12px;
   letter-spacing: 0.04em;
 }
 .drk-ghost {
   padding: 7.5px 18px;
-  border: 1px solid var(--cream);
+  border: 1px solid var(--color-warm-cream);
   border-radius: 22.5px;
   background: transparent;
-  color: var(--cream);
+  color: var(--color-warm-cream);
   font-size: 12px;
   letter-spacing: 0.04em;
 }
 /* Orange lives here and nowhere else. Never on a button. */
-.drk-credit { width: 100%; font-size: 12px; font-weight: 400; color: var(--driftwood); }
-.drk-credit a { color: var(--ember); }
-.drk-legal { width: 100%; font-family: Arial, system-ui, sans-serif; font-size: 8px; font-weight: 500; line-height: 1.2; text-transform: uppercase; color: var(--driftwood); }
+.drk-credit { width: 100%; font-size: 12px; font-weight: 400; color: var(--color-driftwood); }
+.drk-credit a { color: var(--color-ember-accent); }
+.drk-legal { width: 100%; font-family: var(--font-arial); font-size: 8px; font-weight: 500; line-height: 1.2; text-transform: uppercase; color: var(--color-driftwood); }
 
 @media (min-width: 900px) {
   .drk-nav { padding: 24px 45px; }

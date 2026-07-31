@@ -7,21 +7,10 @@
    values: 16px on cards, 6px on everything small. */
 
 .aby {
-  --abyss: #012624;
-  --deep: #011d1c;
-  --kelp: #003734;
-  --mist: #edfffe;
-  --platinum: #ffffff;
-  --silver: #bbc7c6;
-  --slate: #707777;
-  --phosphor: #fde9ff;
-  --aurora: linear-gradient(90deg, rgb(203,255,252) 0%, rgb(237,255,254) 26.25%,
-              rgb(255,253,250) 47.57%, rgb(250,209,255) 88.96%);
-
   min-height: 100svh;
-  background: var(--abyss);
-  color: var(--platinum);
-  font-family: "DM Sans", ui-sans-serif, system-ui, sans-serif;
+  background: var(--color-liquid-abyss);
+  color: var(--color-platinum);
+  font-family: var(--font-matter);
 }
 .aby * { box-sizing: border-box; }
 .aby button { border: 0; font: inherit; cursor: pointer; }
@@ -44,7 +33,7 @@
 }
 .aby-body {
   max-width: 46ch;
-  color: var(--silver);
+  color: var(--color-silver-mist);
   font-size: 16px;
   font-weight: 400;
   line-height: 1.4;
@@ -52,7 +41,7 @@
 /* Wide tracking on the labels is the instrumentation voice. */
 .aby-eyebrow {
   display: block;
-  color: var(--silver);
+  color: var(--color-silver-mist);
   font-size: 12px;
   font-weight: 500;
   line-height: 1.4;
@@ -76,20 +65,20 @@
 .aby-mark { margin-right: auto; font-size: 20px; font-weight: 500; letter-spacing: -0.02em; }
 .aby-nav nav { display: none; gap: 16px; }
 .aby-nav a {
-  color: var(--silver);
+  color: var(--color-silver-mist);
   font-size: 12px;
   font-weight: 400;
   letter-spacing: 0.12em;
   text-transform: uppercase;
   transition: color 0.2s;
 }
-.aby-nav a.is-on, .aby-nav a:hover { color: var(--platinum); }
+.aby-nav a.is-on, .aby-nav a:hover { color: var(--color-platinum); }
 
 .aby-cta {
   padding: 12px 22px;
   border-radius: 6px;
-  background: var(--kelp);
-  color: var(--platinum);
+  background: var(--color-liquid-kelp);
+  color: var(--color-platinum);
   font-size: 14px;
   font-weight: 500;
   white-space: nowrap;
@@ -100,7 +89,7 @@
 .aby-cta--grad {
   margin-left: 0;
   padding: 14px 24px;
-  background: var(--aurora);
+  background: var(--gradient-aurora-gradient);
   color: #222222;
 }
 
@@ -144,14 +133,14 @@
 .aby-stats div { display: flex; flex-direction: column; gap: 12px; }
 /* The only place the phosphor pink is allowed. */
 .aby-stats strong {
-  color: var(--phosphor);
+  color: var(--color-lavender-phosphor);
   font-size: clamp(38px, 5.6vw, 86px);
   font-weight: 500;
   line-height: 1;
   letter-spacing: -0.046em;
 }
 .aby-stats span {
-  color: var(--mist);
+  color: var(--color-liquid-mist);
   font-size: 13px;
   font-weight: 400;
   letter-spacing: 0.055em;
@@ -176,7 +165,7 @@
   gap: 20px;
   padding: 36px;
   border-radius: 16px;
-  background: var(--kelp);
+  background: var(--color-liquid-kelp);
 }
 .aby-row h3 { margin-bottom: 12px; font-size: clamp(22px, 2.6vw, 36px); font-weight: 500; line-height: 1; }
 .aby-arrow {
@@ -187,7 +176,7 @@
   margin-left: auto;
   border-radius: 6px;
   background: rgba(3, 81, 75, 0.5);
-  color: var(--platinum);
+  color: var(--color-platinum);
 }
 .aby-arrow svg { width: 16px; height: 16px; }
 .aby-explore-art { display: grid; place-items: center; }
@@ -203,7 +192,7 @@
   align-items: center;
   gap: 24px;
   padding: 120px clamp(20px, 4vw, 48px);
-  background: var(--deep);
+  background: var(--color-liquid-deep);
   text-align: center;
 }
 .aby-well .aby-cta { margin-left: 0; }
@@ -217,9 +206,9 @@
   max-width: 1440px;
   margin: 0 auto;
   padding: 40px clamp(20px, 4vw, 48px) 64px;
-  background: var(--deep);
+  background: var(--color-liquid-deep);
 }
-.aby-foot p { color: var(--slate); font-size: 12px; font-weight: 400; }
+.aby-foot p { color: var(--color-slate-deep); font-size: 12px; font-weight: 400; }
 
 @media (min-width: 900px) {
   .aby-nav nav { display: flex; }

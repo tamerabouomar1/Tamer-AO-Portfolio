@@ -234,12 +234,19 @@ for (const [slug, { folder, component }] of Object.entries(registry)) {
   jsx = jsx.replace(/from "\.\/([\w-]+\.css)"/g, 'from "./$1"');
   writeFileSync(join(dir, "src", `${component}.jsx`), jsx);
 
-  // its stylesheet, and any other file in the folder (fonts, extra css)
-  let cssName = `${folder}.css`;
+  // Its stylesheet, plus anything else sitting in the folder (extra css, the
+  // token layer). The Tailwind theme and the DTCG json are reference material
+  // rather than source — nothing imports them — so they go to their own folder
+  // at the root of the zip where a buyer will actually look for them.
+  const cssName = `${folder}.css`;
   for (const f of readdirSync(srcDir)) {
     if (f === `${component}.jsx`) continue;
-    writeFileSync(join(dir, "src", f), readFileSync(join(srcDir, f)));
-    if (f.endsWith(".css")) cssName = f;
+    const reference = f === "theme.css" || f === "tokens.json";
+    if (reference) mkdirSync(join(dir, "design-tokens"), { recursive: true });
+    writeFileSync(
+      join(dir, reference ? "design-tokens" : "src", f),
+      readFileSync(join(srcDir, f))
+    );
   }
 
   for (const [hook, needed] of Object.entries(needs)) {
