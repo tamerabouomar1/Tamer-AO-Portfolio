@@ -201,16 +201,17 @@ export default function Websites() {
         </motion.div>
       </section>
 
-      {/* The paid four. Kept as their own section rather than mixed into the
-          grid above, because a $149 card sitting between free ones reads as a
+      {/* The paid work. Kept as its own section rather than mixed into the grid
+          above, because a $149 card sitting between free ones reads as a
           mistake — the split is what makes the price legible. */}
       <section className="proj-section">
         <div className="storehead storehead--sig">
           <h3 className="proj-section__title">Signature collection</h3>
           <p className="storehead__lede">
-            Four complete design systems, not single screens. Each one is built on its own
-            palette, type scale and signature visual, drawn in code so there is nothing
-            licensed to swap out. Priced because they are the work, not the sample.
+            A complete design system, not a single screen. Its own palette, type scale and
+            signature visual, drawn in code so there is nothing licensed to swap out, and
+            the tokens ship in three formats so it is yours to extend rather than only
+            recolour. Priced because it is the work, not the sample.
           </p>
         </div>
 

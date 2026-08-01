@@ -101,7 +101,7 @@ export default function BuyModal({ template, onClose }) {
             <h3 className="buy__title">{template.name}</h3>
             <p className="buy__sub">
               {template.tier === "signature"
-                ? "A complete design system. Take the source, or take all four."
+                ? "A complete design system. Take the source, or take everything."
                 : "The files are free. Pick how much of the work you want done for you."}
             </p>
           </div>

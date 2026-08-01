@@ -14,14 +14,19 @@
  * the design's mouth.
  */
 
-import { readFileSync, writeFileSync, existsSync } from "node:fs";
+import { readFileSync, writeFileSync, existsSync, readdirSync } from "node:fs";
 import { dirname, join, resolve } from "node:path";
 import { fileURLToPath } from "node:url";
 
 const here = dirname(fileURLToPath(import.meta.url));
 const TPL = resolve(here, "../src/templates");
 
-const SIGNATURE = ["abyss", "nebula", "darkroom", "prism"];
+// Any template folder carrying a tokens.css. Discovered rather than listed, so
+// adding or dropping a Signature template needs no edit here.
+const SIGNATURE = readdirSync(TPL, { withFileTypes: true })
+  .filter((d) => d.isDirectory() && existsSync(join(TPL, d.name, "tokens.css")))
+  .map((d) => d.name)
+  .sort();
 
 /* --var-name -> [group, key] for the DTCG tree, plus its $type. Anything that
    does not match a prefix is dropped: @theme and DTCG describe design values,
