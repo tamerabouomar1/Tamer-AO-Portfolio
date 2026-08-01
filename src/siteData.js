@@ -189,7 +189,7 @@ export const PROJECT_GROUPS = [
         name: "BioGarden",
         tag: "Company profile",
         images: imgs("biogarden", 20),
-        desc: "The full twenty-page company profile for BioGarden, the natural food arm of Green Gardens Agro Industries. It runs from who they are, their vision and mission through why they stand out, their origin and their standards, then turns into a product catalogue: tomato base, olive base, extra virgin and infused olive oils, cold-pressed seed oils, pomegranate molasses, vinegars, tahini, thyme, floral waters and butter spreads.",
+        desc: "A twenty-page company profile for BioGarden, the natural food arm of Green Gardens Agro Industries: who they are and what they stand for, then the full product catalogue.",
       },
       {
         name: "FabricAid",
@@ -316,20 +316,26 @@ export const PROJECT_GROUPS = [
     ],
   },
   {
-    title: "Other",
-    product: true, // light document artwork reads better with the caption below
+    // Work done for the town and for causes rather than for a fee.
+    title: "Community Service",
     items: [
       {
-        name: "Environmental",
+        name: "Aley Run Club",
+        tag: "Apparel & identity",
+        images: imgs("arc", 7),
+        desc: "Kit for Aley's run club: neon on black, English one side and Arabic the other. عاروسة الجبل is what Aley is called, يلا نركض سوا is the invitation.",
+      },
+      {
+        name: "Environmental Campaign",
         tag: "Awareness campaign",
         images: [...imgs("environmental", 2), ...pick("notebook-1")],
-        desc: "An environmental awareness campaign: the flyer, the certificate and the notebook cover that carried the same identity across print.",
+        desc: "A flyer, a certificate and a notebook cover carrying one identity across print.",
       },
       {
         name: "RFACE Brochure",
         tag: "Brochure",
         images: imgs("reface", 1),
-        desc: "Brochure design built on a structured, photography-led layout system.",
+        desc: "A brochure built on a structured, photography-led layout.",
       },
     ],
   },
@@ -372,7 +378,7 @@ export const PROJECT_GROUPS = [
         name: "Letters to My Daughter",
         tag: "Publication · book design",
         images: imgs("uni-letters", 22),
-        desc: "رسائل إلى ابنتي, a book designed around five letters from a mother to her daughter, read right to left as it was made to be. Charcoal drawing, family photographs that run full-bleed across the gutter, and type treated as the same material as the images: the text pulls apart, tilts and compacts into blocks as the letters go on, so a page carries its tone before it is read. Text by Najwa Sabbah; design and art direction by Tamer.",
+        desc: "رسائل إلى ابنتي — a book of five letters from a mother to her daughter, read right to left. Charcoal, family photographs across the gutter, and type treated as the same material as the images. Text by Najwa Sabbah, design by Tamer.",
       },
       {
         // Publication project 2, a 12-page saddle-stitched booklet: front and
@@ -574,7 +580,7 @@ export const TEMPLATES = [
     name: "Onyx",
     kicker: "Creator Portfolio",
     tag: "Portfolio",
-    desc: "A full-length dark portfolio built around your work. Scroll-driven marquee, a magnetic hero portrait and project cards that stack as you scroll.",
+    desc: "A full-length dark portfolio built around your work.",
     highlights: ["5 sections", "Scroll-linked marquee", "Sticky project stack", "Fully responsive"],
     bestFor: "Designers · Photographers · Studios",
     stack: "React · Framer Motion",
@@ -588,7 +594,7 @@ export const TEMPLATES = [
     name: "Vantage",
     kicker: "Venture Landing",
     tag: "Landing page",
-    desc: "A cinematic single-screen landing page built on full-bleed video, liquid-glass UI and a headline that types itself in. Made to convert on the first screen.",
+    desc: "A cinematic single-screen landing page on full-bleed video.",
     highlights: ["Full-screen video hero", "Liquid-glass navbar", "Character entrance animation", "One screen, zero scroll"],
     bestFor: "Agencies · Startups · Consultants",
     stack: "React · CSS",
@@ -602,7 +608,7 @@ export const TEMPLATES = [
     name: "Drop",
     kicker: "Product Showcase",
     tag: "Product showcase",
-    desc: "A colour-shifting product carousel where the whole page changes palette with the piece on screen. Built for collectibles, drops and character work.",
+    desc: "A carousel where the whole page changes palette with the piece on screen.",
     highlights: ["Colour-morphing carousel", "Depth-blurred stage", "Grain overlay", "Touch + arrow controls"],
     bestFor: "Apparel · Product drops · Collections",
     stack: "React · CSS",
@@ -616,7 +622,7 @@ export const TEMPLATES = [
     name: "Atelier",
     kicker: "Studio Site",
     tag: "Studio site",
-    desc: "The complete studio site: hero, marquee, work carousel, pricing, project showcase and an interactive contact section. Everything a solo studio needs to sell.",
+    desc: "The complete studio site: ten sections, everything a solo studio needs.",
     highlights: ["10 sections", "Pricing + work carousel", "Auto-scrolling showcase", "Mouse-trail CTA"],
     bestFor: "Design studios · Freelancers · Consultants",
     stack: "React · CSS",
@@ -630,7 +636,7 @@ export const TEMPLATES = [
     name: "Ledger",
     kicker: "Fintech Landing",
     tag: "Landing page",
-    desc: "A calm, credible one-screen landing page for regulated industries. Serif headline over a seamlessly looping video, with a glass panel anchored to the bottom edge.",
+    desc: "A calm one-screen landing page for regulated industries.",
     highlights: ["Boomerang video loop", "Glass bottom panel", "Serif display type", "One screen, no scroll"],
     bestFor: "Fintech · SaaS · B2B",
     stack: "React · CSS",
@@ -643,7 +649,7 @@ export const TEMPLATES = [
     name: "Noir",
     kicker: "Creative Hero",
     tag: "Landing page",
-    desc: "One enormous italic word over a video that leans with your cursor, framed by floating liquid-glass chrome. Built to be remembered, not read.",
+    desc: "One enormous italic word over a video that leans with your cursor.",
     highlights: ["Cursor parallax", "Boomerang video loop", "Liquid-glass nav", "Oversized display type"],
     bestFor: "Studios · AI tools · Portfolios",
     stack: "React · CSS",
@@ -656,7 +662,7 @@ export const TEMPLATES = [
     name: "Launch",
     kicker: "Startup Hero",
     tag: "Landing page",
-    desc: "The startup announcement page: glass nav, a credibility badge, an oversized serif promise and one call to action over full-bleed video.",
+    desc: "The startup announcement page, over full-bleed video.",
     highlights: ["Credibility badge", "Glass nav pill", "Full-bleed video", "Single clear CTA"],
     bestFor: "Startups · Launches · Waitlists",
     stack: "React · CSS",
@@ -669,7 +675,7 @@ export const TEMPLATES = [
     name: "Strata",
     kicker: "Interactive Hero",
     tag: "Landing page",
-    desc: "Two photographs stacked, with a soft spotlight that follows the cursor and reveals the second one through the first. People play with it before they read a word.",
+    desc: "Two photographs stacked, revealed by a spotlight that follows the cursor.",
     highlights: ["Cursor spotlight reveal", "Canvas-masked lighting", "Staggered blur entrance", "Glass pill nav"],
     bestFor: "Museums · Editorial · Tourism",
     stack: "React · Canvas",
@@ -682,7 +688,7 @@ export const TEMPLATES = [
     name: "Reel",
     kicker: "Streaming Hero",
     tag: "Landing page",
-    desc: "A cinema-poster hero: full-bleed video, ratings and runtime, and everything rising into place on a staggered blur. Blur instead of a dark scrim, so the footage keeps its colour.",
+    desc: "A cinema-poster hero: full-bleed video, blur instead of a scrim.",
     highlights: ["Masked blur, no scrim", "Staggered blur entrance", "Liquid-glass controls", "Mobile menu built in"],
     bestFor: "Film · Events · Media",
     stack: "React · CSS",
@@ -695,7 +701,7 @@ export const TEMPLATES = [
     name: "Calm",
     kicker: "Product Landing",
     tag: "Product site",
-    desc: "A full three-section product page: video hero, a warm about band that overlaps it, and a features section where a sticky menu tracks whichever card you are reading.",
+    desc: "A three-section product page with a sticky menu that tracks your reading.",
     highlights: ["3 full sections", "Scroll-tracking sticky menu", "Video feature cards", "Overlapping section edges"],
     bestFor: "Apps · SaaS · Product launches",
     stack: "React · CSS",
@@ -708,7 +714,7 @@ export const TEMPLATES = [
     name: "Atlas",
     kicker: "Travel Story",
     tag: "Scroll story",
-    desc: "A cinematic scroll film. Seven photographic layers sit in one sticky frame and the whole story is scrubbed by the scrollbar: the bridge widens and launches, the frame splits in half, and a sights carousel flies in at the end.",
+    desc: "A cinematic scroll film in seven photographic layers.",
     highlights: ["Sticky scroll film", "Parallax on 7 layers", "Infinite sights carousel", "Pointer-drift depth"],
     bestFor: "Travel · Tourism boards · Editorial",
     stack: "React · CSS",
@@ -721,7 +727,7 @@ export const TEMPLATES = [
     name: "Halo",
     kicker: "Waitlist Hero",
     tag: "Landing page",
-    desc: "One dark screen built to collect emails. Full-bleed video under liquid-glass chrome, with a loop that fades through its own seam instead of cutting back to frame one.",
+    desc: "One dark screen built to collect emails, under liquid glass.",
     highlights: ["Seamless fading video loop", "Liquid-glass UI", "Email capture built in", "One screen, no scroll"],
     bestFor: "Waitlists · Newsletters · Launches",
     stack: "React · CSS",
@@ -734,7 +740,7 @@ export const TEMPLATES = [
     name: "Lumen",
     kicker: "Focus App",
     tag: "App landing",
-    desc: "Four looping scenes the visitor switches between, under a transparent plate that breathes. The whole hero re-inks itself to dark when the bright scene comes up, so the type never gets lost.",
+    desc: "Four looping scenes the visitor switches between.",
     highlights: ["4 switchable video scenes", "Self-adjusting light/dark type", "Liquid-glass UI", "Full mobile menu"],
     bestFor: "Apps · Wellness · Products",
     stack: "React · CSS",
@@ -747,7 +753,7 @@ export const TEMPLATES = [
     name: "Orbit",
     kicker: "Talent Marketplace",
     tag: "Marketplace",
-    desc: "Four rings of specialists turning at different speeds around a live counter, with a headline that types itself in two colours and a partner ticker along the bottom.",
+    desc: "Four rings of specialists turning around a live counter.",
     highlights: ["Counter-rotating avatar orbits", "Typewriter headline", "Animated count-up", "Infinite logo ticker"],
     bestFor: "Marketplaces · Agencies · Hiring",
     stack: "React · CSS",
@@ -760,7 +766,7 @@ export const TEMPLATES = [
     name: "Quiet",
     kicker: "Product Landing",
     tag: "Product site",
-    desc: "A calm, pale product page for something deliberately small. The app's own messages type themselves onto the phone screen inside the footage, in the phone's own typeface.",
+    desc: "The app's own messages type themselves onto the phone in the footage.",
     highlights: ["Typing on-screen messages", "Glass pill navigation", "Serif display headline", "Soft entrance motion"],
     bestFor: "Apps · Journals · Slow products",
     stack: "React · CSS",
@@ -773,7 +779,7 @@ export const TEMPLATES = [
     name: "Frame",
     kicker: "Agency Hero",
     tag: "Landing page",
-    desc: "The background film is scrubbed by your mouse. Move right and it runs forward, move left and it rewinds, so the visitor is driving the footage before they have read a word.",
+    desc: "The background film is scrubbed by your mouse.",
     highlights: ["Mouse-scrubbed video", "Typewriter greeting", "Copy-to-clipboard contact", "Mobile overlay menu"],
     bestFor: "Agencies · Studios · Portfolios",
     stack: "React · CSS",
@@ -806,7 +812,7 @@ const SIGNATURE = [
     slug: "cinema",
     name: "Cinema",
     kicker: "AI Landing",
-    desc: "The background film is not played, it is scrubbed by the page scroll. The clip is decoded once into a cache of frames so the scrub is smooth rather than the juddering mess that seeking a video on every scroll event produces.",
+    desc: "The background film is scrubbed by your scroll instead of playing.",
     highlights: ["Scroll-scrubbed film", "Decoded frame cache", "Liquid-glass chrome", "Staggered reveals"],
     bestFor: "AI products · Agencies · Studios",
     stack: "React · Canvas",
@@ -818,7 +824,7 @@ const SIGNATURE = [
     slug: "marquee",
     name: "Marquee",
     kicker: "Editorial Portfolio",
-    desc: "A name at 26vh runs forever behind a cut-out portrait, so the letters pass through the figure. One locked composition, cream on photography, with a staggered entrance and a slide-in drawer on mobile.",
+    desc: "A name at 26vh running forever behind a cut-out portrait.",
     highlights: ["Seamless infinite marquee", "Portrait over type", "Choreographed entrance", "Editorial cream palette"],
     bestFor: "Photographers · Creatives · Personal sites",
     stack: "React · CSS",
@@ -830,7 +836,7 @@ const SIGNATURE = [
     slug: "pixel",
     name: "Pixel",
     kicker: "Designer Portfolio",
-    desc: "One locked viewport with no scroll: a four-column meta grid at the top and the headline pinned to the bottom edge. A bitmap face carries the surnames and two shouted words inside the headline, against Inter for everything structural.",
+    desc: "One locked viewport, no scroll, a bitmap face against Inter.",
     highlights: ["Single locked viewport", "Bitmap + grotesk pairing", "Four-column meta grid", "Full-screen mobile menu"],
     bestFor: "Designers · Engineers · Studios",
     stack: "React · CSS",
@@ -842,7 +848,7 @@ const SIGNATURE = [
     slug: "charter",
     name: "Charter",
     kicker: "Luxury Landing",
-    desc: "Dark type on bright footage rather than white on black. The two headline lines overlap by twelve pixels so the lockup carries weight without ever going bold, and the whole composition sits high to keep the frame clear.",
+    desc: "Dark type on bright footage, with the headline lines overlapping.",
     highlights: ["Overlapping headline lockup", "Dark type on light video", "Glass mobile menu", "One clean screen"],
     bestFor: "Travel · Luxury · Concierge",
     stack: "React · CSS",
@@ -854,7 +860,7 @@ const SIGNATURE = [
     slug: "lost",
     name: "Lost",
     kicker: "404 Page",
-    desc: "A 404 worth landing on. Full-bleed video at full strength with nothing laid over it, a gradient-clipped numeral, and one line of type. The discipline is subtractive: no scrim, no glass, no button.",
+    desc: "A 404 worth landing on: full-strength video, nothing laid over it.",
     highlights: ["No overlay, ever", "Gradient-clipped numerals", "Mono display face", "One composition"],
     bestFor: "Any site · Error pages · Holding pages",
     stack: "React · CSS",
@@ -862,23 +868,21 @@ const SIGNATURE = [
     bg: "#000000",
     ink: "#ffffff",
   },
-].map((t) => ({ ...t, tag: "Signature", tier: "signature" }));
+].map((t) => ({ ...t, tag: "Landing page" }));
 
 TEMPLATES.push(...SIGNATURE);
 
-// The store shows these as two collections, so split once here rather than
-// filtering by `tier` at every call site.
-export const FREE_TEMPLATES = TEMPLATES.filter((t) => t.tier !== "signature");
-export const SIGNATURE_TEMPLATES = TEMPLATES.filter((t) => t.tier === "signature");
 
 // ── Access ────────────────────────────────────────────────────
 // Every template is free, including the Signature five. That is the whole
 // offer: give the work away, and the person who took it knows who made it.
 //
-// So the money is not in the files, it is in the FLOW. A new template ships
-// every week, and a membership is the only way to get them as they land
-// instead of coming back to hunt for them. That is a real recurring reason to
-// pay, which a one-off "bundle of what already exists" never was.
+// So the money is not in the files, it is in the FLOW. Something new ships
+// every week — a template or a typeface — and a membership is the only way to
+// get it as it lands instead of coming back to hunt for it. That is a real
+// recurring reason to pay, which a one-off "bundle of what already exists"
+// never was. The fonts matter here: they are the half a template cannot be
+// downloaded one at a time.
 //
 // $19 is under the line where a freelancer thinks about it, and against four
 // new templates a month it is roughly $5 each. Yearly is priced at ten months
@@ -904,21 +908,20 @@ export const TEMPLATE_PACKAGES = [
   {
     id: "member",
     name: "Membership",
-    tagline: "Every template, and every new one",
+    tagline: "The whole library, templates and fonts",
     flat: 19,
     period: "per month, cancel any time",
     featured: true,
-    save: "A new template every week",
+    save: "Something new every week",
     subscription: true,
     features: [
-      "All templates in one download",
-      "A new one every week, yours the day it ships",
+      "Every website template, in one download",
+      "The full font library with them",
+      "Something new every week, yours the day it ships",
       "Commercial licence for unlimited client work",
-      "No form to fill in again",
-      "Priority replies when you are stuck",
-      "Cancel any time and keep everything you downloaded",
+      "Cancel any time, keep everything you downloaded",
     ],
-    bonus: "Free 30-minute call to pick the right one for your project",
+    bonus: "Free 30-minute call to pick the right one",
   },
   {
     id: "member-year",
@@ -932,7 +935,6 @@ export const TEMPLATE_PACKAGES = [
       "Everything in the monthly membership",
       "Two months free against paying monthly",
       "Locked at this price while you stay",
-      "Every weekly release for a full year",
     ],
     bonus: "First pick of what gets built next",
   },

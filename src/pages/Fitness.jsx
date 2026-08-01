@@ -48,12 +48,9 @@ export default function Fitness() {
         <motion.div className="card cta" variants={cardIn} initial="hidden" animate="show" style={{ minHeight: 0 }}>
           <h3 className="card-title">University-Trained in Nutrition &amp; Exercise Science</h3>
           <p className="card-body">
-            Most trainers guess at nutrition. I studied it at the American University of Beirut, in
-            Nutrition (NFSC 220) and Physical Activity, Nutrition and Health (NFSC 223): macronutrients,
-            energy balance and weight control, diet design and food safety, alongside training
-            principles, fitness testing, metabolic measurement, energy demands for athletes and how the
-            body adapts under load. So when I hand you a plan, it is built on the science of how your
-            body actually uses food and training, not on a template that worked for somebody else.
+            Most trainers guess at nutrition. I studied it at the American University of Beirut —
+            Nutrition (NFSC 220) and Physical Activity, Nutrition and Health (NFSC 223). So your
+            plan is built on how your body actually uses food and training.
           </p>
         </motion.div>
       </section>

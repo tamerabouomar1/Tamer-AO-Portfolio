@@ -6,14 +6,7 @@ import LiveThumb from "../components/LiveThumb";
 import { LoadBar, LoadingImage } from "../components/LoadBar";
 import { BuyModalHost } from "../components/BuyModal";
 import { prefetchTemplate } from "../templates/registry";
-import {
-  CONTACT,
-  FREE_TEMPLATES,
-  SIGNATURE_TEMPLATES,
-  TEMPLATE_PACKAGES,
-  SERVICE_PACKAGES,
-  WEBSITES,
-} from "../siteData";
+import { CONTACT, TEMPLATES, TEMPLATE_PACKAGES, SERVICE_PACKAGES, WEBSITES } from "../siteData";
 
 /* One page covers both halves of the same question: sites already built for
    clients, and sites you can buy today. The store used to be its own
@@ -21,10 +14,10 @@ import {
    already click when they want a website. Client work comes first — it is the
    proof — and the offer follows it. */
 
-/* One store card. Lifted out of the grid because the page renders two
-   collections through it: the main library and the Signature picks. Nothing on
-   a card is priced any more — every template is free, and the money is in the
-   membership, so the card only ever says Free. */
+/* One store card, deliberately thin. It used to carry a four-item feature
+   list, a "best for" line and a stack line on top of the description, which at
+   21 cards is a wall nobody reads. The live preview IS the pitch, so the card
+   keeps a name, a kicker, one line, and the two things you can do. */
 function TemplateCard({ t, onBuy }) {
   return (
     <motion.article className="card tpl-card" variants={cardIn}>
@@ -48,26 +41,10 @@ function TemplateCard({ t, onBuy }) {
               {t.name} <span className="tpl-card__kicker">{t.kicker}</span>
             </h4>
           </div>
-          <div className="tpl-card__price">
-            <span className="tpl-card__from">source</span>
-            <span className="tpl-card__amount">Free</span>
-          </div>
+          <span className="tpl-card__amount">Free</span>
         </div>
 
         <p className="card-body">{t.desc}</p>
-
-        <ul className="tpl-card__feats">
-          {t.highlights.map((h) => (
-            <li key={h}>
-              <span className="tick" />
-              {h}
-            </li>
-          ))}
-        </ul>
-
-        <p className="tpl-card__meta">
-          <strong>Best for</strong> {t.bestFor} · {t.stack}
-        </p>
 
         <div className="tpl-card__actions">
           <Link
@@ -151,42 +128,16 @@ export default function Websites() {
       {/* ── Ready-made sites ─────────────────────────────────── */}
       <section className="proj-section" id="store">
         <div className="storehead">
-          <span className="storehead__flag">A new one every week · All free</span>
+          <span className="storehead__flag">All free · Something new every week</span>
           <h3 className="storehead__title">
-            {FREE_TEMPLATES.length + SIGNATURE_TEMPLATES.length} finished websites.
+            {TEMPLATES.length} finished websites.
             <br />
-            <span className="storehead__accent">All of them free. A new one every week.</span>
+            <span className="storehead__accent">Take any of them, free.</span>
           </h3>
           <p className="storehead__lede">
-            Premium sites, designed and built with AI and finished by hand, and every one
-            of them is yours for nothing. What you see in each card below is the site
-            itself running, not a screenshot. Open it, scroll it, break it if you like.
-            When one fits, download it, run two commands and it is live on your machine.
-            I add a new one every week, so this shelf is longer than it was last Monday.
+            Every card below is the real site running, not a screenshot. Open it, and if it
+            fits, download it. Two commands and it is live.
           </p>
-
-          <ul className="storeprops">
-            <li>
-              <strong>Free, genuinely</strong>
-              The full React project, a deploy guide and a license to use it on client work.
-              No payment, no card, no email course.
-            </li>
-            <li>
-              <strong>A new one every week</strong>
-              I ship a template a week, every week. Take them one at a time here, or join
-              the membership and get each one the day it lands.
-            </li>
-            <li>
-              <strong>AI speed, designer&apos;s eye</strong>
-              AI does the heavy lifting. Every layout, colour and line of type is still
-              judged by a designer before it ships.
-            </li>
-            <li>
-              <strong>Or live in days</strong>
-              Send your words and photos and I will have it on your domain this week, from
-              $200.
-            </li>
-          </ul>
 
           <a
             className="link storehead__ask"
@@ -199,34 +150,20 @@ export default function Websites() {
         </div>
 
         <motion.div className="tpl-grid" variants={container} initial="hidden" animate="show">
-          {FREE_TEMPLATES.map((t) => (
+          {TEMPLATES.map((t) => (
             <TemplateCard key={t.slug} t={t} onBuy={setBuying} />
           ))}
         </motion.div>
       </section>
 
-      {/* The paid work. Kept as its own section rather than mixed into the grid
-          above, because a $149 card sitting between free ones reads as a
-          mistake — the split is what makes the price legible. */}
       <section className="proj-section">
         <div className="storehead storehead--sig">
-          <h3 className="proj-section__title">Signature collection</h3>
+          <h3 className="proj-section__title">Take one, or take the lot</h3>
           <p className="storehead__lede">
-            The ones with a real idea in them rather than a layout: a film scrubbed by your
-            scroll, a name running behind a cut-out portrait, a viewport locked so tightly
-            it never scrolls. Free like everything else here.
+            Every template here is free, one at a time. The membership is for the flow:
+            the whole library including the fonts, and whatever ships next week.
           </p>
         </div>
-
-        <motion.div className="tpl-grid" variants={container} initial="hidden" animate="show">
-          {SIGNATURE_TEMPLATES.map((t) => (
-            <TemplateCard key={t.slug} t={t} onBuy={setBuying} />
-          ))}
-        </motion.div>
-      </section>
-
-      <section className="proj-section">
-        <h3 className="proj-section__title">Take one, or take the flow</h3>
         <div className="price-grid">
           {TEMPLATE_PACKAGES.map((p) => (
             <article
