@@ -62,10 +62,8 @@ export default function TemplatePreview() {
           {tpl.name}
           <em>Live preview</em>
         </span>
-        {/* Signature templates are sold, so the bar must not promise "free"
-            over a $149 page. */}
         <button className="tplview__buy" onClick={() => setBuying(tpl)}>
-          {tpl.tier === "signature" ? `Get it · $${tpl.price}` : "Get it free"}
+          Get it free
         </button>
         <button
           className="tplview__hide"

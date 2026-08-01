@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
-import { CONTACT, TEMPLATE_PACKAGES, SIGNATURE_PACKAGES, templateZip } from "../siteData";
+import { CONTACT, TEMPLATE_PACKAGES, templateZip } from "../siteData";
 
 /* The delivery step, shared by the store grid and the live preview bar.
 
@@ -10,10 +10,10 @@ import { CONTACT, TEMPLATE_PACKAGES, SIGNATURE_PACKAGES, templateZip } from "../
    follow up with. The download fires either way — the value is given whether
    or not they finish saying hello.
 
-   The two paid tiers still hand off to a prefilled WhatsApp thread, with email
-   as the fallback and Calendly for the quoted Custom tier. There is no card
-   processor wired up yet; swap `href` on .buy-go for a Stripe payment link
-   later and nothing else here has to change. */
+   The membership tiers hand off to a prefilled WhatsApp thread, with email as
+   the fallback. There is no card processor wired up yet; swap `href` on
+   .buy-go for a Stripe SUBSCRIPTION link (not a one-off payment link) when one
+   exists, and nothing else here has to change. */
 
 const waNumber = CONTACT.phoneHref.replace(/[^0-9]/g, "");
 
@@ -24,20 +24,11 @@ function priceOf(tpl, pkg) {
 }
 
 export default function BuyModal({ template, onClose }) {
-  // Open on the free tier where there is one: it is the reason to be here, and
-  // burying it behind a click on a paid tier wastes the point of giving it
-  // away. Signature templates have no free tier, so they open on the featured
-  // Pass instead. Everything below reads `tiers`, never the list directly.
-  const tiers = template?.tier === "signature" ? SIGNATURE_PACKAGES : TEMPLATE_PACKAGES;
-  const [picked, setPicked] = useState(
-    tiers.find((p) => p.free)?.id ?? tiers.find((p) => p.featured)?.id ?? tiers[0].id
-  );
-
-  // Switching between a free and a Signature template while the modal is open
-  // would otherwise leave `picked` pointing at a tier that no longer exists.
-  useEffect(() => {
-    setPicked(tiers.find((p) => p.free)?.id ?? tiers.find((p) => p.featured)?.id ?? tiers[0].id);
-  }, [tiers]);
+  // One ladder for every template now: they are all free, so the modal always
+  // opens on the free tier. Burying that behind a click on the membership would
+  // waste the whole point of giving the work away.
+  const tiers = TEMPLATE_PACKAGES;
+  const [picked, setPicked] = useState(tiers.find((p) => p.free)?.id ?? tiers[0].id);
   const [who, setWho] = useState({ name: "", reach: "" });
   const [sent, setSent] = useState(false);
 
@@ -56,15 +47,15 @@ export default function BuyModal({ template, onClose }) {
   const pkg = tiers.find((p) => p.id === picked) ?? tiers[0];
   const price = priceOf(template, pkg);
 
-  // The library tier is not about the template that opened this modal, so it
-  // gets its own opening line rather than asking for one site by name.
+  // The membership is not about the template that opened this modal, so it gets
+  // its own opening line rather than asking for one site by name.
   const message = pkg.free
     ? `Hi Tamer, I just downloaded the free "${template.name}" template.\n` +
       `Name: ${who.name || "(not given)"}\n` +
       `Best contact: ${who.reach || "(this WhatsApp)"}\n\n` +
       `What I'm building: `
-    : pkg.library || pkg.id === "library"
-      ? `Hi Tamer, I'd like the Full Library (${price.label}) - all the templates plus the new ones.\n\n` +
+    : pkg.subscription
+      ? `Hi Tamer, I'd like the ${pkg.name} (${price.label}) - the whole library plus the new one each week.\n\n` +
         `Here's a bit about my business: `
       : `Hi Tamer, I'd like the "${template.name}" website template.\n` +
         `Package: ${pkg.name} (${price.label})\n\n` +
@@ -100,9 +91,8 @@ export default function BuyModal({ template, onClose }) {
             <span className="web-card__tag">{template.tag}</span>
             <h3 className="buy__title">{template.name}</h3>
             <p className="buy__sub">
-              {template.tier === "signature"
-                ? "A complete design system. Take the source, or take everything."
-                : "The files are free. Pick how much of the work you want done for you."}
+              The files are free. Join the membership if you want every new one the
+              week it ships.
             </p>
           </div>
           <button className="weblb__close" onClick={onClose} aria-label="Close">

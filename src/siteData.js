@@ -784,7 +784,6 @@ export const TEMPLATES = [
 
   // ── Signature ───────────────────────────────────────────────
   // `tier: "signature"` splits these into their own paid section of the store
-  // and swaps the price ladder in the buy modal (SIGNATURE_PACKAGES below).
   // These four are built from full design systems rather than single-screen
   // briefs: multi-section pages, canvas-drawn signature visuals, and a token
   // set a buyer can extend rather than a layout they can only recolour. That
@@ -794,21 +793,11 @@ export const TEMPLATES = [
   // all changed — the SYSTEM is the reference, never the brand.
 ];
 
-// The three ways to get any template above.
-//
-// The source files are FREE. Copying a file costs nothing, so charging for it
-// only stopped people from ever seeing how good the work is. What is actually
-// scarce is getting it live, on brand, with real content, which is what the two
-// paid tiers sell. `free` means no price at all; `flat` is a fixed price that
-// no longer depends on which template; `from` means the tier is quoted.
 // ── Signature ───────────────────────────────────────────────
-// `tier: "signature"` splits these into their own paid section of the store and
-// swaps the price ladder in the buy modal (SIGNATURE_PACKAGES below).
-//
-// These are the pieces with a real engineering idea in them rather than a
-// layout — a scroll-scrubbed film decoded to a frame cache, a name that runs
-// behind a cut-out portrait, a locked single-viewport composition. That is
-// what is being paid for, and why they are not in the free grid.
+// `tier: "signature"` gives these their own section of the store. It is a
+// CURATION, not a price tier — everything here is free like the rest. These
+// are the ones carrying a real mechanic rather than a layout, which is the
+// only thing the split is claiming.
 //
 // The references came from real sites. Names, copy and marks are all changed;
 // the SYSTEM is the reference, never the brand.
@@ -873,43 +862,95 @@ const SIGNATURE = [
     bg: "#000000",
     ink: "#ffffff",
   },
-].map((t) => ({ ...t, tag: "Signature", tier: "signature", price: 149 }));
+].map((t) => ({ ...t, tag: "Signature", tier: "signature" }));
 
 TEMPLATES.push(...SIGNATURE);
 
-// The store shows these as two separate collections, and the buy modal offers
-// a different price ladder for each, so split them once here rather than
+// The store shows these as two collections, so split once here rather than
 // filtering by `tier` at every call site.
 export const FREE_TEMPLATES = TEMPLATES.filter((t) => t.tier !== "signature");
 export const SIGNATURE_TEMPLATES = TEMPLATES.filter((t) => t.tier === "signature");
 
+// ── Access ────────────────────────────────────────────────────
+// Every template is free, including the Signature five. That is the whole
+// offer: give the work away, and the person who took it knows who made it.
+//
+// So the money is not in the files, it is in the FLOW. A new template ships
+// every week, and a membership is the only way to get them as they land
+// instead of coming back to hunt for them. That is a real recurring reason to
+// pay, which a one-off "bundle of what already exists" never was.
+//
+// $19 is under the line where a freelancer thinks about it, and against four
+// new templates a month it is roughly $5 each. Yearly is priced at ten months
+// so the saving is legible without a discount table.
 export const TEMPLATE_PACKAGES = [
   {
     id: "source",
-    name: "Source Files",
+    name: "One Template",
     tagline: "Yours to keep, free",
     free: true,
     // Downloading hands over the lead: the form asks for a name and a way to
     // reach them before the zip starts.
     gated: true,
+    period: "any template, no catch",
     features: [
       "Full React source code",
       "Runs with two commands, no setup",
       "Free for personal and client work",
       "Deploy guide for Netlify, Vercel and Cloudflare",
     ],
-    bonus: "No payment, no email course, no catch",
+    bonus: "No payment, no card, no email course",
   },
+  {
+    id: "member",
+    name: "Membership",
+    tagline: "Every template, and every new one",
+    flat: 19,
+    period: "per month, cancel any time",
+    featured: true,
+    save: "A new template every week",
+    subscription: true,
+    features: [
+      "All templates in one download",
+      "A new one every week, yours the day it ships",
+      "Commercial licence for unlimited client work",
+      "No form to fill in again",
+      "Priority replies when you are stuck",
+      "Cancel any time and keep everything you downloaded",
+    ],
+    bonus: "Free 30-minute call to pick the right one for your project",
+  },
+  {
+    id: "member-year",
+    name: "Membership, yearly",
+    tagline: "The same thing, two months free",
+    flat: 190,
+    period: "per year, billed once",
+    save: "Save $38",
+    subscription: true,
+    features: [
+      "Everything in the monthly membership",
+      "Two months free against paying monthly",
+      "Locked at this price while you stay",
+      "Every weekly release for a full year",
+    ],
+    bonus: "First pick of what gets built next",
+  },
+];
+
+// Delivery, not access. These are services and stay one-off.
+export const SERVICE_PACKAGES = [
   {
     id: "setup",
     name: "Done For You",
     tagline: "Live on your domain this week",
     flat: 200,
+    period: "flat, any template",
     featured: true,
     save: "Most popular",
     features: [
-      "Everything in Source Files",
-      "Your copy, photos & branding applied",
+      "Any template, set up for you",
+      "Your copy, photos and branding applied",
       "Deployed on your domain + SSL",
       "Contact form or booking hooked up",
       "1 round of revisions",
@@ -917,34 +958,11 @@ export const TEMPLATE_PACKAGES = [
     bonus: "Free logo animation for your hero",
   },
   {
-    // The one thing the free tier cannot give: all of them at once, plus
-    // everything that ships later. Priced at $99 deliberately. Any single
-    // template is already free, so this cannot be sold on the code itself; it
-    // is sold on time saved, the licence, and never filling the form in again.
-    // Under the $100 line it is an impulse decision rather than a considered
-    // purchase, and it has to sit clearly below the $200 Done For You (which
-    // buys one finished site) or the two tiers argue with each other.
-    // Counts come off TEMPLATES so they cannot go stale as the library grows.
-    id: "library",
-    name: "Full Library",
-    tagline: "Every template, and every one I make next",
-    flat: 99,
-    period: `one time, all ${FREE_TEMPLATES.length}`,
-    save: "Best value",
-    features: [
-      `All ${FREE_TEMPLATES.length} free templates in a single download`,
-      "Every new template added free, for life",
-      "Use them on unlimited client projects",
-      "No form to fill in again",
-      "Priority replies when you get stuck",
-    ],
-    bonus: "Free 30-minute call to pick the right one for your project",
-  },
-  {
     id: "custom",
     name: "Custom Build",
     tagline: "Start here, go anywhere",
     from: 600,
+    period: "quoted per project",
     features: [
       "Template as the design starting point",
       "Redesigned around your brand",
@@ -959,64 +977,6 @@ export const TEMPLATE_PACKAGES = [
 /** Where a template's free source zip lives. Built by npm run build:zips. */
 export const templateZip = (slug) => `/downloads/${slug}-template.zip`;
 
-// ── Signature price ladder ────────────────────────────────────
-// The free collection is a lead magnet: give the source away, capture the
-// contact. That logic does not carry to a Signature template, which is a whole
-// design system rather than one screen, so it is sold outright.
-//
-// $149 is anchored against the $200 Done For You: buying the system costs less
-// than having one site finished for you, which is the correct relationship.
-export const SIGNATURE_PACKAGES = [
-  {
-    id: "sig-source",
-    name: "Source Files",
-    tagline: "The whole system, yours",
-    flat: 149,
-    period: "one template",
-    features: [
-      "Full React source for this template",
-      "Every design token, documented",
-      "Signature visual included, no licensed assets",
-      "Use it on one client project",
-    ],
-    bonus: "Deploy guide for Netlify, Vercel and Cloudflare",
-  },
-  {
-    id: "sig-everything",
-    // Priced under three singles, so anyone who wants two is already most of
-    // the way to taking all five. It folds in the free library too, so there is
-    // never a reason to buy the $99 Full Library on top.
-    name: "Signature Pass",
-    tagline: "All five, and the free library with them",
-    flat: 399,
-    featured: true,
-    save: "Best value",
-    period: "all five, one time",
-    features: [
-      "All five Signature templates",
-      "The entire free library included",
-      "Every future release, Signature included, free",
-      "Unlimited client projects",
-      "Priority replies when you get stuck",
-    ],
-    bonus: "Free 30-minute call to plan the build",
-  },
-  {
-    id: "sig-setup",
-    name: "Done For You",
-    tagline: "Live on your domain this week",
-    flat: 450,
-    period: "flat",
-    features: [
-      "Everything in Source Files",
-      "Your copy, photos and branding applied",
-      "Signature visual retuned to your palette",
-      "Deployed on your domain + SSL",
-      "2 rounds of revisions",
-    ],
-    bonus: "Free logo animation for your hero",
-  },
-];
 
 // Weekly class schedule (Fitness page).
 export const SCHEDULE = [

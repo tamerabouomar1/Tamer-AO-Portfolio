@@ -11,7 +11,7 @@ import {
   FREE_TEMPLATES,
   SIGNATURE_TEMPLATES,
   TEMPLATE_PACKAGES,
-  SIGNATURE_PACKAGES,
+  SERVICE_PACKAGES,
   WEBSITES,
 } from "../siteData";
 
@@ -21,12 +21,11 @@ import {
    already click when they want a website. Client work comes first — it is the
    proof — and the offer follows it. */
 
-/* One store card. Lifted out of the grid because the page now renders two
-   collections through it: the free library and the paid Signature four. The
-   only thing that differs is the price line and the button label, so they
-   are derived from the template rather than duplicated as a second card. */
+/* One store card. Lifted out of the grid because the page renders two
+   collections through it: the main library and the Signature picks. Nothing on
+   a card is priced any more — every template is free, and the money is in the
+   membership, so the card only ever says Free. */
 function TemplateCard({ t, onBuy }) {
-  const signature = t.tier === "signature";
   return (
     <motion.article className="card tpl-card" variants={cardIn}>
       <Link
@@ -51,7 +50,7 @@ function TemplateCard({ t, onBuy }) {
           </div>
           <div className="tpl-card__price">
             <span className="tpl-card__from">source</span>
-            <span className="tpl-card__amount">{signature ? `$${t.price}` : "Free"}</span>
+            <span className="tpl-card__amount">Free</span>
           </div>
         </div>
 
@@ -79,7 +78,7 @@ function TemplateCard({ t, onBuy }) {
             Live preview
           </Link>
           <button className="btn-book tpl-card__buy" onClick={() => onBuy(t)}>
-            {signature ? "Get it" : "Get it free"}
+            Get it free
           </button>
         </div>
       </div>
@@ -152,18 +151,18 @@ export default function Websites() {
       {/* ── Ready-made sites ─────────────────────────────────── */}
       <section className="proj-section" id="store">
         <div className="storehead">
-          <span className="storehead__flag">Built with AI · Free to take</span>
+          <span className="storehead__flag">A new one every week · All free</span>
           <h3 className="storehead__title">
-            {FREE_TEMPLATES.length} finished websites.
+            {FREE_TEMPLATES.length + SIGNATURE_TEMPLATES.length} finished websites.
             <br />
-            <span className="storehead__accent">Take any of them, free.</span>
+            <span className="storehead__accent">All of them free. A new one every week.</span>
           </h3>
           <p className="storehead__lede">
-            Premium sites, designed and built with AI and finished by hand, and the source
-            code is yours for nothing. What you see in each card below is the site itself
-            running, not a screenshot. Open it, scroll it, break it if you like. When one
-            fits, download it, run two commands and it is live on your machine. Pay me only
-            if you would rather I put it on your domain for you.
+            Premium sites, designed and built with AI and finished by hand, and every one
+            of them is yours for nothing. What you see in each card below is the site
+            itself running, not a screenshot. Open it, scroll it, break it if you like.
+            When one fits, download it, run two commands and it is live on your machine.
+            I add a new one every week, so this shelf is longer than it was last Monday.
           </p>
 
           <ul className="storeprops">
@@ -171,6 +170,11 @@ export default function Websites() {
               <strong>Free, genuinely</strong>
               The full React project, a deploy guide and a license to use it on client work.
               No payment, no card, no email course.
+            </li>
+            <li>
+              <strong>A new one every week</strong>
+              I ship a template a week, every week. Take them one at a time here, or join
+              the membership and get each one the day it lands.
             </li>
             <li>
               <strong>AI speed, designer&apos;s eye</strong>
@@ -210,7 +214,7 @@ export default function Websites() {
           <p className="storehead__lede">
             The ones with a real idea in them rather than a layout: a film scrubbed by your
             scroll, a name running behind a cut-out portrait, a viewport locked so tightly
-            it never scrolls. Priced because they are the work, not the sample.
+            it never scrolls. Free like everything else here.
           </p>
         </div>
 
@@ -222,43 +226,7 @@ export default function Websites() {
       </section>
 
       <section className="proj-section">
-        <h3 className="proj-section__title">Signature pricing</h3>
-        <div className="price-grid">
-          {SIGNATURE_PACKAGES.map((p) => (
-            <article
-              className={`card price-card${p.featured ? " price-card--featured" : ""}`}
-              key={p.id}
-            >
-              {p.save && <span className="price-card__badge">{p.save}</span>}
-              <div className="price-card__head">
-                <h4 className="price-card__name">{p.name}</h4>
-                <p className="price-card__tagline">{p.tagline}</p>
-              </div>
-              <div className="price-card__price">
-                <span className="price-card__amount">${p.flat}</span>
-                <span className="price-card__period">{p.period}</span>
-              </div>
-              <ul className="price-card__features">
-                {p.features.map((f) => (
-                  <li key={f}>
-                    <span className="tick" />
-                    {f}
-                  </li>
-                ))}
-                {p.bonus && (
-                  <li>
-                    <span className="tick tick--gift" />
-                    <span className="price-card__bonus">{p.bonus}</span>
-                  </li>
-                )}
-              </ul>
-            </article>
-          ))}
-        </div>
-      </section>
-
-      <section className="proj-section">
-        <h3 className="proj-section__title">What every free template includes</h3>
+        <h3 className="proj-section__title">Take one, or take the flow</h3>
         <div className="price-grid">
           {TEMPLATE_PACKAGES.map((p) => (
             <article
@@ -323,6 +291,42 @@ export default function Websites() {
           </Link>
         </p>
       </section>
+      <section className="proj-section">
+        <h3 className="proj-section__title">Rather I did it for you?</h3>
+        <div className="price-grid">
+          {SERVICE_PACKAGES.map((p) => (
+            <article
+              className={`card price-card${p.featured ? " price-card--featured" : ""}`}
+              key={p.id}
+            >
+              {p.save && <span className="price-card__badge">{p.save}</span>}
+              <div className="price-card__head">
+                <h4 className="price-card__name">{p.name}</h4>
+                <p className="price-card__tagline">{p.tagline}</p>
+              </div>
+              <div className="price-card__price">
+                <span className="price-card__amount">{p.from ? `$${p.from}+` : `$${p.flat}`}</span>
+                <span className="price-card__period">{p.period}</span>
+              </div>
+              <ul className="price-card__features">
+                {p.features.map((f) => (
+                  <li key={f}>
+                    <span className="tick" />
+                    {f}
+                  </li>
+                ))}
+                {p.bonus && (
+                  <li>
+                    <span className="tick tick--gift" />
+                    <span className="price-card__bonus">{p.bonus}</span>
+                  </li>
+                )}
+              </ul>
+            </article>
+          ))}
+        </div>
+      </section>
+
 
       {/* full-page screenshot of a client site */}
       <AnimatePresence>
