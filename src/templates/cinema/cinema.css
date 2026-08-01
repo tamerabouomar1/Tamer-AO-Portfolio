@@ -1,0 +1,255 @@
+/* Cinema — AI Landing (Signature). Scoped under .cin.
+
+   Everything above the film is glass or nothing. No opaque panel is ever laid
+   over the video: the whole effect depends on seeing through to it. */
+
+.cin {
+  --ink: #0a0a0a;
+  position: relative;
+  background: var(--ink);
+  color: #fff;
+  font-family: "Inter", system-ui, sans-serif;
+  -webkit-font-smoothing: antialiased;
+}
+.cin * { box-sizing: border-box; }
+.cin button { border: 0; font: inherit; cursor: pointer; }
+.cin a { color: inherit; text-decoration: none; }
+.cin h1, .cin h2, .cin h3, .cin p { margin: 0; }
+.cin ::selection { background: rgba(255, 255, 255, 0.2); }
+
+/* ── the film ───────────────────────────────────────────────── */
+.cin-bg {
+  position: fixed;
+  inset: 0;
+  z-index: 0;
+  overflow: hidden;
+  background: var(--ink);
+  pointer-events: none;
+}
+.cin-bg > * {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition: opacity 500ms;
+}
+/* Stands in for the first frame until the video has one of its own. */
+.cin-poster {
+  background:
+    radial-gradient(70% 55% at 62% 34%, rgba(255, 176, 74, 0.22), transparent 62%),
+    radial-gradient(90% 70% at 20% 80%, rgba(120, 150, 180, 0.28), transparent 68%),
+    linear-gradient(180deg, #10151b 0%, #0a0a0a 100%);
+}
+.cin-poster.is-out, .cin-video.is-out { opacity: 0; }
+.cin-canvas { opacity: 0; }
+.cin-canvas.is-in { opacity: 1; }
+
+.cin-layer { position: relative; z-index: 10; }
+
+/* ── reveal ─────────────────────────────────────────────────── */
+.cin-reveal {
+  transform: translateY(2rem);
+  opacity: 0;
+  transition: all 700ms ease-out;
+  will-change: transform;
+}
+.cin-reveal.is-in { transform: translateY(0); opacity: 1; }
+
+/* ── nav ────────────────────────────────────────────────────── */
+.cin-nav {
+  position: fixed;
+  top: 0; left: 0; right: 0;
+  z-index: 50;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 20px;
+  padding: 14px 20px;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.15);
+}
+.cin-logo { display: flex; align-items: center; gap: 8px; font-size: 1.125rem; font-weight: 500; letter-spacing: -0.02em; }
+.cin-links { display: none; gap: 32px; }
+.cin-links a { font-size: 0.875rem; color: rgba(255, 255, 255, 0.85); transition: color 300ms; }
+.cin-links a:hover { color: #fff; }
+.cin-links sup { margin-left: 2px; font-size: 10px; color: rgba(255, 255, 255, 0.6); }
+.cin-navcta button {
+  padding: 8px 16px;
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  border-radius: 6px;
+  background: rgba(255, 255, 255, 0.15);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  color: #fff;
+  font-size: 0.75rem;
+  transition: background-color 300ms;
+}
+.cin-navcta button:hover { background: rgba(255, 255, 255, 0.25); }
+
+/* ── sections ───────────────────────────────────────────────── */
+.cin-section {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  min-height: 100vh;
+  padding: 96px 20px 48px;
+}
+@supports (height: 100svh) { .cin-section { min-height: 100svh; } }
+.cin-spacer { height: 80vh; }
+
+.cin-row { display: flex; flex-direction: column; gap: 32px; }
+.cin-row--bottom { margin-top: auto; }
+.cin-row--cap { flex: 1; justify-content: flex-end; gap: 48px; }
+
+.cin-services { display: flex; flex-direction: column; gap: 8px; margin: 0; padding: 0; list-style: none; }
+.cin-services li {
+  font-family: "Inter", ui-monospace, monospace;
+  font-size: 0.75rem;
+  text-transform: uppercase;
+  letter-spacing: 0.15em;
+  color: rgba(255, 255, 255, 0.9);
+  filter: drop-shadow(0 2px 4px rgba(0, 0, 0, 0.5));
+}
+.cin-intro { max-width: 20rem; }
+.cin-intro p {
+  font-size: 1.125rem;
+  line-height: 1.625;
+  filter: drop-shadow(0 2px 4px rgba(0, 0, 0, 0.5));
+}
+.cin-intro--narrow { max-width: 24rem; }
+
+/* Left-accent glass badge — the one repeated chip in the system. */
+.cin-badge { margin-bottom: 20px; }
+.cin-badge span {
+  display: inline-block;
+  padding: 6px 12px;
+  border-left: 2px solid #fff;
+  background: rgba(255, 255, 255, 0.15);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  font-family: "Inter", ui-monospace, monospace;
+  font-size: 11px;
+  text-transform: uppercase;
+  letter-spacing: 0.15em;
+}
+
+.cin-display {
+  font-size: 3rem;
+  font-weight: 400;
+  line-height: 1.05;
+  letter-spacing: -0.02em;
+  filter: drop-shadow(0 4px 8px rgba(0, 0, 0, 0.55));
+}
+.cin-body {
+  margin-top: 24px;
+  max-width: 28rem;
+  font-size: 0.875rem;
+  color: rgba(255, 255, 255, 0.8);
+  filter: drop-shadow(0 2px 4px rgba(0, 0, 0, 0.5));
+}
+
+/* ── contact card ───────────────────────────────────────────── */
+.cin-card {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  border-radius: 12px;
+  background: rgba(255, 255, 255, 0.15);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  padding: 12px;
+}
+.cin-card img { width: 80px; height: 96px; border-radius: 8px; object-fit: cover; }
+.cin-card-text { display: flex; flex-direction: column; gap: 6px; padding-right: 8px; }
+.cin-card-name { font-size: 0.875rem; font-weight: 500; }
+.cin-card-role {
+  font-family: "Inter", ui-monospace, monospace;
+  font-size: 10px;
+  text-transform: uppercase;
+  letter-spacing: 0.15em;
+  color: rgba(255, 255, 255, 0.6);
+}
+
+/* ── buttons ────────────────────────────────────────────────── */
+.cin-pill {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  margin-top: 6px;
+  padding: 8px 16px;
+  border-radius: 999px;
+  background: #fff;
+  color: #000;
+  font-size: 0.75rem;
+  font-weight: 500;
+  transition: background-color 300ms;
+}
+.cin-pill:hover { background: rgba(255, 255, 255, 0.85); }
+.cin-ghost {
+  padding: 10px 20px;
+  border: 1px solid rgba(255, 255, 255, 0.25);
+  border-radius: 999px;
+  background: rgba(255, 255, 255, 0.1);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  color: #fff;
+  font-size: 0.75rem;
+  transition: background-color 300ms;
+}
+.cin-ghost:hover { background: rgba(255, 255, 255, 0.2); }
+.cin-ctas { display: flex; flex-wrap: wrap; gap: 12px; margin-top: 32px; }
+.cin-ctas .cin-pill { margin-top: 0; padding: 10px 20px; }
+
+/* ── capability panel ───────────────────────────────────────── */
+.cin-panel {
+  width: 100%;
+  max-width: 28rem;
+  padding: 0 20px;
+  border: 1px solid rgba(255, 255, 255, 0.15);
+  border-radius: 16px;
+  background: rgba(255, 255, 255, 0.1);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+}
+.cin-caprow { display: flex; gap: 20px; padding: 20px 0; border-bottom: 1px solid rgba(255, 255, 255, 0.15); }
+.cin-caprow:last-child { border-bottom: 0; }
+.cin-capindex {
+  font-family: "Inter", ui-monospace, monospace;
+  font-size: 11px;
+  letter-spacing: 0.15em;
+  color: rgba(255, 255, 255, 0.55);
+}
+.cin-caprow h3 {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  font-size: 1rem;
+  font-weight: 500;
+}
+.cin-caprow h3 svg { color: rgba(255, 255, 255, 0.4); transition: transform 300ms, color 300ms; }
+.cin-caprow:hover h3 svg { transform: translateX(2px); color: #fff; }
+.cin-caprow p { margin-top: 6px; font-size: 0.875rem; line-height: 1.625; color: rgba(255, 255, 255, 0.7); }
+
+@media (min-width: 640px) {
+  .cin-nav, .cin-section { padding-left: 32px; padding-right: 32px; }
+  .cin-section { padding-top: 112px; }
+  .cin-row--top { flex-direction: row; justify-content: space-between; }
+  .cin-intro { text-align: right; }
+  .cin-display { font-size: 3.75rem; }
+  .cin-intro p { font-size: 1.25rem; }
+}
+@media (min-width: 768px) {
+  .cin-links { display: flex; }
+  .cin-nav, .cin-section { padding-left: 48px; padding-right: 48px; }
+  .cin-row--bottom { flex-direction: row; align-items: flex-end; justify-content: space-between; }
+  .cin-row--cap { flex-direction: row; align-items: flex-end; justify-content: space-between; gap: 64px; }
+  .cin-capcopy { max-width: 36rem; }
+  .cin-body, .cin-ctas .cin-pill, .cin-ghost { font-size: 1rem; }
+}
+@media (min-width: 1024px) {
+  .cin-display { font-size: 4.5rem; }
+  .cin-links { gap: 40px; }
+}
+@media (prefers-reduced-motion: reduce) {
+  .cin-reveal { transition-duration: 1ms; transition-delay: 0ms !important; }
+}

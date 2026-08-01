@@ -208,10 +208,9 @@ export default function Websites() {
         <div className="storehead storehead--sig">
           <h3 className="proj-section__title">Signature collection</h3>
           <p className="storehead__lede">
-            A complete design system, not a single screen. Its own palette, type scale and
-            signature visual, drawn in code so there is nothing licensed to swap out, and
-            the tokens ship in three formats so it is yours to extend rather than only
-            recolour. Priced because it is the work, not the sample.
+            The ones with a real idea in them rather than a layout: a film scrubbed by your
+            scroll, a name running behind a cut-out portrait, a viewport locked so tightly
+            it never scrolls. Priced because they are the work, not the sample.
           </p>
         </div>
 

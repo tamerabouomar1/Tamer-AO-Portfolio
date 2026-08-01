@@ -1,0 +1,194 @@
+/* Pixel — Designer Portfolio (Signature). Scoped under .pix.
+
+   One locked viewport: h-screen + overflow hidden, with a flex spacer pushing
+   the headline block to the bottom edge. No scroll, no second section.
+
+   .pix-font is the bitmap face and belongs ONLY on the surnames, the two small
+   labels, the brand blurb, and the two shouted words in the headline. */
+
+.pix {
+  position: relative;
+  height: 100vh;
+  width: 100%;
+  overflow: hidden;
+  background: #000;
+  color: #fff;
+  font-family: "Inter", system-ui, sans-serif;
+  -webkit-font-smoothing: antialiased;
+}
+.pix * { box-sizing: border-box; }
+.pix button { border: 0; background: none; font: inherit; color: inherit; cursor: pointer; }
+.pix a { color: inherit; text-decoration: none; }
+.pix h1, .pix h2, .pix p { margin: 0; }
+.pix ul { margin: 0; padding: 0; list-style: none; }
+
+.pix-font { font-family: "basis33", ui-monospace, monospace; }
+
+.pix-video {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.pix-shell {
+  position: relative;
+  z-index: 10;
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+  padding: 0 20px;
+}
+
+/* ── nav ────────────────────────────────────────────────────── */
+.pix-nav { display: flex; align-items: center; justify-content: space-between; padding: 24px 0; }
+.pix-navlinks { display: none; gap: 32px; font-size: 0.875rem; letter-spacing: 0.025em; }
+.pix-navlinks a { transition: opacity 300ms; }
+.pix-navlinks a:hover { opacity: 0.7; }
+.pix-burger { padding: 8px; transition: opacity 300ms; }
+.pix-burger:hover { opacity: 0.7; }
+
+/* ── meta grid ──────────────────────────────────────────────── */
+.pix-meta {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 16px;
+  margin-top: 16px;
+}
+.pix-col--right { text-align: right; }
+.pix-name { font-size: 1.125rem; letter-spacing: 0.025em; line-height: 1.15; }
+.pix-name span { display: block; }
+.pix-name span:first-child { font-weight: 400; }
+.pix-name .pix-font { font-size: 1.5rem; }
+.pix-star { display: block; margin-top: 12px; font-size: 10px; color: rgba(255, 255, 255, 0.5); }
+.pix-blurb { margin-top: 4px; font-size: 0.75rem; line-height: 1.625; color: rgba(255, 255, 255, 0.6); }
+.pix-label {
+  display: block;
+  margin-bottom: 12px;
+  font-size: 1rem;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: rgba(255, 255, 255, 0.5);
+}
+.pix-copy { max-width: 220px; font-size: 0.875rem; line-height: 1.625; color: rgba(255, 255, 255, 0.9); }
+.pix-col--right .pix-copy { margin-left: auto; }
+.pix-services { font-size: 0.875rem; line-height: 1.625; color: rgba(255, 255, 255, 0.9); }
+.pix-services li + li { margin-top: 2px; }
+
+.pix-grow { flex: 1; }
+
+/* ── bottom ─────────────────────────────────────────────────── */
+.pix-bottom { padding-bottom: 16px; }
+.pix-hero { display: grid; grid-template-columns: 1fr; gap: 16px; align-items: end; }
+.pix-headline {
+  font-size: 1.875rem;
+  font-weight: 400;
+  letter-spacing: 0.025em;
+  text-transform: uppercase;
+  line-height: 0.72;
+}
+/* The bitmap face runs small at a given px, so the shouted words are set at
+   1.25em to sit optically level with the Inter lines around them. */
+.pix-shout { display: inline-block; font-size: 1.25em; font-weight: 400; line-height: 1; vertical-align: baseline; }
+
+.pix-side { display: flex; flex-direction: column; gap: 16px; justify-content: flex-end; align-items: flex-start; }
+.pix-showreel {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 12px 24px;
+  border: 1px solid rgba(255, 255, 255, 0.3);
+  background: rgba(255, 255, 255, 0.05);
+  backdrop-filter: blur(4px);
+  -webkit-backdrop-filter: blur(4px);
+  font-size: 0.875rem;
+  letter-spacing: 0.05em;
+  transition: background-color 300ms;
+}
+.pix-showreel:hover { background: rgba(255, 255, 255, 0.1); }
+
+.pix-awards { display: flex; flex-wrap: wrap; align-items: stretch; gap: 8px; font-size: 0.875rem; color: rgba(255, 255, 255, 0.8); }
+.pix-chip { display: flex; align-items: center; gap: 8px; padding: 8px 12px; background: #0b0b0b; }
+.pix-award-fwa { font-size: 0.875rem; font-weight: 700; letter-spacing: -0.02em; }
+.pix-award-w { font-size: 1.125rem; font-weight: 700; }
+.pix-award-css { font-size: 10px; font-weight: 700; letter-spacing: -0.02em; }
+.pix-count { font-size: 0.75rem; color: rgba(255, 255, 255, 0.5); }
+
+.pix-foot {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 8px;
+  margin-top: 16px;
+  padding-top: 16px;
+  font-size: 0.75rem;
+  color: rgba(255, 255, 255, 0.6);
+}
+.pix-red { color: #ef4444; transition: color 300ms; }
+.pix-red:hover { color: #f87171; }
+
+/* ── mobile menu ────────────────────────────────────────────── */
+.pix-menu {
+  position: fixed;
+  inset: 0;
+  z-index: 50;
+  display: flex;
+  flex-direction: column;
+  background: rgba(0, 0, 0, 0.95);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  opacity: 0;
+  pointer-events: none;
+  transition: all 500ms cubic-bezier(0.16, 1, 0.3, 1);
+}
+.pix-menu.is-open { opacity: 1; pointer-events: auto; }
+.pix-menu-head { display: flex; align-items: center; justify-content: space-between; padding: 24px; }
+.pix-menu-head button { padding: 8px; transition: opacity 300ms; }
+.pix-menu-head button:hover { opacity: 0.7; }
+.pix-menu-nav { display: flex; flex: 1; flex-direction: column; align-items: center; justify-content: center; gap: 32px; }
+.pix-menu-nav a {
+  font-size: 1.5rem;
+  letter-spacing: 0.1em;
+  opacity: 0;
+  transform: translateY(1rem);
+  transition: all 500ms cubic-bezier(0.16, 1, 0.3, 1);
+}
+.pix-menu.is-open .pix-menu-nav a { opacity: 1; transform: translateY(0); }
+
+@media (min-width: 640px) {
+  .pix-shell { padding: 0 24px; }
+  .pix-meta { gap: 24px; }
+  .pix-headline { font-size: 2.25rem; }
+  .pix-foot { grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 16px; margin-top: 20px; }
+  .pix-foot-right { text-align: right; }
+  .pix-awards { gap: 12px; }
+  .pix-chip { padding: 8px 16px; }
+  .pix-award-fwa { font-size: 1rem; }
+  .pix-award-w { font-size: 1.25rem; }
+  .pix-award-css { font-size: 0.75rem; }
+}
+@media (min-width: 768px) {
+  .pix-shell { padding: 0 40px; }
+  .pix-navlinks { display: flex; }
+  .pix-burger { display: none; }
+  .pix-menu { display: none; }
+  .pix-name { font-size: 1.25rem; }
+  .pix-name .pix-font { font-size: 1.875rem; }
+  .pix-headline { font-size: 3rem; }
+}
+@media (min-width: 1024px) {
+  .pix-shell { padding: 0 56px; }
+  .pix-video { transform: scale(1.2); }
+  .pix-meta { grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 32px; }
+  .pix-col--right { text-align: left; }
+  .pix-col--right .pix-copy { margin-left: 0; }
+  /* Not an even split. The headline carries authored line breaks and the
+     longest of them ("BRAND & DIGITAL") needs about 9.3em of width; an even
+     half-column starves it at this breakpoint and the lines wrap, which
+     silently turns four lines into six. The right column only holds a button
+     and three chips, so it gives up the space. */
+  .pix-hero { grid-template-columns: 1.9fr 1.1fr; gap: 24px; }
+  .pix-side { align-items: flex-end; }
+  .pix-headline { font-size: 3.75rem; }
+}
+@media (min-width: 1280px) { .pix-headline { font-size: 4.25rem; } }

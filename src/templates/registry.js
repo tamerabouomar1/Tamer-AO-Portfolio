@@ -28,7 +28,11 @@ const loaders = {
   orbit: () => import("./orbit/OrbitSite"),
   quiet: () => import("./quiet/QuietSite"),
   frame: () => import("./frame/FrameSite"),
-  nebula: () => import("./nebula/NebulaSite"),
+  cinema: () => import("./cinema/CinemaSite"),
+  lost: () => import("./lost/LostSite"),
+  pixel: () => import("./pixel/PixelSite"),
+  marquee: () => import("./marquee/MarqueeSite"),
+  charter: () => import("./charter/CharterSite"),
 };
 
 export const TEMPLATE_VIEWS = Object.fromEntries(

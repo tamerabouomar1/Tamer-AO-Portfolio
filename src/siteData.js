@@ -792,21 +792,6 @@ export const TEMPLATES = [
   //
   // The style references came from real companies. Names, copy and marks are
   // all changed — the SYSTEM is the reference, never the brand.
-  {
-    slug: "nebula",
-    name: "Nebula",
-    kicker: "AI Product",
-    tag: "Signature",
-    tier: "signature",
-    price: 149,
-    desc: "A pure black stage with one violet accent and a constellation of thousands of tiny triangles that settle into a brain. Hierarchy comes from scale and tracking alone, never weight, so every headline sits at the same weight as the body.",
-    highlights: ["Canvas particle constellation", "Weight-free type hierarchy", "Team + carousel sections", "Retint from one array"],
-    bestFor: "AI products · Research labs · Deep tech",
-    stack: "React · Canvas",
-    accent: "#8052ff",
-    bg: "#000000",
-    ink: "#ffffff",
-  },
 ];
 
 // The three ways to get any template above.
@@ -816,6 +801,82 @@ export const TEMPLATES = [
 // scarce is getting it live, on brand, with real content, which is what the two
 // paid tiers sell. `free` means no price at all; `flat` is a fixed price that
 // no longer depends on which template; `from` means the tier is quoted.
+// ── Signature ───────────────────────────────────────────────
+// `tier: "signature"` splits these into their own paid section of the store and
+// swaps the price ladder in the buy modal (SIGNATURE_PACKAGES below).
+//
+// These are the pieces with a real engineering idea in them rather than a
+// layout — a scroll-scrubbed film decoded to a frame cache, a name that runs
+// behind a cut-out portrait, a locked single-viewport composition. That is
+// what is being paid for, and why they are not in the free grid.
+//
+// The references came from real sites. Names, copy and marks are all changed;
+// the SYSTEM is the reference, never the brand.
+const SIGNATURE = [
+  {
+    slug: "cinema",
+    name: "Cinema",
+    kicker: "AI Landing",
+    desc: "The background film is not played, it is scrubbed by the page scroll. The clip is decoded once into a cache of frames so the scrub is smooth rather than the juddering mess that seeking a video on every scroll event produces.",
+    highlights: ["Scroll-scrubbed film", "Decoded frame cache", "Liquid-glass chrome", "Staggered reveals"],
+    bestFor: "AI products · Agencies · Studios",
+    stack: "React · Canvas",
+    accent: "#ffffff",
+    bg: "#0a0a0a",
+    ink: "#ffffff",
+  },
+  {
+    slug: "marquee",
+    name: "Marquee",
+    kicker: "Editorial Portfolio",
+    desc: "A name at 26vh runs forever behind a cut-out portrait, so the letters pass through the figure. One locked composition, cream on photography, with a staggered entrance and a slide-in drawer on mobile.",
+    highlights: ["Seamless infinite marquee", "Portrait over type", "Choreographed entrance", "Editorial cream palette"],
+    bestFor: "Photographers · Creatives · Personal sites",
+    stack: "React · CSS",
+    accent: "#efeee9",
+    bg: "#000000",
+    ink: "#efeee9",
+  },
+  {
+    slug: "pixel",
+    name: "Pixel",
+    kicker: "Designer Portfolio",
+    desc: "One locked viewport with no scroll: a four-column meta grid at the top and the headline pinned to the bottom edge. A bitmap face carries the surnames and two shouted words inside the headline, against Inter for everything structural.",
+    highlights: ["Single locked viewport", "Bitmap + grotesk pairing", "Four-column meta grid", "Full-screen mobile menu"],
+    bestFor: "Designers · Engineers · Studios",
+    stack: "React · CSS",
+    accent: "#ef4444",
+    bg: "#000000",
+    ink: "#ffffff",
+  },
+  {
+    slug: "charter",
+    name: "Charter",
+    kicker: "Luxury Landing",
+    desc: "Dark type on bright footage rather than white on black. The two headline lines overlap by twelve pixels so the lockup carries weight without ever going bold, and the whole composition sits high to keep the frame clear.",
+    highlights: ["Overlapping headline lockup", "Dark type on light video", "Glass mobile menu", "One clean screen"],
+    bestFor: "Travel · Luxury · Concierge",
+    stack: "React · CSS",
+    accent: "#202A36",
+    bg: "#f9fafb",
+    ink: "#202A36",
+  },
+  {
+    slug: "lost",
+    name: "Lost",
+    kicker: "404 Page",
+    desc: "A 404 worth landing on. Full-bleed video at full strength with nothing laid over it, a gradient-clipped numeral, and one line of type. The discipline is subtractive: no scrim, no glass, no button.",
+    highlights: ["No overlay, ever", "Gradient-clipped numerals", "Mono display face", "One composition"],
+    bestFor: "Any site · Error pages · Holding pages",
+    stack: "React · CSS",
+    accent: "#ffffff",
+    bg: "#000000",
+    ink: "#ffffff",
+  },
+].map((t) => ({ ...t, tag: "Signature", tier: "signature", price: 149 }));
+
+TEMPLATES.push(...SIGNATURE);
+
 // The store shows these as two separate collections, and the buy modal offers
 // a different price ladder for each, so split them once here rather than
 // filtering by `tier` at every call site.
@@ -922,18 +983,18 @@ export const SIGNATURE_PACKAGES = [
   },
   {
     id: "sig-everything",
-    // Everything replaces the old four-template Pass. The two things are bought
-    // by the same person on the same day, and $50 to skip sixteen separate
-    // download forms is an easy yes.
-    name: "Everything",
-    tagline: "The Signature template and the whole free library",
-    flat: 199,
+    // Priced under three singles, so anyone who wants two is already most of
+    // the way to taking all five. It folds in the free library too, so there is
+    // never a reason to buy the $99 Full Library on top.
+    name: "Signature Pass",
+    tagline: "All five, and the free library with them",
+    flat: 399,
     featured: true,
     save: "Best value",
-    period: "one time, the lot",
+    period: "all five, one time",
     features: [
-      "The Signature template in full",
-      "All the free templates in one download",
+      "All five Signature templates",
+      "The entire free library included",
       "Every future release, Signature included, free",
       "Unlimited client projects",
       "Priority replies when you get stuck",

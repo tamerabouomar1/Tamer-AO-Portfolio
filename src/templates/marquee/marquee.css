@@ -1,0 +1,190 @@
+/* Marquee — Editorial Portfolio (Signature). Scoped under .mrq.
+
+   Layer order is the design. Background image, then the scrolling name (z 10),
+   then the cut-out portrait (z 20) so the letters pass behind the figure, then
+   the chrome (z 30), drawer (z 40), burger (z 50). Nothing goes between the
+   name and the portrait. */
+
+.mrq {
+  --cream: #efeee9;
+  position: relative;
+  height: 100dvh;
+  width: 100%;
+  overflow: hidden;
+  background: #000;
+  color: var(--cream);
+  font-family: "Helvetica Neue ME", Helvetica, Arial, sans-serif;
+}
+.mrq * { box-sizing: border-box; }
+.mrq button { border: 0; background: none; color: inherit; font: inherit; cursor: pointer; }
+.mrq a { color: inherit; text-decoration: none; }
+.mrq p { margin: 0; }
+
+.mrq-bg, .mrq-front { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; }
+.mrq-front { z-index: 20; pointer-events: none; }
+
+/* ── marquee ────────────────────────────────────────────────── */
+.mrq-marqueewrap { position: absolute; inset-inline: 0; top: 16vh; z-index: 10; overflow: hidden; }
+.mrq-track {
+  display: flex;
+  width: max-content;
+  white-space: nowrap;
+  font-size: 16vh;
+  line-height: 1;
+  color: var(--cream);
+  animation: mrq-scroll 30s linear infinite;
+}
+.mrq-track span { padding-right: 6vw; }
+/* Two identical halves: at -50% the second sits where the first began. */
+@keyframes mrq-scroll { from { transform: translateX(0); } to { transform: translateX(-50%); } }
+
+/* ── chrome ─────────────────────────────────────────────────── */
+.mrq-head {
+  position: absolute;
+  inset-inline: 0;
+  top: 0;
+  z-index: 30;
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  padding: 24px;
+}
+.mrq-brand { font-size: 1.125rem; letter-spacing: 0.025em; }
+.mrq-headright { display: none; align-items: flex-start; gap: 64px; }
+.mrq-year { font-size: 0.875rem; }
+.mrq-stack { display: flex; flex-direction: column; gap: 2px; font-size: 0.875rem; }
+.mrq-stack a { transition: opacity 300ms; }
+.mrq-stack a:hover { opacity: 0.6; }
+
+.mrq-burger {
+  position: relative;
+  z-index: 50;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 4px;
+  width: 40px;
+  height: 40px;
+}
+.mrq-burger i {
+  display: block;
+  width: 24px;
+  height: 2px;
+  background: var(--cream);
+  transition: transform 500ms cubic-bezier(0.76, 0, 0.24, 1), opacity 300ms;
+}
+.mrq-burger.is-open i:nth-child(1) { transform: translateY(6px) rotate(45deg); }
+.mrq-burger.is-open i:nth-child(2) { opacity: 0; }
+.mrq-burger.is-open i:nth-child(3) { transform: translateY(-6px) rotate(-45deg); }
+
+.mrq-rule {
+  position: absolute;
+  inset-inline: 24px;
+  bottom: 5.5rem;
+  z-index: 10;
+  height: 2px;
+  background: var(--cream);
+  transform-origin: left;
+}
+
+.mrq-foot {
+  position: absolute;
+  inset-inline: 0;
+  bottom: 0;
+  z-index: 30;
+  display: flex;
+  align-items: flex-end;
+  justify-content: space-between;
+  padding: 0 24px 20px;
+  font-size: 0.75rem;
+  line-height: 1.625;
+}
+.mrq-footright { text-align: right; }
+
+/* ── drawer ─────────────────────────────────────────────────── */
+.mrq-backdrop {
+  position: fixed;
+  inset: 0;
+  z-index: 40;
+  background: rgba(0, 0, 0, 0.4);
+  backdrop-filter: blur(4px);
+  -webkit-backdrop-filter: blur(4px);
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 500ms;
+}
+.mrq-backdrop.is-open { opacity: 1; pointer-events: auto; }
+.mrq-drawer {
+  position: fixed;
+  top: 0; right: 0; bottom: 0;
+  z-index: 40;
+  width: 80%;
+  max-width: 24rem;
+  padding: 40px 32px;
+  background: #141414;
+  transform: translateX(100%);
+  transition: transform 600ms cubic-bezier(0.76, 0, 0.24, 1);
+}
+.mrq-drawer.is-open { transform: translateX(0); }
+.mrq-close {
+  position: absolute;
+  top: 24px; right: 24px;
+  transform: rotate(90deg);
+  opacity: 0;
+  transition: transform 500ms, opacity 500ms;
+}
+.mrq-drawer.is-open .mrq-close { transform: rotate(0deg); opacity: 1; transition-delay: 300ms; }
+.mrq-dlabel {
+  display: block;
+  margin: 32px 0 16px;
+  font-size: 0.75rem;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  color: rgba(239, 238, 233, 0.5);
+  opacity: 0;
+  transform: translateY(1rem);
+  transition: opacity 500ms, transform 500ms;
+}
+.mrq-drawer.is-open .mrq-dlabel { opacity: 1; transform: translateY(0); }
+.mrq-dnav { display: flex; flex-direction: column; gap: 8px; }
+.mrq-dnav a {
+  font-size: 2.25rem;
+  opacity: 0;
+  transform: translateY(1.5rem);
+  transition: opacity 500ms, transform 500ms;
+}
+.mrq-dsocial { display: flex; flex-wrap: wrap; gap: 16px; font-size: 0.875rem; }
+.mrq-dsocial a { opacity: 0; transform: translateY(1rem); transition: opacity 500ms, transform 500ms; }
+.mrq-drawer.is-open .mrq-dnav a,
+.mrq-drawer.is-open .mrq-dsocial a { opacity: 1; transform: translateY(0); }
+
+/* ── entrances ──────────────────────────────────────────────── */
+.mrq-fade { animation: mrq-fadein 1.2s ease-out both; }
+.mrq-rise { animation: mrq-risein 1.4s cubic-bezier(0.22, 1, 0.36, 1) 300ms both; }
+.mrq-up   { animation: mrq-fadeup 0.9s cubic-bezier(0.22, 1, 0.36, 1) both; }
+.mrq-line { animation: mrq-linein 1.1s cubic-bezier(0.76, 0, 0.24, 1) 1200ms both; }
+@keyframes mrq-fadein { from { opacity: 0; } to { opacity: 1; } }
+@keyframes mrq-risein { from { opacity: 0; transform: translateY(4vh) scale(1.03); } to { opacity: 1; transform: translateY(0) scale(1); } }
+@keyframes mrq-fadeup { from { opacity: 0; transform: translateY(28px); } to { opacity: 1; transform: translateY(0); } }
+@keyframes mrq-linein { from { transform: scaleX(0); } to { transform: scaleX(1); } }
+
+@media (min-width: 640px) {
+  .mrq-head { padding: 32px 40px; }
+  .mrq-headright { display: flex; }
+  .mrq-burger { display: none; }
+  .mrq-backdrop, .mrq-drawer { display: none; }
+  .mrq-marqueewrap { top: 14vh; }
+  .mrq-track { font-size: 26vh; }
+  .mrq-rule { inset-inline: 40px; bottom: 7rem; }
+  .mrq-foot { padding: 0 40px 32px; font-size: 0.875rem; }
+}
+@media (min-width: 1024px) { .mrq-headright { gap: 96px; } }
+
+@media (prefers-reduced-motion: reduce) {
+  .mrq-fade, .mrq-rise, .mrq-up, .mrq-line {
+    animation-duration: 0.01ms;
+    animation-delay: 0ms !important;
+  }
+  .mrq-track { animation: none; }
+}
