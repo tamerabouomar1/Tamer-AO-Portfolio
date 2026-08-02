@@ -433,10 +433,12 @@ export const PROJECT_GROUPS = [
         desc: "A short publication produced for visual theory, where the argument and the typography are doing the same work.",
       },
       {
-        name: "Packaging",
-        tag: "Packaging · print artwork",
-        images: imgs("uni-pack", 1),
-        desc: "The final print sheet for L'Arôme, a rosemary-led bath and body range: shampoo, hair wax, sea essence, lotion bar and hair mask labels laid out together as they go to print, so the palette and type hold as one family across five different formats.",
+        // The printed, filled and boxed range rather than the flat artwork.
+        // A photograph of the real thing is the proof; the print sheet was not.
+        name: "L'Arôme du Liban",
+        tag: "Packaging · full range",
+        images: imgs("uni-pack", 8),
+        desc: "A bath and body range taken from label design to the shelf: hydrosol, musk, lotion bar, frankincense and shampoo, boxed in an engraved wooden case.",
       },
       {
         name: "Calendar",
