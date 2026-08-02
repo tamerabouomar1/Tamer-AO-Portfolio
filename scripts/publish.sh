@@ -15,7 +15,12 @@ set -u
 cd "$(dirname "$0")/.." || exit 1
 
 PASSFILE="$HOME/Desktop/portfolio-leads-password.txt"
-SITE="https://tamer-ao-portfolio.tamerabouomar1.workers.dev"
+# Read the live URL out of the deploy itself rather than hardcoding it. The
+# account subdomain changed once (tamerabouomar1 -> tamerao) and the old value
+# sat in here handing out a dead link long after the site was fine. Falls back
+# to the current known URL only if the deploy output cannot be parsed.
+SITE_FALLBACK="https://portfolio.tamerao.workers.dev"
+SITE="$SITE_FALLBACK"
 
 line() { printf '\n────────────────────────────────────────\n'; }
 
@@ -91,6 +96,10 @@ echo
 echo "STEP 4 of 4 — Putting it live..."
 if npx --yes wrangler deploy >/tmp/portfolio-deploy.log 2>&1; then
   echo "  Done."
+  # Take the URL Cloudflare actually published to, so this can never drift
+  # from reality again.
+  DEPLOYED=$(grep -oE 'https://[a-z0-9.-]+\.workers\.dev' /tmp/portfolio-deploy.log | tail -1)
+  [ -n "$DEPLOYED" ] && SITE="$DEPLOYED"
 else
   echo
   echo "  ! Publishing failed. Your live site is untouched (still the old version)."
