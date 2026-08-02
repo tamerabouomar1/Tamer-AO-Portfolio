@@ -146,7 +146,7 @@ function readme(slug, meta, component, hasVideo) {
 ${t.desc || ""}
 
 Yours to use, free. Designed and built by Tamer Abou Omar.
-Portfolio: https://tamer-ao-portfolio.tamerabouomar1.workers.dev
+Portfolio: https://portfolio.tamerao.workers.dev
 
 ## Run it
 

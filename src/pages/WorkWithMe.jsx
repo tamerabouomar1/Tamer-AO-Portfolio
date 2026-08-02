@@ -9,7 +9,7 @@ const CALENDLY_EMBED =
   CONTACT.calendly +
   "?embed_type=Inline&hide_gdpr_banner=1&background_color=101010&text_color=ffffff&primary_color=64cefb" +
   "&embed_domain=" +
-  (typeof window !== "undefined" ? window.location.hostname : "tamer-ao-portfolio.netlify.app");
+  (typeof window !== "undefined" ? window.location.hostname : "portfolio.tamerao.workers.dev");
 
 /* Contact form posts to Netlify Forms (static mirror lives in index.html). */
 function MessageForm() {
