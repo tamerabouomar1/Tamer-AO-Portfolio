@@ -3,10 +3,13 @@ import { cardIn, container } from "./Page";
 import { CLIENTS, TESTIMONIALS } from "../siteData";
 
 /**
- * "Trusted by" — the real client roster. Nothing here is decorative:
- * every name maps to delivered work shown elsewhere on the site.
+ * The real client roster. Nothing here is decorative: every name maps to
+ * delivered work shown elsewhere on the site.
+ *
+ * Headed "Notable clients", not "Trusted by" — the names are the claim, and a
+ * roster this real does not need a line telling people how to feel about it.
  */
-export function TrustedBy({ title = "Trusted by" }) {
+export function TrustedBy({ title = "Notable clients" }) {
   if (!CLIENTS.length) return null;
   return (
     <section className="proj-section trusted">

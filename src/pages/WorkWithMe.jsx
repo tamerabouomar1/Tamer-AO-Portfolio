@@ -125,7 +125,7 @@ export default function WorkWithMe() {
       </motion.section>
 
       {/* Credibility before the ask */}
-      <TrustedBy title="Notable clients" />
+      <TrustedBy />
       <Testimonials />
 
       {/* Social media */}
