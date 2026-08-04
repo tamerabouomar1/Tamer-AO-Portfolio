@@ -473,32 +473,49 @@ export const SOCIAL_POSTS = {
 // TESTIMONIALS does.
 export const INSTAGRAM_POSTS = [];
 
-// Video edits — shown on the Media page.
-// NOTE ON SOURCES: the three "From Instagram" entries below were taken from
-// ~/Desktop/Portfolio/videos portfolio intors/ — "Instagram Video from
-// Snapinsta copy.mp4", "Comp 1.mp4" and "No audio 1.mp4" — because there was
-// no way to pull the posts themselves. If any of these is the wrong clip, swap
-// the file in public/assets/motion/ and keep the name.
+// Instagram posts — the real reels from @tamer_ao, shown on the Media page.
 //
-// Live embeds are still the better option and the code is already in place:
-// paste post links into INSTAGRAM_POSTS above and a Reels section appears with
-// real view and like counts.
+// The video files are the posts themselves, downloaded from Instagram and
+// served locally so they play inline instead of sitting behind an embed that
+// needs a third-party script and a login. `url` points back at the real post.
+//
+// `views`, `likes` and `comments` are the counts Instagram shows on the post,
+// read off @tamer_ao on 4 August 2026. They are typed in rather than fetched,
+// because Instagram hands engagement counts only to a logged-in session — so
+// refresh them by hand when a post keeps climbing. Any one left as `null`
+// simply hides that chip, so a missing number never shows up as a zero.
+export const INSTAGRAM_REELS = [
+  {
+    title: "Aura farm at the end of class",
+    src: "/assets/motion/ig-aura.mp4",
+    url: "https://www.instagram.com/tamer_ao/reel/DXENzRNCD_L/",
+    caption: "+aura · #jiujitsu #wrestling",
+    views: 180265,
+    likes: 12914,
+    comments: 23,
+  },
+  {
+    title: "When rests are appreciated",
+    src: "/assets/motion/ig-rests.mp4",
+    url: "https://www.instagram.com/tamer_ao/reel/DYZO7X9OKBs/",
+    caption: "when rests are appreciated · #jiujitsu #wrestling",
+    views: 123694,
+    likes: 8029,
+    comments: 46,
+  },
+  {
+    title: "Always healthy",
+    src: "/assets/motion/ig-always-healthy.mp4",
+    url: "https://www.instagram.com/tamer_ao/reel/DY4sc30ofku/",
+    caption: "always healthy… · #jiujitsu #athlete #health",
+    views: 2346,
+    likes: 101,
+    comments: 2,
+  },
+];
+
+// Video edits — shown on the Media page.
 export const VIDEO_EDITS = [
-  {
-    title: "Reel: Short-form Edit",
-    src: "/assets/motion/edit-instagram-1.mp4",
-    desc: "A short-form edit made for Instagram, cut for the feed rather than the timeline.",
-  },
-  {
-    title: "Reel: Motion Composite",
-    src: "/assets/motion/edit-instagram-2.mp4",
-    desc: "Motion and compositing work built for social, where the first second has to earn the next five.",
-  },
-  {
-    title: "Reel: Silent Cut",
-    src: "/assets/motion/edit-instagram-3.mp4",
-    desc: "An edit built to read with the sound off, which is how most of the feed is actually watched.",
-  },
   {
     title: "Athletes Night at AUB",
     src: "/assets/motion/edit-athletes-night.mp4",
@@ -857,6 +874,18 @@ const SIGNATURE = [
     accent: "#202A36",
     bg: "#f9fafb",
     ink: "#202A36",
+  },
+  {
+    slug: "drift",
+    name: "Drift",
+    kicker: "Parallax Landing",
+    desc: "Five planes moving at five speeds, so the page has distance in it.",
+    highlights: ["Scroll-linked depth layers", "Drawn scene, zero images", "Art that drifts inside its frame", "Honours reduced-motion"],
+    bestFor: "Travel · Outdoor · Editorial",
+    stack: "React · CSS",
+    accent: "#F2A65A",
+    bg: "#070B18",
+    ink: "#EDE7DF",
   },
   {
     slug: "lost",

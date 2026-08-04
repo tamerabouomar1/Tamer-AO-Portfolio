@@ -710,6 +710,55 @@ ul { margin: 0; padding: 0; list-style: none; }
   display: block;
 }
 
+/* Instagram posts (Media page) — real reels, vertical like the feed */
+.reel-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(min(100%, 300px), 1fr));
+  gap: var(--gap);
+}
+.reel-card { padding: 0; overflow: hidden; display: flex; flex-direction: column; }
+.reel-card__frame {
+  display: block;
+  position: relative;
+  width: 100%;
+  aspect-ratio: 9 / 16;
+  background: #000;
+  overflow: hidden;
+}
+.reel-card__frame video { width: 100%; height: 100%; object-fit: cover; display: block; }
+.reel-card__body { padding: clamp(14px, 1.4vw, 20px); }
+.reel-stats {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  margin: 12px 0 0;
+  padding: 0;
+  list-style: none;
+}
+.reel-stat {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 5px 10px;
+  border: 1px solid var(--line);
+  border-radius: 999px;
+  font-size: clamp(12px, 0.9vw, 14px);
+  font-weight: 300;
+  color: var(--muted);
+  white-space: nowrap;
+}
+.reel-stat b { font-weight: 700; color: #fff; }
+.reel-stat svg {
+  width: 14px;
+  height: 14px;
+  flex: none;
+  fill: none;
+  stroke: var(--shiny);
+  stroke-width: 1.7;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+}
+
 /* Social posts (Media page) */
 .post-grid {
   display: grid;

@@ -4,13 +4,23 @@ import { motion, AnimatePresence } from "framer-motion";
 import Page, { container, cardIn } from "../components/Page";
 import useSwipe from "../components/useSwipe";
 import InstagramEmbed from "../components/InstagramEmbed";
-import { CONTACT, INSTAGRAM_POSTS, SOCIAL_POSTS, VIDEO_EDITS } from "../siteData";
+import { CONTACT, INSTAGRAM_POSTS, INSTAGRAM_REELS, SOCIAL_POSTS, VIDEO_EDITS } from "../siteData";
 
 const LOGOMOTIONS = [
   { title: "Combat Sports Academy", src: "/assets/motion/logomotion-csa.mp4" },
   { title: "MoCars / MoTrouble", src: "/assets/motion/logomotion-mocars.mp4" },
   { title: "BIAF", src: "/assets/motion/logomotion-biaf.mp4", fit: "cover", scale: 1.18 },
 ];
+
+// 2346 → "2.3K", 123694 → "124K" — the way Instagram itself shortens them.
+// One decimal below 100K, none above, and never a dangling ".0".
+const compact = (n) => {
+  const trim = (v) => `${v}`.replace(/\.0$/, "");
+  if (n >= 1_000_000) return `${trim((n / 1_000_000).toFixed(1))}M`;
+  if (n >= 100_000) return `${Math.round(n / 1_000)}K`;
+  if (n >= 1_000) return `${trim((n / 1_000).toFixed(1))}K`;
+  return `${n}`;
+};
 
 export default function Media() {
   const [postIdx, setPostIdx] = useState(null); // social-post index or null
@@ -81,6 +91,55 @@ export default function Media() {
               <div className="web-card__body">
                 <h4 className="web-card__title">{v.title}</h4>
                 <p className="card-body">{v.desc}</p>
+              </div>
+            </motion.article>
+          ))}
+        </motion.div>
+      </section>
+
+      <section className="proj-section">
+        <h3 className="section-title">Instagram Posts</h3>
+        <p className="card-body" style={{ maxWidth: "70ch", marginBottom: 14 }}>
+          Posts from my own feed, shot, cut and captioned by me, with the numbers they actually did.
+        </p>
+        <motion.div className="reel-grid" variants={container} initial="hidden" animate="show">
+          {INSTAGRAM_REELS.map((r) => (
+            <motion.article className="card reel-card" key={r.src} variants={cardIn}>
+              <a className="reel-card__frame" href={r.url} target="_blank" rel="noreferrer" aria-label={`${r.title} on Instagram`}>
+                <video src={r.src} autoPlay loop muted playsInline preload="metadata" />
+              </a>
+              <div className="reel-card__body">
+                <h4 className="web-card__title">{r.title}</h4>
+                <p className="card-body">{r.caption}</p>
+                {(r.views != null || r.likes != null || r.comments != null) && (
+                  <ul className="reel-stats">
+                    {r.views != null && (
+                      <li className="reel-stat">
+                        <svg viewBox="0 0 24 24" aria-hidden="true">
+                          <path d="M1.5 12S5.5 5 12 5s10.5 7 10.5 7-4 7-10.5 7S1.5 12 1.5 12Z" />
+                          <circle cx="12" cy="12" r="3.2" />
+                        </svg>
+                        <b>{compact(r.views)}</b> views
+                      </li>
+                    )}
+                    {r.likes != null && (
+                      <li className="reel-stat">
+                        <svg viewBox="0 0 24 24" aria-hidden="true">
+                          <path d="M12 20s-7.5-4.6-7.5-9.6a4.4 4.4 0 0 1 7.5-3.1 4.4 4.4 0 0 1 7.5 3.1c0 5-7.5 9.6-7.5 9.6Z" />
+                        </svg>
+                        <b>{compact(r.likes)}</b> likes
+                      </li>
+                    )}
+                    {r.comments != null && (
+                      <li className="reel-stat">
+                        <svg viewBox="0 0 24 24" aria-hidden="true">
+                          <path d="M20.5 11.5a7.6 7.6 0 0 1-10.9 6.9L4.5 19.5l1.2-4.6a7.6 7.6 0 1 1 14.8-3.4Z" />
+                        </svg>
+                        <b>{compact(r.comments)}</b> comments
+                      </li>
+                    )}
+                  </ul>
+                )}
               </div>
             </motion.article>
           ))}
