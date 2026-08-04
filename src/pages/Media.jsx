@@ -100,7 +100,8 @@ export default function Media() {
       <section className="proj-section">
         <h3 className="section-title">Instagram Posts</h3>
         <p className="card-body" style={{ maxWidth: "70ch", marginBottom: 14 }}>
-          Posts from my own feed, shot, cut and captioned by me, with the numbers they actually did.
+          Three posts, <strong style={{ color: "#fff" }}>522,000 views and 35,000 likes</strong>. Shot,
+          cut and captioned by me, with the numbers they actually did.
         </p>
         <motion.div className="reel-grid" variants={container} initial="hidden" animate="show">
           {INSTAGRAM_REELS.map((r) => (

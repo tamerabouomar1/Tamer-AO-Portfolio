@@ -484,7 +484,24 @@ export const INSTAGRAM_POSTS = [];
 // because Instagram hands engagement counts only to a logged-in session — so
 // refresh them by hand when a post keeps climbing. Any one left as `null`
 // simply hides that chip, so a missing number never shows up as a zero.
+//
+// WHICH POSTS GO HERE: the top three on the account by views, biggest first.
+// A shelf of proof is only as strong as its weakest number, so a 2K-view post
+// sitting beside a 219K one does not add a fourth data point, it invites the
+// reader to discount the first three. "Always healthy" (2,346 views) was cut
+// for exactly that reason; its file is still in public/assets/motion/ if it is
+// ever wanted back. Next in line by reach, if their files ever get downloaded:
+// "tag them in the comments" (39,458 views) and "REVENGE" (30,444).
 export const INSTAGRAM_REELS = [
+  {
+    title: "Side effects of jiu jitsu",
+    src: "/assets/motion/ig-side-effects.mp4",
+    url: "https://www.instagram.com/tamer_ao/reel/DXy8SfNokAO/",
+    caption: "SIDE EFFECTS OF JIUJITSU · #jiujitsu #wrestling",
+    views: 218916,
+    likes: 14510,
+    comments: 83,
+  },
   {
     title: "Aura farm at the end of class",
     src: "/assets/motion/ig-aura.mp4",
@@ -499,18 +516,9 @@ export const INSTAGRAM_REELS = [
     src: "/assets/motion/ig-rests.mp4",
     url: "https://www.instagram.com/tamer_ao/reel/DYZO7X9OKBs/",
     caption: "when rests are appreciated · #jiujitsu #wrestling",
-    views: 123694,
+    views: 123697,
     likes: 8029,
     comments: 46,
-  },
-  {
-    title: "Always healthy",
-    src: "/assets/motion/ig-always-healthy.mp4",
-    url: "https://www.instagram.com/tamer_ao/reel/DY4sc30ofku/",
-    caption: "always healthy… · #jiujitsu #athlete #health",
-    views: 2346,
-    likes: 101,
-    comments: 2,
   },
 ];
 
