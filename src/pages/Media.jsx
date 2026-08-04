@@ -192,17 +192,20 @@ export default function Media() {
           animate="show"
           style={{ minHeight: 0 }}
         >
+          {/* The number here has to survive somebody opening the profile in
+              another tab, so it is the all-time total across the account
+              rather than a monthly rate. */}
           <div className="media-ig">
             <div className="media-ig__big">
-              <div className="stat-num">200K+</div>
-              <div className="stat-label">views per month</div>
+              <div className="stat-num">830K+</div>
+              <div className="stat-label">views on my own account</div>
             </div>
             <div className="media-ig__copy">
               <p className="card-body">
-                Short-form is where most of my motion work lives. My reels and edits on Instagram pull in
-                <strong style={{ color: "#fff" }}> over 200,000 views every month</strong>, from brand
-                promos and fitness content to logo animations and event recaps that reach a real,
-                growing audience.
+                Short-form is where most of my motion work lives. My own reels have done
+                <strong style={{ color: "#fff" }}> over 830,000 views</strong>, with a best month of
+                415,000 and a best post at 219,000. Same hooks, same editing and same posting rhythm
+                I use for brand promos, fitness content, logo animations and event recaps.
               </p>
               <a
                 className="link"

@@ -6,6 +6,7 @@ import VideoBackground from "./components/VideoBackground";
 import Sidebar from "./components/Sidebar";
 import MobileTabBar from "./components/MobileTabBar";
 import { preloadAllImages } from "./lib/preloadImages";
+import usePageMeta, { PAGE_META } from "./lib/usePageMeta";
 
 import Home from "./pages/Home";
 import Projects from "./pages/Projects";
@@ -31,6 +32,17 @@ export default function App() {
   // and no video background, so the site being previewed is seen exactly as
   // its own visitors would see it.
   const isPreview = !!matchPath("/templates/:slug", location.pathname);
+
+  // Title and description for whichever route is showing. Unknown paths fall
+  // back to the home entry, which matches the catch-all route rendering Home.
+  // A preview sets its own title from the template it is showing, so this
+  // leaves those alone.
+  const meta = PAGE_META[location.pathname] || PAGE_META["/"];
+  usePageMeta(
+    isPreview ? null : meta.title,
+    isPreview ? null : meta.description,
+    isPreview ? null : location.pathname
+  );
 
   // Warm every project image into cache once the page is idle, so popups
   // and page switches open instantly. Skipped inside a preview — that route

@@ -5,8 +5,12 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
 
     <!-- ===== SEO =====
-         If you rename the Netlify site (or add a custom domain), update the
-         URL in the 3 spots below marked  SITE-URL  to your new address. -->
+         When a custom domain is bought, update every spot marked SITE-URL
+         below (and the ones in sitemap.xml / robots.txt) to the new address.
+
+         This title and description are the defaults, used for the home page
+         and for any crawler that does not run JavaScript. Each route then
+         sets its own through usePageMeta() — see src/lib/usePageMeta.js. -->
     <title>Tamer AO, Graphic Designer & Brand Identity | Beirut</title>
     <meta
       name="description"
@@ -97,13 +101,6 @@
     </script>
   </head>
   <body>
-    <!-- Static mirror of the React contact form so Netlify Forms detects it
-         at deploy time. Field names must match src/pages/WorkWithMe.jsx. -->
-    <form name="contact" data-netlify="true" netlify-honeypot="bot-field" hidden>
-      <input type="text" name="name" />
-      <input type="email" name="email" />
-      <textarea name="message"></textarea>
-    </form>
     <div id="root"></div>
     <script type="module" src="/src/main.jsx"></script>
   </body>

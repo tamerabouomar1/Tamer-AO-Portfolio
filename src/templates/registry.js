@@ -33,6 +33,7 @@ const loaders = {
   pixel: () => import("./pixel/PixelSite"),
   marquee: () => import("./marquee/MarqueeSite"),
   charter: () => import("./charter/CharterSite"),
+  drift: () => import("./drift/DriftSite"),
 };
 
 export const TEMPLATE_VIEWS = Object.fromEntries(

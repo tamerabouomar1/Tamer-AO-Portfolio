@@ -1,0 +1,508 @@
+/* Drift — scroll-linked depth.
+
+   Everything the parallax touches is a composited layer: absolutely
+   positioned, oversized past the edge of its clipping section, and moved only
+   with translate3d. Nothing here animates a property that costs layout, so a
+   long page of drifting planes stays on the compositor.
+
+   The one rule to keep when swapping in real photography: a layer must always
+   be BIGGER than the hole it moves inside, by more than its maximum travel.
+   Travel is clamped in the component to exactly depth × viewport height. */
+
+.drf {
+  --drf-night: #070b18;
+  --drf-far: #2b2f56;
+  --drf-mid: #191c3a;
+  --drf-near: #0b0d20;
+  --drf-glow: #f2a65a;
+  --drf-ink: #ede7df;
+  --drf-dim: rgba(237, 231, 223, 0.6);
+  --drf-line: rgba(237, 231, 223, 0.14);
+
+  position: relative;
+  overflow-x: hidden;
+  background: var(--drf-night);
+  color: var(--drf-ink);
+  font-family: Inter, ui-sans-serif, system-ui, sans-serif;
+  font-size: 16px;
+  line-height: 1.6;
+  -webkit-font-smoothing: antialiased;
+}
+
+.drf h1,
+.drf h2,
+.drf h3,
+.drf strong {
+  font-family: Fraunces, ui-serif, Georgia, serif;
+  font-weight: 300;
+  letter-spacing: -0.02em;
+  line-height: 1.02;
+  margin: 0;
+}
+
+.drf p { margin: 0; }
+.drf button { font: inherit; cursor: pointer; }
+
+/* ── Nav ──────────────────────────────────────────────────── */
+
+.drf-nav {
+  position: fixed;
+  inset: 0 0 auto 0;
+  z-index: 40;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 24px;
+  padding: 18px clamp(20px, 5vw, 56px);
+  background: linear-gradient(rgba(7, 11, 24, 0.55), rgba(7, 11, 24, 0));
+  backdrop-filter: blur(6px);
+  -webkit-backdrop-filter: blur(6px);
+}
+
+.drf-logo {
+  font-family: Fraunces, ui-serif, Georgia, serif;
+  font-size: 22px;
+  letter-spacing: -0.03em;
+  color: var(--drf-ink);
+  text-decoration: none;
+}
+.drf-logo span { color: var(--drf-glow); }
+
+.drf-links { display: flex; gap: 28px; }
+.drf-links a {
+  color: var(--drf-dim);
+  text-decoration: none;
+  font-size: 14px;
+  transition: color 0.25s;
+}
+.drf-links a:hover { color: var(--drf-ink); }
+
+.drf-cta {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 9px 16px;
+  border: 1px solid var(--drf-line);
+  border-radius: 999px;
+  background: rgba(237, 231, 223, 0.05);
+  color: var(--drf-ink);
+  font-size: 14px;
+  transition: background 0.25s, border-color 0.25s;
+}
+.drf-cta:hover {
+  background: rgba(237, 231, 223, 0.12);
+  border-color: rgba(237, 231, 223, 0.3);
+}
+
+/* ── Hero ─────────────────────────────────────────────────── */
+
+.drf-hero {
+  position: relative;
+  min-height: 100svh;
+  overflow: hidden;
+  isolation: isolate;
+}
+
+.drf-sky {
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+  background:
+    radial-gradient(120% 70% at 58% 88%, rgba(242, 166, 90, 0.42) 0%, rgba(242, 166, 90, 0) 55%),
+    linear-gradient(180deg, #0a0f24 0%, #1d2145 38%, #4a3355 66%, #8a4a46 92%);
+}
+
+/* Every scene layer below is stretched to the FULL hero, not to the size of
+   the thing it draws. A layer rests where its own centre is, so hero-sized
+   wrappers all rest together and the composition is undisturbed at scroll 0.
+   The artwork is positioned inside the wrapper instead. */
+.drf-stars,
+.drf-sun,
+.drf-ridge {
+  position: absolute;
+  inset: 0;
+}
+
+.drf-stars { z-index: 1; }
+.drf-stars svg {
+  position: absolute;
+  inset: 0 0 auto 0;
+  width: 100%;
+  height: 55%;
+  display: block;
+}
+
+.drf-sun { z-index: 2; }
+/* A solid disc with the haze thrown by box-shadow rather than a wide
+   fade-to-transparent gradient — a gradient that big has to be painted into a
+   box, and on a dark sky you can see the box. */
+.drf-sun::before {
+  content: "";
+  position: absolute;
+  left: 58%;
+  bottom: 36%;
+  translate: -50% 0;
+  width: clamp(110px, 15vw, 190px);
+  aspect-ratio: 1;
+  border-radius: 50%;
+  background: radial-gradient(circle at 50% 42%, #ffeccb 0%, #ffc87c 58%, var(--drf-glow) 100%);
+  box-shadow:
+    0 0 90px 24px rgba(242, 166, 90, 0.33),
+    0 0 220px 70px rgba(242, 166, 90, 0.16);
+}
+
+/* Each ridge draws its crest at the bottom of its wrapper and continues the
+   same fill below it, so however far the layer drifts there is ground under
+   the skyline rather than a strip of sky. */
+.drf-ridge > svg,
+.drf-foot-ridge > svg {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  display: block;
+}
+.drf-ridge::after,
+.drf-foot-ridge::after {
+  content: "";
+  position: absolute;
+  left: 0;
+  right: 0;
+  top: 100%;
+  height: 80vh;
+  background: var(--drf-fill);
+}
+
+.drf-ridge--far { z-index: 3; filter: blur(1.5px); }
+.drf-ridge--mid { z-index: 6; }
+.drf-ridge--near { z-index: 7; }
+.drf-ridge--far > svg { height: 42vh; }
+.drf-ridge--mid > svg { height: 32vh; }
+.drf-ridge--near > svg { height: 24vh; }
+
+.drf-copy {
+  position: relative;
+  z-index: 5;
+  max-width: 640px;
+  padding: 0 clamp(20px, 5vw, 56px);
+  padding-top: min(30vh, 260px);
+}
+
+.drf-eyebrow {
+  font-size: 12px;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: var(--drf-dim);
+  margin-bottom: 20px;
+}
+
+.drf-title {
+  font-size: clamp(52px, 9vw, 116px);
+  line-height: 1.06;
+}
+/* Fraunces italic has a long f-descender; without this the second line
+   collides with the paragraph under it at large sizes. */
+.drf-title span { display: block; padding-bottom: 0.06em; }
+.drf-title em {
+  font-style: italic;
+  font-weight: 300;
+  color: var(--drf-glow);
+}
+
+.drf-lede {
+  margin-top: 24px;
+  max-width: 42ch;
+  color: var(--drf-dim);
+}
+
+.drf-actions { display: flex; flex-wrap: wrap; gap: 12px; margin-top: 32px; }
+
+.drf-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  padding: 13px 22px;
+  border: 0;
+  border-radius: 999px;
+  background: var(--drf-ink);
+  color: var(--drf-night);
+  font-size: 15px;
+  transition: transform 0.25s, background 0.25s;
+}
+.drf-btn:hover { transform: translateY(-2px); }
+
+.drf-btn--ghost {
+  background: transparent;
+  color: var(--drf-ink);
+  border: 1px solid var(--drf-line);
+}
+.drf-btn--ghost:hover { background: rgba(237, 231, 223, 0.08); }
+
+.drf-scroll {
+  position: absolute;
+  z-index: 8;
+  left: 50%;
+  bottom: 28px;
+  translate: -50% 0;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 8px;
+  color: var(--drf-dim);
+  font-size: 11px;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+}
+.drf-cue-dot { animation: drf-cue 1.8s ease-in-out infinite; }
+@keyframes drf-cue {
+  0%, 100% { transform: translateY(0); opacity: 1; }
+  60% { transform: translateY(7px); opacity: 0.2; }
+}
+
+/* ── Statement ────────────────────────────────────────────── */
+
+.drf-statement {
+  position: relative;
+  overflow: hidden;
+  display: grid;
+  place-items: center;
+  min-height: 78vh;
+  padding: clamp(80px, 14vh, 180px) clamp(20px, 5vw, 56px);
+  background: var(--drf-near);
+}
+
+/* The word behind the sentence. Oversized far past the section so 0.4 depth
+   of travel never brings an edge into view. */
+.drf-ghost {
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  translate: -50% -50%;
+  font-family: Fraunces, ui-serif, Georgia, serif;
+  font-size: clamp(120px, 26vw, 380px);
+  line-height: 1;
+  white-space: nowrap;
+  color: transparent;
+  -webkit-text-stroke: 1px rgba(237, 231, 223, 0.09);
+  pointer-events: none;
+  user-select: none;
+}
+
+.drf-said {
+  position: relative;
+  max-width: 20ch;
+  font-family: Fraunces, ui-serif, Georgia, serif;
+  font-size: clamp(26px, 3.6vw, 48px);
+  line-height: 1.22;
+  text-align: center;
+  text-wrap: balance;
+  max-width: 26ch;
+}
+
+/* ── Journeys ─────────────────────────────────────────────── */
+
+.drf-journeys {
+  position: relative;
+  padding: clamp(80px, 12vh, 150px) clamp(20px, 5vw, 56px) clamp(120px, 20vh, 240px);
+  background: linear-gradient(180deg, var(--drf-near), var(--drf-night));
+}
+
+.drf-head {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: 12px;
+  padding-bottom: 40px;
+  border-bottom: 1px solid var(--drf-line);
+  /* Clearance for the cards' upward lean on entry (depth × viewport height,
+     ~108px at the deepest) so no card ever crosses the rule above it. */
+  margin-bottom: 120px;
+}
+.drf-head h2 { font-size: clamp(32px, 5vw, 60px); }
+.drf-head span { color: var(--drf-dim); font-size: 14px; }
+
+.drf-grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: clamp(16px, 2vw, 28px);
+}
+
+.drf-card { will-change: transform; }
+/* A resting stagger, so the depths read as a scatter rather than a wobble. */
+.drf-card:nth-child(even) { margin-top: clamp(24px, 6vw, 72px); }
+
+.drf-frame {
+  position: relative;
+  overflow: hidden;
+  aspect-ratio: 4 / 5;
+  margin: 0 0 18px;
+  border-radius: 2px;
+  background: var(--drf-mid);
+}
+
+/* 132% tall inside a clipped frame: the overflow is the travel budget. */
+.drf-art {
+  position: absolute;
+  inset: -16% 0;
+  height: 132%;
+  background:
+    radial-gradient(90% 60% at 50% 92%, hsl(var(--h) 55% 58% / 0.55), transparent 70%),
+    linear-gradient(180deg,
+      hsl(var(--h) 40% 16%) 0%,
+      hsl(var(--h) 45% 30%) 48%,
+      hsl(var(--h) 60% 62%) 100%);
+  will-change: transform;
+}
+/* A horizon line in the art, so the inner drift is actually legible. */
+.drf-art::after {
+  content: "";
+  position: absolute;
+  left: 0;
+  right: 0;
+  top: 62%;
+  height: 38%;
+  background: linear-gradient(180deg, hsl(var(--h) 30% 10% / 0.85), hsl(var(--h) 30% 6%));
+  clip-path: polygon(0 22%, 18% 6%, 34% 20%, 52% 2%, 70% 18%, 86% 5%, 100% 16%, 100% 100%, 0 100%);
+}
+
+.drf-frame figcaption {
+  position: absolute;
+  z-index: 2;
+  left: 14px;
+  top: 12px;
+  font-size: 12px;
+  letter-spacing: 0.14em;
+  color: rgba(255, 255, 255, 0.75);
+}
+
+.drf-card h3 { font-size: 22px; margin-bottom: 4px; }
+.drf-card p { color: var(--drf-dim); font-size: 13px; }
+
+/* ── Stats ────────────────────────────────────────────────── */
+
+.drf-stats {
+  position: relative;
+  overflow: hidden;
+  padding: clamp(70px, 12vh, 140px) clamp(20px, 5vw, 56px);
+  border-top: 1px solid var(--drf-line);
+  border-bottom: 1px solid var(--drf-line);
+}
+
+.drf-stats-wash {
+  position: absolute;
+  inset: -60% 0;
+  background: radial-gradient(60% 40% at 50% 50%, rgba(242, 166, 90, 0.16), transparent 70%);
+}
+
+.drf-stats-row {
+  position: relative;
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 24px;
+}
+
+.drf-stat { display: flex; flex-direction: column; gap: 6px; }
+.drf-stat strong {
+  font-size: clamp(34px, 5vw, 62px);
+  color: var(--drf-glow);
+}
+.drf-stat span {
+  font-size: 13px;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--drf-dim);
+}
+
+/* ── Footer ───────────────────────────────────────────────── */
+
+.drf-foot {
+  position: relative;
+  overflow: hidden;
+  min-height: 92svh;
+  padding: clamp(80px, 14vh, 170px) clamp(20px, 5vw, 56px) 34vh;
+  background: linear-gradient(180deg, var(--drf-night) 0%, #14183a 60%, #43304f 100%);
+  isolation: isolate;
+}
+
+.drf-foot-ridge {
+  position: absolute;
+  z-index: 2;
+  inset: 0;
+}
+.drf-foot-ridge > svg { height: 26vh; }
+
+.drf-foot-copy { position: relative; z-index: 1; max-width: 700px; }
+.drf-foot-copy h2 { font-size: clamp(34px, 6vw, 78px); }
+
+.drf-signup {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+  margin-top: 36px;
+}
+.drf-signup input {
+  flex: 1 1 240px;
+  padding: 14px 18px;
+  border: 1px solid var(--drf-line);
+  border-radius: 999px;
+  background: rgba(237, 231, 223, 0.05);
+  color: var(--drf-ink);
+  font: inherit;
+  font-size: 15px;
+  outline: none;
+}
+.drf-signup input::placeholder { color: rgba(237, 231, 223, 0.4); }
+.drf-signup input:focus { border-color: rgba(242, 166, 90, 0.6); }
+.drf-signup button {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 14px 24px;
+  border: 0;
+  border-radius: 999px;
+  background: var(--drf-glow);
+  color: #21140a;
+  font-size: 15px;
+  transition: transform 0.25s;
+}
+.drf-signup button:hover { transform: translateY(-2px); }
+
+.drf-foot-meta {
+  display: flex;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: 12px;
+  margin-top: 48px;
+  padding-top: 20px;
+  border-top: 1px solid var(--drf-line);
+  color: var(--drf-dim);
+  font-size: 13px;
+}
+
+/* ── Responsive ───────────────────────────────────────────── */
+
+@media (max-width: 900px) {
+  .drf-links { display: none; }
+  .drf-grid { grid-template-columns: repeat(2, 1fr); }
+  .drf-stats-row { grid-template-columns: repeat(2, 1fr); row-gap: 40px; }
+  .drf-copy { padding-top: min(26vh, 200px); }
+}
+
+@media (max-width: 560px) {
+  .drf-grid { grid-template-columns: 1fr; }
+  .drf-card:nth-child(even) { margin-top: 0; }
+  .drf-stats-row { grid-template-columns: 1fr; }
+  .drf-cta { display: none; }
+  .drf-ridge--far > svg { height: 30vh; }
+  .drf-ridge--mid > svg { height: 24vh; }
+  .drf-ridge--near > svg { height: 18vh; }
+}
+
+/* Without the scroll listener the page is a still, correctly composed
+   version of itself — nothing is hidden behind the motion. */
+@media (prefers-reduced-motion: reduce) {
+  .drf-cue-dot { animation: none; }
+  .drf-btn:hover,
+  .drf-signup button:hover { transform: none; }
+}

@@ -40,12 +40,19 @@ const SocialIcon = {
   ),
 };
 
+/* Built from CONTACT so a link only ever appears once it points somewhere.
+   LinkedIn is filtered out on purpose while CONTACT.linkedin is the generic
+   /feed/ URL: that sends a visitor to their own LinkedIn homepage instead of
+   to Tamer, which is worse than having no icon at all. Set a real profile URL
+   in siteData.js and the icon comes back by itself. */
 const SOCIALS = [
   { href: CONTACT.instagram, label: "Instagram", icon: SocialIcon.instagram },
-  { href: CONTACT.linkedin, label: "LinkedIn", icon: SocialIcon.linkedin },
+  CONTACT.linkedin && !CONTACT.linkedin.includes("/feed")
+    ? { href: CONTACT.linkedin, label: "LinkedIn", icon: SocialIcon.linkedin }
+    : null,
   { href: CONTACT.phoneHref, label: "Phone", icon: SocialIcon.phone },
   { href: `mailto:${CONTACT.email}`, label: "Email", icon: SocialIcon.email },
-];
+].filter(Boolean);
 
 /* Desktop sidebar. On phones this collapses to just the profile header —
    navigation there is handled by MobileTabBar (a bottom tab bar), so every

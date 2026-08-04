@@ -7,14 +7,16 @@ export const CONTACT = {
   // Real Calendly link — a free 30-minute discovery call (Zoom).
   calendly: "https://calendly.com/tamer_ao/30min",
   instagram: "https://www.instagram.com/tamer_ao/",
-  // TODO: this is the generic LinkedIn feed, not a public profile.
-  // Replace with your profile URL e.g. https://www.linkedin.com/in/your-name
+  // TODO: this is the generic LinkedIn feed, not a public profile, so it drops
+  // a visitor on their own LinkedIn homepage. The sidebar hides the icon while
+  // it looks like this. Put the real profile URL here — the
+  // https://www.linkedin.com/in/your-name form — and the icon returns.
   linkedin: "https://www.linkedin.com/feed/",
 };
 
 // ── Work With Me ──────────────────────────────────────────────
 // Social-media management packages, built REELS-FIRST — short-form is
-// what drives reach (Tamer's own reels pull 200K+ views/month), so
+// what drives reach (Tamer's own reels have done 830K+ views), so
 // every tier leads with reels. Prices in USD; `featured` = popular tier.
 export const SOCIAL_PACKAGES = [
   {

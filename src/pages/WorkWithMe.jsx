@@ -11,21 +11,30 @@ const CALENDLY_EMBED =
   "&embed_domain=" +
   (typeof window !== "undefined" ? window.location.hostname : "portfolio.tamerao.workers.dev");
 
-/* Contact form posts to Netlify Forms (static mirror lives in index.html). */
+/* Contact form posts to the site's own Worker (worker/index.js), which files
+ * the message in KV next to the template leads. Read them back at
+ * /api/leads?token=... — same endpoint, newest first.
+ *
+ * It posted to "/" for Netlify Forms until the move to Cloudflare, where that
+ * POST answers 405 and the message goes nowhere. */
 function MessageForm() {
   const [status, setStatus] = useState("idle");
 
   async function handleSubmit(e) {
     e.preventDefault();
     setStatus("sending");
-    const body = new URLSearchParams(new FormData(e.target)).toString();
+    const body = Object.fromEntries(new FormData(e.target).entries());
     try {
-      const res = await fetch("/", {
+      const res = await fetch("/api/contact", {
         method: "POST",
-        headers: { "Content-Type": "application/x-www-form-urlencoded" },
-        body,
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(body),
       });
-      if (!res.ok) throw new Error();
+      // Only call it sent if the server actually said so. Reporting success on
+      // a failed post is worse than showing the error: the message is lost and
+      // nobody knows to follow up.
+      const data = await res.json().catch(() => ({}));
+      if (!res.ok || !data.ok) throw new Error();
       setStatus("sent");
     } catch {
       setStatus("error");
@@ -42,7 +51,6 @@ function MessageForm() {
 
   return (
     <form className="msg-form" name="contact" onSubmit={handleSubmit}>
-      <input type="hidden" name="form-name" value="contact" />
       <p className="hp" aria-hidden="true">
         <input name="bot-field" tabIndex={-1} autoComplete="off" />
       </p>
@@ -132,8 +140,8 @@ export default function WorkWithMe() {
       <section className="proj-section">
         <h3 className="proj-section__title">Social media</h3>
         <p className="page-lead" style={{ marginTop: "-4px" }}>
-          Reels are what actually reach people. Mine pull 200K+ views a month, and every plan
-          is built reels-first to get you seen.
+          Reels are what actually reach people. Mine have done 830K+ views, with five past 30,000
+          and a best post at 219,000. Every plan is built reels-first to get you seen.
         </p>
         <motion.div
           className="price-grid"
