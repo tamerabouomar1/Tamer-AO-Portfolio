@@ -485,13 +485,13 @@ export const INSTAGRAM_POSTS = [];
 // refresh them by hand when a post keeps climbing. Any one left as `null`
 // simply hides that chip, so a missing number never shows up as a zero.
 //
-// WHICH POSTS GO HERE: the top three on the account by views, biggest first.
+// WHICH POSTS GO HERE: the top five on the account by views, biggest first.
 // A shelf of proof is only as strong as its weakest number, so a 2K-view post
-// sitting beside a 219K one does not add a fourth data point, it invites the
-// reader to discount the first three. "Always healthy" (2,346 views) was cut
+// sitting beside a 219K one does not add a sixth data point, it invites the
+// reader to discount the other five. "Always healthy" (2,346 views) was cut
 // for exactly that reason; its file is still in public/assets/motion/ if it is
-// ever wanted back. Next in line by reach, if their files ever get downloaded:
-// "tag them in the comments" (39,458 views) and "REVENGE" (30,444).
+// ever wanted back. Sixth by reach is "+aura no training partner" (12,483),
+// which is where the drop-off starts and where this list should stop.
 export const INSTAGRAM_REELS = [
   {
     title: "Side effects of jiu jitsu",
@@ -516,9 +516,27 @@ export const INSTAGRAM_REELS = [
     src: "/assets/motion/ig-rests.mp4",
     url: "https://www.instagram.com/tamer_ao/reel/DYZO7X9OKBs/",
     caption: "when rests are appreciated · #jiujitsu #wrestling",
-    views: 123697,
+    views: 123704,
     likes: 8029,
     comments: 46,
+  },
+  {
+    title: "Tag them in the comments",
+    src: "/assets/motion/ig-tag-them.mp4",
+    url: "https://www.instagram.com/tamer_ao/reel/DXedYUuCIzL/",
+    caption: "tag them in the comments · #invincible #jiujitsu",
+    views: 39458,
+    likes: 2792,
+    comments: 19,
+  },
+  {
+    title: "Revenge",
+    src: "/assets/motion/ig-revenge.mp4",
+    url: "https://www.instagram.com/tamer_ao/reel/DXOk9vrCNQ0/",
+    caption: "REVENGE · #jiujitsu #warmup #revenge",
+    views: 30444,
+    likes: 1077,
+    comments: 5,
   },
 ];
 

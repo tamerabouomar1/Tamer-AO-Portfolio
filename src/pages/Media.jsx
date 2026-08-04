@@ -100,7 +100,7 @@ export default function Media() {
       <section className="proj-section">
         <h3 className="section-title">Instagram Posts</h3>
         <p className="card-body" style={{ maxWidth: "70ch", marginBottom: 14 }}>
-          Three posts, <strong style={{ color: "#fff" }}>522,000 views and 35,000 likes</strong>. Shot,
+          Five posts, <strong style={{ color: "#fff" }}>592,000 views and 39,000 likes</strong>. Shot,
           cut and captioned by me, with the numbers they actually did.
         </p>
         <motion.div className="reel-grid" variants={container} initial="hidden" animate="show">
