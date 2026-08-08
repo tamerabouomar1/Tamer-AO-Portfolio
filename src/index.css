@@ -183,11 +183,17 @@ ul { margin: 0; padding: 0; list-style: none; }
 /* avatar-square.jpg is pre-cropped to a centered headshot; no CSS reframing. */
 .avatar img { width: 100%; height: 100%; object-fit: cover; }
 
+.sidebar__id { display: flex; flex-direction: column; align-items: center; gap: 7px; min-width: 0; }
 .sidebar__name {
   font-size: clamp(22px, 1.7vw, 30px);
   font-weight: 700;
   letter-spacing: 0.4px;
   line-height: 1;
+}
+.sidebar__tagline {
+  font-size: clamp(11px, 0.82vw, 13px);
+  font-weight: 300; line-height: 1.45; color: var(--faint);
+  text-align: center; text-wrap: balance;
 }
 
 /* nav — centred block; fixed icon column keeps every label aligned */
@@ -1219,6 +1225,78 @@ ul { margin: 0; padding: 0; list-style: none; }
 /* ---------------------------------------------------------- */
 /*  Home intent routing — "what did you come here for?"        */
 /* ---------------------------------------------------------- */
+/* ---------------------------------------------------------- */
+/*  The free offers — hero on Home, cards on /free             */
+/* ---------------------------------------------------------- */
+.freehero {
+  display: flex; flex-direction: column; align-items: flex-start;
+  gap: clamp(10px, 1.1vw, 15px);
+  padding: clamp(22px, 2.6vw, 40px);
+  margin-bottom: var(--gap);
+  border-color: rgba(100, 206, 251, 0.42);
+  background:
+    radial-gradient(120% 100% at 10% 0%, rgba(100, 206, 251, 0.14), transparent 62%),
+    var(--card);
+  transition: transform 0.3s var(--ease), border-color 0.3s var(--ease);
+}
+.freehero:hover { transform: translateY(-3px); border-color: var(--shiny); }
+.freehero__badge {
+  font-size: clamp(10px, 0.85vw, 12px); font-weight: 700;
+  letter-spacing: 0.11em; text-transform: uppercase; color: var(--shiny);
+  padding: 5px 12px; border-radius: 999px;
+  border: 1px solid rgba(100, 206, 251, 0.4);
+}
+.freehero__title {
+  font-size: clamp(21px, 2.5vw, 38px); font-weight: 700; line-height: 1.14;
+  max-width: 24ch; text-wrap: balance;
+}
+.freehero__body {
+  font-size: clamp(13px, 1.1vw, 16.5px); line-height: 1.55; font-weight: 300;
+  color: var(--muted); max-width: 58ch;
+}
+.freehero__go { margin-top: 2px; }
+
+/* Two up, not auto-fit. There are exactly four offers, and auto-fit put three
+   on a row at desktop widths and left the fourth alone against an empty half
+   of the page. */
+.free-grid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: var(--gap);
+  align-items: stretch;
+}
+@media (max-width: 900px) {
+  .free-grid { grid-template-columns: 1fr; }
+}
+.free-card {
+  display: flex; flex-direction: column; align-items: flex-start;
+  gap: clamp(11px, 1.2vw, 16px);
+  padding: clamp(22px, 2.3vw, 34px);
+}
+.free-card__worth {
+  font-size: 11px; font-weight: 700; letter-spacing: 0.09em; text-transform: uppercase;
+  padding: 4px 11px; border-radius: 999px;
+  background: var(--shiny); color: #07121f;
+}
+.free-card__name { font-size: clamp(19px, 1.8vw, 25px); font-weight: 700; }
+.free-card__lede {
+  font-size: clamp(13px, 1.05vw, 15.5px); line-height: 1.5; font-weight: 300; color: var(--muted);
+}
+.free-card .price-card__features { width: 100%; }
+.free-card__catch {
+  width: 100%;
+  padding: 11px 14px; border-radius: 10px;
+  border: 1px solid var(--line);
+  background: rgba(255, 255, 255, 0.03);
+  font-size: clamp(12px, 0.95vw, 14px); line-height: 1.5; font-weight: 300; color: var(--muted);
+}
+.free-card__catch-label {
+  display: block;
+  font-size: 10px; font-weight: 700; letter-spacing: 0.09em; text-transform: uppercase;
+  color: var(--faint); margin-bottom: 4px;
+}
+.free-card .btn-book { width: 100%; margin-top: auto; }
+
 .paths {
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(min(100%, 220px), 1fr));
@@ -1395,15 +1473,23 @@ ul { margin: 0; padding: 0; list-style: none; }
     background: #08080a;                /* solid: translucency repaints while scrolling */
     transform: translateZ(0);           /* own layer so the header never janks */
   }
-  .sidebar__profile { flex-direction: row; gap: 12px; }
+  .sidebar__profile { flex-direction: row; gap: 12px; min-width: 0; }
   .avatar { width: 46px; }
+  /* Name over tagline, both ranged left. Beside the name the tagline wrapped
+     to two ragged lines and pushed the header taller than the content it was
+     labelling. */
+  .sidebar__id { align-items: flex-start; gap: 1px; }
   .sidebar__name { font-size: 19px; }
+  .sidebar__tagline { font-size: 11px; text-align: left; line-height: 1.3; }
 
   /* navigation moves to the bottom tab bar; the header keeps just identity */
   .nav, .socials { display: none; }
 
   /* intent cards: compact rows so all three audiences fit on one screen */
-  .paths { grid-template-columns: 1fr; gap: 10px; }
+  /* grid-auto-rows: 1fr ties the three cards to the tallest of them, so a
+     title that wraps to two lines can never leave one card taller than its
+     neighbours again — whatever the copy is changed to later. */
+  .paths { grid-template-columns: 1fr; grid-auto-rows: 1fr; gap: 10px; }
   .path {
     display: grid;
     /* fixed chevron column, so the + lands on the same x on every card
@@ -1414,7 +1500,6 @@ ul { margin: 0; padding: 0; list-style: none; }
     padding: 14px 16px;
   }
   .path__head { grid-column: 1; }
-  .path__label { font-size: 17px; }
   .path__desc { grid-column: 1; font-size: 13px; }
   .path__go {
     grid-column: 2; grid-row: 1 / span 2;
@@ -1425,9 +1510,24 @@ ul { margin: 0; padding: 0; list-style: none; }
   }
   .path__go .plus { font-size: 22px; font-weight: 300; }
 
-  /* The topbar's action wraps under the title on a phone, so the desktop
-     gap left a dead band between the two. */
-  .topbar { gap: 8px; margin-bottom: 18px; }
+  /* Stacked, not space-between. Side by side, a short action ("Start free +")
+     squeezed itself onto the title's line and sat against it. */
+  .topbar {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 8px;
+    margin-bottom: 18px;
+  }
+
+  /* Both have to share one phone-width line with the chevron column. At the
+     desktop sizes "Design & Branding" + "FREE TEARDOWN" wrapped, which made
+     that one card taller than its neighbours. */
+  .path__label { font-size: 16px; }
+  /* .path__head qualifier is load-bearing: the base .path__flag rule is
+     declared further down this file, and a media query adds no specificity,
+     so a bare .path__flag here loses on source order and silently does
+     nothing. */
+  .path__head .path__flag { font-size: 9px; padding: 3px 7px; letter-spacing: 0.07em; }
 
   /* leave room for the fixed tab bar (plus the iPhone home indicator) */
   .main { padding-bottom: calc(96px + env(safe-area-inset-bottom, 0px)); }

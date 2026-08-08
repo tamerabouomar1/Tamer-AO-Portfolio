@@ -1,5 +1,91 @@
 // Central place for content reused across pages.
 
+// Shown under the name in the sidebar. One line: what he makes, and where.
+export const PROFILE_TAGLINE = "Brand identity, logos and apparel. Beirut, Lebanon.";
+
+// ── The four free offers ──────────────────────────────────────
+//
+// REBUILT FROM A SCREENSHOT of the live site. A previous session shipped this
+// straight to Cloudflare without committing the source, so the wording of the
+// hero (the headline and "all four cost nothing") is verbatim from that
+// screenshot, and everything below — what each offer actually includes, the
+// values, the catch line — is written fresh. If the original copy turns up,
+// this is the file to reconcile against.
+//
+// WHY GIVE THIS MUCH AWAY. It is the cheapest way to collapse the risk term
+// in the value equation: nobody can be talked out of "free", and a person who
+// has already held the work has stopped wondering whether it is any good. The
+// `catch` line on each is deliberate — naming the thing you get out of it is
+// what stops a free offer reading like a trick.
+//
+// TAMER: these are live commitments, not marketing. Four free reels a month
+// or four free sessions a month is real hours. Cap them if you need to.
+export const FREE_OFFERS = [
+  {
+    id: "website",
+    name: "A finished website",
+    worth: "Free",
+    // Deliberately no count in here. The number of templates lives in exactly
+    // one place — TEMPLATES.length, rendered on the Home card — because when
+    // it was typed into copy it drifted to three different values.
+    lede: "Any one of the ready-made sites, complete, in full React source.",
+    features: [
+      "Full source code, not a demo",
+      "Runs with two commands, no setup",
+      "Yours for personal and client work",
+      "Deploy guide for Netlify, Vercel and Cloudflare",
+    ],
+    catch: "You give me a name and a way to reach you. That is the whole price.",
+    cta: "Pick one",
+    to: "/websites",
+  },
+  {
+    id: "teardown",
+    name: "A brand teardown",
+    worth: "Free",
+    lede: "I go through your logo, your feed and your packaging and tell you what is costing you.",
+    features: [
+      "Recorded walkthrough, yours to keep",
+      "The three things I would change first",
+      "What is working — kept, not redesigned",
+      "No deck, no invoice, no follow-up sequence",
+    ],
+    catch: "Some people hire me afterwards. Most don't, and that is fine.",
+    cta: "Send me your brand",
+    calendly: true,
+  },
+  {
+    id: "reel",
+    name: "Your first reel",
+    worth: "Free",
+    lede: "You send the footage, I cut one reel — hook, captions, the lot.",
+    features: [
+      "One fully edited reel",
+      "Hook and caption written for you",
+      "Cut for Reels and TikTok",
+      "Yours whether or not you carry on",
+    ],
+    catch: "If it does numbers you will want the next four. That is the bet I am making.",
+    cta: "Book the reel",
+    calendly: true,
+  },
+  {
+    id: "hour",
+    name: "An hour of coaching",
+    worth: "Free",
+    lede: "One full session on the mats — technique, conditioning, or the first hour of self-defense.",
+    features: [
+      "A real session, not a consultation",
+      "One-on-one, at your level",
+      "Fitness assessment included",
+      "No card, no sign-up",
+    ],
+    catch: "You will know inside an hour whether you want to train with me.",
+    cta: "Book the hour",
+    calendly: true,
+  },
+];
+
 export const CONTACT = {
   email: "tamerabouomar1@gmail.com",
   phone: "+961 70477595",

@@ -1,4 +1,5 @@
 import { motion } from "framer-motion";
+import { Link } from "react-router-dom";
 import Page, { container, cardIn } from "../components/Page";
 import PriceCard from "../components/PriceCard";
 import { CONTACT, SCHEDULE, PT_PACKAGES, DEFENSE_PROGRAM } from "../siteData";
@@ -252,9 +253,15 @@ export default function Fitness() {
             />
           ))}
         </motion.div>
+        {/* Was "new clients: first session just $25", which contradicted the
+            free hour on /free — two different prices for the same first
+            session, on the same site. */}
         <p className="price-note">
-          Prices in USD. Sessions are one-on-one, tailored to your goals and level. New
-          clients: first session just $25.
+          Prices in USD. Sessions are one-on-one, tailored to your goals and level. Never
+          trained with me before?{" "}
+          <Link className="link" to="/free">
+            Your first hour is free <span className="plus">+</span>
+          </Link>
         </p>
       </section>
 

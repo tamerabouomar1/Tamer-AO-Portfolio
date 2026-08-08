@@ -9,6 +9,7 @@ import { preloadAllImages } from "./lib/preloadImages";
 import usePageMeta, { PAGE_META } from "./lib/usePageMeta";
 
 import Home from "./pages/Home";
+import Free from "./pages/Free";
 import Projects from "./pages/Projects";
 import Websites from "./pages/Websites";
 import TemplatePreview from "./pages/TemplatePreview";
@@ -71,6 +72,7 @@ export default function App() {
         <AnimatePresence mode="wait">
           <Routes location={location} key={location.pathname}>
             <Route path="/" element={<Home />} />
+            <Route path="/free" element={<Free />} />
             <Route path="/projects" element={<Projects />} />
             <Route path="/websites" element={<Websites />} />
             {/* The store is a section of Websites now, not its own page. */}

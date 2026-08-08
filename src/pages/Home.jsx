@@ -2,6 +2,7 @@ import { motion } from "framer-motion";
 import { Link } from "react-router-dom";
 import Page, { container, cardIn } from "../components/Page";
 import { TrustedBy, Testimonials } from "../components/SocialProof";
+import { TEMPLATES } from "../siteData";
 
 const MotionLink = motion.create(Link);
 
@@ -13,10 +14,38 @@ export default function Home() {
           <h2 className="topbar__title">Graphic Designer</h2>
           <p className="topbar__sub">Student Athlete</p>
         </div>
-        <Link className="link" to="/work-with-me">
-          Work with me <span className="plus">+</span>
+        <Link className="link" to="/free">
+          Start free <span className="plus">+</span>
         </Link>
       </header>
+
+      {/* The free offers, above everything that costs money. Nobody can be
+          talked out of "free", and someone who has already held the work has
+          stopped wondering whether it is any good — which is most of the
+          objection gone before the first price is shown. */}
+      <MotionLink
+        className="card freehero"
+        to="/free"
+        variants={cardIn}
+        initial="hidden"
+        animate="show"
+      >
+        <span className="freehero__badge">Free · no card · no obligation</span>
+        {/* No hard <br /> in here. JSX drops the whitespace either side of a
+            tag when it sits on its own line, so a <br> hidden by CSS on mobile
+            left "teardown,your" run together. The line breaks are balanced by
+            the browser instead. */}
+        <h3 className="freehero__title">
+          Take a finished website, a brand teardown, your first reel, or an hour of coaching.
+        </h3>
+        <p className="freehero__body">
+          All four cost nothing. Decide about the paid work afterwards, once you have seen
+          what mine looks like.
+        </p>
+        <span className="link freehero__go">
+          See all four <span className="plus">+</span>
+        </span>
+      </MotionLink>
 
       {/* Intent routing — visitors arrive for different things, so let them
           pick their path in the first screen instead of scrolling to find it. */}
@@ -30,6 +59,7 @@ export default function Home() {
         <MotionLink className="card path" to="/projects" variants={cardIn}>
           <span className="path__head">
             <span className="path__label">Design &amp; Branding</span>
+            <span className="path__flag">Free teardown</span>
           </span>
           <span className="path__desc">Logos, identities, apparel &amp; print</span>
           <span className="path__go">See the work <span className="plus">+</span></span>
@@ -40,9 +70,13 @@ export default function Home() {
         <MotionLink className="card path path--store" to="/websites" variants={cardIn}>
           <span className="path__head">
             <span className="path__label">Websites</span>
-            <span className="path__flag">Free</span>
+            <span className="path__flag">Free source</span>
           </span>
-          <span className="path__desc">21 ready-made sites, yours to download</span>
+          {/* Counted, not typed. The figure was hardcoded in three places and
+              had already drifted to three different numbers. */}
+          <span className="path__desc">
+            Client builds &amp; {TEMPLATES.length} ready-made sites
+          </span>
           <span className="path__go">See the sites <span className="plus">+</span></span>
         </MotionLink>
         <MotionLink className="card path" to="/fitness" variants={cardIn}>

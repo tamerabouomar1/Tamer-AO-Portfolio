@@ -25,6 +25,11 @@ export const PAGE_META = {
     description:
       "Brand identity, logos, logo motion and apparel design from Beirut. Selected work for OKIRO, 10th Planet Jiu Jitsu, FabricAID and more, by Tamer Abou Omar.",
   },
+  "/free": {
+    title: "Start Free — A Website, a Teardown, a Reel or an Hour",
+    description:
+      "Four things that cost nothing: a finished website in full source, a brand teardown, your first reel edited, or an hour of coaching. No card, no obligation.",
+  },
   "/projects": {
     title: "Projects, Branding, Packaging & Apparel",
     description:
@@ -46,9 +51,9 @@ export const PAGE_META = {
       "Graphic designer, martial-arts instructor and AUB student athlete in Beirut. Two athletic scholarships, seven years of working experience.",
   },
   "/fitness": {
-    title: "Coaching & Personal Training",
+    title: "Self-Defense Coaching & Personal Training",
     description:
-      "Martial-arts instruction and personal training in Beirut. Class schedule, personal-training packages and nutrition-informed coaching.",
+      "The 90-Day Self-Defense Program in Beirut — tracks for women, teens and adults — plus martial-arts instruction, personal training and the class schedule.",
   },
   "/work-with-me": {
     title: "Services & Pricing",

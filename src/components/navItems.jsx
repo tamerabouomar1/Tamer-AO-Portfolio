@@ -9,6 +9,15 @@ export const Icon = {
       <path d="M3 9.8 12 3l9 6.8V20a1 1 0 0 1-1 1h-5v-6H9v6H4a1 1 0 0 1-1-1V9.8Z" />
     </svg>
   ),
+  free: (
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round">
+      <rect x="3" y="8" width="18" height="13" rx="2" />
+      <path d="M3 12h18" />
+      <path d="M12 8v13" />
+      <path d="M12 8S10.5 3 8 3a2.5 2.5 0 0 0 0 5h4Z" />
+      <path d="M12 8s1.5-5 4-5a2.5 2.5 0 0 1 0 5h-4Z" />
+    </svg>
+  ),
   projects: (
     <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round">
       <path d="M9 18h6" />
@@ -58,22 +67,27 @@ export const Icon = {
 };
 
 /* Full navigation, in sidebar order.
-   `tab` marks the four items that get a permanent slot in the mobile bottom
-   bar — Home plus the three audiences people actually arrive for (design
-   work, websites, coaching). The rest live behind "More".
+   `tab` marks the five items that get a permanent slot in the mobile bottom
+   bar — Home, the free offers, and the three things people pay for. Projects,
+   Media and About live behind "More": they are what someone reads to decide,
+   not what they arrive for.
 
    The ready-made site store deliberately has NO nav entry of its own: it is
    a section of the Websites page, which is where someone shopping for a
    website already goes.
-   `short` is the compact label used in the narrow tab bar. */
+
+   `short` is the compact label used in the narrow tab bar, where six slots
+   have to share the width of a phone — so "Services" is "Work" and "Fitness"
+   is "Train" there while the sidebar keeps the full word. */
 export const NAV = [
   { to: "/", label: "Home", short: "Home", end: true, icon: Icon.home, tab: true },
-  { to: "/projects", label: "Projects", short: "Projects", icon: Icon.projects, tab: true },
-  { to: "/websites", label: "Websites", short: "Websites", icon: Icon.websites, tab: true },
+  { to: "/free", label: "Start Free", short: "Free", icon: Icon.free, tab: true },
+  { to: "/work-with-me", label: "Services", short: "Work", icon: Icon.work, tab: true },
+  { to: "/websites", label: "Websites", short: "Sites", icon: Icon.websites, tab: true },
+  { to: "/fitness", label: "Fitness", short: "Train", icon: Icon.fitness, tab: true },
+  { to: "/projects", label: "Projects", short: "Projects", icon: Icon.projects },
   { to: "/media", label: "Media", short: "Media", icon: Icon.videos },
   { to: "/about", label: "About", short: "About", icon: Icon.about },
-  { to: "/fitness", label: "Fitness", short: "Fitness", icon: Icon.fitness, tab: true },
-  { to: "/work-with-me", label: "Services", short: "Services", icon: Icon.work },
 ];
 
 export const TAB_ITEMS = NAV.filter((n) => n.tab);
