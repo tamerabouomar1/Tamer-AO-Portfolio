@@ -889,6 +889,110 @@ ul { margin: 0; padding: 0; list-style: none; }
 }
 .sched-slot--rest { color: var(--faint); font-weight: 400; }
 
+/* ---------------------------------------------------------- */
+/*  THE 90-DAY PROGRAM — the fitness page's flagship offer      */
+/* ---------------------------------------------------------- */
+.offer {
+  padding: clamp(24px, 2.8vw, 44px);
+  display: flex; flex-direction: column; gap: clamp(18px, 2vw, 30px);
+  border-color: rgba(100, 206, 251, 0.42);
+  box-shadow: 0 0 0 1px rgba(100, 206, 251, 0.2), 0 26px 70px rgba(0, 0, 0, 0.5);
+  background:
+    radial-gradient(120% 90% at 12% 0%, rgba(100, 206, 251, 0.13), transparent 62%),
+    var(--card);
+}
+.offer__kicker {
+  font-size: clamp(11px, 0.9vw, 13px); font-weight: 700;
+  letter-spacing: 0.12em; text-transform: uppercase; color: var(--shiny);
+}
+.offer__name {
+  font-size: clamp(27px, 3.4vw, 46px); font-weight: 800; line-height: 1.08;
+  margin-top: 6px;
+}
+.offer__promise {
+  font-size: clamp(15px, 1.35vw, 20px); line-height: 1.55; font-weight: 300;
+  color: var(--text); max-width: 60ch; margin-top: clamp(10px, 1.1vw, 16px);
+}
+.offer__proof {
+  font-size: clamp(12px, 1vw, 14.5px); line-height: 1.55; font-weight: 300;
+  color: var(--muted); max-width: 66ch; margin-top: 10px;
+}
+
+/* three tracks — one starving crowd each */
+.offer__tracks { display: grid; grid-template-columns: repeat(auto-fit, minmax(min(100%, 250px), 1fr)); gap: clamp(12px, 1.3vw, 18px); }
+.offer-track {
+  display: flex; flex-direction: column; gap: 8px;
+  padding: clamp(16px, 1.6vw, 24px);
+  border: 1px solid var(--line); border-radius: 14px;
+  background: rgba(255, 255, 255, 0.03);
+}
+.offer-track__who {
+  font-size: 11px; font-weight: 700; letter-spacing: 0.09em;
+  text-transform: uppercase; color: var(--shiny);
+}
+.offer-track__name { font-size: clamp(17px, 1.5vw, 21px); font-weight: 700; }
+.offer-track__pain {
+  font-size: clamp(12.5px, 1vw, 14.5px); line-height: 1.5; font-weight: 300;
+  color: var(--muted); font-style: italic;
+}
+.offer-track__outcome { font-size: clamp(12.5px, 1vw, 14.5px); line-height: 1.5; font-weight: 300; color: var(--text); }
+.offer-track__note { font-size: clamp(11px, 0.85vw, 12.5px); line-height: 1.45; color: var(--faint); font-weight: 300; margin-top: auto; padding-top: 4px; }
+
+/* the twelve weeks, so the outcome has a visible route to it */
+.offer__phases { display: grid; grid-template-columns: repeat(auto-fit, minmax(min(100%, 220px), 1fr)); gap: clamp(12px, 1.3vw, 18px); }
+.offer-phase { display: flex; flex-direction: column; gap: 6px; padding-left: 14px; border-left: 2px solid rgba(100, 206, 251, 0.4); }
+.offer-phase__weeks { font-size: 11px; font-weight: 700; letter-spacing: 0.09em; text-transform: uppercase; color: var(--shiny); }
+.offer-phase__title { font-size: clamp(15px, 1.3vw, 18px); font-weight: 700; }
+.offer-phase__body { font-size: clamp(12.5px, 1vw, 14.5px); line-height: 1.5; font-weight: 300; color: var(--muted); }
+
+/* the stack: everything included, priced, then the total struck through */
+.offer__stack-wrap { display: grid; grid-template-columns: repeat(auto-fit, minmax(min(100%, 300px), 1fr)); gap: clamp(18px, 2vw, 32px); align-items: start; }
+.offer-stack { display: flex; flex-direction: column; }
+.offer-stack__row {
+  display: flex; align-items: baseline; justify-content: space-between; gap: 14px;
+  padding: 10px 0; border-bottom: 1px dashed rgba(255, 255, 255, 0.09);
+  font-size: clamp(12.5px, 1vw, 14.5px); line-height: 1.45;
+}
+.offer-stack__row--bonus .offer-stack__item { color: var(--text); }
+.offer-stack__item { font-weight: 300; color: var(--muted); }
+.offer-stack__tag {
+  display: inline-block; margin-right: 7px;
+  font-size: 10px; font-weight: 700; letter-spacing: 0.07em; text-transform: uppercase;
+  color: #07121f; background: var(--shiny);
+  padding: 2px 6px; border-radius: 4px; vertical-align: 1px;
+}
+.offer-stack__value { flex: none; font-weight: 600; color: var(--faint); font-variant-numeric: tabular-nums; }
+.offer-stack__total {
+  display: flex; align-items: baseline; justify-content: space-between; gap: 14px;
+  padding-top: 13px; font-size: clamp(13px, 1.05vw, 15px); font-weight: 600;
+}
+.offer-stack__total s { color: var(--faint); text-decoration-thickness: 1.5px; font-variant-numeric: tabular-nums; }
+.offer-bonus__body { display: block; font-size: clamp(11.5px, 0.9vw, 13px); line-height: 1.5; color: var(--faint); font-weight: 300; margin-top: 4px; max-width: 52ch; }
+
+/* the close: price, guarantee, seats, button.
+   The stack beside it is a long read, so on wide screens the price and the
+   button ride along with it rather than scrolling away — the decision stays
+   on screen the whole time the reader is being convinced. */
+.offer-close { display: flex; flex-direction: column; gap: clamp(14px, 1.5vw, 20px); }
+@media (min-width: 900px) {
+  .offer-close { position: sticky; top: clamp(16px, 2vw, 32px); }
+}
+.offer-close__price { display: flex; align-items: baseline; flex-wrap: wrap; gap: 8px; }
+.offer-close__amount { font-size: clamp(44px, 5vw, 68px); font-weight: 800; line-height: 1; }
+.offer-close__period { font-size: clamp(13px, 1.05vw, 16px); color: var(--faint); font-weight: 400; }
+.offer-guarantee {
+  padding: clamp(14px, 1.5vw, 20px);
+  border-radius: 12px;
+  border: 1px solid rgba(100, 206, 251, 0.28);
+  background: rgba(100, 206, 251, 0.08);
+}
+.offer-guarantee__title { font-size: clamp(15px, 1.3vw, 18px); font-weight: 700; margin-bottom: 6px; }
+.offer-guarantee__body { font-size: clamp(12.5px, 1vw, 14.5px); line-height: 1.55; font-weight: 300; color: var(--text); }
+.offer-close__seats { font-size: clamp(12px, 0.95vw, 14px); line-height: 1.55; color: var(--muted); font-weight: 300; }
+.offer-close__seats strong { color: var(--shiny); font-weight: 700; }
+.offer-close__btn { align-self: flex-start; padding-left: 30px; padding-right: 30px; background: var(--shiny); border-color: var(--shiny); color: #07121f; }
+.offer-close__btn:hover { box-shadow: 0 12px 30px rgba(100, 206, 251, 0.35); }
+
 /* generic page heading block inside cards */
 .section-title { font-size: clamp(22px, 2.4vw, 35px); font-weight: 700; margin-bottom: clamp(10px, 1.2vw, 18px); }
 .stat-row { display: grid; grid-template-columns: repeat(auto-fit, minmax(150px, 1fr)); gap: var(--gap); }
@@ -928,23 +1032,33 @@ ul { margin: 0; padding: 0; list-style: none; }
 .price-card__head { display: flex; flex-direction: column; gap: 4px; }
 .price-card__name { font-size: clamp(20px, 1.9vw, 26px); font-weight: 700; }
 .price-card__tagline { font-size: clamp(13px, 1vw, 15px); color: var(--muted); font-weight: 300; }
+/* Price block. The old floating "save" pill sat in the card's top-left corner
+   detached from everything, so it read as a sticker rather than as pricing.
+   The comparison now lives INSIDE the price line, struck through and ahead of
+   the real number, the way a price is actually compared — and the reason for
+   the comparison is spelled out underneath instead of left as "save $38". */
 .price-card__price {
-  display: flex; align-items: baseline; gap: 6px;
+  display: flex; align-items: baseline; flex-wrap: wrap; gap: 6px;
   padding-bottom: clamp(12px, 1.4vw, 18px);
   border-bottom: 1px solid var(--line);
 }
 .price-card__amount { font-size: clamp(34px, 3.4vw, 48px); font-weight: 800; line-height: 1; }
 .price-card__period { font-size: clamp(13px, 1.05vw, 16px); color: var(--faint); font-weight: 400; }
-
-/* savings / value pill under the price */
-.price-card__save {
-  align-self: flex-start;
-  margin-top: -4px;
-  padding: 4px 11px; border-radius: 999px;
-  font-size: clamp(11px, 0.92vw, 13px); font-weight: 600; letter-spacing: 0.01em;
-  color: var(--shiny);
-  background: rgba(100, 206, 251, 0.12);
-  border: 1px solid rgba(100, 206, 251, 0.3);
+.price-card__was {
+  font-size: clamp(17px, 1.6vw, 23px); font-weight: 500; line-height: 1;
+  color: var(--faint);
+  text-decoration: line-through;
+  text-decoration-thickness: 1.5px;
+  text-decoration-color: rgba(255, 255, 255, 0.34);
+  margin-right: 2px;
+}
+/* Sits inside .price-card__price as a full-width flex line, so it stays
+   attached to the number it explains rather than floating on the card's gap. */
+.price-card__anchor-note {
+  flex: 0 0 100%;
+  margin-top: 7px;
+  font-size: clamp(11px, 0.9vw, 13px); font-weight: 300; color: var(--faint);
+  letter-spacing: 0.01em;
 }
 
 /* free-bonus feature: gift tick + subtle highlight */
@@ -975,6 +1089,18 @@ ul { margin: 0; padding: 0; list-style: none; }
   width: 4px; height: 8px;
   border: solid var(--shiny); border-width: 0 2px 2px 0;
   transform: rotate(45deg);
+}
+
+/* per-card risk reversal, sat just above the call to action where the
+   hesitation actually happens */
+.price-card__guarantee {
+  margin-top: -4px;
+  padding: 10px 13px;
+  border-radius: 10px;
+  border: 1px solid rgba(100, 206, 251, 0.22);
+  background: rgba(100, 206, 251, 0.07);
+  font-size: clamp(12px, 0.95vw, 14px); line-height: 1.45; font-weight: 400;
+  color: var(--text);
 }
 
 /* book button (Calendly) */

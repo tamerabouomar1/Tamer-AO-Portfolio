@@ -1,6 +1,129 @@
 import { motion } from "framer-motion";
 import Page, { container, cardIn } from "../components/Page";
-import { CONTACT, SCHEDULE, PT_PACKAGES } from "../siteData";
+import PriceCard from "../components/PriceCard";
+import { CONTACT, SCHEDULE, PT_PACKAGES, DEFENSE_PROGRAM } from "../siteData";
+
+const money = (n) => "$" + n.toLocaleString("en-US");
+
+/* The flagship offer, built to the $100M Offers structure and placed FIRST on
+ * the page — before the credentials, before the schedule, before the price
+ * list. The old page opened with stats and buried the packages at the bottom,
+ * which asks a visitor to be impressed before they have been told what is on
+ * sale. The order here is: what you get, why it will work, what it is worth,
+ * what it costs, and what happens if it doesn't.
+ */
+function DefenseProgram() {
+  const p = DEFENSE_PROGRAM;
+  const stackTotal =
+    p.stack.reduce((sum, s) => sum + s.value, 0) +
+    p.bonuses.reduce((sum, b) => sum + b.value, 0);
+
+  return (
+    /* Not "90-day-program": an id starting with a digit is legal HTML but is
+       not a valid CSS selector, so #90-day-program throws rather than matching. */
+    <section className="proj-section" id="defense-program">
+      <motion.article className="card offer" variants={cardIn} initial="hidden" animate="show">
+        <header>
+          <p className="offer__kicker">{p.kicker}</p>
+          <h3 className="offer__name">{p.name}</h3>
+          <p className="offer__promise">{p.promise}</p>
+          <p className="offer__proof">{p.proof}</p>
+        </header>
+
+        {/* Three tracks. Same program, three different people walking in. */}
+        <div className="offer__tracks">
+          {p.tracks.map((t) => (
+            <div className="offer-track" key={t.id}>
+              <span className="offer-track__who">{t.who}</span>
+              <h4 className="offer-track__name">{t.name}</h4>
+              <p className="offer-track__pain">&ldquo;{t.pain}&rdquo;</p>
+              <p className="offer-track__outcome">{t.outcome}</p>
+              <p className="offer-track__note">{t.note}</p>
+            </div>
+          ))}
+        </div>
+
+        {/* The route to the outcome, so 90 days reads as a plan not a guess. */}
+        <div>
+          <h4 className="section-title" style={{ fontSize: "clamp(18px,1.7vw,24px)" }}>
+            How the 90 days run
+          </h4>
+          <div className="offer__phases">
+            {p.phases.map((ph) => (
+              <div className="offer-phase" key={ph.weeks}>
+                <span className="offer-phase__weeks">{ph.weeks}</span>
+                <h5 className="offer-phase__title">{ph.title}</h5>
+                <p className="offer-phase__body">{ph.body}</p>
+              </div>
+            ))}
+          </div>
+        </div>
+
+        <div className="offer__stack-wrap">
+          {/* Everything included, priced at what it costs bought separately. */}
+          <div>
+            <h4 className="section-title" style={{ fontSize: "clamp(18px,1.7vw,24px)" }}>
+              Everything you get
+            </h4>
+            <div className="offer-stack">
+              {p.stack.map((s) => (
+                <div className="offer-stack__row" key={s.item}>
+                  <span className="offer-stack__item">{s.item}</span>
+                  <span className="offer-stack__value">{money(s.value)}</span>
+                </div>
+              ))}
+              {p.bonuses.map((b) => (
+                <div className="offer-stack__row offer-stack__row--bonus" key={b.name}>
+                  <span className="offer-stack__item">
+                    <span className="offer-stack__tag">Bonus</span>
+                    {b.name}
+                    <span className="offer-bonus__body">{b.body}</span>
+                  </span>
+                  <span className="offer-stack__value">{money(b.value)}</span>
+                </div>
+              ))}
+              <div className="offer-stack__total">
+                <span>Total value</span>
+                <s>{money(stackTotal)}</s>
+              </div>
+            </div>
+          </div>
+
+          {/* The close. */}
+          <div className="offer-close">
+            <div>
+              <div className="offer-close__price">
+                <span className="offer-close__amount">{money(p.price)}</span>
+              </div>
+              <p className="offer-close__period" style={{ marginTop: 6 }}>
+                {p.period}
+              </p>
+            </div>
+
+            <div className="offer-guarantee">
+              <h4 className="offer-guarantee__title">{p.guarantee.title}</h4>
+              <p className="offer-guarantee__body">{p.guarantee.body}</p>
+            </div>
+
+            <p className="offer-close__seats">
+              <strong>{p.intake.seatsPerIntake} seats per intake.</strong>{" "}
+              {p.intake.cadence} {p.intake.reason}
+            </p>
+
+            <a
+              className="btn-book offer-close__btn"
+              href={CONTACT.calendly}
+              target="_blank"
+              rel="noreferrer"
+            >
+              {p.cta}
+            </a>
+          </div>
+        </div>
+      </motion.article>
+    </section>
+  );
+}
 
 export default function Fitness() {
   return (
@@ -8,14 +131,19 @@ export default function Fitness() {
       <header className="topbar">
         <div>
           <h2 className="topbar__title">Your Ultimate Coach</h2>
-          <p className="topbar__sub">2× Athletic Scholarships</p>
+          <p className="topbar__sub">
+            Self-defense, strength and martial arts — Beirut
+          </p>
         </div>
         <a className="link" href={CONTACT.calendly} target="_blank" rel="noreferrer">
           Book a session <span className="plus">+</span>
         </a>
       </header>
 
-      {/* stats — exactly as in the Figma (no fabricated numbers) */}
+      {/* The offer, first. */}
+      <DefenseProgram />
+
+      {/* Then the reasons to believe it. */}
       <motion.div className="stat-row" variants={container} initial="hidden" animate="show">
         <motion.article className="card stat" variants={cardIn}>
           <span className="stat-num">100+</span>
@@ -36,14 +164,9 @@ export default function Fitness() {
         </motion.article>
       </motion.div>
 
-      <p className="card-body" style={{ margin: "var(--gap) 0", maxWidth: "70ch" }}>
-        With more than 100 students coached across several sports, fitness and self-improvement have
-        become my passion.
-      </p>
-
-      {/* The credential behind the nutrition plans sold in the packages below.
-          Stated as qualifications held, not as a term-by-term course diary:
-          a client is buying the expertise, not my transcript. */}
+      {/* The credential behind the nutrition plans inside the program and the
+          packages below. Stated as qualifications held, not as a term-by-term
+          course diary: a client is buying the expertise, not my transcript. */}
       <section className="proj-section" style={{ marginTop: 0 }}>
         <motion.div className="card cta" variants={cardIn} initial="hidden" animate="show" style={{ minHeight: 0 }}>
           <h3 className="card-title">University-Trained in Nutrition &amp; Exercise Science</h3>
@@ -55,9 +178,13 @@ export default function Fitness() {
         </motion.div>
       </section>
 
-      {/* Workshops Given — heading above the training photos (as in the Figma) */}
+      {/* Workshops Given — the two programs the tracks grew out of. */}
       <section className="proj-section" style={{ marginTop: 0 }}>
-        <h3 className="section-title">Workshops Given</h3>
+        <h3 className="section-title">Where the tracks came from</h3>
+        <p className="page-lead" style={{ marginTop: "-4px" }}>
+          The women&apos;s and teens&apos; tracks aren&apos;t new ideas. They are the two programs
+          I already run at Combat Sports Academy, rebuilt as something you can finish.
+        </p>
         <motion.div className="fit-photos" variants={container} initial="hidden" animate="show">
           <motion.div className="card fit-photo" variants={cardIn}>
             <img
@@ -97,49 +224,32 @@ export default function Fitness() {
         </motion.div>
       </section>
 
-      {/* personal training packages */}
+      {/* Ongoing training, for people not doing the 90 days. */}
       <section className="proj-section">
-        <h3 className="section-title">Personal Training Packages</h3>
-        <motion.div
-          className="price-grid"
-          variants={container}
-          initial="hidden"
-          animate="show"
-        >
+        <h3 className="section-title">Not ready for the 90 days?</h3>
+        <p className="page-lead" style={{ marginTop: "-4px" }}>
+          Train with me week to week instead. Same coaching, no finish line.
+        </p>
+        <motion.div className="price-grid" variants={container} initial="hidden" animate="show">
           {PT_PACKAGES.map((p) => (
-            <motion.article
-              className={"card price-card" + (p.featured ? " price-card--featured" : "")}
+            <PriceCard
               key={p.name}
-              variants={cardIn}
-            >
-              {p.featured && <span className="price-card__badge">Most popular</span>}
-              <div className="price-card__head">
-                <h4 className="price-card__name">{p.name}</h4>
-                <p className="price-card__tagline">{p.tagline}</p>
-              </div>
-              <div className="price-card__price">
-                <span className="price-card__amount">{p.price}</span>
-                <span className="price-card__period">{p.period}</span>
-              </div>
-              {p.save && <span className="price-card__save">{p.save}</span>}
-              <ul className="price-card__features">
-                {p.features.map((f) => (
-                  <li key={f}>
-                    <span className="tick" aria-hidden="true" />
-                    {f}
-                  </li>
-                ))}
-                {p.bonus && (
-                  <li className="price-card__bonus">
-                    <span className="tick tick--gift" aria-hidden="true" />
-                    {p.bonus}
-                  </li>
-                )}
-              </ul>
-              <a className="btn-book" href={CONTACT.calendly} target="_blank" rel="noreferrer">
-                {p.cta}
-              </a>
-            </motion.article>
+              name={p.name}
+              tagline={p.tagline}
+              amount={p.price}
+              period={p.period}
+              was={p.anchor ? money(p.anchor) : undefined}
+              anchorNote={p.anchorNote}
+              badge={p.featured ? "Most popular" : undefined}
+              featured={p.featured}
+              features={p.features}
+              bonus={p.bonus}
+              action={
+                <a className="btn-book" href={CONTACT.calendly} target="_blank" rel="noreferrer">
+                  {p.cta}
+                </a>
+              }
+            />
           ))}
         </motion.div>
         <p className="price-note">
