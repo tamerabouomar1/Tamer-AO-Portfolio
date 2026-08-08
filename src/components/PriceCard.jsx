@@ -34,7 +34,15 @@ export default function PriceCard({
       className={"card price-card" + (featured ? " price-card--featured" : "")}
       variants={cardIn}
     >
-      {badge && <span className="price-card__badge">{badge}</span>}
+      {/* The badge always occupies its row, hidden when the card hasn't got
+          one, so the titles and prices line up across a row of cards instead
+          of the badged card sitting one pill lower than its neighbours. */}
+      <span
+        className={"price-card__badge" + (badge ? "" : " price-card__badge--ghost")}
+        aria-hidden={badge ? undefined : true}
+      >
+        {badge || " "}
+      </span>
 
       <div className="price-card__head">
         <h4 className="price-card__name">{name}</h4>

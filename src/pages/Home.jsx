@@ -21,8 +21,16 @@ export default function Home() {
       {/* Intent routing — visitors arrive for different things, so let them
           pick their path in the first screen instead of scrolling to find it. */}
       <motion.div className="paths" variants={container} initial="hidden" animate="show">
+        {/* The flag sits in the card's HEAD row, beside the label, rather than
+            inside path__go with the chevron. On phones path__go collapses to
+            just the "+", so a flag living inside it made that column a
+            different width on every card — the chevrons stopped lining up and
+            the pill read as part of the link ("+ FREE"). Out here, the flag is
+            a badge on the title and the chevron column is a fixed width. */}
         <MotionLink className="card path" to="/projects" variants={cardIn}>
-          <span className="path__label">Design &amp; Branding</span>
+          <span className="path__head">
+            <span className="path__label">Design &amp; Branding</span>
+          </span>
           <span className="path__desc">Logos, identities, apparel &amp; print</span>
           <span className="path__go">See the work <span className="plus">+</span></span>
         </MotionLink>
@@ -30,20 +38,20 @@ export default function Home() {
             time. Every template is free now, so the line was quoting a price
             that no longer exists anywhere on the site. */}
         <MotionLink className="card path path--store" to="/websites" variants={cardIn}>
-          <span className="path__label">Websites</span>
-          <span className="path__desc">21 ready-made sites, free to download</span>
-          <span className="path__go">
-            See the sites <span className="plus">+</span>
+          <span className="path__head">
+            <span className="path__label">Websites</span>
             <span className="path__flag">Free</span>
           </span>
+          <span className="path__desc">21 ready-made sites, yours to download</span>
+          <span className="path__go">See the sites <span className="plus">+</span></span>
         </MotionLink>
         <MotionLink className="card path" to="/fitness" variants={cardIn}>
-          <span className="path__label">Self-Defense &amp; Coaching</span>
-          <span className="path__desc">Defend yourself in 90 days, or keep training free</span>
-          <span className="path__go">
-            See the program <span className="plus">+</span>
+          <span className="path__head">
+            <span className="path__label">Self-Defense</span>
             <span className="path__flag">6 seats</span>
           </span>
+          <span className="path__desc">Defend yourself in 90 days, guaranteed</span>
+          <span className="path__go">See the program <span className="plus">+</span></span>
         </MotionLink>
       </motion.div>
 
