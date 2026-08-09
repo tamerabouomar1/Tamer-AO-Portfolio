@@ -3,6 +3,7 @@ import { Link, Navigate, useParams } from "react-router-dom";
 import { BuyModalHost } from "../components/BuyModal";
 import { TEMPLATE_VIEWS } from "../templates/registry";
 import { TEMPLATES } from "../siteData";
+import usePageMeta from "../lib/usePageMeta";
 
 /* A template rendered full-bleed — no sidebar, no video background, nothing
    of the portfolio's chrome — because the point is to see the site exactly
@@ -33,6 +34,19 @@ export default function TemplatePreview() {
 
   const tpl = TEMPLATES.find((t) => t.slug === slug);
   const View = TEMPLATE_VIEWS[slug];
+
+  /* Every one of these pages used to inherit index.html's canonical, which
+     points at the home page — so all 36 of them told Google "I am a duplicate
+     of the site root" and none could ever be indexed. They are the site's
+     largest body of unique content, so they get their own title, description
+     and canonical. Embedded thumbnails are the same route inside an iframe;
+     they run this too, but the iframe has its own document, so nothing the
+     hook writes can reach the parent page's head. */
+  usePageMeta(
+    tpl ? `${tpl.name} — ${tpl.kicker}, free website template` : null,
+    tpl ? `${tpl.desc} Free ${tpl.stack} source, live preview, and a deploy guide. ${tpl.bestFor}.` : null,
+    tpl ? `/templates/${tpl.slug}` : null
+  );
 
   // Templates set their own page background; without this the portfolio's
   // black body shows through anything shorter than the viewport.
