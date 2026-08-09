@@ -1,91 +1,121 @@
-import { motion } from "framer-motion";
 import { Link } from "react-router-dom";
+import { motion } from "framer-motion";
 import Page, { container, cardIn } from "../components/Page";
-import { TrustedBy } from "../components/SocialProof";
+import FreeOffers from "../components/FreeOffers";
+import FeedbackForm from "../components/FeedbackForm";
+import { TrustedBy, Testimonials } from "../components/SocialProof";
 import { CONTACT, FREE_OFFERS } from "../siteData";
 
-/* The four free offers, on one page.
+/* The free page — the front door of the site.
  *
- * This is the landing spot for "Start free" and for the hero card on Home. It
- * is deliberately the least defensive page on the site: no price, no tier
- * comparison, no form before the value. The only job here is to get something
- * of Tamer's into someone's hands, because a person who has held the work has
- * stopped wondering whether it is any good.
- *
- * Each card names its own catch. A free offer with an unstated motive reads
- * as a trick, and the reader spends the whole card hunting for the hook
- * instead of considering the offer.
+ * Everything above the fold is something you can have without paying, and the
+ * ladder underneath it says out loud what the paid steps are and what each one
+ * costs. That ordering is the whole strategy: give the work away first, let
+ * people decide it is good, and put the price where they can see it rather
+ * than where it can ambush them.
  */
 export default function Free() {
   return (
     <Page>
       <header className="topbar">
         <div>
-          <h2 className="topbar__title">Start free</h2>
-          <p className="topbar__sub">Four things, no card, no obligation</p>
+          <h2 className="topbar__title">Start Free</h2>
+          <p className="topbar__sub">Take the work first, decide afterwards</p>
         </div>
         <Link className="link" to="/work-with-me">
           See the paid work <span className="plus">+</span>
         </Link>
       </header>
 
-      <motion.p
-        className="page-lead"
+      <motion.section
+        className="card freehero"
         variants={cardIn}
         initial="hidden"
         animate="show"
-        style={{ maxWidth: "68ch" }}
       >
-        Take a finished website, a brand teardown, your first reel, or an hour of coaching.
-        All four cost nothing. Decide about the paid work afterwards, once you have seen what
-        mine looks like.
-      </motion.p>
+        <h3 className="freehero__title">
+          I would rather you had the work
+          <br />
+          <span className="storehead__accent">than a sales pitch about it.</span>
+        </h3>
+        <p className="card-body freehero__body">
+          A finished website, a teardown of your brand, your first reel cut, or an hour
+          of coaching. Pick whichever one is useful and take it. No card, no trial that
+          quietly starts charging, no email course. If it turns out to be good, you know
+          where I am.
+        </p>
+        <div className="freehero__acts">
+          <a className="btn-book" href="#offers">
+            See what&apos;s free
+          </a>
+          <a
+            className="btn-book buy-alt"
+            href={CONTACT.calendly}
+            target="_blank"
+            rel="noreferrer noopener"
+          >
+            Or just book a call
+          </a>
+        </div>
+      </motion.section>
 
-      <motion.div
-        className="free-grid"
-        variants={container}
-        initial="hidden"
-        animate="show"
-      >
-        {FREE_OFFERS.map((o) => (
-          <motion.article className="card free-card" key={o.id} variants={cardIn}>
-            <span className="free-card__worth">{o.worth}</span>
-            <h3 className="free-card__name">{o.name}</h3>
-            <p className="free-card__lede">{o.lede}</p>
+      {/* Compact here on purpose: this page carries a full ladder section
+          lower down, so repeating the paid step on every card as well would
+          say the same thing twice on one screen. */}
+      <div id="offers" />
+      <FreeOffers
+        title="Four ways in, all of them"
+        accent="free"
+        lede="Each one is real work, actually delivered. Take whichever is useful; the paid steps are further down the page if you ever want them."
+        compact
+      />
 
-            <ul className="price-card__features">
-              {o.features.map((f) => (
-                <li key={f}>
-                  <span className="tick" aria-hidden="true" />
-                  {f}
-                </li>
-              ))}
-            </ul>
+      <TrustedBy title="Who I have done this for" />
 
-            <p className="free-card__catch">
-              <span className="free-card__catch-label">The catch</span>
-              {o.catch}
-            </p>
+      {/* The ladder, stated plainly. Nothing here is a surprise later. */}
+      <section className="proj-section">
+        <h3 className="proj-section__title">And When You Want More Than the Free One</h3>
+        <p className="page-lead" style={{ marginTop: "-4px" }}>
+          The free version is not a crippled demo. It is the actual thing. What you pay
+          for is speed, volume and it being done for you rather than by you.
+        </p>
+        <motion.div
+          className="ladder-grid"
+          variants={container}
+          initial="hidden"
+          whileInView="show"
+          viewport={{ once: true, margin: "-40px" }}
+        >
+          {FREE_OFFERS.map((o) => (
+            <motion.article className="card ladder" key={o.id} variants={cardIn}>
+              <span className="freecard__kicker">{o.kicker}</span>
+              <div className="ladder__rung">
+                <span className="ladder__free">Free</span>
+                <span className="ladder__what">{o.name}</span>
+              </div>
+              <span className="ladder__arrow" aria-hidden="true">
+                ↓
+              </span>
+              <div className="ladder__rung ladder__rung--paid">
+                <span className="ladder__label">{o.paid.label}</span>
+                <span className="ladder__detail">{o.paid.detail}</span>
+              </div>
+            </motion.article>
+          ))}
+        </motion.div>
+        <p className="price-note">
+          Prices in USD.{" "}
+          <Link className="link" to="/work-with-me">
+            full pricing <span className="plus">+</span>
+          </Link>
+        </p>
+      </section>
 
-            {o.calendly ? (
-              <a
-                className="btn-book"
-                href={CONTACT.calendly}
-                target="_blank"
-                rel="noreferrer"
-              >
-                {o.cta}
-              </a>
-            ) : (
-              <Link className="btn-book" to={o.to}>
-                {o.cta}
-              </Link>
-            )}
-          </motion.article>
-        ))}
-      </motion.div>
+      <Testimonials title="What people said afterwards" />
 
-      <TrustedBy />
+      <section className="proj-section">
+        <FeedbackForm what="free offers page" />
+      </section>
     </Page>
   );
 }

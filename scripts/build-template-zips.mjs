@@ -56,6 +56,7 @@ const VERSIONS = {
   react: "^18.3.1",
   "react-dom": "^18.3.1",
   "framer-motion": "^11.5.4",
+  "hls.js": "^1.6.17",
   vite: "^5.4.8",
   "@vitejs/plugin-react": "^4.3.2",
 };
@@ -228,8 +229,12 @@ for (const [slug, { folder, component }] of Object.entries(registry)) {
   const needs = {
     useTemplateFont: jsx.includes('from "../useTemplateFont"'),
     useBoomerangVideo: jsx.includes('from "../useBoomerangVideo"'),
+    useHlsVideo: jsx.includes('from "../useHlsVideo"'),
   };
-  jsx = jsx.replace(/from "\.\.\/(useTemplateFont|useBoomerangVideo)"/g, 'from "./$1"');
+  jsx = jsx.replace(
+    /from "\.\.\/(useTemplateFont|useBoomerangVideo|useHlsVideo)"/g,
+    'from "./$1"'
+  );
   // css sits next to it either way, so only the folder prefix has to go
   jsx = jsx.replace(/from "\.\/([\w-]+\.css)"/g, 'from "./$1"');
   writeFileSync(join(dir, "src", `${component}.jsx`), jsx);
@@ -255,6 +260,9 @@ for (const [slug, { folder, component }] of Object.entries(registry)) {
 
   const deps = ["react", "react-dom"];
   if (jsx.includes('from "framer-motion"')) deps.push("framer-motion");
+  // useHlsVideo imports hls.js dynamically, so the string never appears in the
+  // component itself — the hook being copied in is what makes it a dependency.
+  if (needs.useHlsVideo) deps.push("hls.js");
 
   const title = meta[slug]?.name ? `${meta[slug].name} — ${meta[slug].kicker || "Website"}` : slug;
   writeFileSync(join(dir, "package.json"), packageJson(slug, deps));

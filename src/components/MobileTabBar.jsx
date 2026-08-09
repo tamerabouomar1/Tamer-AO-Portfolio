@@ -2,6 +2,7 @@ import { useEffect, useState } from "react";
 import { NavLink, useLocation } from "react-router-dom";
 import { motion, AnimatePresence } from "framer-motion";
 import { Icon, TAB_ITEMS, MORE_ITEMS } from "./navItems";
+import useSwipe from "./useSwipe";
 
 /**
  * Mobile-only bottom navigation (hidden at >760px by CSS).
@@ -14,6 +15,10 @@ import { Icon, TAB_ITEMS, MORE_ITEMS } from "./navItems";
 export default function MobileTabBar() {
   const [moreOpen, setMoreOpen] = useState(false);
   const { pathname } = useLocation();
+
+  // A bottom sheet on iOS is dismissed by flicking it down. Escape and a tap
+  // on the backdrop already closed it; this is the gesture people try first.
+  const sheetSwipe = useSwipe({ onDown: () => setMoreOpen(false) });
 
   // never leave the sheet open across a navigation
   useEffect(() => setMoreOpen(false), [pathname]);
@@ -48,6 +53,7 @@ export default function MobileTabBar() {
               transition={{ type: "spring", stiffness: 320, damping: 32 }}
               role="dialog"
               aria-label="More pages"
+              {...sheetSwipe}
             >
               <span className="tabsheet__grip" aria-hidden="true" />
               {MORE_ITEMS.map((item) => (

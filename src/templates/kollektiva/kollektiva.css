@@ -1,0 +1,251 @@
+/* ── Kollektiva — Studio Team Switcher ─────────────────────────
+   Everything tunable lives in this block. */
+
+.kol {
+  --kol-ink: #ffffff;
+  --kol-font: "Geist", system-ui, -apple-system, sans-serif;
+  --kol-cross: 700ms; /* portrait crossfade */
+  --kol-settle: 0.5s; /* text fade-in */
+
+  position: relative;
+  height: 100vh;
+  width: 100%;
+  overflow: hidden;
+  background: #0d0d0d;
+  color: var(--kol-ink);
+  font-family: var(--kol-font);
+  -webkit-font-smoothing: antialiased;
+}
+
+/* ── Portraits ──────────────────────────────────────────────── */
+.kol-stage {
+  position: absolute;
+  inset: 0;
+}
+
+.kol-shot {
+  position: absolute;
+  inset: 0;
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+  opacity: 0;
+  transition: opacity var(--kol-cross) ease-out;
+}
+.kol-shot.is-on {
+  opacity: 1;
+}
+
+/* A vignette, not a scrim: enough to hold white type at the top and bottom
+   without dulling the middle of the portrait. */
+.kol-veil {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(
+    to bottom,
+    rgba(0, 0, 0, 0.2) 0%,
+    rgba(0, 0, 0, 0.05) 50%,
+    rgba(0, 0, 0, 0.25) 100%
+  );
+}
+
+/* ── Content ────────────────────────────────────────────────── */
+.kol-content {
+  position: relative;
+  z-index: 10;
+  display: flex;
+  height: 100%;
+  flex-direction: column;
+  justify-content: space-between;
+  padding: 40px 24px 24px;
+}
+
+.kol-top {
+  display: flex;
+  flex-direction: column;
+  gap: 32px;
+}
+
+.kol-title {
+  max-width: 36rem;
+  margin: 0;
+  font-size: 30px;
+  font-weight: 400;
+  line-height: 1.1;
+  letter-spacing: -0.025em;
+}
+
+.kol-desc {
+  max-width: 20rem;
+  margin: 0;
+  font-size: 14px;
+  font-weight: 500;
+  line-height: 1.65;
+  color: rgba(255, 255, 255, 0.8);
+  animation: kol-fade var(--kol-settle) ease;
+}
+
+.kol-bottom {
+  display: flex;
+  flex-direction: column;
+  gap: 32px;
+}
+
+/* ── Avatar picker ──────────────────────────────────────────── */
+.kol-faces {
+  display: flex;
+  align-items: flex-end;
+  gap: 8px;
+  padding-bottom: 4px;
+  overflow-x: auto;
+  scrollbar-width: none;
+}
+.kol-faces::-webkit-scrollbar {
+  display: none;
+}
+
+.kol-face {
+  display: flex;
+  flex-shrink: 0;
+  flex-direction: column;
+  align-items: center;
+  gap: 8px;
+  padding: 0;
+  border: none;
+  background: none;
+  cursor: pointer;
+}
+
+/* Fades in place on the active avatar rather than sliding between them —
+   a travelling dot reads as a scrubber, which this is not. */
+.kol-dot {
+  height: 4px;
+  width: 4px;
+  border-radius: 999px;
+  background: var(--kol-ink);
+  opacity: 0;
+  transition: opacity 300ms ease;
+}
+.kol-dot.is-on {
+  opacity: 1;
+}
+
+.kol-avatar {
+  display: block;
+  height: 40px;
+  width: 40px;
+  overflow: hidden;
+  border-radius: 999px;
+}
+.kol-avatar img {
+  height: 100%;
+  width: 100%;
+  object-fit: cover;
+}
+
+/* ── Meta footer ────────────────────────────────────────────── */
+.kol-meta {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px;
+  padding-top: 20px;
+  border-top: 1px solid rgba(255, 255, 255, 0.2);
+  font-size: 14px;
+  font-weight: 500;
+}
+
+.kol-name {
+  animation: kol-fade var(--kol-settle) ease;
+}
+
+.kol-role,
+.kol-since {
+  display: none;
+  color: rgba(255, 255, 255, 0.7);
+}
+
+.kol-wa {
+  color: inherit;
+  text-decoration: underline;
+  text-underline-offset: 4px;
+  transition: color 0.2s ease;
+}
+.kol-wa:hover {
+  color: rgba(255, 255, 255, 0.7);
+}
+
+@keyframes kol-fade {
+  from {
+    opacity: 0;
+    transform: translateY(4px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .kol-shot,
+  .kol-dot {
+    transition-duration: 1ms;
+  }
+  .kol-desc,
+  .kol-name {
+    animation: none;
+  }
+}
+
+/* ── sm ─────────────────────────────────────────────────────── */
+@media (min-width: 640px) {
+  .kol-content {
+    padding: 56px 40px 32px;
+  }
+  .kol-title {
+    font-size: 48px;
+  }
+  .kol-desc {
+    font-size: 16px;
+  }
+  .kol-faces {
+    gap: 12px;
+    padding-bottom: 0;
+    overflow-x: visible;
+  }
+  .kol-avatar {
+    height: 56px;
+    width: 56px;
+  }
+  .kol-role {
+    display: block;
+  }
+}
+
+/* ── md ─────────────────────────────────────────────────────── */
+@media (min-width: 768px) {
+  .kol-top {
+    flex-direction: row;
+    align-items: flex-start;
+    justify-content: space-between;
+    gap: 64px;
+  }
+  .kol-desc {
+    padding-top: 8px;
+  }
+  .kol-since {
+    display: block;
+  }
+}
+
+/* ── lg ─────────────────────────────────────────────────────── */
+@media (min-width: 1024px) {
+  .kol-content {
+    padding-left: 64px;
+    padding-right: 64px;
+  }
+  .kol-title {
+    font-size: 72px;
+  }
+}

@@ -1,0 +1,352 @@
+/* ── Vibrant — Holistic Wellness Hero ──────────────────────────
+   Everything tunable lives in this block. */
+
+.vib {
+  --vib-ink: #ffffff;
+  --vib-font: "Inter", system-ui, -apple-system, sans-serif;
+
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+  height: 100%;
+  overflow: hidden;
+  background: #000;
+  color: var(--vib-ink);
+  font-family: var(--vib-font);
+  -webkit-font-smoothing: antialiased;
+}
+
+.vib-video {
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+/* ── Nav ────────────────────────────────────────────────────── */
+.vib-nav {
+  position: relative;
+  z-index: 20;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px;
+  padding: 24px 20px 0;
+}
+
+.vib-logo {
+  display: block;
+  width: 32px;
+  height: 32px;
+  flex-shrink: 0;
+  color: var(--vib-ink);
+}
+.vib-logo svg { width: 100%; height: 100%; }
+
+.vib-pill {
+  display: none;
+  align-items: center;
+  gap: 28px;
+  padding: 12px 32px;
+  border-radius: 999px;
+}
+.vib-pill a {
+  font-size: 14px;
+  font-weight: 500;
+  color: rgba(255, 255, 255, 0.7);
+  text-decoration: none;
+  transition: opacity 0.2s ease, color 0.2s ease;
+}
+.vib-pill a.is-current { color: var(--vib-ink); }
+.vib-pill a:hover { color: var(--vib-ink); opacity: 1; }
+
+.vib-account {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 40px;
+  height: 40px;
+  flex-shrink: 0;
+  border-radius: 999px;
+  color: rgba(255, 255, 255, 0.8);
+}
+.vib-account svg { width: 20px; height: 20px; }
+
+.vib-nav > .vib-account { display: none; }
+
+/* ── Burger ─────────────────────────────────────────────────── */
+.vib-burger {
+  position: relative;
+  z-index: 50;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 40px;
+  height: 40px;
+  flex-shrink: 0;
+  padding: 0;
+  border: none;
+  border-radius: 999px;
+  color: var(--vib-ink);
+  cursor: pointer;
+}
+.vib-ico {
+  position: absolute;
+  display: inline-flex;
+  width: 20px;
+  height: 20px;
+  opacity: 0;
+  transform: rotate(90deg) scale(0);
+  transition: transform 0.3s ease, opacity 0.3s ease;
+}
+.vib-ico.is-on {
+  opacity: 1;
+  transform: rotate(0deg) scale(1);
+}
+.vib-ico svg { width: 100%; height: 100%; }
+
+/* ── Mobile sheet ───────────────────────────────────────────── */
+.vib-sheet {
+  position: fixed;
+  inset: 0;
+  z-index: 10;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: rgba(0, 0, 0, 0.8);
+  backdrop-filter: blur(24px);
+  -webkit-backdrop-filter: blur(24px);
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.5s ease-out;
+}
+.vib-sheet.is-open {
+  opacity: 1;
+  pointer-events: auto;
+}
+.vib-sheet-inner {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 32px;
+  transform: translateY(-32px);
+  transition: transform 0.5s ease-out;
+}
+.vib-sheet.is-open .vib-sheet-inner { transform: translateY(0); }
+.vib-sheet-inner a {
+  font-size: 24px;
+  font-weight: 500;
+  color: var(--vib-ink);
+  text-decoration: none;
+}
+.vib-sheet-acct {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  font-size: 14px;
+  font-weight: 300;
+  color: rgba(255, 255, 255, 0.6);
+}
+
+/* ── Main ───────────────────────────────────────────────────── */
+.vib-main {
+  position: relative;
+  z-index: 10;
+  display: flex;
+  flex: 1;
+  flex-direction: column;
+  justify-content: space-between;
+  padding: 0 20px 28px;
+  transition: opacity 0.3s ease;
+}
+.vib-main.is-hidden {
+  opacity: 0;
+  pointer-events: none;
+}
+
+.vib-top {
+  max-width: 42rem;
+  margin-top: 56px;
+}
+
+.vib-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  padding: 6px 12px;
+  margin-bottom: 20px;
+  border-radius: 999px;
+}
+.vib-faces { display: inline-flex; }
+.vib-faces img {
+  width: 20px;
+  height: 20px;
+  border-radius: 999px;
+  border: 2px solid rgba(255, 255, 255, 0.2);
+  object-fit: cover;
+}
+.vib-faces img + img { margin-left: -8px; }
+.vib-badge-text {
+  font-size: 12px;
+  font-weight: 300;
+  color: rgba(255, 255, 255, 0.8);
+}
+
+.vib-title {
+  margin: 0;
+  font-size: 36px;
+  font-weight: 400;
+  line-height: 1.05;
+  letter-spacing: -0.05em;
+}
+
+.vib-sub {
+  margin: 16px 0 0;
+  font-size: 14px;
+  font-weight: 300;
+  color: rgba(255, 255, 255, 0.7);
+}
+
+.vib-cta {
+  margin-top: 24px;
+  padding: 12px 24px;
+  border: none;
+  border-radius: 999px;
+  font-family: inherit;
+  font-size: 14px;
+  font-weight: 500;
+  color: var(--vib-ink);
+  cursor: pointer;
+  transition: background 0.3s ease;
+}
+.vib-cta:hover { background: rgba(255, 255, 255, 0.1); }
+
+/* ── Stats ──────────────────────────────────────────────────── */
+.vib-stats {
+  display: flex;
+  align-items: flex-end;
+  gap: 24px;
+}
+.vib-stat {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  min-width: 0;
+}
+.vib-stat-num {
+  font-size: 20px;
+  font-weight: 400;
+}
+.vib-stat-label {
+  font-size: 12px;
+  font-weight: 300;
+  color: rgba(255, 255, 255, 0.6);
+}
+
+.vib-tri {
+  position: relative;
+  display: block;
+  width: 20px;
+  height: 20px;
+  margin-bottom: 6px;
+}
+.vib-tri i {
+  position: absolute;
+  width: 2.5px;
+  height: 2.5px;
+  background: rgba(255, 255, 255, 0.6);
+  transform: translate(-50%, -50%);
+}
+
+.vib-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 2px;
+  width: 20px;
+  margin-bottom: 6px;
+}
+.vib-grid i {
+  width: 4px;
+  height: 4px;
+  border-radius: 1px;
+  background: rgba(255, 255, 255, 0);
+}
+.vib-grid i.is-on { background: rgba(255, 255, 255, 0.6); }
+
+/* ── Liquid glass ─────────────────────────────────────────────
+   The border is a masked ::before rather than a border property: it has to be
+   bright at the top and bottom edges and clear through the middle, which no
+   single border colour can do. The xor mask punches the padding box out of
+   the gradient, leaving a 1.4px ring. */
+.vib-glass {
+  position: relative;
+  overflow: hidden;
+  background: rgba(255, 255, 255, 0.01);
+  background-blend-mode: luminosity;
+  backdrop-filter: blur(4px);
+  -webkit-backdrop-filter: blur(4px);
+  border: none;
+  box-shadow: inset 0 1px 1px rgba(255, 255, 255, 0.1);
+}
+.vib-glass::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  border-radius: inherit;
+  padding: 1.4px;
+  background: linear-gradient(
+    180deg,
+    rgba(255, 255, 255, 0.45) 0%,
+    rgba(255, 255, 255, 0.15) 20%,
+    rgba(255, 255, 255, 0) 40%,
+    rgba(255, 255, 255, 0) 60%,
+    rgba(255, 255, 255, 0.15) 80%,
+    rgba(255, 255, 255, 0.45) 100%
+  );
+  -webkit-mask:
+    linear-gradient(#fff 0 0) content-box,
+    linear-gradient(#fff 0 0);
+  -webkit-mask-composite: xor;
+  mask-composite: exclude;
+  pointer-events: none;
+}
+
+/* ── Breakpoints ────────────────────────────────────────────── */
+@media (min-width: 640px) {
+  .vib-nav { padding: 32px 32px 0; }
+  .vib-main { padding: 0 32px 32px; }
+  .vib-top { margin-top: 80px; }
+  .vib-badge { gap: 12px; padding: 8px 16px; margin-bottom: 24px; }
+  .vib-faces img { width: 24px; height: 24px; }
+  .vib-badge-text { font-size: 14px; }
+  .vib-title { font-size: 48px; }
+  .vib-sub { margin-top: 20px; font-size: 16px; }
+  .vib-cta { margin-top: 32px; padding: 14px 28px; }
+  .vib-stats { gap: 40px; }
+  .vib-stat-num { font-size: 24px; }
+  .vib-stat-label { font-size: 14px; }
+}
+
+@media (min-width: 768px) {
+  .vib-nav { padding-left: 64px; padding-right: 64px; }
+  .vib-main { padding-left: 64px; padding-right: 64px; }
+  .vib-logo { width: 36px; height: 36px; }
+  .vib-pill { display: flex; }
+  .vib-nav > .vib-account { display: inline-flex; }
+  .vib-burger { display: none; }
+  .vib-sheet { display: none; }
+  .vib-top { margin-top: 112px; }
+  .vib-title { font-size: 60px; }
+  .vib-sub { font-size: 18px; }
+  .vib-stats { gap: 64px; }
+  .vib-stat-num { font-size: 30px; }
+}
+
+@media (min-width: 1024px) {
+  .vib-nav { padding-left: 80px; padding-right: 80px; }
+  .vib-main { padding-left: 80px; padding-right: 80px; }
+  .vib-title { font-size: 72px; }
+}

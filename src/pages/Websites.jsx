@@ -6,6 +6,7 @@ import LiveThumb from "../components/LiveThumb";
 import { LoadBar, LoadingImage } from "../components/LoadBar";
 import { BuyModalHost } from "../components/BuyModal";
 import PriceCard from "../components/PriceCard";
+import FeedbackForm from "../components/FeedbackForm";
 import { prefetchTemplate } from "../templates/registry";
 import { CONTACT, TEMPLATES, TEMPLATE_PACKAGES, SERVICE_PACKAGES, WEBSITES } from "../siteData";
 
@@ -94,7 +95,7 @@ export default function Websites() {
       </header>
 
       <section className="proj-section" style={{ marginTop: 0 }}>
-        <h3 className="proj-section__title">Client work</h3>
+        <h3 className="proj-section__title">Client Work</h3>
         <motion.div className="web-grid" variants={container} initial="hidden" animate="show">
           {WEBSITES.map((w) => (
             <motion.article
@@ -159,7 +160,7 @@ export default function Websites() {
 
       <section className="proj-section">
         <div className="storehead storehead--sig">
-          <h3 className="proj-section__title">Take one, or take the lot</h3>
+          <h3 className="proj-section__title">Take One, or Take the Lot</h3>
           <p className="storehead__lede">
             Every template here is free, one at a time. The membership is for the flow:
             the whole library including the fonts, and whatever ships next week.
@@ -190,8 +191,12 @@ export default function Websites() {
               action={
                 /* The free tier's action is the grid above, not a call: the
                    whole point is that nobody has to talk to anyone to get it. */
+                /* TEMPLATES[0], not FREE_TEMPLATES[0]: that export stopped
+                   existing when every template went free and the two tiers
+                   collapsed into one list. PR #27 still called it, which
+                   builds clean and throws on the first click. */
                 p.free ? (
-                  <button className="btn-book" onClick={() => setBuying(FREE_TEMPLATES[0])}>
+                  <button className="btn-book" onClick={() => setBuying(TEMPLATES[0])}>
                     Download one now
                   </button>
                 ) : (
@@ -245,6 +250,16 @@ export default function Websites() {
         </motion.div>
       </section>
 
+      {/* The other half of giving the work away: finding out what it was
+          missing. Someone who has just taken a template is the only person who
+          can say what the next one should do differently. */}
+      <section className="proj-section">
+        <FeedbackForm
+          what="website template"
+          title="Took one? Tell me what it was missing."
+          lede="The templates are free because the feedback is worth more than the licence fee. Two questions, and the next one gets built around your answers."
+        />
+      </section>
 
       {/* full-page screenshot of a client site */}
       <AnimatePresence>

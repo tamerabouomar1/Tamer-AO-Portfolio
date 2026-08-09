@@ -2,6 +2,7 @@ import { useState } from "react";
 import { motion } from "framer-motion";
 import Page, { container, cardIn } from "../components/Page";
 import PriceCard from "../components/PriceCard";
+import FreeOffers from "../components/FreeOffers";
 import { TrustedBy, Testimonials } from "../components/SocialProof";
 import {
   CONTACT,
@@ -104,7 +105,7 @@ export default function WorkWithMe() {
       >
         <div className="work-booking__grid">
           <div className="work-booking__head">
-            <h3 className="card-title">Book a free 30-min call</h3>
+            <h3 className="card-title">Book a Free 30-Min Call</h3>
             <p className="card-body">
               Content that sells and design that stands out. Pick a time and we&apos;ll
               plan it together. No pitch, no obligation.
@@ -142,12 +143,25 @@ export default function WorkWithMe() {
       <TrustedBy />
       <Testimonials />
 
+      {/* Every free way in, ahead of every price on this page. Someone who
+          lands on the pricing page and isn't ready to buy should still leave
+          with something rather than leaving with nothing. */}
+      <FreeOffers
+        title="Before any of this, take something"
+        accent="free"
+        lede="Nothing on this page is the first step. These are. Real work, delivered at no cost, so you can judge it before you pay for any of it."
+      />
+
       {/* Social media */}
       <section className="proj-section">
-        <h3 className="proj-section__title">Social media</h3>
+        <h3 className="proj-section__title">Social Media</h3>
         <p className="page-lead" style={{ marginTop: "-4px" }}>
-          Reels are what actually reach people. Mine have done 830K+ views, with five past 30,000
+          Reels are what actually reach people. Mine have done 855K+ views, with six past 20,000
           and a best post at 219,000. Every plan is built reels-first to get you seen.
+        </p>
+        <p className="page-lead" style={{ marginTop: 0 }}>
+          The first reel is free and it is the same work as the ones in these plans. What you
+          are paying for below is volume, consistency and the strategy around them.
         </p>
         <motion.div
           className="price-grid"
@@ -208,7 +222,7 @@ export default function WorkWithMe() {
 
       {/* Design & identities, Clothing */}
       <section className="proj-section">
-        <h3 className="proj-section__title">One-off work</h3>
+        <h3 className="proj-section__title">One-off Work</h3>
         <motion.div
           className="cat-grid"
           variants={container}
@@ -239,7 +253,7 @@ export default function WorkWithMe() {
 
       {/* Message form */}
       <section className="proj-section">
-        <h3 className="proj-section__title">Send a message</h3>
+        <h3 className="proj-section__title">Send a Message</h3>
         <motion.div
           className="card work-message"
           variants={cardIn}

@@ -1,0 +1,450 @@
+/* ── Echoid — Voice Identity Hero ──────────────────────────────
+   Everything tunable lives in this block. */
+
+.ech {
+  --ech-bg: #000000;
+  --ech-text: #ffffff;
+  --ech-dim: rgba(255, 255, 255, 0.62);
+  --ech-dimmer: rgba(255, 255, 255, 0.42);
+  --ech-line: rgba(255, 255, 255, 0.14);
+  --ech-line-strong: rgba(255, 255, 255, 0.26);
+  --ech-ghost: rgba(255, 255, 255, 0.05);
+  --ech-solid: rgba(255, 255, 255, 0.1);
+  --ech-gutter: clamp(20px, 5vw, 100px);
+  --ech-ease: cubic-bezier(0.16, 1, 0.3, 1);
+  --ech-display: "Sora", "Helvetica Neue", Helvetica, Arial, sans-serif;
+  --ech-mono: "JetBrains Mono", ui-monospace, "SF Mono", Menlo, Consolas, monospace;
+
+  position: relative;
+  width: 100%;
+  height: 100vh;
+  height: 100svh;
+  min-height: 640px;
+  overflow: hidden;
+  isolation: isolate;
+  display: grid;
+  grid-template-rows: auto 1fr auto;
+  background: var(--ech-bg);
+  color: var(--ech-text);
+  font-family: var(--ech-display);
+  -webkit-font-smoothing: antialiased;
+}
+
+/* ── Media ──────────────────────────────────────────────────── */
+.ech-media {
+  position: absolute;
+  inset: 0;
+  z-index: -1;
+  background: #000 center / cover no-repeat;
+}
+.ech-video {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: center;
+}
+
+/* Two gradients, not one: the vertical pass keeps the nav and the legal line
+   readable, the horizontal pass darkens only the edge the form sits on so the
+   middle of the face stays untouched. */
+.ech-scrim {
+  position: absolute;
+  inset: 0;
+  background:
+    linear-gradient(
+      to right,
+      transparent 0%,
+      transparent 45%,
+      rgba(0, 0, 0, 0.45) 72%,
+      rgba(0, 0, 0, 0.72) 100%
+    ),
+    linear-gradient(
+      to bottom,
+      rgba(0, 0, 0, 0.55) 0%,
+      transparent 22%,
+      transparent 78%,
+      rgba(0, 0, 0, 0.65) 100%
+    );
+}
+
+/* ── Nav ────────────────────────────────────────────────────── */
+.ech-nav {
+  position: relative;
+  z-index: 60;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 32px;
+  padding: clamp(20px, 2.4vw, 34px) var(--ech-gutter);
+  padding-left: max(var(--ech-gutter), env(safe-area-inset-left));
+  padding-right: max(var(--ech-gutter), env(safe-area-inset-right));
+}
+
+.ech-logo {
+  font-family: var(--ech-display);
+  font-weight: 200;
+  font-size: clamp(20px, 1.75vw, 30px);
+  letter-spacing: 0.16em;
+  line-height: 1;
+  color: var(--ech-text);
+  text-decoration: none;
+}
+
+.ech-navright {
+  display: flex;
+  align-items: center;
+  gap: clamp(24px, 3.2vw, 62px);
+}
+
+.ech-links {
+  display: flex;
+  align-items: center;
+  gap: clamp(20px, 2.8vw, 56px);
+}
+.ech-links a {
+  font-family: var(--ech-mono);
+  font-weight: 400;
+  font-size: clamp(11px, 0.78vw, 14px);
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: var(--ech-text);
+  text-decoration: none;
+  transition: color 0.25s ease;
+}
+.ech-links a:hover { color: var(--ech-dim); }
+
+.ech-cta {
+  font-family: var(--ech-mono);
+  font-weight: 400;
+  font-size: clamp(11px, 0.78vw, 14px);
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: var(--ech-text);
+  text-decoration: none;
+  padding: clamp(12px, 1vw, 17px) clamp(20px, 1.8vw, 32px);
+  border: 1px solid var(--ech-line-strong);
+  transition: background 0.25s ease, border-color 0.25s ease;
+}
+.ech-cta:hover {
+  background: var(--ech-ghost);
+  border-color: rgba(255, 255, 255, 0.5);
+}
+
+/* ── Burger ─────────────────────────────────────────────────── */
+.ech-burger {
+  display: none;
+  position: relative;
+  width: 44px;
+  height: 44px;
+  padding: 0;
+  border: none;
+  background: none;
+  cursor: pointer;
+}
+.ech-burger span {
+  position: absolute;
+  left: 50%;
+  width: 22px;
+  height: 1px;
+  background: var(--ech-text);
+  transform: translateX(-50%);
+  transition: transform 0.45s var(--ech-ease), opacity 0.25s ease;
+}
+.ech-burger span:nth-child(1) { top: 16px; }
+.ech-burger span:nth-child(2) { top: 22px; }
+.ech-burger span:nth-child(3) { top: 28px; }
+
+.ech-burger.is-open span:nth-child(1) {
+  top: 22px;
+  transform: translateX(-50%) rotate(45deg);
+}
+.ech-burger.is-open span:nth-child(2) {
+  opacity: 0;
+  transform: translateX(-50%) scaleX(0);
+}
+.ech-burger.is-open span:nth-child(3) {
+  top: 22px;
+  transform: translateX(-50%) rotate(-45deg);
+}
+
+/* ── Mobile menu ────────────────────────────────────────────── */
+.ech-menu {
+  position: fixed;
+  inset: 0;
+  z-index: 50;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: rgba(4, 4, 6, 0.94);
+  backdrop-filter: blur(28px) saturate(140%);
+  -webkit-backdrop-filter: blur(28px) saturate(140%);
+  clip-path: circle(3% at calc(100% - 42px) 42px);
+  opacity: 0;
+  pointer-events: none;
+  transition: clip-path 0.7s var(--ech-ease), opacity 0.45s ease;
+}
+.ech-menu.is-open {
+  clip-path: circle(150% at calc(100% - 42px) 42px);
+  opacity: 1;
+  pointer-events: auto;
+}
+
+.ech-menu-inner {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 26px;
+}
+.ech-menu-inner a {
+  font-family: var(--ech-mono);
+  font-weight: 400;
+  font-size: clamp(20px, 5.5vw, 28px);
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--ech-text);
+  text-decoration: none;
+  opacity: 0;
+  transform: translateY(16px);
+  transition: opacity 0.4s ease, transform 0.5s var(--ech-ease);
+}
+.ech-menu.is-open .ech-menu-inner a {
+  opacity: 1;
+  transform: translateY(0);
+  transition-delay: calc(180ms + var(--i) * 70ms);
+}
+.ech-menu-cta {
+  margin-top: 10px;
+  padding: 16px 40px;
+  border: 1px solid var(--ech-line-strong);
+  letter-spacing: 0.22em !important;
+}
+
+/* ── Body / panel ───────────────────────────────────────────── */
+.ech-body {
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  min-height: 0;
+  overflow-y: auto;
+  padding: 0 var(--ech-gutter);
+}
+
+.ech-panel {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  width: min(34vw, 620px);
+  min-width: 380px;
+}
+
+.ech-chip {
+  font-family: var(--ech-mono);
+  font-weight: 400;
+  font-size: clamp(11px, 0.72vw, 14px);
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  line-height: 1;
+  background: rgba(255, 255, 255, 0.09);
+  padding: clamp(9px, 0.8vw, 14px) clamp(14px, 1.1vw, 20px);
+}
+
+.ech-title {
+  margin: clamp(28px, 3vw, 52px) 0 0;
+  font-family: var(--ech-display);
+  font-weight: 200;
+  font-size: clamp(54px, 6.2vw, 118px);
+  letter-spacing: 0.03em;
+  line-height: 0.95;
+}
+
+.ech-tag {
+  margin: clamp(14px, 1.4vw, 24px) 0 0;
+  font-family: var(--ech-mono);
+  font-weight: 300;
+  font-size: clamp(11px, 0.94vw, 17px);
+  letter-spacing: 0.14em;
+  line-height: 1.4;
+  text-transform: uppercase;
+  color: var(--ech-dim);
+}
+
+.ech-form {
+  display: flex;
+  flex-direction: column;
+  gap: clamp(14px, 1.3vw, 22px);
+  width: 100%;
+  margin-top: clamp(38px, 4.6vw, 82px);
+}
+
+.ech-vh {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0 0 0 0);
+  white-space: nowrap;
+  border: 0;
+}
+
+.ech-input {
+  width: 100%;
+  border: none;
+  border-bottom: 1px solid var(--ech-line-strong);
+  border-radius: 0;
+  background: transparent;
+  padding: 0 2px clamp(12px, 1.1vw, 18px);
+  font-family: var(--ech-display);
+  font-weight: 300;
+  font-size: clamp(16px, 0.95vw, 18px);
+  color: var(--ech-text);
+  transition: border-color 0.25s ease;
+}
+.ech-input::placeholder { color: var(--ech-dim); }
+.ech-input:focus {
+  outline: none;
+  border-bottom-color: rgba(255, 255, 255, 0.85);
+}
+.ech-input:focus::placeholder { color: var(--ech-dimmer); }
+.ech-input:focus-visible {
+  outline: 1px solid rgba(255, 255, 255, 0.7);
+  outline-offset: 3px;
+}
+
+.ech-btn {
+  width: 100%;
+  border: none;
+  border-radius: 0;
+  padding: clamp(17px, 1.6vw, 27px) 20px;
+  font-family: var(--ech-mono);
+  font-weight: 400;
+  font-size: clamp(11px, 0.78vw, 14px);
+  letter-spacing: 0.22em;
+  text-transform: uppercase;
+  cursor: pointer;
+  transition: background 0.25s ease, color 0.25s ease;
+}
+.ech-btn--ghost {
+  background: var(--ech-ghost);
+  color: var(--ech-dimmer);
+}
+.ech-btn--ghost:hover {
+  background: rgba(255, 255, 255, 0.09);
+  color: var(--ech-text);
+}
+.ech-btn--solid {
+  background: var(--ech-solid);
+  color: var(--ech-text);
+}
+.ech-btn--solid:hover { background: rgba(255, 255, 255, 0.17); }
+
+.ech-ref {
+  align-self: center;
+  margin-top: clamp(26px, 2.6vw, 46px);
+  font-family: var(--ech-mono);
+  font-weight: 400;
+  font-size: clamp(11px, 0.74vw, 14px);
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: var(--ech-text);
+  text-decoration: none;
+}
+.ech-ref:hover {
+  color: var(--ech-dim);
+  text-decoration: underline;
+  text-underline-offset: 4px;
+}
+
+/* ── Legal ──────────────────────────────────────────────────── */
+.ech-legal {
+  position: relative;
+  z-index: 10;
+  border-top: 1px solid var(--ech-line);
+  padding: clamp(18px, 1.7vw, 30px) var(--ech-gutter);
+  padding-bottom: max(clamp(18px, 1.7vw, 30px), env(safe-area-inset-bottom));
+  text-align: center;
+  font-family: var(--ech-display);
+  font-weight: 300;
+  font-size: clamp(12px, 0.82vw, 16px);
+  line-height: 1.5;
+  color: var(--ech-dim);
+}
+.ech-legal a {
+  color: var(--ech-text);
+  text-decoration: underline;
+  text-underline-offset: 3px;
+  text-decoration-thickness: 1px;
+  transition: color 0.25s ease;
+}
+.ech-legal a:hover { color: var(--ech-dim); }
+
+/* ── Focus ──────────────────────────────────────────────────── */
+.ech-btn:focus-visible,
+.ech-cta:focus-visible,
+.ech-burger:focus-visible,
+.ech-ref:focus-visible,
+.ech-menu-inner a:focus-visible {
+  outline: 1px solid rgba(255, 255, 255, 0.7);
+  outline-offset: 3px;
+}
+
+/* ── Breakpoints ────────────────────────────────────────────── */
+@media (max-width: 1100px) {
+  .ech-panel {
+    width: min(70vw, 520px);
+    min-width: 0;
+  }
+}
+
+@media (max-width: 900px) {
+  .ech-links,
+  .ech-cta { display: none; }
+  .ech-burger { display: block; }
+}
+
+@media (max-width: 720px) {
+  .ech-body { justify-content: center; }
+  .ech-panel {
+    width: 100%;
+    align-items: stretch;
+  }
+  .ech-chip { align-self: flex-start; }
+  .ech-scrim {
+    background: linear-gradient(
+      to bottom,
+      rgba(0, 0, 0, 0.6) 0%,
+      rgba(0, 0, 0, 0.25) 30%,
+      rgba(0, 0, 0, 0.75) 100%
+    );
+  }
+}
+
+@media (max-width: 380px) {
+  .ech-title { font-size: clamp(44px, 15vw, 64px); }
+}
+
+/* A laptop in landscape has plenty of width and almost no height; without
+   this the panel scrolls inside its own row and the legal line is pushed off. */
+@media (max-height: 640px) {
+  .ech { min-height: 100svh; }
+  .ech-nav { padding-top: 14px; padding-bottom: 14px; }
+  .ech-title { font-size: clamp(36px, 7vw, 64px); }
+  .ech-form { margin-top: 24px; gap: 12px; }
+  .ech-btn { padding: 13px 20px; }
+  .ech-ref { margin-top: 18px; }
+  .ech-legal { padding-top: 12px; padding-bottom: 12px; font-size: 11px; }
+  .ech-menu-inner { gap: 16px; }
+}
+
+/* ── Reduced motion ─────────────────────────────────────────── */
+@media (prefers-reduced-motion: reduce) {
+  .ech-video { display: none; }
+  .ech-media { background-image: var(--ech-poster); }
+  .ech *,
+  .ech *::before,
+  .ech *::after {
+    animation-duration: 0.01ms !important;
+    transition-duration: 0.01ms !important;
+  }
+}

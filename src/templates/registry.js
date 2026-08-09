@@ -20,6 +20,7 @@ const loaders = {
   noir: () => import("./noir/NoirSite"),
   launch: () => import("./launch/LaunchSite"),
   strata: () => import("./strata/StrataSite"),
+  aperture: () => import("./aperture/ApertureSite"),
   reel: () => import("./reel/ReelSite"),
   calm: () => import("./calm/CalmSite"),
   atlas: () => import("./atlas/AtlasSite"),
@@ -34,6 +35,17 @@ const loaders = {
   marquee: () => import("./marquee/MarqueeSite"),
   charter: () => import("./charter/CharterSite"),
   drift: () => import("./drift/DriftSite"),
+  closer: () => import("./closer/CloserSite"),
+  signal: () => import("./signal/SignalSite"),
+  bloom: () => import("./bloom/BloomSite"),
+  kollektiva: () => import("./kollektiva/KollektivaSite"),
+  echoid: () => import("./echoid/EchoidSite"),
+  vibrant: () => import("./vibrant/VibrantSite"),
+  mentality: () => import("./mentality/MentalitySite"),
+  nebula: () => import("./nebula/NebulaSite"),
+  prism: () => import("./prism/PrismSite"),
+  darkroom: () => import("./darkroom/DarkroomSite"),
+  abyss: () => import("./abyss/AbyssSite"),
 };
 
 export const TEMPLATE_VIEWS = Object.fromEntries(

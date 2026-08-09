@@ -1,0 +1,352 @@
+/* Aperture — Creative Studio. Scoped under .ap. */
+
+.ap {
+  position: relative;
+  min-height: 100svh;
+  background: #e4e4e4;
+  color: #f4f1e8;
+  font-family: "Inter", system-ui, -apple-system, "Segoe UI", sans-serif;
+  overflow-x: hidden;
+}
+.ap * { box-sizing: border-box; }
+.ap h1, .ap h2, .ap p { margin: 0; }
+.ap button { font: inherit; border: 0; background: none; cursor: pointer; }
+
+/* ── splash ───────────────────────────────────────────────────
+   Ten panels, five per row, wiping off in opposite directions. The whole
+   layer is taken out of the flow at the end rather than left sitting at
+   opacity 0, because a full-viewport element still costs a composite. */
+.ap-splash {
+  position: fixed;
+  inset: 0;
+  z-index: 9999;
+  pointer-events: none;
+  overflow: hidden;
+  animation: ap-splashOut 0.3s ease 1.35s forwards;
+}
+.ap-splash__row { display: flex; width: 100%; height: 50%; }
+.ap-splash__row span {
+  display: block;
+  width: 20%;
+  height: 100%;
+  background: #75c5de;
+  animation-duration: 1s;
+  animation-timing-function: cubic-bezier(0.96, -0.02, 0.38, 1.01);
+  animation-fill-mode: forwards;
+}
+.ap-splash__row--up span { animation-name: ap-wipeUp; }
+.ap-splash__row--down span { animation-name: ap-wipeDown; }
+
+@keyframes ap-wipeUp { to { transform: translateY(-100%); } }
+@keyframes ap-wipeDown { to { transform: translateY(100%); } }
+@keyframes ap-splashOut { to { opacity: 0; visibility: hidden; } }
+
+/* ── chrome ───────────────────────────────────────────────────
+   The logo is one mark for two backgrounds. Difference blending inverts it
+   against the pale page and the dark photograph alike, which is cheaper and
+   steadier than swapping a light copy in on scroll. */
+.ap-logomark {
+  position: fixed;
+  top: 30px;
+  left: 20px;
+  z-index: 10;
+  color: #ffffff;
+  mix-blend-mode: difference;
+}
+.ap-logo { width: 32px; height: 32px; display: block; }
+
+.ap-burgerwrap { position: fixed; top: 16px; right: 20px; z-index: 10; }
+.ap-burger {
+  width: 59px;
+  height: 59px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 4px;
+  border-radius: 50%;
+  background: #f4f1e8;
+  transition: background 0.4s ease;
+}
+.ap-burger span {
+  display: block;
+  width: 24px;
+  height: 2px;
+  background: #111111;
+  transition: transform 0.3s ease, background 0.3s ease;
+}
+.ap-burger:hover { background: #0b0b0b; }
+.ap-burger:hover span { background: #f4f1e8; }
+.ap-burger.is-open { background: #0b0b0b; }
+.ap-burger.is-open span { background: #f4f1e8; }
+.ap-burger.is-open span:first-child { transform: rotate(45deg) translate(2px, 2px); }
+.ap-burger.is-open span:last-child { transform: rotate(-45deg) translate(2px, -2px); }
+
+/* ── menu panel ───────────────────────────────────────────────
+   Slid in from above on `top` rather than dropped in on opacity, so it reads
+   as a panel arriving over the page instead of a layer switching on. */
+.ap-menu {
+  position: fixed;
+  top: -640px;
+  left: 8px;
+  right: 8px;
+  z-index: 9;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  gap: 32px;
+  padding: 90px 32px 32px;
+  border-radius: 20px;
+  background: rgba(17, 17, 17, 0.95);
+  backdrop-filter: blur(26px);
+  -webkit-backdrop-filter: blur(26px);
+  opacity: 0;
+  pointer-events: none;
+  transition: top 0.5s cubic-bezier(0.25, 0.46, 0.45, 0.94), opacity 0.4s ease;
+}
+.ap-menu.is-open { top: 0; opacity: 1; pointer-events: auto; }
+
+.ap-menu__nav { display: flex; flex-direction: column; align-items: flex-start; gap: 8px; }
+.ap-menu__nav button {
+  color: #f4f1e8;
+  font-size: 36px;
+  font-weight: 500;
+  line-height: 1.3;
+  transition: opacity 0.3s ease;
+}
+.ap-menu__nav button:hover { opacity: 0.7; }
+
+.ap-menu__contact { display: flex; flex-direction: column; align-items: flex-start; gap: 20px; }
+.ap-menu__email {
+  color: #9a9590;
+  font-size: 18px;
+  text-decoration: none;
+  transition: color 0.3s ease;
+}
+.ap-menu__email:hover { color: #f4f1e8; }
+.ap-menu__socials { display: flex; gap: 24px; }
+.ap-menu__socials button {
+  color: #9a9590;
+  font-size: 14px;
+  text-decoration: underline;
+  text-underline-offset: 2px;
+  transition: color 0.3s ease;
+}
+.ap-menu__socials button:hover { color: #f4f1e8; }
+
+/* ── hero ─────────────────────────────────────────────────────
+   On a phone the copy is stacked above the picture in normal flow, so the
+   headline never sits on top of a face. From 768px up the hero becomes one
+   locked screen and the copy is positioned over the image. */
+.ap-hero {
+  position: relative;
+  width: 100%;
+  min-height: 100svh;
+  overflow: hidden;
+  background: #e4e4e4;
+}
+
+.ap-word {
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: -30px;
+  z-index: 2;
+  text-align: center;
+  pointer-events: none;
+}
+.ap-word h2 {
+  color: #f4f1e8;
+  font-size: clamp(180px, 28vw, 560px);
+  font-weight: 500;
+  line-height: 0.8;
+  letter-spacing: -0.04em;
+  white-space: nowrap;
+  transform: translateY(330px);
+  animation: ap-wordUp 1s cubic-bezier(0.16, 1, 0.3, 1) 1.5s forwards;
+}
+
+.ap-base,
+.ap-reveal {
+  position: absolute;
+  top: 30vh;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-position: 60% center;
+  background-size: cover;
+  background-repeat: no-repeat;
+}
+.ap-base {
+  z-index: 5;
+  opacity: 0;
+  animation: ap-imageIn 1.2s cubic-bezier(0.25, 0.46, 0.45, 0.94) 1s forwards;
+}
+.ap-reveal { z-index: 7; pointer-events: none; }
+
+/* Sized to the viewport and never shown: it exists only to be turned into a
+   mask image, because canvas can express a multi-stop falloff that a CSS
+   gradient mask cannot. */
+.ap-canvas { position: absolute; inset: 0; pointer-events: none; display: none; }
+
+.ap-copy {
+  position: relative;
+  z-index: 8;
+  display: flex;
+  justify-content: flex-start;
+  width: 100%;
+  max-width: 1600px;
+  margin: 0 auto;
+  padding: 110px 16px 24px;
+  pointer-events: none;
+}
+.ap-copy__inner {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 30px;
+  pointer-events: auto;
+}
+
+.ap-headline {
+  max-width: 447px;
+  color: #111111;
+  font-size: 22px;
+  font-weight: 500;
+  line-height: 1.2;
+  letter-spacing: -0.02em;
+}
+.ap-headline span {
+  display: inline-block;
+  margin-right: 0.3em;
+  opacity: 0;
+  animation: ap-wordIn 0.4s ease forwards;
+}
+
+.ap-ctawrap {
+  opacity: 0;
+  animation: ap-ctaIn 0.8s cubic-bezier(0.25, 0.46, 0.45, 0.94) 1s forwards;
+}
+
+/* ── the pill ─────────────────────────────────────────────────
+   The white bed stops short of the circle at rest and grows past it on
+   hover while the circle slides back, so the two read as one object closing
+   rather than a button changing colour. */
+.ap-cta {
+  position: relative;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 8px;
+  border-radius: 9999px;
+  overflow: hidden;
+}
+.ap-cta__bed {
+  position: absolute;
+  top: 5px;
+  bottom: 5px;
+  left: 8px;
+  width: calc(100% - 76px);
+  border-radius: 9999px;
+  background: #ffffff;
+  transition: width 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+}
+.ap-cta:hover .ap-cta__bed { width: calc(100% - 16px); }
+.ap-cta__label {
+  position: relative;
+  z-index: 1;
+  padding: 12px 32px;
+  color: #111111;
+  font-size: 16px;
+  font-weight: 500;
+  white-space: nowrap;
+}
+.ap-cta__dot {
+  position: relative;
+  z-index: 1;
+  flex: none;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 48px;
+  height: 48px;
+  border-radius: 50%;
+  background: #75c5de;
+  color: #ffffff;
+  transition: transform 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+}
+.ap-cta:hover .ap-cta__dot { transform: translateX(-7px); }
+
+.ap-cta--sm { gap: 8px; padding: 6px; }
+.ap-cta--sm .ap-cta__bed { width: calc(100% - 60px); }
+.ap-cta--sm:hover .ap-cta__bed { width: calc(100% - 12px); }
+.ap-cta--sm .ap-cta__label { padding: 8px 28px; font-size: 14px; }
+.ap-cta--sm .ap-cta__dot { width: 38px; height: 38px; }
+.ap-cta--sm:hover .ap-cta__dot { transform: translateX(-4px); }
+
+/* ── entrance ─────────────────────────────────────────────────
+   Everything is keyed off the splash: nothing here starts before 1s, which
+   is the moment the panels have cleared the screen. */
+@keyframes ap-imageIn {
+  from { opacity: 0; transform: scale(1.5) rotate(3deg); }
+  to   { opacity: 1; transform: scale(1) rotate(0deg); }
+}
+@keyframes ap-wordIn {
+  from { opacity: 0; transform: translateY(10px); filter: blur(10px); }
+  to   { opacity: 1; transform: translateY(0); filter: blur(0); }
+}
+@keyframes ap-ctaIn {
+  from { opacity: 0; transform: translateY(60px) scale(0.4); }
+  to   { opacity: 1; transform: translateY(0) scale(1); }
+}
+@keyframes ap-wordUp {
+  to { transform: translateY(0); }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .ap-splash { animation: ap-splashOut 0.01s linear forwards; }
+  .ap-splash__row span { animation: none; }
+  .ap-base,
+  .ap-ctawrap,
+  .ap-headline span,
+  .ap-word h2 {
+    animation: none;
+    opacity: 1;
+    transform: none;
+    filter: none;
+  }
+}
+
+/* ── responsive ───────────────────────────────────────────────
+   At 768px the hero locks to one screen: the picture fills it and the copy
+   is lifted out of the flow to sit over the bottom-left of the frame. */
+@media (min-width: 768px) {
+  .ap-logomark { top: 40px; left: 40px; }
+  .ap-burgerwrap { top: 27px; right: 40px; }
+
+  .ap-menu {
+    left: auto;
+    right: 7px;
+    width: 420px;
+    padding: 60px;
+  }
+  .ap-menu.is-open { top: 7px; }
+  .ap-menu__nav button { font-size: 42px; }
+  .ap-menu__email { font-size: 20px; }
+
+  .ap-hero { height: 100svh; min-height: 800px; }
+  .ap-word { bottom: -40px; }
+  .ap-base,
+  .ap-reveal { top: 0; background-position: center; }
+
+  .ap-copy {
+    position: absolute;
+    inset: 0;
+    align-items: flex-end;
+    padding: 160px 40px 100px;
+  }
+  .ap-headline { font-size: 28px; }
+  .ap-cta__label { padding: 16px 40px; font-size: 18px; }
+  .ap-cta__dot { width: 54px; height: 54px; }
+  .ap-cta__bed { width: calc(100% - 82px); }
+}

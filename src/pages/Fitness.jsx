@@ -137,7 +137,7 @@ export default function Fitness() {
           </p>
         </div>
         <a className="link" href={CONTACT.calendly} target="_blank" rel="noreferrer">
-          Book a session <span className="plus">+</span>
+          Book the free session <span className="plus">+</span>
         </a>
       </header>
 

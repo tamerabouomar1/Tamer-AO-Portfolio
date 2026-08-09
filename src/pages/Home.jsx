@@ -1,6 +1,7 @@
 import { motion } from "framer-motion";
 import { Link } from "react-router-dom";
 import Page, { container, cardIn } from "../components/Page";
+import FreeOffers from "../components/FreeOffers";
 import { TrustedBy, Testimonials } from "../components/SocialProof";
 import { TEMPLATES } from "../siteData";
 
@@ -62,7 +63,9 @@ export default function Home() {
             <span className="path__flag">Free teardown</span>
           </span>
           <span className="path__desc">Logos, identities, apparel &amp; print</span>
-          <span className="path__go">See the work <span className="plus">+</span></span>
+          <span className="path__go">
+            See the work <span className="plus">+</span>
+          </span>
         </MotionLink>
         {/* "from $109" was left over from when templates were priced one at a
             time. Every template is free now, so the line was quoting a price
@@ -151,6 +154,16 @@ export default function Home() {
       </motion.section>
 
       <TrustedBy />
+
+      {/* The full set, with the paid step under each one. The card at the top
+          of this page is the hook; this is the detail behind it. */}
+      <FreeOffers
+        title="Everything you can have for"
+        accent="nothing"
+        lede="Pick whichever is useful. The line under each card is what it costs if you ever want the step after it."
+        compact
+      />
+
       <Testimonials />
     </Page>
   );

@@ -39,6 +39,15 @@ export const Icon = {
     </svg>
   ),
   about: <span className="nav-glyph">@</span>,
+  free: (
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round">
+      <rect x="3" y="9" width="18" height="12" rx="2" />
+      <path d="M3 13h18" />
+      <path d="M12 9v12" />
+      <path d="M12 9C10.5 5.8 8.9 4.5 7.3 4.5a2.4 2.4 0 0 0 0 4.5H12Z" />
+      <path d="M12 9c1.5-3.2 3.1-4.5 4.7-4.5a2.4 2.4 0 0 1 0 4.5H12Z" />
+    </svg>
+  ),
   fitness: (
     <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round">
       <path d="M2.5 12.5H7l1.8-5 3 9 2-4H21.5" />

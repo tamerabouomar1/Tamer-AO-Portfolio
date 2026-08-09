@@ -25,6 +25,27 @@
 
 html, body { margin: 0; padding: 0; }
 
+/* ── Instagram in-app browser ────────────────────────────────────────────
+   Most of this site's phone traffic arrives by tapping the bio link, which
+   opens Instagram's own in-app browser rather than Safari or Chrome. Three
+   things it does differently, all handled here:
+
+   1. It reports 100vh as the height WITHOUT its toolbars, so a 100vh shell
+      runs under the bottom bar and the last thing on screen is unreachable.
+      100svh is the small-viewport height, which is the honest number; the
+      100vh line above it stays as the fallback for browsers without svh.
+   2. iOS inflates text in some in-app webviews unless told not to.
+   3. Taps paint a grey flash and carry a 300ms delay without these two. */
+html {
+  -webkit-text-size-adjust: 100%;
+  text-size-adjust: 100%;
+}
+a, button, summary, input, label, [role="button"] {
+  -webkit-tap-highlight-color: transparent;
+  touch-action: manipulation;
+}
+
+
 body {
   background: var(--bg);
   color: var(--text);
@@ -59,44 +80,38 @@ ul { margin: 0; padding: 0; list-style: none; }
    CSS, no download, and it drifts like the clip it replaces. Two slow
    counter-rotating light pools, animated on transform only so it stays
    on the compositor and never costs a repaint. */
+/* What a phone gets instead of the video.
+
+   This was three drifting radial-gradient blobs. Soft glowing blobs behind
+   dark cards are the most recognisable signature of a generated landing page,
+   and they say nothing about whose site this is. It is a photograph of the
+   work instead, heavily darkened so text stays legible, panned slowly so the
+   page is not static. */
 .video-bg__anim {
   position: absolute;
-  inset: -30%;
-  background:
-    radial-gradient(38% 42% at 30% 35%, rgba(74, 139, 238, 0.62), transparent 70%),
-    radial-gradient(34% 38% at 70% 60%, rgba(100, 206, 251, 0.48), transparent 72%),
-    radial-gradient(45% 50% at 50% 80%, rgba(30, 64, 140, 0.5), transparent 75%);
-  filter: blur(22px);
-  animation: bg-drift 14s ease-in-out infinite alternate;
+  inset: -12%;
+  background-image: url("/assets/featured.jpg");
+  background-size: cover;
+  background-position: center 28%;
+  filter: grayscale(0.6) contrast(1.05) brightness(0.5);
+  animation: bg-drift 26s ease-in-out infinite alternate;
   will-change: transform;
 }
-/* A second pool running on its own, slower clock. One layer drifting alone
-   reads as a static smudge no matter how far it travels — two layers moving
-   against each other is what makes the backdrop look alive when the video
-   isn't there. */
 .video-bg__anim::after {
   content: "";
   position: absolute;
-  inset: -10%;
-  background:
-    radial-gradient(30% 34% at 65% 25%, rgba(100, 206, 251, 0.4), transparent 70%),
-    radial-gradient(36% 30% at 25% 70%, rgba(74, 139, 238, 0.34), transparent 72%);
-  animation: bg-counter 19s ease-in-out infinite alternate;
-  will-change: transform, opacity;
+  inset: 0;
+  background: linear-gradient(165deg, rgba(74, 139, 238, 0.42), rgba(7, 10, 18, 0.25) 55%, rgba(20, 40, 96, 0.4));
+  mix-blend-mode: color;
 }
 
 /* the video, once live, covers the animation */
 .video-bg.is-live .video-bg__anim { opacity: 0; transition: opacity 0.9s var(--ease); }
 
+/* A slow pan, not a lava lamp. */
 @keyframes bg-drift {
-  from { transform: translate3d(-7%, -5%, 0) scale(1.05) rotate(0deg); }
-  50%  { transform: translate3d(7%, 4%, 0) scale(1.22) rotate(9deg); }
-  to   { transform: translate3d(-3%, 7%, 0) scale(1.1) rotate(-6deg); }
-}
-@keyframes bg-counter {
-  from { transform: translate3d(6%, 4%, 0) scale(1.1); opacity: 0.55; }
-  50%  { transform: translate3d(-5%, -3%, 0) scale(1.25); opacity: 1; }
-  to   { transform: translate3d(4%, -6%, 0) scale(1.12); opacity: 0.65; }
+  from { transform: translate3d(-2%, -1.5%, 0) scale(1.06); }
+  to   { transform: translate3d(2%, 1.5%, 0) scale(1.1); }
 }
 @media (prefers-reduced-motion: reduce) {
   .video-bg__anim { animation: none; }
@@ -142,6 +157,7 @@ ul { margin: 0; padding: 0; list-style: none; }
   display: grid;
   grid-template-columns: var(--sidebar-w) 1fr;
   min-height: 100vh;
+  min-height: 100svh;   /* see the in-app browser note at the top */
 }
 
 /* ---------------------------------------------------------- */
@@ -152,6 +168,7 @@ ul { margin: 0; padding: 0; list-style: none; }
   top: 0;
   align-self: start;
   height: 100vh;
+  height: 100svh;
   display: flex;
   flex-direction: column;
   align-items: center;        /* centre profile, nav block & socials */
@@ -184,11 +201,20 @@ ul { margin: 0; padding: 0; list-style: none; }
 .avatar img { width: 100%; height: 100%; object-fit: cover; }
 
 .sidebar__id { display: flex; flex-direction: column; align-items: center; gap: 7px; min-width: 0; }
+/* Gradient text (ShinyText) is painted inside its own line box via
+   background-clip: text, so a tight line-height crops the glyphs themselves
+   rather than merely overflowing them. Anything wearing .shiny-text needs
+   room under the baseline for the tails of g, y and p. */
+.shiny-text {
+  line-height: 1.14;
+  padding-bottom: 0.06em;
+}
+
 .sidebar__name {
   font-size: clamp(22px, 1.7vw, 30px);
   font-weight: 700;
   letter-spacing: 0.4px;
-  line-height: 1;
+  line-height: 1.15;
 }
 .sidebar__tagline {
   font-size: clamp(11px, 0.82vw, 13px);
@@ -206,7 +232,10 @@ ul { margin: 0; padding: 0; list-style: none; }
 }
 .nav-item {
   display: grid;
-  grid-template-columns: 24px 1fr;   /* uniform icon column + label */
+  /* uniform icon column + label + an optional badge column. The third track
+     is `auto`, so it collapses to nothing on the items that have no flag and
+     every label still starts on the same vertical line. */
+  grid-template-columns: 24px 1fr auto;
   align-items: center;
   column-gap: 14px;
   width: 100%;
@@ -238,6 +267,7 @@ ul { margin: 0; padding: 0; list-style: none; }
   min-width: 0;
   position: relative;
 }
+.nav-item.is-active { color: var(--shiny); }
 .nav-item.is-active .nav-label { font-weight: 800; }
 .nav-item.is-active .nav-label::after {
   content: "";
@@ -291,7 +321,7 @@ ul { margin: 0; padding: 0; list-style: none; }
   margin-bottom: clamp(24px, 3vw, 48px);
   flex-wrap: wrap;
 }
-.topbar__title { font-size: clamp(26px, 2.9vw, 44px); font-weight: 700; line-height: 1.02; }
+.topbar__title { font-size: clamp(26px, 2.9vw, 44px); font-weight: 700; line-height: 1.18; }
 .topbar__sub { margin-top: 6px; font-size: clamp(15px, 1.6vw, 27px); font-weight: 400; color: var(--muted); }
 
 /* blue links with + */
@@ -314,9 +344,9 @@ ul { margin: 0; padding: 0; list-style: none; }
 /* ---------------------------------------------------------- */
 .card {
   position: relative;
-  background: var(--card);
-  backdrop-filter: blur(14px) saturate(1.1);
-  -webkit-backdrop-filter: blur(14px) saturate(1.1);
+  /* Solid, not frosted. Blur on every card is the shared signature of
+     generated pages, and it repaints on every scroll frame. */
+  background: var(--card-solid);
   border: 1px solid var(--line);
   border-radius: var(--radius);
   transition: transform 0.45s var(--ease), border-color 0.45s var(--ease),
@@ -350,7 +380,7 @@ ul { margin: 0; padding: 0; list-style: none; }
 }
 .stat--center { align-items: center; justify-content: center; text-align: center; }
 .stat-line { justify-content: center; }
-.stat-num { font-size: clamp(38px, 4.5vw, 70px); font-weight: 700; line-height: 0.95; }
+.stat-num { font-size: clamp(38px, 4.5vw, 70px); font-weight: 700; line-height: 1.2; }
 .stat-line { display: flex; align-items: baseline; gap: 8px; }
 .stat-unit { font-size: clamp(15px, 1.3vw, 22px); font-weight: 700; }
 .stat-label { font-size: clamp(13px, 1vw, 20px); font-weight: 300; color: var(--muted); }
@@ -559,7 +589,7 @@ ul { margin: 0; padding: 0; list-style: none; }
 .lb-doc {
   font-size: 13px; font-weight: 600;
   padding: 7px 14px;
-  border-radius: 999px;
+  border-radius: 8px;
   background: rgba(255, 255, 255, 0.05);
   border: 1px solid rgba(255, 255, 255, 0.16);
   color: var(--faint);
@@ -627,7 +657,7 @@ ul { margin: 0; padding: 0; list-style: none; }
 /* Instagram highlight on the Media page */
 .media-ig { display: flex; flex-wrap: wrap; align-items: center; gap: clamp(20px, 3vw, 48px); }
 .media-ig__big { flex: none; text-align: center; }
-.media-ig__big .stat-num { color: var(--shiny); font-size: clamp(40px, 5vw, 68px); font-weight: 700; line-height: 1; }
+.media-ig__big .stat-num { color: var(--shiny); font-size: clamp(40px, 5vw, 68px); font-weight: 700; line-height: 1.2; }
 .media-ig__big .stat-label { font-size: clamp(13px, 1vw, 16px); }
 .media-ig__copy { flex: 1; min-width: 240px; }
 
@@ -678,7 +708,7 @@ ul { margin: 0; padding: 0; list-style: none; }
   left: 12px; bottom: 12px;
   font-size: 12px; font-weight: 600;
   padding: 6px 12px;
-  border-radius: 999px;
+  border-radius: 8px;
   background: rgba(0, 0, 0, 0.6);
   border: 1px solid rgba(255, 255, 255, 0.25);
   backdrop-filter: blur(4px);
@@ -733,6 +763,22 @@ ul { margin: 0; padding: 0; list-style: none; }
 }
 .reel-card__frame video { width: 100%; height: 100%; object-fit: cover; display: block; }
 .reel-card__body { padding: clamp(14px, 1.4vw, 20px); }
+.reel-card__head { display: flex; align-items: baseline; gap: 10px; flex-wrap: wrap; }
+.reel-card__head .web-card__title { margin-bottom: 0; }
+/* Reads as a live signal rather than another statistic, so it is the one
+   filled chip on the card instead of an outlined one. */
+.reel-fresh {
+  flex: none;
+  padding: 3px 9px;
+  border-radius: 8px;
+  background: var(--shiny);
+  color: #06131c;
+  font-size: clamp(10px, 0.75vw, 12px);
+  font-weight: 700;
+  letter-spacing: 0.02em;
+  text-transform: uppercase;
+  white-space: nowrap;
+}
 .reel-stats {
   display: flex;
   flex-wrap: wrap;
@@ -747,7 +793,7 @@ ul { margin: 0; padding: 0; list-style: none; }
   gap: 6px;
   padding: 5px 10px;
   border: 1px solid var(--line);
-  border-radius: 999px;
+  border-radius: 8px;
   font-size: clamp(12px, 0.9vw, 14px);
   font-weight: 300;
   color: var(--muted);
@@ -847,7 +893,7 @@ ul { margin: 0; padding: 0; list-style: none; }
 }
 .about-badges { display: grid; grid-template-columns: 1fr 1fr; gap: var(--gap); }
 .badge { padding: clamp(18px, 1.8vw, 30px); display: flex; flex-direction: column; gap: 6px; min-height: 120px; justify-content: center; }
-.badge__big { font-size: clamp(26px, 2.6vw, 40px); font-weight: 800; line-height: 1; }
+.badge__big { font-size: clamp(26px, 2.6vw, 40px); font-weight: 800; line-height: 1.12; }
 .badge__big--gold { color: #e9c46a; }
 .badge__label { font-size: clamp(13px, 1vw, 16px); color: var(--muted); font-weight: 300; }
 .about-bio { display: flex; flex-direction: column; gap: clamp(14px, 1.6vw, 22px); }
@@ -1036,8 +1082,10 @@ ul { margin: 0; padding: 0; list-style: none; }
 .price-card__badge {
   align-self: flex-start;
   font-size: 11px; font-weight: 700; letter-spacing: 0.06em; text-transform: uppercase;
-  padding: 5px 11px; border-radius: 999px;
-  background: var(--shiny); color: #07121f;
+  padding: 5px 11px; border-radius: 8px;
+  background: transparent;
+  color: var(--shiny);
+  border: 1px solid rgba(100, 206, 251, 0.45);
 }
 .price-card__badge--ghost { visibility: hidden; }
 .price-card__head { display: flex; flex-direction: column; gap: 4px; }
@@ -1053,7 +1101,7 @@ ul { margin: 0; padding: 0; list-style: none; }
   padding-bottom: clamp(12px, 1.4vw, 18px);
   border-bottom: 1px solid var(--line);
 }
-.price-card__amount { font-size: clamp(34px, 3.4vw, 48px); font-weight: 800; line-height: 1; }
+.price-card__amount { font-size: clamp(34px, 3.4vw, 48px); font-weight: 800; line-height: 1.25; }
 .price-card__period { font-size: clamp(13px, 1.05vw, 16px); color: var(--faint); font-weight: 400; }
 .price-card__was {
   font-size: clamp(17px, 1.6vw, 23px); font-weight: 500; line-height: 1;
@@ -1074,32 +1122,19 @@ ul { margin: 0; padding: 0; list-style: none; }
 
 /* free-bonus feature: gift tick + subtle highlight */
 .price-card__bonus { color: var(--text) !important; font-weight: 500 !important; }
-.price-card__features .tick--gift {
-  background: var(--shiny);
-}
-.price-card__features .tick--gift::after {
-  left: 5px; top: 5px; width: 8px; height: 8px;
-  border: none; border-radius: 1px;
-  background:
-    linear-gradient(#07121f, #07121f) 3.5px 0 / 1px 8px no-repeat,
-    linear-gradient(#07121f, #07121f) 0 3.5px / 8px 1px no-repeat;
-  transform: none;
-}
+/* The bonus line is marked by a wider rule, not a gift icon. */
+.price-card__features .tick--gift { width: 22px; background: var(--shiny); }
 .price-card__features { display: flex; flex-direction: column; gap: 11px; flex: 1; }
 .price-card__features li {
   display: flex; align-items: flex-start; gap: 11px;
   font-size: clamp(13px, 1.02vw, 16px); line-height: 1.4; color: var(--muted); font-weight: 300;
 }
 .price-card__features .tick {
-  flex: none; width: 18px; height: 18px; margin-top: 1px; border-radius: 50%;
-  background: rgba(100, 206, 251, 0.14);
-  position: relative;
-}
-.price-card__features .tick::after {
-  content: ""; position: absolute; left: 6px; top: 3.5px;
-  width: 4px; height: 8px;
-  border: solid var(--shiny); border-width: 0 2px 2px 0;
-  transform: rotate(45deg);
+  width: 14px;
+  height: 1px;
+  flex: none;
+  margin-top: 0.62em;
+  background: var(--shiny);
 }
 
 /* per-card risk reversal, sat just above the call to action where the
@@ -1118,7 +1153,7 @@ ul { margin: 0; padding: 0; list-style: none; }
 .btn-book {
   display: inline-flex; align-items: center; justify-content: center;
   text-align: center;
-  padding: 12px 20px; border-radius: 999px;
+  padding: 12px 20px; border-radius: 8px;
   font-size: clamp(14px, 1.05vw, 16px); font-weight: 600;
   background: rgba(255, 255, 255, 0.05);
   border: 1px solid rgba(100, 206, 251, 0.4);
@@ -1127,7 +1162,7 @@ ul { margin: 0; padding: 0; list-style: none; }
 }
 .btn-book:hover { transform: translateY(-2px); background: rgba(100, 206, 251, 0.14); }
 .price-card--featured .btn-book { background: var(--shiny); border-color: var(--shiny); color: #07121f; }
-.price-card--featured .btn-book:hover { box-shadow: 0 12px 30px rgba(100, 206, 251, 0.35); }
+.price-card--featured .btn-book:hover { box-shadow: 0 12px 30px rgba(0, 0, 0, 0.45); }
 .price-note {
   margin-top: clamp(12px, 1.4vw, 18px);
   font-size: clamp(12px, 0.95vw, 14px); color: var(--faint); font-weight: 300; line-height: 1.5;
@@ -1148,7 +1183,7 @@ ul { margin: 0; padding: 0; list-style: none; }
 .work-cat__desc { font-size: clamp(13px, 1.02vw, 16px); color: var(--muted); font-weight: 300; line-height: 1.55; }
 .chip-row { display: flex; flex-wrap: wrap; gap: 10px; }
 .chip {
-  padding: 8px 15px; border-radius: 999px;
+  padding: 8px 15px; border-radius: 8px;
   font-size: clamp(12px, 0.98vw, 15px); font-weight: 400; color: var(--muted);
   background: rgba(255, 255, 255, 0.04);
   border: 1px solid var(--line);
@@ -1304,8 +1339,11 @@ ul { margin: 0; padding: 0; list-style: none; }
   margin-bottom: var(--gap);
 }
 .path {
+  position: relative; /* anchors .path__flag in the top-right corner */
   display: flex; flex-direction: column; gap: 6px;
   padding: clamp(18px, 1.9vw, 26px);
+  /* room for the corner badge so a long label never runs under it */
+  padding-top: clamp(40px, 3.4vw, 52px);
   border-color: rgba(100, 206, 251, 0.22);
   transition: transform 0.3s var(--ease), border-color 0.3s var(--ease), background 0.3s var(--ease);
 }
@@ -1338,7 +1376,7 @@ ul { margin: 0; padding: 0; list-style: none; }
   list-style: none;
 }
 .trusted__item {
-  padding: 9px 16px; border-radius: 999px;
+  padding: 9px 16px; border-radius: 8px;
   font-size: clamp(12.5px, 1vw, 15px); font-weight: 600;
   color: var(--muted);
   background: rgba(255, 255, 255, 0.04);
@@ -1426,7 +1464,7 @@ ul { margin: 0; padding: 0; list-style: none; }
   box-shadow: 0 -18px 50px rgba(0, 0, 0, 0.6);
 }
 .tabsheet__grip {
-  width: 38px; height: 4px; border-radius: 999px;
+  width: 38px; height: 4px; border-radius: 8px;
   background: rgba(255, 255, 255, 0.22);
   margin: 0 auto 8px;
 }
@@ -1607,7 +1645,7 @@ ul { margin: 0; padding: 0; list-style: none; }
   z-index: 3;
   font-size: 12px; font-weight: 600;
   padding: 6px 12px;
-  border-radius: 999px;
+  border-radius: 8px;
   background: rgba(0, 0, 0, 0.65);
   border: 1px solid rgba(255, 255, 255, 0.25);
   color: #fff;
@@ -1630,7 +1668,7 @@ ul { margin: 0; padding: 0; list-style: none; }
 .tpl-card__kicker { font-weight: 300; color: var(--muted); }
 .tpl-card__price { text-align: right; flex: none; }
 .tpl-card__from { display: block; font-size: 11px; text-transform: uppercase; letter-spacing: 0.08em; color: var(--faint); }
-.tpl-card__amount { font-size: clamp(24px, 2.2vw, 32px); font-weight: 800; line-height: 1; }
+.tpl-card__amount { font-size: clamp(24px, 2.2vw, 32px); font-weight: 800; line-height: 1.12; }
 
 .tpl-card__feats { display: grid; grid-template-columns: 1fr 1fr; gap: 8px 14px; }
 .tpl-card__feats li {
@@ -1638,14 +1676,8 @@ ul { margin: 0; padding: 0; list-style: none; }
   font-size: clamp(12px, 0.95vw, 14px); line-height: 1.35; color: var(--muted); font-weight: 300;
 }
 .tpl-card__feats .tick, .buy__features .tick {
-  flex: none; width: 16px; height: 16px; margin-top: 1px; border-radius: 50%;
-  background: rgba(100, 206, 251, 0.14); position: relative;
-}
-.tpl-card__feats .tick::after {
-  content: ""; position: absolute; left: 5px; top: 3px;
-  width: 4px; height: 7px;
-  border: solid var(--shiny); border-width: 0 2px 2px 0;
-  transform: rotate(45deg);
+  flex: none; width: 12px; height: 1px; margin-top: 0.6em;
+  background: var(--shiny);
 }
 
 .tpl-card__meta { font-size: 12px; color: var(--faint); font-weight: 300; line-height: 1.5; }
@@ -1654,7 +1686,7 @@ ul { margin: 0; padding: 0; list-style: none; }
 .tpl-card__actions { display: flex; gap: 10px; margin-top: auto; padding-top: 4px; flex-wrap: wrap; }
 .tpl-card__actions .btn-book { flex: 1 1 140px; cursor: pointer; font-family: inherit; }
 .tpl-card__buy { background: var(--shiny); border-color: var(--shiny); color: #07121f; }
-.tpl-card__buy:hover { box-shadow: 0 12px 30px rgba(100, 206, 251, 0.35); background: var(--shiny); }
+.tpl-card__buy:hover { box-shadow: 0 12px 30px rgba(0, 0, 0, 0.45); background: var(--shiny); }
 
 /* ---------------------------------------------------------- */
 /*  Zero-weight card mockups                                   */
@@ -1669,10 +1701,10 @@ ul { margin: 0; padding: 0; list-style: none; }
 }
 .mk-line {
   display: block; height: 0.5em; width: 46%;
-  border-radius: 999px; background: currentColor; opacity: 0.28;
+  border-radius: 8px; background: currentColor; opacity: 0.28;
 }
 .mk-line--short { width: 30%; margin-top: 0.45em; }
-.mk-pill { display: inline-block; height: 1.7em; width: 5.2em; border-radius: 999px; }
+.mk-pill { display: inline-block; height: 1.7em; width: 5.2em; border-radius: 8px; }
 .mk-pill--grad { background: linear-gradient(123deg, #18011f 7%, #b600a8 37%, #7621b0 72%, #be4c00 100%); }
 .mk-pill--white { background: #fff; }
 .mk-pill--ghost { background: rgba(255, 255, 255, 0.14); border: 1px solid rgba(255, 255, 255, 0.4); }
@@ -1683,7 +1715,7 @@ ul { margin: 0; padding: 0; list-style: none; }
   border: 1.5px solid currentColor; opacity: 0.9;
 }
 .mk-nav { display: flex; justify-content: space-between; }
-.mk-nav i { display: block; height: 0.5em; width: 3.4em; border-radius: 999px; background: currentColor; opacity: 0.4; }
+.mk-nav i { display: block; height: 0.5em; width: 3.4em; border-radius: 8px; background: currentColor; opacity: 0.4; }
 
 /* Jack */
 .mk--jack { color: #d7e2ea; }
@@ -1809,8 +1841,10 @@ ul { margin: 0; padding: 0; list-style: none; }
 .buy-tier__badge {
   position: absolute; top: -9px; right: 10px;
   font-size: 10px; font-weight: 700; letter-spacing: 0.05em; text-transform: uppercase;
-  padding: 3px 9px; border-radius: 999px;
-  background: var(--shiny); color: #07121f;
+  padding: 3px 9px; border-radius: 8px;
+  background: transparent;
+  color: var(--shiny);
+  border: 1px solid rgba(100, 206, 251, 0.45);
 }
 .buy-tier__name { font-size: 15px; font-weight: 700; }
 .buy-tier__tagline { font-size: 12px; color: var(--muted); font-weight: 300; line-height: 1.35; }
@@ -1819,7 +1853,7 @@ ul { margin: 0; padding: 0; list-style: none; }
 .buy__features { gap: 9px; }
 .buy__actions { display: flex; flex-wrap: wrap; gap: 10px; }
 .buy-go { flex: 1 1 220px; background: var(--shiny); border-color: var(--shiny); color: #07121f; }
-.buy-go:hover { background: var(--shiny); box-shadow: 0 12px 30px rgba(100, 206, 251, 0.35); }
+.buy-go:hover { background: var(--shiny); box-shadow: 0 12px 30px rgba(0, 0, 0, 0.45); }
 .buy-alt { flex: 0 1 auto; }
 .buy__note { margin-top: 0; }
 
@@ -1884,7 +1918,7 @@ ul { margin: 0; padding: 0; list-style: none; }
   transform: translateX(-50%);
   display: flex; align-items: center; gap: 10px;
   padding: 8px 8px 8px 16px;
-  border-radius: 999px;
+  border-radius: 8px;
   background: rgba(10, 10, 12, 0.82);
   border: 1px solid rgba(255, 255, 255, 0.18);
   backdrop-filter: blur(14px) saturate(1.2);
@@ -1911,12 +1945,12 @@ ul { margin: 0; padding: 0; list-style: none; }
 
 .tplview__buy {
   border: none; cursor: pointer; font-family: inherit;
-  padding: 10px 20px; border-radius: 999px;
+  padding: 10px 20px; border-radius: 8px;
   font-size: 14px; font-weight: 700; white-space: nowrap;
   background: var(--shiny); color: #07121f;
   transition: box-shadow 0.3s var(--ease), transform 0.3s var(--ease);
 }
-.tplview__buy:hover { transform: translateY(-1px); box-shadow: 0 12px 30px rgba(100, 206, 251, 0.4); }
+.tplview__buy:hover { transform: translateY(-1px); box-shadow: 0 12px 30px rgba(0, 0, 0, 0.45); }
 
 .tplview__hide {
   width: 30px; height: 30px; flex: none;
@@ -1931,7 +1965,7 @@ ul { margin: 0; padding: 0; list-style: none; }
   position: fixed; z-index: 90;
   left: 50%; bottom: max(16px, env(safe-area-inset-bottom));
   transform: translateX(-50%);
-  padding: 8px 18px; border-radius: 999px; cursor: pointer;
+  padding: 8px 18px; border-radius: 8px; cursor: pointer;
   font-family: "Inter", system-ui, sans-serif; font-size: 12px; font-weight: 600;
   background: rgba(10, 10, 12, 0.7); border: 1px solid rgba(255, 255, 255, 0.18);
   color: rgba(255, 255, 255, 0.8);
@@ -1951,6 +1985,8 @@ ul { margin: 0; padding: 0; list-style: none; }
    it carries a small flag and a warmer border to pull the eye first. */
 .path--store { border-color: rgba(100, 206, 251, 0.45); }
 .path--store:hover { border-color: var(--shiny); }
+/* Top-right corner badge. It used to sit in .path__go beside the link, where
+   it ate the width the CTA needed and broke "See the work" over two lines. */
 .path__flag {
   margin-left: auto;
   flex: none;
@@ -2006,8 +2042,10 @@ ul { margin: 0; padding: 0; list-style: none; }
 .storehead__flag {
   display: inline-block;
   font-size: 10px; font-weight: 700; letter-spacing: 0.1em; text-transform: uppercase;
-  padding: 5px 11px; border-radius: 999px;
-  background: var(--shiny); color: #07121f;
+  padding: 5px 11px; border-radius: 8px;
+  background: transparent;
+  color: var(--shiny);
+  border: 1px solid rgba(100, 206, 251, 0.45);
 }
 .storehead__title {
   font-size: clamp(26px, 3.2vw, 46px);
@@ -2179,4 +2217,372 @@ ul { margin: 0; padding: 0; list-style: none; }
     background: var(--accent);
     opacity: 0.55;
   }
+}
+
+/* ---------------------------------------------------------- */
+/*  The free offers                                            */
+/*  Stage 0 of the site: every service line has a way in that   */
+/*  costs nothing. Same glass cards as everything else, with    */
+/*  the accent doing the work of saying "this one is free".     */
+/* ---------------------------------------------------------- */
+
+/* Homepage / fitness banner. A single wide card, first thing on the page. */
+.homefree,
+.fitfree {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 10px;
+  padding: clamp(20px, 2.4vw, 34px);
+  margin-bottom: var(--gap);
+  border-color: rgba(100, 206, 251, 0.34);
+  background:
+    linear-gradient(120deg, rgba(100, 206, 251, 0.12), rgba(74, 139, 238, 0.05) 60%, transparent),
+    var(--card);
+  transition: transform 0.3s var(--ease), border-color 0.3s var(--ease);
+}
+.homefree:hover,
+.fitfree:hover {
+  transform: translateY(-3px);
+  border-color: rgba(100, 206, 251, 0.62);
+}
+.homefree__flag {
+  font-size: 10px; font-weight: 700; letter-spacing: 0.1em; text-transform: uppercase;
+  padding: 5px 11px; border-radius: 8px;
+  background: transparent;
+  color: var(--shiny);
+  border: 1px solid rgba(100, 206, 251, 0.45);
+}
+.homefree__title {
+  font-size: clamp(20px, 2.5vw, 34px);
+  font-weight: 700;
+  line-height: 1.12;
+  letter-spacing: -0.015em;
+}
+.homefree__body {
+  font-size: clamp(13px, 1.05vw, 16px);
+  font-weight: 300;
+  line-height: 1.6;
+  color: var(--muted);
+  max-width: 62ch;
+}
+.homefree__go {
+  margin-top: 4px;
+  font-size: clamp(12.5px, 1vw, 14px);
+  font-weight: 600;
+  color: var(--shiny);
+  display: flex; align-items: center; gap: 6px;
+}
+
+/* The grid of offer cards. 232px is chosen so all four sit on one row at
+   desktop width rather than leaving the fourth stranded alone underneath —
+   the set reads as "four ways in" only when you can see four. */
+.free-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(232px, 1fr));
+  gap: var(--gap);
+}
+.freecard {
+  display: flex;
+  flex-direction: column;
+  gap: 9px;
+  padding: clamp(18px, 1.9vw, 26px);
+  border-color: rgba(100, 206, 251, 0.2);
+  transition: transform 0.3s var(--ease), border-color 0.3s var(--ease), background 0.3s var(--ease);
+}
+.freecard:hover {
+  transform: translateY(-3px);
+  border-color: rgba(100, 206, 251, 0.48);
+  background: var(--card-hover);
+}
+.freecard__head {
+  display: flex; align-items: center; justify-content: space-between; gap: 10px;
+}
+.freecard__kicker {
+  font-size: 10px; font-weight: 700; letter-spacing: 0.09em; text-transform: uppercase;
+  color: var(--faint);
+}
+.freecard__free {
+  font-size: 11px; font-weight: 800; letter-spacing: 0.06em; text-transform: uppercase;
+  padding: 3px 9px; border-radius: 8px;
+  background: transparent;
+  color: var(--shiny);
+  border: 1px solid rgba(100, 206, 251, 0.45);
+}
+.freecard__name {
+  font-size: clamp(16px, 1.5vw, 22px);
+  font-weight: 700;
+  line-height: 1.15;
+  color: var(--shiny);
+}
+.freecard__blurb { font-size: clamp(12.5px, 1vw, 15px); }
+.freecard__meta {
+  display: flex; flex-wrap: wrap; gap: 6px;
+  margin-top: 2px;
+}
+.freecard__meta li {
+  font-size: 11px; font-weight: 500;
+  padding: 4px 9px; border-radius: 8px;
+  border: 1px solid var(--line);
+  color: var(--muted);
+}
+.freecard__go { margin-top: auto; }
+/* The paid step, stated under the free one rather than saved for later. */
+.freecard__paid {
+  margin-top: 2px;
+  padding-top: 11px;
+  border-top: 1px solid var(--line);
+  font-size: 12px;
+  font-weight: 300;
+  line-height: 1.55;
+  color: var(--faint);
+}
+.freecard__paid-label {
+  display: block;
+  font-weight: 600;
+  color: var(--muted);
+  margin-bottom: 2px;
+}
+
+/* The free page's opening card. */
+.freehero {
+  padding: clamp(24px, 3vw, 46px);
+  margin-bottom: var(--gap);
+  border-color: rgba(100, 206, 251, 0.3);
+  background:
+    linear-gradient(125deg, rgba(100, 206, 251, 0.13), rgba(74, 139, 238, 0.05) 58%, transparent),
+    var(--card);
+}
+.freehero__title {
+  font-size: clamp(24px, 3.1vw, 44px);
+  font-weight: 700;
+  line-height: 1.1;
+  letter-spacing: -0.018em;
+}
+.freehero__body {
+  margin: 14px 0 20px;
+  max-width: 66ch;
+  font-size: clamp(13.5px, 1.1vw, 17px);
+}
+.freehero__acts { display: flex; flex-wrap: wrap; gap: 10px; }
+
+/* Free → paid, one card per line of work. */
+.ladder-grid {
+  display: grid;
+  /* matches .free-grid so the four rungs line up under the four offers */
+  grid-template-columns: repeat(auto-fit, minmax(232px, 1fr));
+  gap: var(--gap);
+}
+.ladder {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  padding: clamp(18px, 1.9vw, 26px);
+}
+.ladder__rung { display: flex; flex-direction: column; gap: 3px; }
+.ladder__free {
+  align-self: flex-start;
+  font-size: 10px; font-weight: 800; letter-spacing: 0.06em; text-transform: uppercase;
+  padding: 3px 9px; border-radius: 8px;
+  background: transparent;
+  color: var(--shiny);
+  border: 1px solid rgba(100, 206, 251, 0.45);
+}
+.ladder__what { font-size: clamp(15px, 1.35vw, 19px); font-weight: 700; color: var(--text); }
+.ladder__arrow { color: var(--faint); font-size: 16px; line-height: 1.3; }
+.ladder__rung--paid {
+  padding-top: 10px;
+  border-top: 1px solid var(--line);
+}
+.ladder__label { font-size: 12.5px; font-weight: 600; color: var(--muted); line-height: 1.45; }
+.ladder__detail { font-size: 12.5px; font-weight: 300; color: var(--faint); line-height: 1.5; }
+
+/* The free tier inside an otherwise paid price grid. */
+.price-card--free { border-color: rgba(100, 206, 251, 0.4); }
+.price-card__badge--free { background: var(--shiny); color: #07121f; }
+
+/* Sidebar tag on the free page's nav item. */
+.nav-flag {
+  margin-left: auto;
+  font-size: 9.5px; font-weight: 800; letter-spacing: 0.08em; text-transform: uppercase;
+  padding: 3px 8px; border-radius: 8px;
+  background: transparent;
+  color: var(--shiny);
+  border: 1px solid rgba(100, 206, 251, 0.45);
+}
+
+/* The two Stage 0 questions. */
+.feedback { padding: clamp(20px, 2.2vw, 32px); }
+.feedback .card-body { margin: 8px 0 18px; max-width: 68ch; }
+.feedback__form { display: flex; flex-direction: column; gap: 12px; }
+.feedback__form textarea,
+.feedback__form input { width: 100%; }
+
+/* The claim modal reuses .buy wholesale. Its textarea is the one thing .buy
+   never had, so it gets the same treatment the inputs beside it already have
+   rather than falling back to the browser default. */
+.claim .buy__field textarea {
+  width: 100%;
+  resize: vertical;
+  padding: 11px 13px;
+  border-radius: 10px;
+  border: 1px solid var(--line);
+  background: rgba(255, 255, 255, 0.04);
+  color: #fff;
+  font: inherit;
+  font-size: 15px;
+  font-weight: 300;
+  line-height: 1.5;
+}
+.claim .buy__field textarea::placeholder { color: rgba(255, 255, 255, 0.32); }
+.claim .buy__field textarea:focus-visible {
+  outline: none;
+  border-color: var(--shiny);
+  box-shadow: 0 0 0 3px rgba(100, 206, 251, 0.18);
+}
+.claim .buy__grab { display: flex; flex-direction: column; gap: 12px; }
+.claim__done { padding: 4px 0 8px; display: flex; flex-direction: column; gap: 10px; }
+
+@media (max-width: 760px) {
+  .homefree__title, .fitfree .homefree__title { font-size: clamp(19px, 5.4vw, 26px); }
+  .freehero__title { font-size: clamp(22px, 6vw, 30px); }
+  .freehero__acts .btn-book { flex: 1 1 100%; text-align: center; }
+}
+
+/* ============================================================================
+   INTERACTIVE CARDS
+   One hover motion, shared by every box you can actually click, in the spirit
+   of the growth.design case-study grid: the card lifts, its artwork scales and
+   warms up, the edge lights, and a label that was hidden slides in. All four
+   run on the same clock so the card reads as one object moving, not four
+   properties animating.
+
+   Only genuinely clickable boxes are listed here. The generic `.card:hover`
+   lift above applies to containers too, which blunts the signal; these
+   selectors are the ones a click actually does something on, so they move
+   further and light up. Everything is gated on a fine pointer, because on a
+   touch screen :hover latches after a tap and the card would stay lit.
+   ============================================================================ */
+
+:root {
+  --hover-t: 0.42s;                    /* one duration for the whole gesture */
+  --hover-lift: -8px;
+}
+
+@media (hover: hover) and (pointer: fine) {
+  .proj-card,
+  .web-card,
+  .post-card,
+  .featured,
+  .homefree,
+  .fitfree,
+  .tpl-card,
+  .reel-card {
+    transition:
+      transform var(--hover-t) var(--ease),
+      border-color var(--hover-t) var(--ease),
+      box-shadow var(--hover-t) var(--ease),
+      background var(--hover-t) var(--ease);
+  }
+
+  /* the artwork inside, whichever wrapper it lives in */
+  .proj-card__media img,
+  .web-card__shot img,
+  .post-card img,
+  .featured-img img,
+  .tpl-card__shot img,
+  .reel-card__frame img {
+    transition: transform var(--hover-t) var(--ease), filter var(--hover-t) var(--ease);
+    will-change: transform;
+  }
+
+  .proj-card:hover,
+  .web-card:hover,
+  .post-card:hover,
+  .featured:hover,
+  .homefree:hover,
+  .fitfree:hover,
+  .tpl-card:hover,
+  .reel-card:hover,
+  .proj-card:focus-visible,
+  .web-card:focus-visible,
+  .post-card:focus-visible,
+  .featured:focus-visible {
+    transform: translateY(var(--hover-lift));
+    border-color: rgba(100, 206, 251, 0.55);
+    box-shadow:
+      0 26px 60px rgba(0, 0, 0, 0.55),
+      0 0 0 1px rgba(100, 206, 251, 0.35),
+      0 0 34px -8px rgba(100, 206, 251, 0.4);
+  }
+
+  .proj-card:hover .proj-card__media img,
+  .web-card:hover .web-card__shot img,
+  .post-card:hover img,
+  .featured:hover .featured-img img,
+  .tpl-card:hover .tpl-card__shot img,
+  .reel-card:hover .reel-card__frame img {
+    transform: scale(1.06);
+    filter: saturate(1.12);
+  }
+
+  /* The revealed label. It is a pseudo-element rather than markup so no card
+     has to change shape to carry it, and each card names its own verb through
+     --cta. Cards that already reveal something of their own on hover (the
+     project tiles have their ⤢ badge, the template cards their buttons) are
+     left alone: two things appearing in the same corner is noise. */
+  .web-card,
+  .post-card {
+    --cta: "Open";
+  }
+  .web-card::after,
+  .post-card::after {
+    content: var(--cta);
+    position: absolute;
+    right: 14px;
+    bottom: 14px;
+    z-index: 4;
+    padding: 7px 14px;
+    border-radius: 8px;
+    background: var(--shiny);
+    color: #06121a;
+    font-size: 12px;
+    font-weight: 800;
+    letter-spacing: 0.3px;
+    opacity: 0;
+    transform: translateY(10px);
+    pointer-events: none;
+    transition: opacity var(--hover-t) var(--ease), transform var(--hover-t) var(--ease);
+  }
+  .web-card:hover::after,
+  .post-card:hover::after,
+  .web-card:focus-visible::after,
+  .post-card:focus-visible::after {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* Movement is the whole point of the effect, so when it is unwelcome the
+   colour and the edge still answer the pointer and nothing slides. */
+@media (prefers-reduced-motion: reduce) {
+  .proj-card, .web-card, .post-card, .featured, .homefree, .fitfree, .tpl-card, .reel-card,
+  .proj-card__media img, .web-card__shot img, .post-card img, .featured-img img,
+  .tpl-card__shot img, .reel-card__frame img,
+  .web-card::after, .post-card::after {
+    transition-property: border-color, box-shadow, opacity, filter;
+  }
+  .proj-card:hover, .web-card:hover, .post-card:hover, .featured:hover,
+  .homefree:hover, .fitfree:hover, .tpl-card:hover, .reel-card:hover {
+    transform: none;
+  }
+  .proj-card:hover .proj-card__media img,
+  .web-card:hover .web-card__shot img,
+  .post-card:hover img,
+  .featured:hover .featured-img img,
+  .tpl-card:hover .tpl-card__shot img,
+  .reel-card:hover .reel-card__frame img {
+    transform: none;
+  }
+  .web-card:hover::after, .post-card:hover::after { transform: none; }
 }

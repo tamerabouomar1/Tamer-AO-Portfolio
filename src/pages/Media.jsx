@@ -22,6 +22,23 @@ const compact = (n) => {
   return `${n}`;
 };
 
+/* How old a post is, but only while "recent" is still the point.
+ *
+ * A big number with no date behind it reads as history. On a post that is days
+ * old the same number reads as a rate, which is the more useful claim: 23K in
+ * two days beats 30K in four months. Past a month that framing stops being
+ * true, so this returns null and the card simply drops the chip — no stale
+ * "posted 7 months ago" left sitting on the page. */
+const freshness = (iso) => {
+  if (!iso) return null;
+  const days = Math.floor((Date.now() - new Date(`${iso}T12:00:00Z`)) / 86_400_000);
+  if (days < 0 || days > 30) return null;
+  if (days <= 1) return "New";
+  if (days < 7) return `${days} days old`;
+  const weeks = Math.floor(days / 7);
+  return weeks === 1 ? "1 week old" : `${weeks} weeks old`;
+};
+
 export default function Media() {
   const [postIdx, setPostIdx] = useState(null); // social-post index or null
 
@@ -100,8 +117,9 @@ export default function Media() {
       <section className="proj-section">
         <h3 className="section-title">Instagram Posts</h3>
         <p className="card-body" style={{ maxWidth: "70ch", marginBottom: 14 }}>
-          Five posts, <strong style={{ color: "#fff" }}>592,000 views and 39,000 likes</strong>. Shot,
-          cut and captioned by me, with the numbers they actually did.
+          Six posts, <strong style={{ color: "#fff" }}>618,000 views and 40,000 likes</strong>. The
+          newest did <strong style={{ color: "#fff" }}>23,400 views in its first two days</strong>.
+          Shot, cut and captioned by me, with the numbers they actually did.
         </p>
         <motion.div className="reel-grid" variants={container} initial="hidden" animate="show">
           {INSTAGRAM_REELS.map((r) => (
@@ -110,7 +128,10 @@ export default function Media() {
                 <video src={r.src} autoPlay loop muted playsInline preload="metadata" />
               </a>
               <div className="reel-card__body">
-                <h4 className="web-card__title">{r.title}</h4>
+                <div className="reel-card__head">
+                  <h4 className="web-card__title">{r.title}</h4>
+                  {freshness(r.posted) && <span className="reel-fresh">{freshness(r.posted)}</span>}
+                </div>
                 <p className="card-body">{r.caption}</p>
                 {(r.views != null || r.likes != null || r.comments != null) && (
                   <ul className="reel-stats">
@@ -197,13 +218,13 @@ export default function Media() {
               rather than a monthly rate. */}
           <div className="media-ig">
             <div className="media-ig__big">
-              <div className="stat-num">830K+</div>
+              <div className="stat-num">855K+</div>
               <div className="stat-label">views on my own account</div>
             </div>
             <div className="media-ig__copy">
               <p className="card-body">
                 Short-form is where most of my motion work lives. My own reels have done
-                <strong style={{ color: "#fff" }}> over 830,000 views</strong>, with a best month of
+                <strong style={{ color: "#fff" }}> over 855,000 views</strong>, with a best month of
                 415,000 and a best post at 219,000. Same hooks, same editing and same posting rhythm
                 I use for brand promos, fitness content, logo animations and event recaps.
               </p>

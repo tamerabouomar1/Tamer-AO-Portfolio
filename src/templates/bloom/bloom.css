@@ -1,0 +1,410 @@
+/* ── Bloom — AI Floral Platform ────────────────────────────────
+   Everything tunable lives in this block. Strictly greyscale: every value is
+   white at some alpha, so the film underneath supplies the only colour. */
+
+.blm {
+  --blm-ink: #ffffff;
+  --blm-radius: 1rem;
+  --blm-display: "Poppins", system-ui, -apple-system, sans-serif;
+  --blm-serif: "Source Serif 4", Georgia, serif;
+
+  position: relative;
+  min-height: 100vh;
+  height: 100%;
+  overflow: hidden;
+  background: #000;
+  color: var(--blm-ink);
+  font-family: var(--blm-display);
+  -webkit-font-smoothing: antialiased;
+}
+
+.blm-video {
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.blm-split {
+  position: relative;
+  z-index: 10;
+  display: flex;
+  min-height: 100vh;
+}
+
+/* ── Left panel ─────────────────────────────────────────────── */
+.blm-left {
+  position: relative;
+  width: 100%;
+  display: flex;
+}
+
+/* The inset slab. Separate from .blm-left-inner so the blur never sits in the
+   same stacking context as the text it is behind. */
+.blm-slab {
+  position: absolute;
+  inset: 16px;
+  border-radius: 24px;
+}
+
+.blm-left-inner {
+  position: relative;
+  z-index: 1;
+  display: flex;
+  flex: 1;
+  flex-direction: column;
+  padding: clamp(28px, 4vw, 56px);
+  gap: 24px;
+}
+
+.blm-nav {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px;
+}
+.blm-brand {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  color: var(--blm-ink);
+  text-decoration: none;
+  font-size: 24px;
+  font-weight: 600;
+  letter-spacing: -0.04em;
+}
+.blm-menu {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 8px 16px;
+  border: none;
+  border-radius: 999px;
+  color: var(--blm-ink);
+  font-family: inherit;
+  font-size: 13px;
+  font-weight: 500;
+  cursor: pointer;
+  transition: transform 0.2s ease;
+}
+
+.blm-hero {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  justify-content: center;
+  gap: 22px;
+}
+
+.blm-title {
+  margin: 0;
+  font-weight: 500;
+  font-size: clamp(40px, 6.4vw, 72px);
+  line-height: 1.03;
+  letter-spacing: -0.05em;
+}
+.blm-title em {
+  font-family: var(--blm-serif);
+  font-style: italic;
+  color: rgba(255, 255, 255, 0.8);
+}
+
+.blm-cta {
+  display: inline-flex;
+  align-items: center;
+  gap: 12px;
+  padding: 12px 12px 12px 24px;
+  border: none;
+  border-radius: 999px;
+  color: var(--blm-ink);
+  font-family: inherit;
+  font-size: 15px;
+  font-weight: 500;
+  cursor: pointer;
+  transition: transform 0.2s ease;
+}
+.blm-cta:hover { transform: scale(1.05); }
+.blm-cta:active { transform: scale(0.95); }
+.blm-cta-dot {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 28px;
+  height: 28px;
+  border-radius: 999px;
+  background: rgba(255, 255, 255, 0.15);
+}
+
+.blm-pills {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+.blm-pill {
+  padding: 7px 14px;
+  border-radius: 999px;
+  font-size: 12px;
+  color: rgba(255, 255, 255, 0.8);
+}
+
+.blm-quote { margin: 0; }
+.blm-kicker {
+  font-size: 11px;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: rgba(255, 255, 255, 0.5);
+}
+.blm-quote blockquote {
+  margin: 10px 0 14px;
+  font-size: clamp(17px, 1.7vw, 22px);
+  font-weight: 300;
+  line-height: 1.35;
+}
+.blm-quote em {
+  font-family: var(--blm-serif);
+  font-style: italic;
+}
+.blm-author {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  margin: 0;
+  font-size: 11px;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  color: rgba(255, 255, 255, 0.6);
+}
+.blm-rule {
+  height: 1px;
+  width: 40px;
+  background: rgba(255, 255, 255, 0.25);
+}
+
+/* ── Right panel ────────────────────────────────────────────── */
+.blm-right {
+  display: none;
+  width: 48%;
+  flex-shrink: 0;
+  flex-direction: column;
+  gap: 16px;
+  padding: clamp(24px, 3vw, 40px);
+}
+
+.blm-topbar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+}
+.blm-socials {
+  display: inline-flex;
+  align-items: center;
+  gap: 14px;
+  padding: 9px 16px;
+  border-radius: 999px;
+}
+.blm-socials a {
+  color: var(--blm-ink);
+  transition: color 0.2s ease;
+}
+.blm-socials a:hover { color: rgba(255, 255, 255, 0.8); }
+.blm-social-go { color: rgba(255, 255, 255, 0.5); }
+
+.blm-account {
+  display: inline-flex;
+  align-items: center;
+  gap: 9px;
+  padding: 7px 16px 7px 7px;
+  border: none;
+  border-radius: 999px;
+  color: var(--blm-ink);
+  font-family: inherit;
+  font-size: 13px;
+  font-weight: 500;
+  cursor: pointer;
+  transition: transform 0.2s ease;
+}
+
+.blm-dot {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 32px;
+  height: 32px;
+  flex-shrink: 0;
+  border-radius: 999px;
+  background: rgba(255, 255, 255, 0.1);
+}
+
+.blm-community {
+  width: 14rem;
+  padding: 16px 18px;
+  border-radius: var(--blm-radius);
+}
+.blm-community h3 {
+  margin: 0 0 6px;
+  font-size: 14px;
+  font-weight: 500;
+}
+.blm-community p {
+  margin: 0;
+  font-size: 12px;
+  font-weight: 300;
+  line-height: 1.5;
+  color: rgba(255, 255, 255, 0.6);
+}
+
+.blm-features {
+  margin-top: auto;
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+  padding: 16px;
+  border-radius: 2.5rem;
+}
+.blm-feature-row {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 14px;
+}
+.blm-feature {
+  padding: 18px;
+  border-radius: 24px;
+}
+.blm-feature h4 {
+  margin: 12px 0 5px;
+  font-size: 14px;
+  font-weight: 500;
+}
+.blm-feature p {
+  margin: 0;
+  font-size: 12px;
+  font-weight: 300;
+  line-height: 1.5;
+  color: rgba(255, 255, 255, 0.6);
+}
+
+.blm-wide {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  padding: 14px;
+  border-radius: 24px;
+}
+.blm-thumb {
+  width: 96px;
+  height: 64px;
+  flex-shrink: 0;
+  border-radius: 14px;
+  object-fit: cover;
+}
+.blm-wide-copy { flex: 1; min-width: 0; }
+.blm-wide-copy h4 {
+  margin: 0 0 4px;
+  font-size: 14px;
+  font-weight: 500;
+}
+.blm-wide-copy p {
+  margin: 0;
+  font-size: 12px;
+  font-weight: 300;
+  line-height: 1.5;
+  color: rgba(255, 255, 255, 0.6);
+}
+.blm-plus {
+  flex-shrink: 0;
+  width: 32px;
+  height: 32px;
+  border: none;
+  border-radius: 999px;
+  background: rgba(255, 255, 255, 0.1);
+  color: var(--blm-ink);
+  font-family: inherit;
+  font-size: 18px;
+  line-height: 1;
+  cursor: pointer;
+  transition: transform 0.2s ease;
+}
+
+.blm-menu:hover,
+.blm-account:hover,
+.blm-plus:hover { transform: scale(1.05); }
+
+@media (min-width: 1024px) {
+  .blm-left { width: 52%; }
+  .blm-right { display: flex; }
+  .blm-slab { inset: 24px; }
+}
+
+/* ── Liquid glass, two tiers ──────────────────────────────────
+   Both draw their border with a masked ::before rather than a border
+   property: the frame has to be bright at the top and bottom edges and clear
+   through the middle, which no single border colour can do. The xor mask
+   punches the padding box out of the gradient, leaving a 1.4px ring.
+
+   Light (4px) is for pills sitting directly on the footage; strong (50px) is
+   for anything holding text long enough to be read. */
+.blm-glass,
+.blm-glass-strong {
+  position: relative;
+  overflow: hidden;
+  border: none;
+  background: rgba(255, 255, 255, 0.01);
+  background-blend-mode: luminosity;
+}
+
+.blm-glass {
+  backdrop-filter: blur(4px);
+  -webkit-backdrop-filter: blur(4px);
+  box-shadow: inset 0 1px 1px rgba(255, 255, 255, 0.1);
+}
+
+.blm-glass-strong {
+  backdrop-filter: blur(50px);
+  -webkit-backdrop-filter: blur(50px);
+  box-shadow:
+    4px 4px 4px rgba(0, 0, 0, 0.05),
+    inset 0 1px 1px rgba(255, 255, 255, 0.15);
+}
+
+.blm-glass::before,
+.blm-glass-strong::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  border-radius: inherit;
+  padding: 1.4px;
+  -webkit-mask:
+    linear-gradient(#fff 0 0) content-box,
+    linear-gradient(#fff 0 0);
+  -webkit-mask-composite: xor;
+  mask-composite: exclude;
+  pointer-events: none;
+}
+
+.blm-glass::before {
+  background: linear-gradient(
+    180deg,
+    rgba(255, 255, 255, 0.45) 0%,
+    rgba(255, 255, 255, 0.15) 20%,
+    rgba(255, 255, 255, 0) 40%,
+    rgba(255, 255, 255, 0) 60%,
+    rgba(255, 255, 255, 0.15) 80%,
+    rgba(255, 255, 255, 0.45) 100%
+  );
+}
+
+.blm-glass-strong::before {
+  background: linear-gradient(
+    180deg,
+    rgba(255, 255, 255, 0.5) 0%,
+    rgba(255, 255, 255, 0.2) 20%,
+    rgba(255, 255, 255, 0) 40%,
+    rgba(255, 255, 255, 0) 60%,
+    rgba(255, 255, 255, 0.2) 80%,
+    rgba(255, 255, 255, 0.5) 100%
+  );
+}

@@ -106,6 +106,94 @@ async function saveMessage(request, env) {
   return json({ ok: true });
 }
 
+/* Somebody claiming one of the free offers that isn't a download — the brand
+ * teardown, the first reel. The WhatsApp hand-off still opens in the browser,
+ * but as with the template downloads, the claim is recorded here first so it
+ * exists whether or not that message is ever sent. */
+async function saveClaim(request, env) {
+  if (!env.LEADS) return json({ ok: false, error: "storage unavailable" }, 503);
+
+  let body;
+  try {
+    body = await request.json();
+  } catch {
+    return json({ ok: false, error: "bad json" }, 400);
+  }
+
+  if (clean(body["bot-field"])) return json({ ok: true });
+
+  const name = clean(body.name);
+  const reach = clean(body.reach);
+  const offer = clean(body.offer);
+  const about =
+    typeof body.about === "string" ? body.about.trim().slice(0, MAX_MESSAGE) : "";
+  if (!name || !reach) return json({ ok: false, error: "name and contact required" }, 400);
+
+  const at = new Date().toISOString();
+  const key = `claim:${at}:${crypto.randomUUID().slice(0, 8)}`;
+  await env.LEADS.put(
+    key,
+    JSON.stringify({
+      kind: "claim",
+      name,
+      reach,
+      template: offer, // shares the leads CSV column with template downloads
+      message: about,
+      at,
+      country: request.headers.get("cf-ipcountry") || "",
+      referer: clean(request.headers.get("referer") || ""),
+    })
+  );
+
+  return json({ ok: true });
+}
+
+/* The answers to the two Stage 0 questions: what did you think, and what
+ * would make it better.
+ *
+ * Contact is optional here on purpose. Tying feedback to an identity is the
+ * fastest way to stop getting the unflattering kind, and the unflattering kind
+ * is the entire reason the work is being given away. */
+async function saveFeedback(request, env) {
+  if (!env.LEADS) return json({ ok: false, error: "storage unavailable" }, 503);
+
+  let body;
+  try {
+    body = await request.json();
+  } catch {
+    return json({ ok: false, error: "bad json" }, 400);
+  }
+
+  if (clean(body["bot-field"])) return json({ ok: true });
+
+  const text = (v) => (typeof v === "string" ? v.trim().slice(0, MAX_MESSAGE) : "");
+  const verdict = text(body.verdict);
+  const better = text(body.better);
+  if (!verdict && !better) return json({ ok: false, error: "nothing to save" }, 400);
+
+  const at = new Date().toISOString();
+  const key = `fb:${at}:${crypto.randomUUID().slice(0, 8)}`;
+  await env.LEADS.put(
+    key,
+    JSON.stringify({
+      kind: "feedback",
+      name: "",
+      reach: clean(body.reach),
+      template: clean(body.what),
+      // Kept in one field so it lands in the existing CSV column rather than
+      // widening every other row with two mostly-empty ones.
+      message: `What they thought: ${verdict || "(blank)"}\nWhat would make it better: ${
+        better || "(blank)"
+      }`,
+      at,
+      country: request.headers.get("cf-ipcountry") || "",
+      referer: clean(request.headers.get("referer") || ""),
+    })
+  );
+
+  return json({ ok: true });
+}
+
 /* Read the list back. Protected by a secret so it is not a public dump of
    people's contact details:  wrangler secret put LEADS_TOKEN
    then open /api/leads?token=... (or send Authorization: Bearer ...). */
@@ -119,11 +207,15 @@ async function listLeads(request, env) {
     return json({ ok: false, error: "unauthorized" }, 401);
   }
 
-  // Both kinds live in the same namespace: "lead:" is a template download,
-  // "msg:" is somebody writing in from /work-with-me. Listing both keeps one
-  // URL as the single place to check for anything a visitor sent.
+  // Every kind lives in the same namespace: "lead:" is a template download,
+  // "msg:" is somebody writing in from /work-with-me, "claim:" is a free offer
+  // being taken, "fb:" is an answer to the two feedback questions. Listing all
+  // four keeps one URL as the single place to check for anything a visitor
+  // sent.
   const batches = await Promise.all(
-    ["lead:", "msg:"].map((prefix) => env.LEADS.list({ prefix, limit: 1000 }))
+    ["lead:", "msg:", "claim:", "fb:"].map((prefix) =>
+      env.LEADS.list({ prefix, limit: 1000 })
+    )
   );
   const keys = batches.flatMap((b) => b.keys);
   const leads = await Promise.all(
@@ -136,7 +228,7 @@ async function listLeads(request, env) {
   if (url.searchParams.get("format") === "csv") {
     const esc = (v) => `"${String(v ?? "").replace(/"/g, '""')}"`;
     const csv = [
-      "date,kind,name,contact,template,message,country",
+      "date,kind,name,contact,offer,message,country",
       ...rows.map((l) =>
         [l.at, l.kind || "download", l.name, l.reach, l.template, l.message, l.country]
           .map(esc)
@@ -160,6 +252,9 @@ export default {
     const { pathname } = new URL(request.url);
 
     if (pathname === "/api/lead" && request.method === "POST") return saveLead(request, env);
+    if (pathname === "/api/claim" && request.method === "POST") return saveClaim(request, env);
+    if (pathname === "/api/feedback" && request.method === "POST")
+      return saveFeedback(request, env);
     if (pathname === "/api/contact" && request.method === "POST") return saveMessage(request, env);
     if (pathname === "/api/leads" && request.method === "GET") return listLeads(request, env);
 

@@ -3,88 +3,12 @@
 // Shown under the name in the sidebar. One line: what he makes, and where.
 export const PROFILE_TAGLINE = "Brand identity, logos and apparel. Beirut, Lebanon.";
 
-// ── The four free offers ──────────────────────────────────────
-//
-// REBUILT FROM A SCREENSHOT of the live site. A previous session shipped this
-// straight to Cloudflare without committing the source, so the wording of the
-// hero (the headline and "all four cost nothing") is verbatim from that
-// screenshot, and everything below — what each offer actually includes, the
-// values, the catch line — is written fresh. If the original copy turns up,
-// this is the file to reconcile against.
-//
-// WHY GIVE THIS MUCH AWAY. It is the cheapest way to collapse the risk term
-// in the value equation: nobody can be talked out of "free", and a person who
-// has already held the work has stopped wondering whether it is any good. The
-// `catch` line on each is deliberate — naming the thing you get out of it is
-// what stops a free offer reading like a trick.
-//
-// TAMER: these are live commitments, not marketing. Four free reels a month
-// or four free sessions a month is real hours. Cap them if you need to.
-export const FREE_OFFERS = [
-  {
-    id: "website",
-    name: "A finished website",
-    worth: "Free",
-    // Deliberately no count in here. The number of templates lives in exactly
-    // one place — TEMPLATES.length, rendered on the Home card — because when
-    // it was typed into copy it drifted to three different values.
-    lede: "Any one of the ready-made sites, complete, in full React source.",
-    features: [
-      "Full source code, not a demo",
-      "Runs with two commands, no setup",
-      "Yours for personal and client work",
-      "Deploy guide for Netlify, Vercel and Cloudflare",
-    ],
-    catch: "You give me a name and a way to reach you. That is the whole price.",
-    cta: "Pick one",
-    to: "/websites",
-  },
-  {
-    id: "teardown",
-    name: "A brand teardown",
-    worth: "Free",
-    lede: "I go through your logo, your feed and your packaging and tell you what is costing you.",
-    features: [
-      "Recorded walkthrough, yours to keep",
-      "The three things I would change first",
-      "What is working — kept, not redesigned",
-      "No deck, no invoice, no follow-up sequence",
-    ],
-    catch: "Some people hire me afterwards. Most don't, and that is fine.",
-    cta: "Send me your brand",
-    calendly: true,
-  },
-  {
-    id: "reel",
-    name: "Your first reel",
-    worth: "Free",
-    lede: "You send the footage, I cut one reel — hook, captions, the lot.",
-    features: [
-      "One fully edited reel",
-      "Hook and caption written for you",
-      "Cut for Reels and TikTok",
-      "Yours whether or not you carry on",
-    ],
-    catch: "If it does numbers you will want the next four. That is the bet I am making.",
-    cta: "Book the reel",
-    calendly: true,
-  },
-  {
-    id: "hour",
-    name: "An hour of coaching",
-    worth: "Free",
-    lede: "One full session on the mats — technique, conditioning, or the first hour of self-defense.",
-    features: [
-      "A real session, not a consultation",
-      "One-on-one, at your level",
-      "Fitness assessment included",
-      "No card, no sign-up",
-    ],
-    catch: "You will know inside an hour whether you want to train with me.",
-    cta: "Book the hour",
-    calendly: true,
-  },
-];
+// MERGE NOTE (2026-08-09): this file briefly carried TWO `export const
+// FREE_OFFERS` arrays after a stash-pop — PR #27's and the local one landed
+// in different places, so git never marked them as a conflict and the
+// duplicate export would have failed the build with no marker to point at.
+// PR #27's array (worth / lede / catch) was removed; the one kept lower down
+// is what Free.jsx and FreeOffers.jsx actually read.
 
 export const CONTACT = {
   email: "tamerabouomar1@gmail.com",
@@ -100,9 +24,96 @@ export const CONTACT = {
   linkedin: "https://www.linkedin.com/feed/",
 };
 
+// ── The free offers ───────────────────────────────────────────
+// The site's front door, and the thing every page now points at.
+//
+// This follows the Stage 0 "Improvise" step of the $100M Scaling Roadmap:
+// before charging for anything, give the work away, get people using it, and
+// ask them what would make it better. Every service line here has a free way
+// in, not just the websites — a line with no free entry has no way to start
+// the conversation, so it never gets to the paid step at all.
+//
+// Two rules keep this honest:
+//   1. Every offer is something Tamer can actually deliver, this week, at
+//      close to zero marginal cost. Nothing here is a coupon or a "free
+//      quote" dressed up as a gift.
+//   2. `paid` is the real next step, named and priced. Stage 1 says to show
+//      how the paid version beats the free one, which you cannot do if the
+//      paid version is a mystery. Nobody is tricked into a ladder they can
+//      see the whole of.
+//
+// `kind` drives the button: "download" opens the template modal, "form" opens
+// the claim form, "call" goes straight to Calendly.
+export const FREE_OFFERS = [
+  {
+    id: "templates",
+    name: "A Finished Website",
+    kicker: "Websites",
+    // The three counts here are filled in from TEMPLATES.length at the bottom
+    // of this file — hardcoding them meant every new template silently made
+    // the front page understate the library.
+    blurb:
+      "{n} complete sites, built and running. Open any of them, and if it fits, the whole React source is yours.",
+    proof: "{n} templates · full source · commercial use",
+    turnaround: "Instant download",
+    kind: "download",
+    to: "/websites#store",
+    cta: "Browse the {n}",
+    paid: {
+      label: "When you want it live without touching code",
+      detail: "Done For You, $200 flat. Your copy, your domain, live this week.",
+    },
+  },
+  {
+    id: "teardown",
+    name: "A Brand Teardown",
+    kicker: "Design & Branding",
+    blurb:
+      "Send your logo, your Instagram or your site. You get back a short recorded critique: what is working, what is quietly costing you, and the three things I would change first.",
+    proof: "Recorded video · yours to keep",
+    turnaround: "Back within 3 days",
+    kind: "form",
+    cta: "Send yours in",
+    paid: {
+      label: "When you want the fixes made, not just named",
+      detail: "Logo, full identity or a rebuild, quoted per project.",
+    },
+  },
+  {
+    id: "reel",
+    name: "Your First Reel",
+    kicker: "Social Media",
+    blurb:
+      "Send me your footage and I cut one reel: hook, captions, the lot. Post it, watch what it does, and decide about the rest afterwards.",
+    proof: "My own reels: 855K+ views, best at 219K",
+    turnaround: "Back within 5 days",
+    kind: "form",
+    cta: "Claim the reel",
+    paid: {
+      label: "When one reel a month is not enough",
+      detail: "Reels-first management from $199/month.",
+    },
+  },
+  {
+    id: "session",
+    name: "A Training Session",
+    kicker: "Coaching",
+    blurb:
+      "One full hour, one-on-one, free. Movement screen, technique, and a plan you can run on your own whether or not you ever come back.",
+    proof: "100+ students coached · 10+ years",
+    turnaround: "Book any open slot",
+    kind: "call",
+    cta: "Book the session",
+    paid: {
+      label: "When you want the whole programme",
+      detail: "Monthly coaching at $299, or a session pack.",
+    },
+  },
+];
+
 // ── Work With Me ──────────────────────────────────────────────
 // Social-media management packages, built REELS-FIRST — short-form is
-// what drives reach (Tamer's own reels have done 830K+ views), so
+// what drives reach (Tamer's own reels have done 855K+ views), so
 // every tier leads with reels. Prices in USD; `featured` = popular tier.
 //
 // Taglines state the OUTCOME the buyer is paying for rather than describing
@@ -365,16 +376,20 @@ export const DEFENSE_PROGRAM = {
 // the point of it being the entry price.
 export const PT_PACKAGES = [
   {
-    name: "Single Session",
-    tagline: "See if we get on, before you commit to anything",
-    price: "$45",
-    period: "/ session",
-    cta: "Book a session",
+    name: "First Session",
+    tagline: "Free, and it stays free",
+    price: "$0",
+    period: "one full hour",
+    free: true,
+    save: "No card, no catch",
+    cta: "Book the free session",
     features: [
       "1-hour one-on-one training",
-      "Technique & form focus",
-      "Free fitness assessment",
+      "Movement screen & technique work",
+      "A plan you keep either way",
+      "No obligation to book a second",
     ],
+    bonus: "Drop-in sessions after that are $45",
   },
   {
     name: "Monthly Coaching",
@@ -415,7 +430,7 @@ export const PT_PACKAGES = [
 // One-off / custom work beyond the monthly packages, by category.
 export const SERVICE_CATEGORIES = [
   {
-    name: "Design & identities",
+    name: "Design & Identities",
     desc: "Logos, full brand identities, logo motion, websites and decks. One design or a complete system, built to make your brand look like it means business.",
     chips: ["Logos", "Brand identity", "Logo motion", "Websites & decks"],
   },
@@ -764,8 +779,8 @@ export const INSTAGRAM_REELS = [
     src: "/assets/motion/ig-side-effects.mp4",
     url: "https://www.instagram.com/tamer_ao/reel/DXy8SfNokAO/",
     caption: "SIDE EFFECTS OF JIUJITSU · #jiujitsu #wrestling",
-    views: 218916,
-    likes: 14510,
+    views: 219149,
+    likes: 14520,
     comments: 83,
   },
   {
@@ -773,8 +788,8 @@ export const INSTAGRAM_REELS = [
     src: "/assets/motion/ig-aura.mp4",
     url: "https://www.instagram.com/tamer_ao/reel/DXENzRNCD_L/",
     caption: "+aura · #jiujitsu #wrestling",
-    views: 180265,
-    likes: 12914,
+    views: 180356,
+    likes: 12913,
     comments: 23,
   },
   {
@@ -782,8 +797,8 @@ export const INSTAGRAM_REELS = [
     src: "/assets/motion/ig-rests.mp4",
     url: "https://www.instagram.com/tamer_ao/reel/DYZO7X9OKBs/",
     caption: "when rests are appreciated · #jiujitsu #wrestling",
-    views: 123704,
-    likes: 8029,
+    views: 125314,
+    likes: 8158,
     comments: 46,
   },
   {
@@ -791,7 +806,7 @@ export const INSTAGRAM_REELS = [
     src: "/assets/motion/ig-tag-them.mp4",
     url: "https://www.instagram.com/tamer_ao/reel/DXedYUuCIzL/",
     caption: "tag them in the comments · #invincible #jiujitsu",
-    views: 39458,
+    views: 39476,
     likes: 2792,
     comments: 19,
   },
@@ -800,9 +815,23 @@ export const INSTAGRAM_REELS = [
     src: "/assets/motion/ig-revenge.mp4",
     url: "https://www.instagram.com/tamer_ao/reel/DXOk9vrCNQ0/",
     caption: "REVENGE · #jiujitsu #warmup #revenge",
-    views: 30444,
+    views: 30448,
     likes: 1077,
     comments: 5,
+  },
+  {
+    // Two days old and already sixth on the account by total views, which is a
+    // faster climb than anything above it. `posted` drives the age chip on the
+    // card: while a post is recent the chip says so, and once it is older than
+    // a month the chip retires itself, so nothing here needs maintaining.
+    title: "Oppa",
+    src: "/assets/motion/ig-oppa.mp4",
+    url: "https://www.instagram.com/tamer_ao/reel/Dbsy6JfoDUT/",
+    caption: "oppa @ryanjitsu · #jiujitsu",
+    posted: "2026-08-06",
+    views: 23400,
+    likes: 613,
+    comments: 17,
   },
 ];
 
@@ -856,6 +885,30 @@ export const WEBSITES = [
     image: "/assets/projects/web-saifi.jpg",
     full: "/assets/projects/web-saifi-full.jpg",
     desc: "A premium 'precision cuts and premium style' identity in gold and black, with booking kept front and center.",
+  },
+  {
+    name: "Sophia's Forum",
+    demo: "/demo/sophias-forum/index.html",
+    tag: "Website design",
+    image: "/assets/projects/web-sophia.jpg",
+    full: "/assets/projects/web-sophia.jpg",
+    desc: "A bilingual English/Arabic site for a breathwork and philosophy space in Baabda. The palette and mark are traced from the studio's own branding, and the whole thing mirrors cleanly into right-to-left Arabic.",
+  },
+  {
+    name: "Rasif Aley",
+    demo: "/demo/rasif-aley/index.html",
+    tag: "Website design",
+    image: "/assets/projects/web-rasif.jpg",
+    full: "/assets/projects/web-rasif.jpg",
+    desc: "A coffee shop in Aley, built on their real menu, their real photographs and their real reviews. Warm and unhurried, the way the place is.",
+  },
+  {
+    name: "ACC",
+    demo: "/demo/acc/index.html",
+    tag: "Website design",
+    image: "/assets/projects/web-acc.jpg",
+    full: "/assets/projects/web-acc.jpg",
+    desc: "Arabian Construction Company, building since 1967. Architectural graphite and red, with the history carrying the credibility rather than a claim about it.",
   },
   {
     name: "Sinar",
@@ -995,6 +1048,24 @@ export const TEMPLATES = [
     ink: "#ffffff",
   },
   {
+    slug: "aperture",
+    name: "Aperture",
+    kicker: "Creative Studio",
+    tag: "Studio site",
+    desc: "Ten panels wipe off the screen, then a spotlight finds the second photograph.",
+    highlights: [
+      "Ten-panel splash wipe",
+      "Cursor spotlight reveal",
+      "Display word cropped by the image",
+      "Slide-down glass menu",
+    ],
+    bestFor: "Studios · Motion designers · Photographers",
+    stack: "React · Canvas",
+    accent: "#75C5DE",
+    bg: "#E4E4E4",
+    ink: "#111111",
+  },
+  {
     slug: "reel",
     name: "Reel",
     kicker: "Streaming Hero",
@@ -1098,6 +1169,132 @@ export const TEMPLATES = [
     bg: "#ffffff",
     ink: "#000000",
   },
+  {
+    slug: "closer",
+    name: "Closer",
+    kicker: "CTA & Footer",
+    tag: "Section",
+    desc: "The closing screen of a page: one serif line over film, two buttons, the footer.",
+    highlights: [
+      "HLS stream via Mux",
+      "Top and bottom video dissolves",
+      "Liquid-glass CTA",
+      "Footer bar built in",
+    ],
+    bestFor: "Any page · Agencies · Studios",
+    stack: "React · CSS · hls.js",
+    accent: "#ffffff",
+    bg: "#000000",
+    ink: "#ffffff",
+  },
+  {
+    slug: "signal",
+    name: "Signal",
+    kicker: "No-Code AI Hero",
+    tag: "Landing page",
+    desc: "The button becomes an email field, and the placeholder types itself in.",
+    highlights: [
+      "Button-to-form CTA swap",
+      "Typewriter placeholder",
+      "HLS stream via Mux",
+      "Glass pill navbar",
+    ],
+    bestFor: "AI tools · SaaS · Waitlists",
+    stack: "React · Framer Motion · hls.js",
+    accent: "#ffffff",
+    bg: "#000000",
+    ink: "#ffffff",
+  },
+  {
+    slug: "echoid",
+    name: "Echoid",
+    kicker: "Voice ID Signup",
+    tag: "Landing page",
+    desc: "A signup panel pinned to the right of a cinematic face reel.",
+    highlights: [
+      "Dual-gradient scrim",
+      "Circular clip-path menu",
+      "Sora + JetBrains Mono",
+      "Reduced-motion poster",
+    ],
+    bestFor: "AI products · Waitlists · Identity",
+    stack: "React · CSS",
+    accent: "#ffffff",
+    bg: "#000000",
+    ink: "#ffffff",
+  },
+  {
+    slug: "vibrant",
+    name: "Vibrant",
+    kicker: "Wellness Hero",
+    tag: "Landing page",
+    desc: "Glass nav, social-proof badge and stats over a calm looping film.",
+    highlights: [
+      "Liquid-glass surfaces",
+      "Overlapping avatar badge",
+      "Drawn stat icons",
+      "Rotating menu toggle",
+    ],
+    bestFor: "Wellness · Clinics · Coaching",
+    stack: "React · CSS",
+    accent: "#ffffff",
+    bg: "#000000",
+    ink: "#ffffff",
+  },
+  {
+    slug: "mentality",
+    name: "Mentality",
+    kicker: "Light Wellness Landing",
+    tag: "Landing page",
+    desc: "The light one: near-black type on soft grey, film dissolving into the page.",
+    highlights: [
+      "Light #EDEEF5 palette",
+      "Film masked into the background",
+      "Two-tone headline with inline pill",
+      "Search capsule + edge anchors",
+    ],
+    bestFor: "Health · Nonprofits · Editorial",
+    stack: "React · Framer Motion",
+    accent: "#1a1a1a",
+    bg: "#edeef5",
+    ink: "#1a1a1a",
+  },
+  {
+    slug: "kollektiva",
+    name: "Kollektiva",
+    kicker: "Studio Team Page",
+    tag: "Landing page",
+    desc: "Pick a face and the whole screen becomes that person.",
+    highlights: [
+      "Full-bleed portrait crossfade",
+      "Eight-person avatar picker",
+      "Bio and name fade on change",
+      "Editorial, no cards",
+    ],
+    bestFor: "Studios · Agencies · Teams",
+    stack: "React · CSS",
+    accent: "#ffffff",
+    bg: "#0d0d0d",
+    ink: "#ffffff",
+  },
+  {
+    slug: "bloom",
+    name: "Bloom",
+    kicker: "AI Platform Split",
+    tag: "Landing page",
+    desc: "A 52/48 split over film: the pitch on one side, the product furniture on the other.",
+    highlights: [
+      "Two-panel split layout",
+      "Two tiers of liquid glass",
+      "Strictly greyscale palette",
+      "Drawn marks, zero image files",
+    ],
+    bestFor: "AI products · Studios · Platforms",
+    stack: "React · CSS",
+    accent: "#ffffff",
+    bg: "#0b0b0b",
+    ink: "#ffffff",
+  },
 
   // ── Signature ───────────────────────────────────────────────
   // `tier: "signature"` splits these into their own paid section of the store
@@ -1108,6 +1305,75 @@ export const TEMPLATES = [
   //
   // The style references came from real companies. Names, copy and marks are
   // all changed — the SYSTEM is the reference, never the brand.
+
+  /* ── Restored 2026-08-09 ────────────────────────────────────────────────
+     These four were built from style references Tamer sent, then dropped from
+     the store on 2026-08-01 while it was being cut back — the folders were
+     deleted, so they only survived in git. Recovered from 97f1d70^ (prism,
+     darkroom, abyss) and 8ba034b^ (nebula).
+
+     They come back on the CURRENT model, not the one they left on: the
+     `price: 149` and `tier: "signature"` fields they used to carry are gone,
+     since nothing in the store is priced or tiered any more, and the
+     descriptions are cut to one line like every other card. Their own
+     tokens.css / theme.css / tokens.json came back with them — they are the
+     only token-based templates left, and `npm run build:tokens` discovers
+     them by looking for tokens.css.
+
+     Every visual in all four is drawn in canvas or CSS, so unlike most of the
+     library these carry no remote demo media a buyer would have to swap. */
+  {
+    slug: "nebula",
+    name: "Nebula",
+    kicker: "AI Product",
+    tag: "Landing page",
+    desc: "Thousands of tiny triangles settle into a brain over pure black.",
+    highlights: ["Canvas particle constellation", "Weight-free type hierarchy", "Team + carousel sections", "Retint from one array"],
+    bestFor: "AI products · Research labs · Deep tech",
+    stack: "React · Canvas",
+    accent: "#8052ff",
+    bg: "#000000",
+    ink: "#ffffff",
+  },
+  {
+    slug: "prism",
+    name: "Prism",
+    kicker: "Studio Editorial",
+    tag: "Studio site",
+    desc: "Strict monochrome wrapped around one iridescent field, drawn live.",
+    highlights: ["Live iridescent hero field", "225px editorial display type", "Rotating scroll badge", "Strict monochrome UI"],
+    bestFor: "Design studios · Agencies · Galleries",
+    stack: "React · Canvas",
+    accent: "#a02d25",
+    bg: "#ffffff",
+    ink: "#000000",
+  },
+  {
+    slug: "darkroom",
+    name: "Darkroom",
+    kicker: "Product Story",
+    tag: "Product site",
+    desc: "One object lit like a museum artifact in warm darkness.",
+    highlights: ["Product rendered in pure CSS", "Two-mode type system", "Full-viewport reveals", "No licensed imagery"],
+    bestFor: "Product launches · Makers · Objects",
+    stack: "React · CSS",
+    accent: "#dc5000",
+    bg: "#100904",
+    ink: "#ffedd7",
+  },
+  {
+    slug: "abyss",
+    name: "Abyss",
+    kicker: "Fintech Terminal",
+    tag: "Landing page",
+    desc: "A deep-water trading terminal built from depth, not shadows.",
+    highlights: ["Depth-sorted particle sphere", "Shadowless surface stack", "Rationed colour system", "Statistic + division blocks"],
+    bestFor: "Fintech · Trading · B2B platforms",
+    stack: "React · Canvas",
+    accent: "#fde9ff",
+    bg: "#012624",
+    ink: "#ffffff",
+  },
 ];
 
 // ── Signature ───────────────────────────────────────────────
@@ -1195,6 +1461,20 @@ const SIGNATURE = [
 
 TEMPLATES.push(...SIGNATURE);
 
+/** How many websites the store actually holds, counted rather than typed. */
+export const TEMPLATE_COUNT = TEMPLATES.length;
+
+/* Fill the {n} placeholders in the free templates offer now that the library
+   is complete. Done here rather than in the literal above because SIGNATURE is
+   pushed on after FREE_OFFERS is declared, so the count is not final until
+   this point. */
+for (const offer of FREE_OFFERS) {
+  if (offer.id !== "templates") continue;
+  for (const key of ["blurb", "proof", "cta"]) {
+    offer[key] = offer[key].replaceAll("{n}", String(TEMPLATE_COUNT));
+  }
+}
+
 
 // ── Access ────────────────────────────────────────────────────
 // Every template is free, including the Signature five. That is the whole
@@ -1248,7 +1528,7 @@ export const TEMPLATE_PACKAGES = [
   },
   {
     id: "member-year",
-    name: "Membership, yearly",
+    name: "Membership, Yearly",
     tagline: "The same thing, two months free",
     flat: 190,
     period: "per year, billed once",

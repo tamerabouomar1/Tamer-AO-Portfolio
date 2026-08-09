@@ -1,0 +1,331 @@
+/* ── Mentality — Light Wellness Landing ────────────────────────
+   Everything tunable lives in this block. */
+
+.men {
+  --men-bg: #edeef5;
+  --men-ink: #1a1a1a;
+  --men-grey: #8e8e8e;
+  --men-green: #9fff00;
+  --men-sans: "Inter", system-ui, -apple-system, sans-serif;
+  --men-display: "Outfit", "Inter", system-ui, sans-serif;
+
+  position: relative;
+  min-height: 100vh;
+  background: var(--men-bg);
+  color: #18181b;
+  font-family: var(--men-sans);
+  -webkit-font-smoothing: antialiased;
+}
+
+.men ::selection {
+  background: var(--men-green);
+  color: #000;
+}
+
+/* ── Nav ────────────────────────────────────────────────────── */
+.men-nav {
+  position: absolute;
+  top: 0;
+  left: 0;
+  z-index: 50;
+  width: 100%;
+  padding: 24px 0;
+  background: linear-gradient(to bottom, rgba(241, 241, 241, 0.8), transparent);
+  backdrop-filter: blur(2px);
+  -webkit-backdrop-filter: blur(2px);
+}
+
+.men-nav-grid {
+  display: grid;
+  grid-template-columns: repeat(12, 1fr);
+  align-items: center;
+  gap: 16px;
+  max-width: 80rem;
+  margin: 0 auto;
+  padding: 0 32px;
+}
+
+/* 3 + 6 + 3 = 12. Overshooting the track count by even one column drops the
+   actions onto a second row, which is what a wrapped "get started" means. */
+.men-brand {
+  grid-column: 1 / span 3;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  color: var(--men-ink);
+  text-decoration: none;
+}
+.men-mark { display: block; width: 22px; height: 22px; }
+.men-mark svg { width: 100%; height: 100%; }
+.men-name {
+  font-family: var(--men-display);
+  font-size: 20px;
+  font-weight: 500;
+  letter-spacing: -0.01em;
+}
+
+.men-links {
+  display: none;
+  grid-column: 4 / span 6;
+  align-items: center;
+  gap: 26px;
+}
+.men-links a {
+  font-size: 13px;
+  font-weight: 400;
+  text-transform: lowercase;
+  color: #52525b;
+  text-decoration: none;
+  transition: color 0.2s ease;
+}
+.men-links a:hover { color: var(--men-ink); }
+
+.men-actions {
+  grid-column: 10 / span 3;
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  gap: 16px;
+}
+.men-help {
+  display: none;
+  font-size: 13px;
+  color: #52525b;
+  text-decoration: none;
+  transition: color 0.2s ease;
+}
+.men-help:hover { color: var(--men-ink); }
+
+.men-start {
+  display: none;
+  padding: 10px 20px;
+  border-radius: 999px;
+  background: var(--men-ink);
+  color: #fff;
+  font-size: 13px;
+  font-weight: 500;
+  text-decoration: none;
+  white-space: nowrap;
+  transition: opacity 0.2s ease;
+}
+.men-start:hover { opacity: 0.85; }
+
+/* Two bars that cross into an X — no third bar to fade, so the morph reads
+   cleanly at this small size. */
+.men-burger {
+  position: relative;
+  width: 34px;
+  height: 34px;
+  padding: 0;
+  border: none;
+  background: none;
+  cursor: pointer;
+}
+.men-burger span {
+  position: absolute;
+  left: 50%;
+  width: 18px;
+  height: 1.5px;
+  background: var(--men-ink);
+  border-radius: 2px;
+  transition: transform 0.35s cubic-bezier(0.16, 1, 0.3, 1);
+}
+.men-burger span:nth-child(1) { transform: translate(-50%, -4px); }
+.men-burger span:nth-child(2) { transform: translate(-50%, 4px); }
+.men-burger.is-open span:nth-child(1) { transform: translate(-50%, 0) rotate(45deg); }
+.men-burger.is-open span:nth-child(2) { transform: translate(-50%, 0) rotate(-45deg); }
+
+.men-drawer { overflow: hidden; }
+.men-drawer-inner {
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+  max-width: 80rem;
+  margin: 0 auto;
+  padding: 20px 32px 4px;
+}
+.men-drawer-inner a {
+  font-size: 15px;
+  text-transform: lowercase;
+  color: #3f3f46;
+  text-decoration: none;
+}
+
+/* ── Hero ───────────────────────────────────────────────────── */
+.men-hero {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: flex-start;
+  min-height: 110vh;
+  width: 100%;
+  overflow: hidden;
+  background: var(--men-bg);
+}
+
+.men-film {
+  position: absolute;
+  top: 15vh;
+  left: 0;
+  z-index: 0;
+  width: 100%;
+  height: 95vh;
+  pointer-events: none;
+}
+.men-video {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+.men-mask {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 96px;
+  background: linear-gradient(to bottom, var(--men-bg), transparent);
+}
+
+.men-wrap {
+  position: relative;
+  z-index: 10;
+  display: grid;
+  grid-template-columns: repeat(12, 1fr);
+  gap: 0 16px;
+  width: 100%;
+  max-width: 80rem;
+  margin: 0 auto;
+  padding: 128px 32px 0;
+}
+.men-col { grid-column: 1 / span 12; }
+
+.men-title {
+  margin: 0;
+  font-family: var(--men-display);
+  font-size: clamp(28px, 4.6vw, 56px);
+  font-weight: 400;
+  line-height: 1.18;
+  letter-spacing: -0.02em;
+}
+.men-ink { color: var(--men-ink); }
+.men-grey { color: var(--men-grey); }
+
+/* The pill standing in for a word. Inline-flex so it sits on the text
+   baseline instead of pushing the line height around. */
+.men-eye {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 42px;
+  height: 0.72em;
+  vertical-align: baseline;
+  border: 2px solid var(--men-ink);
+  border-radius: 999px;
+}
+.men-eye i {
+  display: block;
+  width: 8px;
+  height: 8px;
+  border-radius: 999px;
+  background: #000;
+}
+
+.men-search {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  width: min(100%, 420px);
+  margin-top: 32px;
+  padding: 4px 4px 4px 16px;
+  border: 1px solid rgba(0, 0, 0, 0.05);
+  border-radius: 6px;
+  background: #fff;
+  box-shadow: 0 1px 2px rgba(0, 0, 0, 0.05);
+}
+.men-search input {
+  flex: 1;
+  min-width: 0;
+  border: none;
+  background: transparent;
+  font-family: inherit;
+  font-size: 14px;
+  color: var(--men-ink);
+}
+.men-search input::placeholder { color: #a1a1aa; }
+.men-search input:focus { outline: none; }
+.men-search button {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 36px;
+  height: 36px;
+  flex-shrink: 0;
+  border: none;
+  border-radius: 999px;
+  background: var(--men-ink);
+  color: #fff;
+  cursor: pointer;
+  transition: opacity 0.2s ease;
+}
+.men-search button:hover { opacity: 0.85; }
+.men-search button svg { width: 16px; height: 16px; }
+
+/* ── Edge anchors ───────────────────────────────────────────── */
+.men-lang,
+.men-year,
+.men-tools {
+  position: absolute;
+  z-index: 10;
+  font-size: 12px;
+  color: #52525b;
+}
+.men-lang {
+  top: 50%;
+  right: 20px;
+  transform: translateY(-50%);
+  padding: 8px 14px;
+  border-radius: 999px;
+  background: rgba(255, 255, 255, 0.55);
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+  box-shadow: inset 0 0 0 1px rgba(0, 0, 0, 0.05);
+  white-space: nowrap;
+}
+.men-year { bottom: 24px; left: 32px; }
+.men-tools { bottom: 24px; right: 32px; }
+
+/* ── Breakpoints ────────────────────────────────────────────── */
+@media (min-width: 640px) {
+  .men-hero { min-height: 140vh; }
+  .men-film { top: 20vh; height: 120vh; }
+  .men-mask { height: 128px; }
+}
+
+@media (min-width: 768px) {
+  .men-nav { padding: 40px 0; }
+  .men-nav-grid { padding: 0 64px; }
+  .men-drawer-inner { padding-left: 64px; padding-right: 64px; }
+  .men-links { display: flex; }
+  .men-help,
+  .men-start { display: inline-flex; }
+  .men-burger { display: none; }
+  .men-wrap { padding: 180px 64px 0; gap: 0 32px; }
+  .men-col { grid-column: 2 / span 10; }
+}
+
+@media (min-width: 1024px) {
+  .men-nav-grid { padding: 0 80px; }
+  .men-wrap { padding-left: 80px; padding-right: 80px; }
+  .men-eye { width: 62px; }
+}
+
+@media (max-width: 767px) {
+  .men-eye { width: 16px; }
+  .men-eye i { width: 5px; height: 5px; }
+
+  /* The centre links are gone here, so the three-column split would leave the
+     wordmark crushed into a quarter of the bar. */
+  .men-brand { grid-column: 1 / span 8; }
+  .men-actions { grid-column: 9 / span 4; }
+}

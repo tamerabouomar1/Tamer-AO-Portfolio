@@ -1,6 +1,6 @@
 import { NavLink } from "react-router-dom";
-import ShinyText from "./ShinyText";
 import { NAV } from "./navItems";
+import ShinyText from "./ShinyText";
 import { CONTACT, PROFILE_TAGLINE } from "../siteData";
 
 const svgProps = {
@@ -78,17 +78,16 @@ export default function Sidebar() {
             end={item.end}
             className={({ isActive }) => "nav-item" + (isActive ? " is-active" : "")}
           >
-            {({ isActive }) => (
+            {() => (
               <>
                 <span className="nav-icon">{item.icon}</span>
-                <span className="nav-label">
-                  {/* active page = blue ShinyText; the rest stay plain white */}
-                  {isActive ? (
-                    <ShinyText text={item.label} speed={3} spread={100} />
-                  ) : (
-                    item.label
-                  )}
-                </span>
+                {/* The active page is marked by weight, colour and the rule
+                    under it (see .nav-item.is-active), not by a highlight
+                    sweeping across the word on a loop. */}
+                <span className="nav-label">{item.label}</span>
+                {/* Marks the free page in the nav itself, so the offer is
+                    visible from every route without a banner. */}
+                {item.flag && <span className="nav-flag">{item.flag}</span>}
               </>
             )}
           </NavLink>
