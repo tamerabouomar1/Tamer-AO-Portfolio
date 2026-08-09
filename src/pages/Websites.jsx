@@ -5,6 +5,7 @@ import Page, { container, cardIn } from "../components/Page";
 import LiveThumb from "../components/LiveThumb";
 import { LoadBar, LoadingImage } from "../components/LoadBar";
 import { BuyModalHost } from "../components/BuyModal";
+import PriceCard from "../components/PriceCard";
 import { prefetchTemplate } from "../templates/registry";
 import { CONTACT, TEMPLATES, TEMPLATE_PACKAGES, SERVICE_PACKAGES, WEBSITES } from "../siteData";
 
@@ -164,63 +165,49 @@ export default function Websites() {
             the whole library including the fonts, and whatever ships next week.
           </p>
         </div>
-        <div className="price-grid">
+        <motion.div className="price-grid" variants={container} initial="hidden" animate="show">
           {TEMPLATE_PACKAGES.map((p) => (
-            <article
-              className={`card price-card${p.featured ? " price-card--featured" : ""}`}
+            <PriceCard
               key={p.id}
-            >
-              {p.save && <span className="price-card__badge">{p.save}</span>}
-              <div className="price-card__head">
-                <h4 className="price-card__name">{p.name}</h4>
-                <p className="price-card__tagline">{p.tagline}</p>
-              </div>
-              <div className="price-card__price">
-                <span className="price-card__amount">
-                  {p.free ? "$0" : p.from ? `$${p.from}+` : `$${p.flat}`}
-                </span>
-                <span className="price-card__period">
-                  {p.period ??
-                    (p.free
-                      ? "any template, no catch"
-                      : p.from
-                        ? "quoted per project"
-                        : "flat, any template")}
-                </span>
-              </div>
-              <ul className="price-card__features">
-                {p.features.map((f) => (
-                  <li key={f}>
-                    <span className="tick" />
-                    {f}
-                  </li>
-                ))}
-                {p.bonus && (
-                  <li>
-                    <span className="tick tick--gift" />
-                    <span className="price-card__bonus">{p.bonus}</span>
-                  </li>
-                )}
-              </ul>
-              {/* The free tier's action is the grid above, not a call: the
-                  whole point is that nobody has to talk to anyone to get it. */}
-              {p.free ? (
-                <button className="btn-book" onClick={() => setBuying(FREE_TEMPLATES[0])}>
-                  Download one now
-                </button>
-              ) : (
-                <a
-                  className="btn-book"
-                  href={CONTACT.calendly}
-                  target="_blank"
-                  rel="noreferrer noopener"
-                >
-                  Talk it through
-                </a>
-              )}
-            </article>
+              name={p.name}
+              tagline={p.tagline}
+              amount={p.free ? "$0" : p.from ? `$${p.from}+` : `$${p.flat}`}
+              period={
+                p.period ??
+                (p.free
+                  ? "any template, no catch"
+                  : p.from
+                    ? "quoted per project"
+                    : "flat, any template")
+              }
+              was={p.anchor ? `$${p.anchor}` : undefined}
+              anchorNote={p.anchorNote}
+              badge={p.badge}
+              featured={p.featured}
+              features={p.features}
+              bonus={p.bonus}
+              guarantee={p.guarantee}
+              action={
+                /* The free tier's action is the grid above, not a call: the
+                   whole point is that nobody has to talk to anyone to get it. */
+                p.free ? (
+                  <button className="btn-book" onClick={() => setBuying(FREE_TEMPLATES[0])}>
+                    Download one now
+                  </button>
+                ) : (
+                  <a
+                    className="btn-book"
+                    href={CONTACT.calendly}
+                    target="_blank"
+                    rel="noreferrer noopener"
+                  >
+                    Talk it through
+                  </a>
+                )
+              }
+            />
           ))}
-        </div>
+        </motion.div>
         <p className="price-note">
           Want something that isn&apos;t here? I build custom sites from scratch too.{" "}
           <Link className="link" to="/work-with-me">
@@ -230,38 +217,32 @@ export default function Websites() {
       </section>
       <section className="proj-section">
         <h3 className="proj-section__title">Rather I did it for you?</h3>
-        <div className="price-grid">
+        <motion.div className="price-grid" variants={container} initial="hidden" animate="show">
           {SERVICE_PACKAGES.map((p) => (
-            <article
-              className={`card price-card${p.featured ? " price-card--featured" : ""}`}
+            <PriceCard
               key={p.id}
-            >
-              {p.save && <span className="price-card__badge">{p.save}</span>}
-              <div className="price-card__head">
-                <h4 className="price-card__name">{p.name}</h4>
-                <p className="price-card__tagline">{p.tagline}</p>
-              </div>
-              <div className="price-card__price">
-                <span className="price-card__amount">{p.from ? `$${p.from}+` : `$${p.flat}`}</span>
-                <span className="price-card__period">{p.period}</span>
-              </div>
-              <ul className="price-card__features">
-                {p.features.map((f) => (
-                  <li key={f}>
-                    <span className="tick" />
-                    {f}
-                  </li>
-                ))}
-                {p.bonus && (
-                  <li>
-                    <span className="tick tick--gift" />
-                    <span className="price-card__bonus">{p.bonus}</span>
-                  </li>
-                )}
-              </ul>
-            </article>
+              name={p.name}
+              tagline={p.tagline}
+              amount={p.from ? `$${p.from}+` : `$${p.flat}`}
+              period={p.period}
+              badge={p.badge}
+              featured={p.featured}
+              features={p.features}
+              bonus={p.bonus}
+              guarantee={p.guarantee}
+              action={
+                <a
+                  className="btn-book"
+                  href={CONTACT.calendly}
+                  target="_blank"
+                  rel="noreferrer noopener"
+                >
+                  Talk it through
+                </a>
+              }
+            />
           ))}
-        </div>
+        </motion.div>
       </section>
 
 

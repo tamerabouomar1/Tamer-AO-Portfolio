@@ -183,11 +183,17 @@ ul { margin: 0; padding: 0; list-style: none; }
 /* avatar-square.jpg is pre-cropped to a centered headshot; no CSS reframing. */
 .avatar img { width: 100%; height: 100%; object-fit: cover; }
 
+.sidebar__id { display: flex; flex-direction: column; align-items: center; gap: 7px; min-width: 0; }
 .sidebar__name {
   font-size: clamp(22px, 1.7vw, 30px);
   font-weight: 700;
   letter-spacing: 0.4px;
   line-height: 1;
+}
+.sidebar__tagline {
+  font-size: clamp(11px, 0.82vw, 13px);
+  font-weight: 300; line-height: 1.45; color: var(--faint);
+  text-align: center; text-wrap: balance;
 }
 
 /* nav — centred block; fixed icon column keeps every label aligned */
@@ -889,6 +895,110 @@ ul { margin: 0; padding: 0; list-style: none; }
 }
 .sched-slot--rest { color: var(--faint); font-weight: 400; }
 
+/* ---------------------------------------------------------- */
+/*  THE 90-DAY PROGRAM — the fitness page's flagship offer      */
+/* ---------------------------------------------------------- */
+.offer {
+  padding: clamp(24px, 2.8vw, 44px);
+  display: flex; flex-direction: column; gap: clamp(18px, 2vw, 30px);
+  border-color: rgba(100, 206, 251, 0.42);
+  box-shadow: 0 0 0 1px rgba(100, 206, 251, 0.2), 0 26px 70px rgba(0, 0, 0, 0.5);
+  background:
+    radial-gradient(120% 90% at 12% 0%, rgba(100, 206, 251, 0.13), transparent 62%),
+    var(--card);
+}
+.offer__kicker {
+  font-size: clamp(11px, 0.9vw, 13px); font-weight: 700;
+  letter-spacing: 0.12em; text-transform: uppercase; color: var(--shiny);
+}
+.offer__name {
+  font-size: clamp(27px, 3.4vw, 46px); font-weight: 800; line-height: 1.08;
+  margin-top: 6px;
+}
+.offer__promise {
+  font-size: clamp(15px, 1.35vw, 20px); line-height: 1.55; font-weight: 300;
+  color: var(--text); max-width: 60ch; margin-top: clamp(10px, 1.1vw, 16px);
+}
+.offer__proof {
+  font-size: clamp(12px, 1vw, 14.5px); line-height: 1.55; font-weight: 300;
+  color: var(--muted); max-width: 66ch; margin-top: 10px;
+}
+
+/* three tracks — one starving crowd each */
+.offer__tracks { display: grid; grid-template-columns: repeat(auto-fit, minmax(min(100%, 250px), 1fr)); gap: clamp(12px, 1.3vw, 18px); }
+.offer-track {
+  display: flex; flex-direction: column; gap: 8px;
+  padding: clamp(16px, 1.6vw, 24px);
+  border: 1px solid var(--line); border-radius: 14px;
+  background: rgba(255, 255, 255, 0.03);
+}
+.offer-track__who {
+  font-size: 11px; font-weight: 700; letter-spacing: 0.09em;
+  text-transform: uppercase; color: var(--shiny);
+}
+.offer-track__name { font-size: clamp(17px, 1.5vw, 21px); font-weight: 700; }
+.offer-track__pain {
+  font-size: clamp(12.5px, 1vw, 14.5px); line-height: 1.5; font-weight: 300;
+  color: var(--muted); font-style: italic;
+}
+.offer-track__outcome { font-size: clamp(12.5px, 1vw, 14.5px); line-height: 1.5; font-weight: 300; color: var(--text); }
+.offer-track__note { font-size: clamp(11px, 0.85vw, 12.5px); line-height: 1.45; color: var(--faint); font-weight: 300; margin-top: auto; padding-top: 4px; }
+
+/* the twelve weeks, so the outcome has a visible route to it */
+.offer__phases { display: grid; grid-template-columns: repeat(auto-fit, minmax(min(100%, 220px), 1fr)); gap: clamp(12px, 1.3vw, 18px); }
+.offer-phase { display: flex; flex-direction: column; gap: 6px; padding-left: 14px; border-left: 2px solid rgba(100, 206, 251, 0.4); }
+.offer-phase__weeks { font-size: 11px; font-weight: 700; letter-spacing: 0.09em; text-transform: uppercase; color: var(--shiny); }
+.offer-phase__title { font-size: clamp(15px, 1.3vw, 18px); font-weight: 700; }
+.offer-phase__body { font-size: clamp(12.5px, 1vw, 14.5px); line-height: 1.5; font-weight: 300; color: var(--muted); }
+
+/* the stack: everything included, priced, then the total struck through */
+.offer__stack-wrap { display: grid; grid-template-columns: repeat(auto-fit, minmax(min(100%, 300px), 1fr)); gap: clamp(18px, 2vw, 32px); align-items: start; }
+.offer-stack { display: flex; flex-direction: column; }
+.offer-stack__row {
+  display: flex; align-items: baseline; justify-content: space-between; gap: 14px;
+  padding: 10px 0; border-bottom: 1px dashed rgba(255, 255, 255, 0.09);
+  font-size: clamp(12.5px, 1vw, 14.5px); line-height: 1.45;
+}
+.offer-stack__row--bonus .offer-stack__item { color: var(--text); }
+.offer-stack__item { font-weight: 300; color: var(--muted); }
+.offer-stack__tag {
+  display: inline-block; margin-right: 7px;
+  font-size: 10px; font-weight: 700; letter-spacing: 0.07em; text-transform: uppercase;
+  color: #07121f; background: var(--shiny);
+  padding: 2px 6px; border-radius: 4px; vertical-align: 1px;
+}
+.offer-stack__value { flex: none; font-weight: 600; color: var(--faint); font-variant-numeric: tabular-nums; }
+.offer-stack__total {
+  display: flex; align-items: baseline; justify-content: space-between; gap: 14px;
+  padding-top: 13px; font-size: clamp(13px, 1.05vw, 15px); font-weight: 600;
+}
+.offer-stack__total s { color: var(--faint); text-decoration-thickness: 1.5px; font-variant-numeric: tabular-nums; }
+.offer-bonus__body { display: block; font-size: clamp(11.5px, 0.9vw, 13px); line-height: 1.5; color: var(--faint); font-weight: 300; margin-top: 4px; max-width: 52ch; }
+
+/* the close: price, guarantee, seats, button.
+   The stack beside it is a long read, so on wide screens the price and the
+   button ride along with it rather than scrolling away — the decision stays
+   on screen the whole time the reader is being convinced. */
+.offer-close { display: flex; flex-direction: column; gap: clamp(14px, 1.5vw, 20px); }
+@media (min-width: 900px) {
+  .offer-close { position: sticky; top: clamp(16px, 2vw, 32px); }
+}
+.offer-close__price { display: flex; align-items: baseline; flex-wrap: wrap; gap: 8px; }
+.offer-close__amount { font-size: clamp(44px, 5vw, 68px); font-weight: 800; line-height: 1; }
+.offer-close__period { font-size: clamp(13px, 1.05vw, 16px); color: var(--faint); font-weight: 400; }
+.offer-guarantee {
+  padding: clamp(14px, 1.5vw, 20px);
+  border-radius: 12px;
+  border: 1px solid rgba(100, 206, 251, 0.28);
+  background: rgba(100, 206, 251, 0.08);
+}
+.offer-guarantee__title { font-size: clamp(15px, 1.3vw, 18px); font-weight: 700; margin-bottom: 6px; }
+.offer-guarantee__body { font-size: clamp(12.5px, 1vw, 14.5px); line-height: 1.55; font-weight: 300; color: var(--text); }
+.offer-close__seats { font-size: clamp(12px, 0.95vw, 14px); line-height: 1.55; color: var(--muted); font-weight: 300; }
+.offer-close__seats strong { color: var(--shiny); font-weight: 700; }
+.offer-close__btn { align-self: flex-start; padding-left: 30px; padding-right: 30px; background: var(--shiny); border-color: var(--shiny); color: #07121f; }
+.offer-close__btn:hover { box-shadow: 0 12px 30px rgba(100, 206, 251, 0.35); }
+
 /* generic page heading block inside cards */
 .section-title { font-size: clamp(22px, 2.4vw, 35px); font-weight: 700; margin-bottom: clamp(10px, 1.2vw, 18px); }
 .stat-row { display: grid; grid-template-columns: repeat(auto-fit, minmax(150px, 1fr)); gap: var(--gap); }
@@ -919,32 +1029,47 @@ ul { margin: 0; padding: 0; list-style: none; }
   border-color: rgba(100, 206, 251, 0.5);
   box-shadow: 0 0 0 1px rgba(100, 206, 251, 0.28), 0 18px 50px rgba(0, 0, 0, 0.45);
 }
+/* In flow, not absolutely positioned in the corner. Pinned to the corner it
+   sat ON TOP of the card title as soon as the title was long enough to reach
+   it — which is every card once the grid goes single-column on a phone, where
+   "Monthly Coaching" ran straight under the pill. */
 .price-card__badge {
-  position: absolute; top: 14px; right: 14px;
+  align-self: flex-start;
   font-size: 11px; font-weight: 700; letter-spacing: 0.06em; text-transform: uppercase;
   padding: 5px 11px; border-radius: 999px;
   background: var(--shiny); color: #07121f;
 }
+.price-card__badge--ghost { visibility: hidden; }
 .price-card__head { display: flex; flex-direction: column; gap: 4px; }
 .price-card__name { font-size: clamp(20px, 1.9vw, 26px); font-weight: 700; }
 .price-card__tagline { font-size: clamp(13px, 1vw, 15px); color: var(--muted); font-weight: 300; }
+/* Price block. The old floating "save" pill sat in the card's top-left corner
+   detached from everything, so it read as a sticker rather than as pricing.
+   The comparison now lives INSIDE the price line, struck through and ahead of
+   the real number, the way a price is actually compared — and the reason for
+   the comparison is spelled out underneath instead of left as "save $38". */
 .price-card__price {
-  display: flex; align-items: baseline; gap: 6px;
+  display: flex; align-items: baseline; flex-wrap: wrap; gap: 6px;
   padding-bottom: clamp(12px, 1.4vw, 18px);
   border-bottom: 1px solid var(--line);
 }
 .price-card__amount { font-size: clamp(34px, 3.4vw, 48px); font-weight: 800; line-height: 1; }
 .price-card__period { font-size: clamp(13px, 1.05vw, 16px); color: var(--faint); font-weight: 400; }
-
-/* savings / value pill under the price */
-.price-card__save {
-  align-self: flex-start;
-  margin-top: -4px;
-  padding: 4px 11px; border-radius: 999px;
-  font-size: clamp(11px, 0.92vw, 13px); font-weight: 600; letter-spacing: 0.01em;
-  color: var(--shiny);
-  background: rgba(100, 206, 251, 0.12);
-  border: 1px solid rgba(100, 206, 251, 0.3);
+.price-card__was {
+  font-size: clamp(17px, 1.6vw, 23px); font-weight: 500; line-height: 1;
+  color: var(--faint);
+  text-decoration: line-through;
+  text-decoration-thickness: 1.5px;
+  text-decoration-color: rgba(255, 255, 255, 0.34);
+  margin-right: 2px;
+}
+/* Sits inside .price-card__price as a full-width flex line, so it stays
+   attached to the number it explains rather than floating on the card's gap. */
+.price-card__anchor-note {
+  flex: 0 0 100%;
+  margin-top: 7px;
+  font-size: clamp(11px, 0.9vw, 13px); font-weight: 300; color: var(--faint);
+  letter-spacing: 0.01em;
 }
 
 /* free-bonus feature: gift tick + subtle highlight */
@@ -975,6 +1100,18 @@ ul { margin: 0; padding: 0; list-style: none; }
   width: 4px; height: 8px;
   border: solid var(--shiny); border-width: 0 2px 2px 0;
   transform: rotate(45deg);
+}
+
+/* per-card risk reversal, sat just above the call to action where the
+   hesitation actually happens */
+.price-card__guarantee {
+  margin-top: -4px;
+  padding: 10px 13px;
+  border-radius: 10px;
+  border: 1px solid rgba(100, 206, 251, 0.22);
+  background: rgba(100, 206, 251, 0.07);
+  font-size: clamp(12px, 0.95vw, 14px); line-height: 1.45; font-weight: 400;
+  color: var(--text);
 }
 
 /* book button (Calendly) */
@@ -1088,6 +1225,78 @@ ul { margin: 0; padding: 0; list-style: none; }
 /* ---------------------------------------------------------- */
 /*  Home intent routing — "what did you come here for?"        */
 /* ---------------------------------------------------------- */
+/* ---------------------------------------------------------- */
+/*  The free offers — hero on Home, cards on /free             */
+/* ---------------------------------------------------------- */
+.freehero {
+  display: flex; flex-direction: column; align-items: flex-start;
+  gap: clamp(10px, 1.1vw, 15px);
+  padding: clamp(22px, 2.6vw, 40px);
+  margin-bottom: var(--gap);
+  border-color: rgba(100, 206, 251, 0.42);
+  background:
+    radial-gradient(120% 100% at 10% 0%, rgba(100, 206, 251, 0.14), transparent 62%),
+    var(--card);
+  transition: transform 0.3s var(--ease), border-color 0.3s var(--ease);
+}
+.freehero:hover { transform: translateY(-3px); border-color: var(--shiny); }
+.freehero__badge {
+  font-size: clamp(10px, 0.85vw, 12px); font-weight: 700;
+  letter-spacing: 0.11em; text-transform: uppercase; color: var(--shiny);
+  padding: 5px 12px; border-radius: 999px;
+  border: 1px solid rgba(100, 206, 251, 0.4);
+}
+.freehero__title {
+  font-size: clamp(21px, 2.5vw, 38px); font-weight: 700; line-height: 1.14;
+  max-width: 24ch; text-wrap: balance;
+}
+.freehero__body {
+  font-size: clamp(13px, 1.1vw, 16.5px); line-height: 1.55; font-weight: 300;
+  color: var(--muted); max-width: 58ch;
+}
+.freehero__go { margin-top: 2px; }
+
+/* Two up, not auto-fit. There are exactly four offers, and auto-fit put three
+   on a row at desktop widths and left the fourth alone against an empty half
+   of the page. */
+.free-grid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: var(--gap);
+  align-items: stretch;
+}
+@media (max-width: 900px) {
+  .free-grid { grid-template-columns: 1fr; }
+}
+.free-card {
+  display: flex; flex-direction: column; align-items: flex-start;
+  gap: clamp(11px, 1.2vw, 16px);
+  padding: clamp(22px, 2.3vw, 34px);
+}
+.free-card__worth {
+  font-size: 11px; font-weight: 700; letter-spacing: 0.09em; text-transform: uppercase;
+  padding: 4px 11px; border-radius: 999px;
+  background: var(--shiny); color: #07121f;
+}
+.free-card__name { font-size: clamp(19px, 1.8vw, 25px); font-weight: 700; }
+.free-card__lede {
+  font-size: clamp(13px, 1.05vw, 15.5px); line-height: 1.5; font-weight: 300; color: var(--muted);
+}
+.free-card .price-card__features { width: 100%; }
+.free-card__catch {
+  width: 100%;
+  padding: 11px 14px; border-radius: 10px;
+  border: 1px solid var(--line);
+  background: rgba(255, 255, 255, 0.03);
+  font-size: clamp(12px, 0.95vw, 14px); line-height: 1.5; font-weight: 300; color: var(--muted);
+}
+.free-card__catch-label {
+  display: block;
+  font-size: 10px; font-weight: 700; letter-spacing: 0.09em; text-transform: uppercase;
+  color: var(--faint); margin-bottom: 4px;
+}
+.free-card .btn-book { width: 100%; margin-top: auto; }
+
 .paths {
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(min(100%, 220px), 1fr));
@@ -1105,6 +1314,7 @@ ul { margin: 0; padding: 0; list-style: none; }
   border-color: rgba(100, 206, 251, 0.5);
   background: var(--card-hover);
 }
+.path__head { display: flex; align-items: center; gap: 10px; min-width: 0; }
 .path__label { font-size: clamp(16px, 1.45vw, 21px); font-weight: 700; color: var(--shiny); }
 .path__desc { font-size: clamp(12.5px, 1vw, 15px); color: var(--muted); font-weight: 300; line-height: 1.45; }
 .path__go {
@@ -1263,31 +1473,61 @@ ul { margin: 0; padding: 0; list-style: none; }
     background: #08080a;                /* solid: translucency repaints while scrolling */
     transform: translateZ(0);           /* own layer so the header never janks */
   }
-  .sidebar__profile { flex-direction: row; gap: 12px; }
+  .sidebar__profile { flex-direction: row; gap: 12px; min-width: 0; }
   .avatar { width: 46px; }
+  /* Name over tagline, both ranged left. Beside the name the tagline wrapped
+     to two ragged lines and pushed the header taller than the content it was
+     labelling. */
+  .sidebar__id { align-items: flex-start; gap: 1px; }
   .sidebar__name { font-size: 19px; }
+  .sidebar__tagline { font-size: 11px; text-align: left; line-height: 1.3; }
 
   /* navigation moves to the bottom tab bar; the header keeps just identity */
   .nav, .socials { display: none; }
 
   /* intent cards: compact rows so all three audiences fit on one screen */
-  .paths { grid-template-columns: 1fr; gap: 10px; }
+  /* grid-auto-rows: 1fr ties the three cards to the tallest of them, so a
+     title that wraps to two lines can never leave one card taller than its
+     neighbours again — whatever the copy is changed to later. */
+  .paths { grid-template-columns: 1fr; grid-auto-rows: 1fr; gap: 10px; }
   .path {
     display: grid;
-    grid-template-columns: 1fr auto;
+    /* fixed chevron column, so the + lands on the same x on every card
+       however long the title or the flag is */
+    grid-template-columns: 1fr 22px;
     align-items: center;
-    gap: 2px 12px;
+    gap: 3px 12px;
     padding: 14px 16px;
   }
-  .path__label { grid-column: 1; font-size: 17px; }
+  .path__head { grid-column: 1; }
   .path__desc { grid-column: 1; font-size: 13px; }
   .path__go {
     grid-column: 2; grid-row: 1 / span 2;
     margin: 0; padding: 0;
+    justify-content: center;
     font-size: 0; /* keep only the + chevron on narrow screens */
     color: var(--shiny);
   }
   .path__go .plus { font-size: 22px; font-weight: 300; }
+
+  /* Stacked, not space-between. Side by side, a short action ("Start free +")
+     squeezed itself onto the title's line and sat against it. */
+  .topbar {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 8px;
+    margin-bottom: 18px;
+  }
+
+  /* Both have to share one phone-width line with the chevron column. At the
+     desktop sizes "Design & Branding" + "FREE TEARDOWN" wrapped, which made
+     that one card taller than its neighbours. */
+  .path__label { font-size: 16px; }
+  /* .path__head qualifier is load-bearing: the base .path__flag rule is
+     declared further down this file, and a media query adds no specificity,
+     so a bare .path__flag here loses on source order and silently does
+     nothing. */
+  .path__head .path__flag { font-size: 9px; padding: 3px 7px; letter-spacing: 0.07em; }
 
   /* leave room for the fixed tab bar (plus the iPhone home indicator) */
   .main { padding-bottom: calc(96px + env(safe-area-inset-bottom, 0px)); }
@@ -1301,11 +1541,20 @@ ul { margin: 0; padding: 0; list-style: none; }
   .stats { grid-template-columns: 1fr 1fr; grid-template-rows: auto; }
   .about-badges { grid-template-columns: 1fr 1fr; }
   .schedule-grid { grid-template-columns: repeat(2, 1fr); }
+
+  /* The desktop min-height is most of a phone screen. Four stats at that
+     size turned the top of the page into a column of nearly-empty boxes
+     you had to scroll past to reach anything that sells. */
+  .stat { min-height: 96px; padding: 16px 12px; gap: 5px; }
+  .stat-num { font-size: 32px; }
+  .stat-label { font-size: 12px; line-height: 1.3; }
+  .stat-text { font-size: 18px; }
+  .stat-unit { font-size: 13px; }
 }
 
-@media (max-width: 400px) {
-  .stats { grid-template-columns: 1fr; }
-}
+/* NB: no single-column .stats rule below this. A 390px iPhone — the most
+   common phone width there is — used to hit one, which is what made the
+   stats a stack of four full-width blocks. Two columns fit fine at 390. */
 
 @media (prefers-reduced-motion: reduce) {
   * { animation-duration: 0.001ms !important; transition-duration: 0.001ms !important; }
@@ -1704,11 +1953,11 @@ ul { margin: 0; padding: 0; list-style: none; }
 .path--store:hover { border-color: var(--shiny); }
 .path__flag {
   margin-left: auto;
+  flex: none;
   align-self: center;
   font-size: 10px; font-weight: 700; letter-spacing: 0.09em; text-transform: uppercase;
   padding: 3px 9px; border-radius: 999px;
   background: var(--shiny); color: #07121f;
-  margin-bottom: 2px;
 }
 
 /* The preview bar owns the bottom-centre of the screen. Viktor Oddy ships

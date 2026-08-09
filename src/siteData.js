@@ -1,5 +1,91 @@
 // Central place for content reused across pages.
 
+// Shown under the name in the sidebar. One line: what he makes, and where.
+export const PROFILE_TAGLINE = "Brand identity, logos and apparel. Beirut, Lebanon.";
+
+// ── The four free offers ──────────────────────────────────────
+//
+// REBUILT FROM A SCREENSHOT of the live site. A previous session shipped this
+// straight to Cloudflare without committing the source, so the wording of the
+// hero (the headline and "all four cost nothing") is verbatim from that
+// screenshot, and everything below — what each offer actually includes, the
+// values, the catch line — is written fresh. If the original copy turns up,
+// this is the file to reconcile against.
+//
+// WHY GIVE THIS MUCH AWAY. It is the cheapest way to collapse the risk term
+// in the value equation: nobody can be talked out of "free", and a person who
+// has already held the work has stopped wondering whether it is any good. The
+// `catch` line on each is deliberate — naming the thing you get out of it is
+// what stops a free offer reading like a trick.
+//
+// TAMER: these are live commitments, not marketing. Four free reels a month
+// or four free sessions a month is real hours. Cap them if you need to.
+export const FREE_OFFERS = [
+  {
+    id: "website",
+    name: "A finished website",
+    worth: "Free",
+    // Deliberately no count in here. The number of templates lives in exactly
+    // one place — TEMPLATES.length, rendered on the Home card — because when
+    // it was typed into copy it drifted to three different values.
+    lede: "Any one of the ready-made sites, complete, in full React source.",
+    features: [
+      "Full source code, not a demo",
+      "Runs with two commands, no setup",
+      "Yours for personal and client work",
+      "Deploy guide for Netlify, Vercel and Cloudflare",
+    ],
+    catch: "You give me a name and a way to reach you. That is the whole price.",
+    cta: "Pick one",
+    to: "/websites",
+  },
+  {
+    id: "teardown",
+    name: "A brand teardown",
+    worth: "Free",
+    lede: "I go through your logo, your feed and your packaging and tell you what is costing you.",
+    features: [
+      "Recorded walkthrough, yours to keep",
+      "The three things I would change first",
+      "What is working — kept, not redesigned",
+      "No deck, no invoice, no follow-up sequence",
+    ],
+    catch: "Some people hire me afterwards. Most don't, and that is fine.",
+    cta: "Send me your brand",
+    calendly: true,
+  },
+  {
+    id: "reel",
+    name: "Your first reel",
+    worth: "Free",
+    lede: "You send the footage, I cut one reel — hook, captions, the lot.",
+    features: [
+      "One fully edited reel",
+      "Hook and caption written for you",
+      "Cut for Reels and TikTok",
+      "Yours whether or not you carry on",
+    ],
+    catch: "If it does numbers you will want the next four. That is the bet I am making.",
+    cta: "Book the reel",
+    calendly: true,
+  },
+  {
+    id: "hour",
+    name: "An hour of coaching",
+    worth: "Free",
+    lede: "One full session on the mats — technique, conditioning, or the first hour of self-defense.",
+    features: [
+      "A real session, not a consultation",
+      "One-on-one, at your level",
+      "Fitness assessment included",
+      "No card, no sign-up",
+    ],
+    catch: "You will know inside an hour whether you want to train with me.",
+    cta: "Book the hour",
+    calendly: true,
+  },
+];
+
 export const CONTACT = {
   email: "tamerabouomar1@gmail.com",
   phone: "+961 70477595",
@@ -18,13 +104,26 @@ export const CONTACT = {
 // Social-media management packages, built REELS-FIRST — short-form is
 // what drives reach (Tamer's own reels have done 830K+ views), so
 // every tier leads with reels. Prices in USD; `featured` = popular tier.
+//
+// Taglines state the OUTCOME the buyer is paying for rather than describing
+// the deliverable, because "10 reels a month" is a cost and "you post every
+// week without touching it" is a result. The deliverables are still there —
+// they moved down into `features`, which is where a buyer checks the promise
+// rather than where they decide.
+//
+// `anchor` is the same volume bought one reel at a time at REEL_RATE. It is a
+// real comparison — that is the price on the rate card below — which is the
+// only kind of anchor worth printing.
+export const REEL_RATE = 65;
+
 export const SOCIAL_PACKAGES = [
   {
     name: "Starter",
-    tagline: "Get on reels, consistently",
+    tagline: "Stop going quiet for three weeks at a time",
     price: "$199",
     period: "/ month",
-    save: "1st month $149",
+    anchor: 260,
+    anchorNote: `4 reels at $${REEL_RATE} each`,
     cta: "Book a meeting",
     features: [
       "4 custom reels / month",
@@ -36,11 +135,12 @@ export const SOCIAL_PACKAGES = [
   },
   {
     name: "Growth",
-    tagline: "Reels that actually reach",
+    tagline: "Get in front of people who've never heard of you",
     price: "$449",
     period: "/ month",
     featured: true,
-    save: "Best value · reels-first",
+    anchor: 650,
+    anchorNote: `10 reels at $${REEL_RATE} each`,
     cta: "Book a meeting",
     features: [
       "10 custom reels / month",
@@ -53,10 +153,11 @@ export const SOCIAL_PACKAGES = [
   },
   {
     name: "Premium",
-    tagline: "Your full short-form studio",
+    tagline: "Hand the whole thing over and stop thinking about it",
     price: "$899",
     period: "/ month",
-    save: "Built to go viral",
+    anchor: 1300,
+    anchorNote: `20 reels at $${REEL_RATE} each`,
     cta: "Book a meeting",
     features: [
       "20 custom reels / month",
@@ -69,6 +170,17 @@ export const SOCIAL_PACKAGES = [
     bonus: "Free logo animation ($150 value)",
   },
 ];
+
+// Conditional guarantee on the social packages. Measurable, checkable, and
+// paid in Tamer's own work rather than in refunded cash — which is what makes
+// it safe to offer and worth more than "satisfaction guaranteed".
+//
+// TAMER: this only works if you screenshot the client's trailing-90-day
+// average views at kickoff. Do that on day one or the promise has no baseline.
+export const SOCIAL_GUARANTEE = {
+  title: "Beat your own average in 60 days, or the third month is free",
+  body: "On day one we screenshot your average reel views over the last 90 days. If what I make for you hasn't beaten that average within 60 days, you don't pay for the third month — I keep working through it.",
+};
 
 // ── Social proof ──────────────────────────────────────────────
 // Real brands Tamer has delivered work for — every one of these has a
@@ -97,14 +209,164 @@ export const CLIENTS = [
 // Shape: { quote, name, role, project }
 export const TESTIMONIALS = [];
 
+// ── The flagship offer (Fitness page) ─────────────────────────
+//
+// Built on the $100M Offers method rather than as another price tier.
+//
+//   Value = (Dream Outcome × Perceived Likelihood) ÷ (Time Delay × Effort)
+//
+// So every field below is pulling on one of those four levers: `promise` is
+// the dream outcome stated as a capability, `proof` raises the likelihood,
+// `interval` collapses the time delay, and the guarantee removes the risk of
+// trying. The tracks exist because the book's first chapter is about picking
+// a starving crowd — a woman who feels unsafe walking to her car and a parent
+// whose kid is being singled out are not the same buyer and must not be sold
+// with the same sentence.
+//
+// NAMING follows MAGIC: Goal ("Walk Home Safe"), Interval (90-Day),
+// Container ("Program"), Avatar per track.
+//
+// ON THE NUMBERS. `value` on each stack line is priced off Tamer's OWN rate
+// card, not invented: 26 sessions × the $37/session members already pay = $962,
+// and the nutrition plan and programming are what the $299 month charges for
+// today. That is what makes the $2,254 total defensible if a client ever asks
+// how it was reached — which is the only reason to print an anchor at all.
+// The total is SUMMED from the lines below at render time rather than stored,
+// so editing a line can never leave the headline figure quietly wrong.
+//
+// TAMER, CONFIRM BEFORE THIS GOES LIVE:
+//   1. `seatsPerIntake` — the site says you cap it. Only true if you cap it.
+//   2. The guarantee — you are promising free training until they pass. That
+//      costs hours, not cash, but it is a real promise. Say so only if you
+//      will honour it.
+export const DEFENSE_PROGRAM = {
+  name: "The 90-Day Self-Defense Program",
+  kicker: "Three tracks · one coach · every session with me",
+  promise:
+    "In 90 days you will be able to break a grip, create distance and get yourself out — under pressure, against someone bigger than you, without freezing.",
+  // Perceived likelihood of achievement: the reason to believe it.
+  proof:
+    "Blue Belt BJJ, 4th Degree Black Belt Taekwondo, 10+ years on the mats and 100+ students coached. I run every session myself — there is no assistant coach you get handed to.",
+  price: 997,
+  period: "one payment, 12 weeks of training",
+  cta: "Claim a seat",
+
+  // Why 90 days rather than "keep training forever": a deadline is the thing
+  // that makes an outcome believable, and it collapses the time delay term in
+  // the value equation.
+  phases: [
+    {
+      weeks: "Weeks 1–4",
+      title: "Don't be there",
+      body: "Awareness, distance and de-escalation, plus the base conditioning to move at all. Most fights are won before they start.",
+    },
+    {
+      weeks: "Weeks 5–8",
+      title: "Break the grip",
+      body: "The five holds people actually get caught in, and the escape from each. Drilled until it is reflex, not memory.",
+    },
+    {
+      weeks: "Weeks 9–12",
+      title: "Under pressure",
+      body: "Live resistance, escalating each week, finishing with a filmed pressure test against someone bigger than you.",
+    },
+  ],
+
+  tracks: [
+    {
+      id: "women",
+      name: "Walk Home Safe",
+      who: "For women",
+      pain: "You change your route, hold your keys between your fingers, and stay on the phone until you're inside.",
+      outcome:
+        "You stop rehearsing what you'd do and start knowing. Grip breaks, distance, and getting away from someone who is stronger than you.",
+      note: "Grown out of the Women Empowerment Program I run at Combat Sports Academy.",
+    },
+    {
+      id: "teens",
+      name: "Stand Tall",
+      who: "For parents of teens",
+      pain: "Your kid has gone quiet about school, and you don't know whether it's a phase or a person.",
+      outcome:
+        "Your kid stops reading as an easy target — posture, voice and eye contact first, hands only if it gets there. They come home able to tell you what happened.",
+      note: "Grown out of the Kids & Teenagers Anti-Bullying Program I run at Combat Sports Academy.",
+    },
+    {
+      id: "adults",
+      name: "Handle Yourself",
+      who: "For adults, no experience",
+      pain: "You've never trained, you're not going to start competing, and you'd just rather not be helpless.",
+      outcome:
+        "You can control a situation without escalating it, and end it early if it does. Fit enough to still be standing at the end of it.",
+      note: "The general track. Start here if neither of the other two is you.",
+    },
+  ],
+
+  // Trim and stack. Everything a buyer gets, priced at what it costs on its
+  // own, so the discrepancy between the stack and the price is visible.
+  stack: [
+    { item: "26 coached sessions over 12 weeks, 2× per week", value: 962 },
+    { item: "A training program written around your body and your starting point", value: 150 },
+    { item: "Custom nutrition plan, built on university nutrition science", value: 150 },
+    { item: "Weekly progress check-ins and a filmed benchmark every 4 weeks", value: 88 },
+    { item: "WhatsApp access to me for the full 90 days", value: 120 },
+  ],
+
+  // Each bonus answers the objection that comes AFTER the sale, in the order
+  // people raise them: "what about when I'm not with you", "what about my
+  // home", "I don't want to go alone", "how will I know it worked".
+  bonuses: [
+    {
+      name: "The Situational Awareness Playbook",
+      value: 90,
+      body: "The written guide to not being there when it happens — routes, exits, phones, taxis, car parks. Yours in week one, before you can throw a single strike.",
+    },
+    {
+      name: "Home & Commute Safety Audit",
+      value: 75,
+      body: "A 30-minute call where we go through your actual street, building and daily route, and fix the three things that make you easiest to pick.",
+    },
+    {
+      name: "Bring a training partner, free",
+      value: 499,
+      body: "Someone you trust trains the whole 90 days alongside you at no cost. You drill against a real person from week one, and neither of you has to walk in alone.",
+    },
+    {
+      name: "Your filmed pressure test",
+      value: 120,
+      body: "Day 90, on camera, against someone bigger. Yours to keep — it is the proof, and it is the thing you show yourself the next time you doubt it.",
+    },
+  ],
+
+  // Conditional guarantee: the strongest risk reversal that is also honest,
+  // because it is paid in Tamer's hours rather than refunded cash.
+  guarantee: {
+    title: "Pass it, or keep training free",
+    body: "Make 80% of the sessions and do the drills between them. If you can't pass the day-90 pressure test, you keep training with me — free — until you can. I am not asking you to trust that it works. I am asking you to show up.",
+  },
+
+  // Real constraint, not a countdown clock. Tamer coaches every session
+  // himself and Friday is his private-class day, so the cap is genuine.
+  intake: {
+    seatsPerIntake: 6,
+    cadence: "New intake starts the first Monday of every month.",
+    reason:
+      "Six seats, because I coach every session myself and I am not going to hand you to someone else halfway through.",
+  },
+};
+
 // ── Personal training (Fitness page) ─────────────────────────
-// A per-session drop-in, a recurring monthly plan (featured, centre —
-// the best value and the business's recurring revenue), and a flexible
-// session pack for people who can't commit weekly.
+// The ongoing options for people who are not doing the 90-day program:
+// a drop-in, the recurring month, and a flexible pack.
+//
+// `anchor` is what the same thing costs bought the other way, so the card can
+// show a struck-through comparison instead of the old floating "save" pill.
+// Only set it where the comparison is REAL — Single Session has none, which is
+// the point of it being the entry price.
 export const PT_PACKAGES = [
   {
     name: "Single Session",
-    tagline: "Try it, zero commitment",
+    tagline: "See if we get on, before you commit to anything",
     price: "$45",
     period: "/ session",
     cta: "Book a session",
@@ -116,11 +378,12 @@ export const PT_PACKAGES = [
   },
   {
     name: "Monthly Coaching",
-    tagline: "Everything, every month",
+    tagline: "Someone in your corner every week",
     price: "$299",
     period: "/ month",
     featured: true,
-    save: "Just $37 / session",
+    anchor: 360, // 8 drop-in sessions at $45
+    anchorNote: "8 sessions bought singly",
     cta: "Book a session",
     features: [
       "8 sessions (2× per week)",
@@ -132,14 +395,15 @@ export const PT_PACKAGES = [
     bonus: "Free monthly progress tracking",
   },
   {
-    name: "10-Session Pack",
-    tagline: "Train on your schedule",
+    name: "11-Session Pack",
+    tagline: "For weeks that never look the same twice",
     price: "$399",
     period: "11 sessions",
-    save: "1 session free",
+    anchor: 495, // 11 drop-in sessions at $45
+    anchorNote: "11 sessions bought singly",
     cta: "Book a session",
     features: [
-      "Buy 10 sessions, get 1 free",
+      "Buy 10 sessions, get the 11th free",
       "Personalized training program",
       "No weekly commitment",
       "Valid for 4 months",
@@ -971,7 +1235,7 @@ export const TEMPLATE_PACKAGES = [
     flat: 19,
     period: "per month, cancel any time",
     featured: true,
-    save: "Something new every week",
+    badge: "Most popular",
     subscription: true,
     features: [
       "Every website template, in one download",
@@ -988,7 +1252,8 @@ export const TEMPLATE_PACKAGES = [
     tagline: "The same thing, two months free",
     flat: 190,
     period: "per year, billed once",
-    save: "Save $38",
+    anchor: 228, // 12 × $19 paid monthly
+    anchorNote: "paid monthly",
     subscription: true,
     features: [
       "Everything in the monthly membership",
@@ -1008,7 +1273,7 @@ export const SERVICE_PACKAGES = [
     flat: 200,
     period: "flat, any template",
     featured: true,
-    save: "Most popular",
+    badge: "Most popular",
     features: [
       "Any template, set up for you",
       "Your copy, photos and branding applied",
@@ -1017,6 +1282,10 @@ export const SERVICE_PACKAGES = [
       "1 round of revisions",
     ],
     bonus: "Free logo animation for your hero",
+    // Reduces the effort-and-sacrifice term: the buyer's real fear is not the
+    // $200, it is spending a fortnight chasing a freelancer for a site that
+    // never goes up. Naming the deadline is what removes it.
+    guarantee: "Live within 7 days of getting your content, or you don't pay.",
   },
   {
     id: "custom",

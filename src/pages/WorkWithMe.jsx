@@ -1,8 +1,14 @@
 import { useState } from "react";
 import { motion } from "framer-motion";
 import Page, { container, cardIn } from "../components/Page";
+import PriceCard from "../components/PriceCard";
 import { TrustedBy, Testimonials } from "../components/SocialProof";
-import { CONTACT, SOCIAL_PACKAGES, SERVICE_CATEGORIES } from "../siteData";
+import {
+  CONTACT,
+  SOCIAL_PACKAGES,
+  SOCIAL_GUARANTEE,
+  SERVICE_CATEGORIES,
+} from "../siteData";
 
 // Calendly inline embed, themed to match the site.
 const CALENDLY_EMBED =
@@ -150,50 +156,53 @@ export default function WorkWithMe() {
           animate="show"
         >
           {SOCIAL_PACKAGES.map((p) => (
-            <motion.article
-              className={"card price-card" + (p.featured ? " price-card--featured" : "")}
+            <PriceCard
               key={p.name}
-              variants={cardIn}
-            >
-              {p.featured && <span className="price-card__badge">Most popular</span>}
-              <div className="price-card__head">
-                <h4 className="price-card__name">{p.name}</h4>
-                <p className="price-card__tagline">{p.tagline}</p>
-              </div>
-              <div className="price-card__price">
-                <span className="price-card__amount">{p.price}</span>
-                <span className="price-card__period">{p.period}</span>
-              </div>
-              {p.save && <span className="price-card__save">{p.save}</span>}
-              <ul className="price-card__features">
-                {p.features.map((f) => (
-                  <li key={f}>
-                    <span className="tick" aria-hidden="true" />
-                    {f}
-                  </li>
-                ))}
-                {p.bonus && (
-                  <li className="price-card__bonus">
-                    <span className="tick tick--gift" aria-hidden="true" />
-                    {p.bonus}
-                  </li>
-                )}
-              </ul>
-              <a
-                className="btn-book"
-                href="#top"
-                onClick={(e) => {
-                  e.preventDefault();
-                  window.scrollTo({ top: 0, behavior: "smooth" });
-                }}
-              >
-                {p.cta}
-              </a>
-            </motion.article>
+              name={p.name}
+              tagline={p.tagline}
+              amount={p.price}
+              period={p.period}
+              was={p.anchor ? `$${p.anchor.toLocaleString("en-US")}` : undefined}
+              anchorNote={p.anchorNote}
+              badge={p.featured ? "Most popular" : undefined}
+              featured={p.featured}
+              features={p.features}
+              bonus={p.bonus}
+              action={
+                <a
+                  className="btn-book"
+                  href="#top"
+                  onClick={(e) => {
+                    e.preventDefault();
+                    window.scrollTo({ top: 0, behavior: "smooth" });
+                  }}
+                >
+                  {p.cta}
+                </a>
+              }
+            />
           ))}
         </motion.div>
+
+        {/* Risk reversal under the tier row, where the "what if it doesn't
+            work" objection actually lands. This replaced a 15% prepay
+            discount: cutting the price to win the deal trains people to wait
+            for a cut, where taking the risk off them costs nothing unless the
+            work genuinely fails. */}
+        <motion.div
+          className="card offer-guarantee"
+          variants={cardIn}
+          initial="hidden"
+          animate="show"
+          style={{ marginTop: "var(--gap)" }}
+        >
+          <h4 className="offer-guarantee__title">{SOCIAL_GUARANTEE.title}</h4>
+          <p className="offer-guarantee__body">{SOCIAL_GUARANTEE.body}</p>
+        </motion.div>
+
         <p className="price-note">
-          Prices in USD, month-to-month, cancel anytime. Prepay 3 months and save 15%.
+          Prices in USD, month-to-month, cancel anytime. Single reels without a package are
+          $65 each.
         </p>
       </section>
 
@@ -220,7 +229,12 @@ export default function WorkWithMe() {
             </motion.article>
           ))}
         </motion.div>
-        <p className="price-note">Monthly clients get a discount on all one-off work.</p>
+        {/* Was "monthly clients get a discount on all one-off work". Framing a
+            perk as a discount teaches people the list price is soft; framing
+            the same perk as access does not. */}
+        <p className="price-note">
+          Monthly clients go to the front of the queue on one-off work, at their member rate.
+        </p>
       </section>
 
       {/* Message form */}

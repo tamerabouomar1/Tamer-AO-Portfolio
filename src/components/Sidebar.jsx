@@ -1,7 +1,7 @@
 import { NavLink } from "react-router-dom";
 import ShinyText from "./ShinyText";
 import { NAV } from "./navItems";
-import { CONTACT } from "../siteData";
+import { CONTACT, PROFILE_TAGLINE } from "../siteData";
 
 const svgProps = {
   viewBox: "0 0 24 24",
@@ -64,7 +64,10 @@ export default function Sidebar() {
         <div className="avatar">
           <img src="/assets/avatar-square.jpg?v=2" alt="Portrait of Tamer AO" />
         </div>
-        <ShinyText as="h1" className="sidebar__name" text="Tamer AO" speed={4} />
+        <div className="sidebar__id">
+          <ShinyText as="h1" className="sidebar__name" text="Tamer AO" speed={4} />
+          <p className="sidebar__tagline">{PROFILE_TAGLINE}</p>
+        </div>
       </div>
 
       <nav className="nav" aria-label="Primary">

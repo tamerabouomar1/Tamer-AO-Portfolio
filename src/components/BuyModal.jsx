@@ -112,7 +112,7 @@ export default function BuyModal({ template, onClose }) {
                 onClick={() => setPicked(p.id)}
                 aria-pressed={on}
               >
-                {p.save && <span className="buy-tier__badge">{p.save}</span>}
+                {p.badge && <span className="buy-tier__badge">{p.badge}</span>}
                 <span className="buy-tier__name">{p.name}</span>
                 <span className="buy-tier__tagline">{p.tagline}</span>
                 <span className="buy-tier__price">{pr.label}</span>
