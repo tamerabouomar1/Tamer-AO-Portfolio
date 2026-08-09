@@ -1,0 +1,246 @@
+/* Aurora — AI Product Hero. Scoped under .au. */
+
+.au {
+  /* hsl values straight from the spec's CSS variables */
+  --au-bg: hsl(260 87% 3%);
+  --au-fg: hsl(40 6% 95%);
+  --au-sub: hsl(40 6% 82%);
+
+  min-height: 100svh;
+  background: var(--au-bg);
+  color: var(--au-fg);
+  font-family: "Geist", ui-sans-serif, system-ui, sans-serif;
+}
+.au * { box-sizing: border-box; }
+.au h1, .au p { margin: 0; }
+.au button { font: inherit; color: inherit; border: 0; background: none; cursor: pointer; }
+
+.au-stage {
+  position: relative;
+  width: 100%;
+  min-height: 100svh;
+  overflow: hidden;            /* the video is clipped; the glow is not */
+}
+
+/* Opacity is driven per-frame from JS, so it starts at 0 and carries no
+   transition — a CSS transition here would fight the rAF loop. */
+.au-video {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  opacity: 0;
+}
+
+.au-screen {
+  position: relative;
+  z-index: 10;
+  display: flex;
+  flex-direction: column;
+  min-height: 100svh;
+}
+
+/* ── navbar ───────────────────────────────────────────────── */
+.au-nav {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 24px;
+  padding: 20px 32px;
+}
+.au-logo { height: 32px; width: auto; color: var(--au-fg); }
+.au-logo__word { font-size: 17px; font-weight: 600; font-family: "General Sans", "Geist", sans-serif; }
+
+.au-links { display: none; align-items: center; gap: 34px; }
+.au-links button {
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+  color: rgb(244 242 240 / 0.9);
+  font-size: 15px;
+  transition: color 0.25s ease;
+}
+.au-links button:hover { color: var(--au-fg); }
+.au-caret { width: 15px; height: 15px; flex: none; }
+
+.au-signup {
+  padding: 8px 16px;
+  border-radius: 9999px;
+  font-size: 15px;
+  transition: opacity 0.25s ease;
+}
+.au-signup:hover { opacity: 0.85; }
+
+/* The 1px hairline under the nav, nudged down 3px as specified. */
+.au-rule {
+  height: 1px;
+  margin-top: 3px;
+  background: linear-gradient(90deg, transparent, rgb(244 242 240 / 0.2), transparent);
+}
+
+/* ── hero ─────────────────────────────────────────────────── */
+.au-hero {
+  position: relative;
+  flex: 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0 32px;
+  overflow: visible;           /* so the blur is not cut off */
+}
+
+.au-glow {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 984px;
+  height: 527px;
+  max-width: 100%;
+  opacity: 0.9;
+  background: #030712;         /* gray-950 */
+  filter: blur(82px);
+  pointer-events: none;
+}
+
+.au-copy {
+  position: relative;
+  z-index: 1;
+  width: 100%;
+  max-width: 1180px;
+}
+
+.au-title {
+  font-family: "General Sans", "Geist", sans-serif;
+  font-weight: 400;
+  font-size: clamp(72px, 15vw, 220px);
+  line-height: 1.02;
+  letter-spacing: -0.024em;
+}
+/* Painted through the text, so the gradient belongs to the glyphs rather
+   than sitting behind them. */
+.au-title__grad {
+  background-image: linear-gradient(to left, #6366f1, #a855f7, #fcd34d);
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+}
+
+.au-sub {
+  max-width: 28rem;
+  margin-top: 9px;
+  color: var(--au-sub);
+  font-size: 18px;
+  line-height: 32px;
+  opacity: 0.8;
+}
+
+.au-cta {
+  margin-top: 25px;
+  padding: 24px 29px;
+  border-radius: 9999px;
+  font-size: 15px;
+  transition: opacity 0.25s ease;
+}
+.au-cta:hover { opacity: 0.85; }
+
+/* ── marquee ──────────────────────────────────────────────── */
+.au-marquee { padding-bottom: 40px; }
+.au-marquee__inner {
+  display: flex;
+  align-items: center;
+  gap: 48px;
+  max-width: 64rem;
+  margin: 0 auto;
+  padding: 0 32px;
+}
+.au-marquee__label {
+  flex: none;
+  color: rgb(244 242 240 / 0.5);
+  font-size: 14px;
+  line-height: 1.45;
+}
+
+.au-track { flex: 1; overflow: hidden; -webkit-mask-image: linear-gradient(90deg, transparent, #000 6%, #000 94%, transparent); mask-image: linear-gradient(90deg, transparent, #000 6%, #000 94%, transparent); }
+.au-track__run {
+  display: flex;
+  align-items: center;
+  gap: 64px;
+  width: max-content;
+  animation: au-scroll 20s linear infinite;
+}
+@keyframes au-scroll {
+  from { transform: translateX(0%); }
+  to   { transform: translateX(-50%); }
+}
+
+.au-logo-item {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  font-size: 16px;
+  font-weight: 600;
+  color: var(--au-fg);
+  white-space: nowrap;
+}
+.au-logo-item__mark {
+  display: grid;
+  place-items: center;
+  width: 24px;
+  height: 24px;
+  border-radius: 8px;
+  font-size: 12px;
+  font-weight: 700;
+}
+
+/* ── liquid glass ─────────────────────────────────────────── */
+.au .liquid-glass {
+  background: rgba(255, 255, 255, 0.01);
+  background-blend-mode: luminosity;
+  backdrop-filter: blur(4px);
+  -webkit-backdrop-filter: blur(4px);
+  border: none;
+  box-shadow: inset 0 1px 1px rgba(255, 255, 255, 0.1);
+  position: relative;
+  overflow: hidden;
+}
+/* The hairline edge: a gradient ring drawn in the padding box and punched
+   out with a mask, which is how you get a 1.4px border that fades. */
+.au .liquid-glass::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  border-radius: inherit;
+  padding: 1.4px;
+  background: linear-gradient(
+    180deg,
+    rgba(255, 255, 255, 0.45) 0%,
+    rgba(255, 255, 255, 0.15) 20%,
+    rgba(255, 255, 255, 0) 40%,
+    rgba(255, 255, 255, 0) 60%,
+    rgba(255, 255, 255, 0.15) 80%,
+    rgba(255, 255, 255, 0.45) 100%
+  );
+  -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+  -webkit-mask-composite: xor;
+  mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+  mask-composite: exclude;
+  pointer-events: none;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .au-track__run { animation: none; }
+}
+
+@media (min-width: 900px) {
+  .au-links { display: flex; }
+}
+
+@media (max-width: 860px) {
+  .au-nav { padding: 18px 20px; }
+  .au-hero { padding: 40px 20px; }
+  .au-marquee__inner { flex-direction: column; align-items: flex-start; gap: 20px; padding: 0 20px; }
+  .au-track { width: 100%; }
+  .au-cta { padding: 18px 24px; }
+}

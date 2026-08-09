@@ -1,0 +1,223 @@
+/* Muse — Early Access Hero. Scoped under .mu. */
+
+.mu {
+  --mu-bg: #000000;
+  --mu-fg: #ffffff;
+
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  height: 100svh;
+  overflow: hidden;
+  background: var(--mu-bg);
+  color: var(--mu-fg);
+  font-family: "Inter", ui-sans-serif, system-ui, sans-serif;
+  letter-spacing: -0.01em;
+  -webkit-font-smoothing: antialiased;
+}
+.mu * { box-sizing: border-box; }
+.mu h1, .mu p { margin: 0; }
+.mu button { font: inherit; color: inherit; border: 0; background: none; cursor: pointer; }
+.mu ::selection { background: #fff; color: #000; }
+
+.mu-videowrap { position: absolute; inset: 0; overflow: hidden; pointer-events: none; }
+.mu-video { width: 100%; height: 100%; object-fit: cover; opacity: 1; }
+
+/* ── navbar ───────────────────────────────────────────────── */
+.mu-nav { position: relative; z-index: 20; width: 100%; padding: 24px; }
+.mu-nav__bar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px;
+  max-width: 64rem;
+  margin: 0 auto;
+  padding: 12px 24px;
+  border-radius: 9999px;
+}
+.mu-nav__left { display: flex; align-items: center; gap: 32px; }
+.mu-brand { display: inline-flex; align-items: center; gap: 8px; font-size: 18px; font-weight: 600; }
+.mu-globe { width: 24px; height: 24px; flex: none; }
+
+.mu-nav__links { display: none; align-items: center; gap: 32px; }
+.mu-nav__links button {
+  color: rgb(255 255 255 / 0.8);
+  font-size: 14px;
+  font-weight: 500;
+  transition: color 0.3s ease;
+}
+.mu-nav__links button:hover { color: #fff; }
+
+.mu-nav__right { display: flex; align-items: center; gap: 16px; }
+.mu-signup { font-size: 14px; font-weight: 500; transition: color 0.3s ease; }
+.mu-signup:hover { color: rgb(255 255 255 / 0.8); }
+.mu-login {
+  padding: 8px 24px;
+  border-radius: 9999px;
+  font-size: 14px;
+  font-weight: 500;
+  transition: opacity 0.3s ease;
+}
+.mu-login:hover { opacity: 0.9; }
+
+/* ── hero ─────────────────────────────────────────────────── */
+.mu-hero {
+  position: relative;
+  flex: 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0 24px;
+  min-height: 0;               /* let the flex child shrink instead of pushing the page taller */
+}
+.mu-hero__inner {
+  position: relative;
+  z-index: 10;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  max-width: 64rem;
+  margin: 0 auto;
+  text-align: center;
+  gap: 48px;
+}
+
+.mu-tagline {
+  margin-bottom: -32px;        /* the 48px stack gap minus the spec's 16px */
+  color: rgb(255 255 255 / 0.8);
+  font-size: 10px;
+  font-weight: 500;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+}
+
+/* Clipped out of a top-down gradient so the last line sits back a little —
+   the fade is the hierarchy here, since the weight never changes. */
+.mu-title {
+  max-width: 56rem;
+  font-family: "Instrument Serif", Georgia, serif;
+  font-weight: 500;
+  font-size: clamp(34px, 6.4vw, 64px);
+  line-height: 1.1;
+  letter-spacing: -0.01em;
+  background-image: linear-gradient(to bottom, #fff, rgb(255 255 255 / 0.95), rgb(255 255 255 / 0.7));
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+}
+.mu-br { display: none; }
+
+.mu-ctawrap { min-height: 50px; margin-top: -32px; }
+
+.mu-btn {
+  padding: 12px 40px;
+  border: 1px solid rgb(255 255 255 / 0.1);
+  border-radius: 9999px;
+  backdrop-filter: blur(4px);
+  -webkit-backdrop-filter: blur(4px);
+  color: rgb(255 255 255 / 0.9);
+  font-size: 14px;
+  font-weight: 500;
+  transition: border-color 0.3s ease, background 0.3s ease;
+}
+.mu-btn:hover { border-color: rgb(255 255 255 / 0.3); background: rgb(255 255 255 / 0.02); }
+
+.mu-form {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  width: 100%;
+  max-width: 320px;
+  padding: 6px 6px 6px 20px;
+  border: 1px solid rgb(255 255 255 / 0.2);
+  border-radius: 9999px;
+  background: rgb(255 255 255 / 0.02);
+  backdrop-filter: blur(4px);
+  -webkit-backdrop-filter: blur(4px);
+  transition: border-color 0.3s ease;
+}
+.mu-form:focus-within { border-color: rgb(255 255 255 / 0.4); }
+.mu-form input {
+  flex: 1;
+  min-width: 0;
+  border: 0;
+  background: transparent;
+  color: #fff;
+  font: inherit;
+  font-size: 14px;
+  font-weight: 500;
+  outline: none;
+}
+.mu-form input::placeholder { color: rgb(255 255 255 / 0.45); }
+.mu-form button {
+  display: grid;
+  place-items: center;
+  width: 34px;
+  height: 34px;
+  flex: none;
+  border-radius: 9999px;
+  background: rgb(255 255 255 / 0.08);
+  transition: background 0.25s ease;
+}
+.mu-form button:hover { background: rgb(255 255 255 / 0.16); }
+.mu-form button svg { width: 16px; height: 16px; }
+
+.mu-demo { margin-top: -24px; }
+.mu-demo button {
+  color: rgb(255 255 255 / 0.8);
+  font-size: 13px;
+  font-weight: 500;
+  letter-spacing: 0.02em;
+  transition: color 0.3s ease;
+}
+.mu-demo button:hover { color: rgb(255 255 255 / 0.4); }
+
+/* ── liquid glass / glass pill ────────────────────────────── */
+.mu .liquid-glass {
+  background: rgba(255, 255, 255, 0.01);
+  background-blend-mode: luminosity;
+  backdrop-filter: blur(4px);
+  -webkit-backdrop-filter: blur(4px);
+  border: none;
+  box-shadow: inset 0 1px 1px rgba(255, 255, 255, 0.1);
+  position: relative;
+  overflow: hidden;
+}
+.mu .liquid-glass::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  border-radius: inherit;
+  padding: 1.4px;
+  background: linear-gradient(
+    180deg,
+    rgba(255, 255, 255, 0.45) 0%,
+    rgba(255, 255, 255, 0.15) 20%,
+    rgba(255, 255, 255, 0) 40%,
+    rgba(255, 255, 255, 0) 60%,
+    rgba(255, 255, 255, 0.15) 80%,
+    rgba(255, 255, 255, 0.45) 100%
+  );
+  -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+  -webkit-mask-composite: xor;
+  mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+  mask-composite: exclude;
+  pointer-events: none;
+}
+
+.mu .glass-pill {
+  background: rgba(255, 255, 255, 0.04);
+  backdrop-filter: blur(16px) saturate(180%);
+  -webkit-backdrop-filter: blur(16px) saturate(180%);
+  border-radius: 9999px;
+  box-shadow: none !important;
+}
+
+@media (min-width: 768px) {
+  .mu-nav__links { display: flex; }
+  .mu-tagline { font-size: 11px; }
+  .mu-br { display: block; }
+}
