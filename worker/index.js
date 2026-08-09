@@ -247,9 +247,23 @@ async function listLeads(request, env) {
   return json({ ok: true, count: rows.length, leads: rows });
 }
 
+/* Google Search Console's HTML-file check wants this exact URL to answer 200
+   with the token as its body. The asset handler's default html_handling strips
+   the .html extension, so it was answering 307 -> /googlecdc160a1620c12b8 and
+   Google does not follow a redirect for this check — verification could never
+   pass. Served here instead of turning html_handling off globally, which also
+   governs how index.html is resolved at "/". */
+const GSC_TOKEN = "googlecdc160a1620c12b8";
+
 export default {
   async fetch(request, env) {
     const { pathname } = new URL(request.url);
+
+    if (pathname === `/${GSC_TOKEN}.html`) {
+      return new Response(`google-site-verification: ${GSC_TOKEN}.html`, {
+        headers: { "content-type": "text/html; charset=utf-8" },
+      });
+    }
 
     if (pathname === "/api/lead" && request.method === "POST") return saveLead(request, env);
     if (pathname === "/api/claim" && request.method === "POST") return saveClaim(request, env);
