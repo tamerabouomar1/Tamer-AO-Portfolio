@@ -163,7 +163,49 @@ function csvSafe(v) {
   return /^[=+\-@\t\r]/.test(s) ? `'${s}` : s;
 }
 
-async function saveLead(body, request, env) {
+/* Push a notification to Telegram the moment something is submitted.
+ *
+ * KV is the record; this is only the tap on the shoulder. So it must never be
+ * able to fail a submission: it is always started with ctx.waitUntil(), which
+ * lets the visitor get their response immediately while this finishes in the
+ * background, and every error is swallowed. A notification that does not
+ * arrive is an annoyance; a form that 500s because Telegram was slow loses a
+ * client.
+ *
+ * Silently does nothing when the bot token or chat id is unset, so the site
+ * runs fine without them.
+ */
+function tgEscape(v) {
+  // Telegram's HTML mode understands a small tag set; anything else with a
+  // stray < or & in it is rejected outright and the notification is lost.
+  return String(v ?? "").replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;");
+}
+
+async function notify(env, title, fields) {
+  if (!env.TELEGRAM_BOT_TOKEN || !env.TELEGRAM_CHAT_ID) return;
+
+  const lines = [`<b>${tgEscape(title)}</b>`];
+  for (const [label, value] of fields) {
+    if (value) lines.push(`<b>${tgEscape(label)}:</b> ${tgEscape(value)}`);
+  }
+
+  try {
+    await fetch(`https://api.telegram.org/bot${env.TELEGRAM_BOT_TOKEN}/sendMessage`, {
+      method: "POST",
+      headers: { "content-type": "application/json" },
+      body: JSON.stringify({
+        chat_id: env.TELEGRAM_CHAT_ID,
+        text: lines.join("\n"),
+        parse_mode: "HTML",
+        disable_web_page_preview: true,
+      }),
+    });
+  } catch {
+    /* Telegram unreachable. The record is already safe in KV. */
+  }
+}
+
+async function saveLead(body, request, env, ctx) {
   if (!env.LEADS) return json({ ok: false, error: "storage unavailable" }, 503);
 
   const name = clean(body.name);
@@ -188,6 +230,15 @@ async function saveLead(body, request, env) {
   const key = `lead:${at}:${crypto.randomUUID().slice(0, 8)}`;
   await env.LEADS.put(key, JSON.stringify(lead));
 
+  ctx.waitUntil(
+    notify(env, "📥 Template downloaded", [
+      ["Name", name],
+      ["Contact", reach],
+      ["Template", template],
+      ["Country", lead.country],
+    ])
+  );
+
   return json({ ok: true });
 }
 
@@ -198,7 +249,7 @@ async function saveLead(body, request, env) {
  * every message a visitor sent was lost, on the one page that exists to get
  * people to make contact. Messages are stored next to the template leads now,
  * and read back through the same /api/leads endpoint. */
-async function saveMessage(body, request, env) {
+async function saveMessage(body, request, env, ctx) {
   if (!env.LEADS) return json({ ok: false, error: "storage unavailable" }, 503);
 
   // The honeypot: a field hidden from people and irresistible to bots. Anything
@@ -228,6 +279,14 @@ async function saveMessage(body, request, env) {
     })
   );
 
+  ctx.waitUntil(
+    notify(env, "💬 New message", [
+      ["From", name],
+      ["Email", email],
+      ["Message", message],
+    ])
+  );
+
   return json({ ok: true });
 }
 
@@ -235,7 +294,7 @@ async function saveMessage(body, request, env) {
  * teardown, the first reel. The WhatsApp hand-off still opens in the browser,
  * but as with the template downloads, the claim is recorded here first so it
  * exists whether or not that message is ever sent. */
-async function saveClaim(body, request, env) {
+async function saveClaim(body, request, env, ctx) {
   if (!env.LEADS) return json({ ok: false, error: "storage unavailable" }, 503);
 
   if (clean(body["bot-field"])) return json({ ok: true });
@@ -263,6 +322,15 @@ async function saveClaim(body, request, env) {
     })
   );
 
+  ctx.waitUntil(
+    notify(env, "🎁 Free offer claimed", [
+      ["Name", name],
+      ["Contact", reach],
+      ["Offer", offer],
+      ["About", about],
+    ])
+  );
+
   return json({ ok: true });
 }
 
@@ -272,7 +340,7 @@ async function saveClaim(body, request, env) {
  * Contact is optional here on purpose. Tying feedback to an identity is the
  * fastest way to stop getting the unflattering kind, and the unflattering kind
  * is the entire reason the work is being given away. */
-async function saveFeedback(body, request, env) {
+async function saveFeedback(body, request, env, ctx) {
   if (!env.LEADS) return json({ ok: false, error: "storage unavailable" }, 503);
 
   if (clean(body["bot-field"])) return json({ ok: true });
@@ -300,6 +368,14 @@ async function saveFeedback(body, request, env) {
       country: request.headers.get("cf-ipcountry") || "",
       referer: clean(request.headers.get("referer") || ""),
     })
+  );
+
+  ctx.waitUntil(
+    notify(env, "📝 Feedback received", [
+      ["What they thought", verdict],
+      ["What would make it better", better],
+      ["Contact", clean(body.reach)],
+    ])
   );
 
   return json({ ok: true });
@@ -374,7 +450,7 @@ async function listLeads(request, env) {
 const GSC_TOKEN = "googlecdc160a1620c12b8";
 
 export default {
-  async fetch(request, env) {
+  async fetch(request, env, ctx) {
     const { pathname } = new URL(request.url);
 
     if (pathname === `/${GSC_TOKEN}.html`) {
@@ -420,7 +496,7 @@ export default {
         return json({ ok: false, error: "failed the spam check, please try again" }, 403);
       }
 
-      return route.fn(body, request, env);
+      return route.fn(body, request, env, ctx);
     }
 
     // Anything else under /api that we don't serve.
