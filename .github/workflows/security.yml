@@ -1,0 +1,79 @@
+# Automatic security checks, run by GitHub on every push and once a week.
+#
+# Three separate jobs, each answering a different question:
+#   1. Did a password or key accidentally get committed?
+#   2. Do any of the libraries this site uses have known security holes?
+#   3. Is there a bug in the site's own code that a scanner can spot?
+#
+# Results appear under the repository's "Security" tab on GitHub. The weekly
+# run matters as much as the on-push one: a library you have not touched in
+# months can have a hole found in it tomorrow.
+name: Security
+
+on:
+  push:
+    branches: ["**"]
+  pull_request:
+  schedule:
+    # Every Monday, 6am UTC.
+    - cron: "0 6 * * 1"
+  workflow_dispatch: # lets you run it by hand from the Actions tab
+
+# Least privilege: these jobs only ever read the code. The one exception is
+# uploading scan results, granted per-job below.
+permissions:
+  contents: read
+
+jobs:
+  # 1. Look through the entire commit history for anything that looks like a
+  #    password, API key or token. Catching this matters because deleting a
+  #    secret in a later commit does not remove it from history — it stays
+  #    readable forever unless it is found and the key is replaced.
+  secret-scan:
+    name: Check for committed passwords and keys
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0 # the whole history, not just the latest commit
+      - name: Scan history with Gitleaks
+        uses: gitleaks/gitleaks-action@v2
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
+  # 2. Ask npm whether any installed library has a publicly known security hole.
+  #    Limited to the libraries that actually ship to visitors — a problem in a
+  #    build-only tool cannot be reached by someone visiting the site.
+  dependency-audit:
+    name: Check libraries for known security holes
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version-file: ".node-version"
+          cache: "npm"
+      - run: npm ci
+      - name: Audit production dependencies
+        # Fails the check on high or critical only. Moderate findings are
+        # reported but do not block, because at the time of writing the only
+        # moderate one has no fix that does not require a breaking upgrade.
+        run: |
+          npm audit --omit=dev || true
+          npm audit --omit=dev --audit-level=high
+
+  # 3. CodeQL reads the site's own JavaScript looking for real bug patterns —
+  #    the kind where visitor input reaches somewhere it should not.
+  code-scan:
+    name: Scan our own code for bugs
+    runs-on: ubuntu-latest
+    permissions:
+      contents: read
+      security-events: write # to publish findings to the Security tab
+    steps:
+      - uses: actions/checkout@v4
+      - uses: github/codeql-action/init@v3
+        with:
+          languages: javascript-typescript
+          queries: security-extended
+      - uses: github/codeql-action/analyze@v3

@@ -16,3 +16,36 @@
 # infinite redirect loop and fails the whole deploy with error 100324.
 /assets/*
   Cache-Control: public, max-age=2592000, stale-while-revalidate=86400
+
+# Security headers, applied to every response.
+#
+# The one that does the work is script-src 'self': no inline script, no eval,
+# no script from anywhere but this origin. If a bug ever let a visitor's text
+# reach the page as markup, that rule is what stops it from being able to run.
+# Vite emits every bundle as an external, content-hashed file, so nothing on
+# the site needs an exception — and the JSON-LD block in index.html is a data
+# block, not executable script, so CSP does not apply to it.
+#
+# img-src / media-src / frame-src are deliberately broad (https:). The template
+# previews pull screenshots, video and live embeds from hosts that change as
+# templates are added, and pinning them would break the work page every time
+# one moved. Loosening those costs little while script-src stays strict: an
+# image from the wrong host is an image, not code.
+/*
+  Content-Security-Policy: default-src 'self'; script-src 'self'; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com https://api.fontshare.com; font-src 'self' data: https://fonts.gstatic.com https://api.fontshare.com https://db.onlinewebfonts.com; img-src 'self' data: blob: https:; media-src 'self' blob: https:; frame-src https:; connect-src 'self' https:; object-src 'none'; base-uri 'self'; form-action 'self'; frame-ancestors 'none'; upgrade-insecure-requests
+  # Nobody may frame the site. Stops the page being loaded invisibly over
+  # someone else's, so a click they think lands on their page lands on yours.
+  X-Frame-Options: DENY
+  # Browsers must honour the declared Content-Type instead of sniffing it. An
+  # uploaded or user-named file can otherwise be guessed into being script.
+  X-Content-Type-Options: nosniff
+  # Send the full URL to same-origin requests, only the origin to other sites.
+  # Anything with a token in the query string then stops leaking that token in
+  # the Referer header the moment a visitor clicks an outbound link.
+  Referrer-Policy: strict-origin-when-cross-origin
+  # None of this is a site that needs a camera, a microphone or a location.
+  Permissions-Policy: camera=(), microphone=(), geolocation=(), payment=(), usb=(), interest-cohort=()
+  # HTTPS only, for two years, on this host and its subdomains.
+  Strict-Transport-Security: max-age=63072000; includeSubDomains; preload
+  Cross-Origin-Opener-Policy: same-origin
+  X-DNS-Prefetch-Control: off

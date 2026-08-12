@@ -50,21 +50,22 @@
 
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-    <!-- Load fonts without blocking first paint: fetch as a preload, then
-         promote to a stylesheet once it arrives (display=swap shows text
-         immediately in the fallback face meanwhile). -->
+    <!-- Fonts.
+         This used to be a preload carrying onload="this.rel='stylesheet'" to
+         promote itself once it arrived. That is an inline event handler, and
+         the site's Content-Security-Policy forbids inline script — so the
+         handler never ran, the promotion never happened, and the file was
+         fetched and then ignored. (CSP cannot whitelist an event handler by
+         hash; only 'unsafe-hashes' allows those, which is not worth it for
+         one line.)
+
+         A plain stylesheet link instead: preconnect above has the connection
+         already open, the file is about a kilobyte, and display=swap paints
+         text in the fallback face immediately rather than waiting. -->
     <link
-      rel="preload"
-      as="style"
+      rel="stylesheet"
       href="https://fonts.googleapis.com/css2?family=Inter:wght@200;300;400;500;700;900&display=swap"
-      onload="this.rel='stylesheet'"
     />
-    <noscript>
-      <link
-        rel="stylesheet"
-        href="https://fonts.googleapis.com/css2?family=Inter:wght@200;300;400;500;700;900&display=swap"
-      />
-    </noscript>
 
     <!-- Structured data: tells Google who this site is about (rich results). -->
     <script type="application/ld+json">

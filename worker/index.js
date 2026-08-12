@@ -14,6 +14,29 @@
 const MAX = 200; // per field, plenty for a name or an email
 const MAX_MESSAGE = 4000; // a contact message needs far more room than a name
 
+// Nothing legitimate posted here is large: the biggest possible record is a
+// name, a contact and one 4000-character message. Anything past this is either
+// broken or hostile, and refusing it before request.json() means a hostile
+// body is never parsed or held in memory at all.
+const MAX_BODY = 16 * 1024;
+
+// Rate limit, per IP per endpoint. The forms are unauthenticated by design —
+// anyone can post — so the only thing standing between a script and an
+// unbounded number of KV writes is this. Generous enough that a real person
+// filling in a form twice never sees it.
+const RATE_LIMIT = 10; // writes allowed...
+const RATE_WINDOW = 600; // ...per this many seconds
+
+// Requests are only accepted from the site itself. This is not a CSRF defence
+// in the session sense (there is no session and no cookie to ride on) — it
+// stops other people's pages from quietly posting into your storage, which is
+// the cheap way to fill a KV namespace from a browser that isn't yours.
+const ALLOWED_ORIGINS = [
+  "https://portfolio.tamerao.workers.dev",
+  "https://tamerao.com",
+  "https://www.tamerao.com",
+];
+
 const json = (body, status = 200) =>
   new Response(JSON.stringify(body), {
     status,
@@ -24,15 +47,88 @@ function clean(v) {
   return typeof v === "string" ? v.trim().slice(0, MAX) : "";
 }
 
+/* Same-origin check for the POST endpoints.
+ *
+ * Origin is sent by every browser on a cross-origin POST and cannot be forged
+ * by page script, which is what makes it worth checking. A missing Origin is
+ * allowed through: non-browser clients (curl, a health check) omit it, and
+ * they are not the thing being defended against here. */
+function originAllowed(request) {
+  const origin = request.headers.get("origin");
+  if (!origin) return true;
+  if (ALLOWED_ORIGINS.includes(origin)) return true;
+  // Wrangler dev and local preview builds.
+  return /^http:\/\/(localhost|127\.0\.0\.1)(:\d+)?$/.test(origin);
+}
+
+/* Read the body with a hard ceiling, before any parsing happens. */
+async function readJson(request) {
+  const declared = Number(request.headers.get("content-length") || 0);
+  if (declared > MAX_BODY) return null;
+  const text = await request.text();
+  // Content-Length can lie or be absent under chunked encoding, so the real
+  // length is checked too rather than trusted from the header.
+  if (text.length > MAX_BODY) return null;
+  try {
+    const parsed = JSON.parse(text);
+    // A JSON body that is an array or a string would make every body.foo read
+    // undefined further down; requiring a plain object keeps the handlers'
+    // assumptions true.
+    return parsed && typeof parsed === "object" && !Array.isArray(parsed) ? parsed : null;
+  } catch {
+    return null;
+  }
+}
+
+/* Per-IP write budget, kept in the same KV namespace under a `rl:` prefix.
+ *
+ * Deliberately approximate: two requests landing in the same instant can both
+ * read the same count and both be allowed. That race costs one extra write at
+ * the margin, which does not matter — the job is stopping thousands of writes,
+ * not tens. The keys expire on their own, so nothing accumulates. */
+async function overLimit(env, request, bucket) {
+  const ip = request.headers.get("cf-connecting-ip");
+  if (!ip || !env.LEADS) return false;
+
+  const key = `rl:${bucket}:${ip}`;
+  const current = Number((await env.LEADS.get(key)) || 0);
+  if (current >= RATE_LIMIT) return true;
+
+  await env.LEADS.put(key, String(current + 1), { expirationTtl: RATE_WINDOW });
+  return false;
+}
+
+/* Constant-time string comparison for the read token.
+ *
+ * `a !== b` returns as soon as it finds a differing byte, so how long it takes
+ * leaks how much of the token was right. Over the public internet that signal
+ * is buried in jitter, but the constant-time version costs nothing and removes
+ * the question entirely. */
+function safeEqual(a, b) {
+  if (typeof a !== "string" || typeof b !== "string" || a.length !== b.length) return false;
+  let diff = 0;
+  for (let i = 0; i < a.length; i++) diff |= a.charCodeAt(i) ^ b.charCodeAt(i);
+  return diff === 0;
+}
+
+/* Neutralise spreadsheet formulas in exported CSV.
+ *
+ * A visitor who types `=HYPERLINK("http://evil","click")` — or the far worse
+ * `=cmd|'/c calc'!A1` — into a name field has written a formula that Excel and
+ * Numbers execute when the export is opened, on your machine, with your
+ * permissions. The value is data, so it gets a leading apostrophe and stays
+ * data. */
+function csvSafe(v) {
+  const s = String(v ?? "");
+  return /^[=+\-@\t\r]/.test(s) ? `'${s}` : s;
+}
+
 async function saveLead(request, env) {
   if (!env.LEADS) return json({ ok: false, error: "storage unavailable" }, 503);
+  if (await overLimit(env, request, "lead")) return json({ ok: false, error: "slow down" }, 429);
 
-  let body;
-  try {
-    body = await request.json();
-  } catch {
-    return json({ ok: false, error: "bad json" }, 400);
-  }
+  const body = await readJson(request);
+  if (!body) return json({ ok: false, error: "bad json" }, 400);
 
   const name = clean(body.name);
   const reach = clean(body.reach);
@@ -68,13 +164,10 @@ async function saveLead(request, env) {
  * and read back through the same /api/leads endpoint. */
 async function saveMessage(request, env) {
   if (!env.LEADS) return json({ ok: false, error: "storage unavailable" }, 503);
+  if (await overLimit(env, request, "msg")) return json({ ok: false, error: "slow down" }, 429);
 
-  let body;
-  try {
-    body = await request.json();
-  } catch {
-    return json({ ok: false, error: "bad json" }, 400);
-  }
+  const body = await readJson(request);
+  if (!body) return json({ ok: false, error: "bad json" }, 400);
 
   // The honeypot: a field hidden from people and irresistible to bots. Anything
   // that fills it gets a cheerful 200 and is dropped on the floor.
@@ -112,13 +205,10 @@ async function saveMessage(request, env) {
  * exists whether or not that message is ever sent. */
 async function saveClaim(request, env) {
   if (!env.LEADS) return json({ ok: false, error: "storage unavailable" }, 503);
+  if (await overLimit(env, request, "claim")) return json({ ok: false, error: "slow down" }, 429);
 
-  let body;
-  try {
-    body = await request.json();
-  } catch {
-    return json({ ok: false, error: "bad json" }, 400);
-  }
+  const body = await readJson(request);
+  if (!body) return json({ ok: false, error: "bad json" }, 400);
 
   if (clean(body["bot-field"])) return json({ ok: true });
 
@@ -156,13 +246,10 @@ async function saveClaim(request, env) {
  * is the entire reason the work is being given away. */
 async function saveFeedback(request, env) {
   if (!env.LEADS) return json({ ok: false, error: "storage unavailable" }, 503);
+  if (await overLimit(env, request, "fb")) return json({ ok: false, error: "slow down" }, 429);
 
-  let body;
-  try {
-    body = await request.json();
-  } catch {
-    return json({ ok: false, error: "bad json" }, 400);
-  }
+  const body = await readJson(request);
+  if (!body) return json({ ok: false, error: "bad json" }, 400);
 
   if (clean(body["bot-field"])) return json({ ok: true });
 
@@ -203,7 +290,12 @@ async function listLeads(request, env) {
     url.searchParams.get("token") ||
     (request.headers.get("authorization") || "").replace(/^Bearer\s+/i, "");
 
-  if (!env.LEADS_TOKEN || given !== env.LEADS_TOKEN) {
+  // Rate limited like the write endpoints, for a different reason: this is the
+  // one guessable thing on the site, and a budget per IP is what turns "guess
+  // the token" from a background job into an impossibility.
+  if (await overLimit(env, request, "read")) return json({ ok: false, error: "slow down" }, 429);
+
+  if (!env.LEADS_TOKEN || !safeEqual(given, env.LEADS_TOKEN)) {
     return json({ ok: false, error: "unauthorized" }, 401);
   }
 
@@ -226,7 +318,9 @@ async function listLeads(request, env) {
   const rows = leads.filter(Boolean).sort((a, b) => String(b.at).localeCompare(String(a.at)));
 
   if (url.searchParams.get("format") === "csv") {
-    const esc = (v) => `"${String(v ?? "").replace(/"/g, '""')}"`;
+    // csvSafe first (defuse formulas), then quote for CSV. Both are needed:
+    // the quoting makes the file parse, csvSafe makes it inert once parsed.
+    const esc = (v) => `"${csvSafe(v).replace(/"/g, '""')}"`;
     const csv = [
       "date,kind,name,contact,offer,message,country",
       ...rows.map((l) =>
@@ -263,6 +357,12 @@ export default {
       return new Response(`google-site-verification: ${GSC_TOKEN}.html`, {
         headers: { "content-type": "text/html; charset=utf-8" },
       });
+    }
+
+    // One gate in front of every write, rather than the same check repeated
+    // four times inside the handlers where a fifth endpoint could forget it.
+    if (request.method === "POST" && pathname.startsWith("/api/") && !originAllowed(request)) {
+      return json({ ok: false, error: "forbidden" }, 403);
     }
 
     if (pathname === "/api/lead" && request.method === "POST") return saveLead(request, env);

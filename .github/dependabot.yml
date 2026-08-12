@@ -1,0 +1,35 @@
+# Dependabot — GitHub's free robot that watches the code libraries this site is
+# built from.
+#
+# Websites are built on top of other people's code (React, Vite, and so on).
+# When a security hole is found in one of those, it becomes a hole in this site
+# too, and there is no notification unless something is watching. This tells
+# GitHub to watch, and to open a pull request with the fix whenever one is
+# published.
+#
+# Nothing is installed automatically — each fix shows up as a pull request for
+# you to look at and merge.
+version: 2
+updates:
+  # The npm libraries the site is built from.
+  - package-ecosystem: "npm"
+    directory: "/"
+    schedule:
+      interval: "weekly"
+    open-pull-requests-limit: 5
+    # Group the routine version bumps into one pull request so the inbox stays
+    # readable. Security fixes are opened separately and immediately regardless
+    # of this setting.
+    groups:
+      routine-updates:
+        patterns: ["*"]
+        update-types: ["minor", "patch"]
+    labels:
+      - "dependencies"
+
+  # The GitHub Actions used by the workflow files in .github/workflows.
+  # These run with access to the repository, so they are worth keeping current.
+  - package-ecosystem: "github-actions"
+    directory: "/"
+    schedule:
+      interval: "monthly"
