@@ -3,6 +3,7 @@ import { Link } from "react-router-dom";
 import { motion, AnimatePresence } from "framer-motion";
 import { container, cardIn } from "./Page";
 import { CONTACT, FREE_OFFERS } from "../siteData";
+import Turnstile from "./Turnstile";
 
 /* The free half of the site, in one place.
  *
@@ -72,6 +73,7 @@ function OfferCard({ offer, onClaim, compact }) {
 function ClaimModal({ offer, onClose }) {
   const [who, setWho] = useState({ name: "", reach: "", about: "" });
   const [status, setStatus] = useState("idle");
+  const [token, setToken] = useState("");
 
   useEffect(() => {
     const onKey = (e) => e.key === "Escape" && onClose();
@@ -110,6 +112,7 @@ function ClaimModal({ offer, onClose }) {
           reach: who.reach,
           about: who.about,
           offer: offer.name,
+          "cf-turnstile-response": token,
         }),
         keepalive: true,
       });
@@ -206,6 +209,8 @@ function ClaimModal({ offer, onClose }) {
                 onChange={(e) => setWho((w) => ({ ...w, about: e.target.value }))}
               />
             </label>
+            <Turnstile onToken={setToken} />
+
             <button className="btn-book buy-go" type="submit" disabled={status === "sending"}>
               {status === "sending" ? "Sending…" : offer.cta}
             </button>

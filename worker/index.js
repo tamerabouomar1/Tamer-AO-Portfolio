@@ -111,6 +111,46 @@ function safeEqual(a, b) {
   return diff === 0;
 }
 
+/* Ask Cloudflare whether a Turnstile token is genuine.
+ *
+ * This is the half of Turnstile that does the work. The widget on the page
+ * only produces a token; until it is checked here it proves nothing, because
+ * anyone posting straight at this endpoint never loads the widget at all. A
+ * site with the widget and no siteverify call has the appearance of spam
+ * protection and none of the substance.
+ *
+ * Deliberately fail-OPEN when TURNSTILE_SECRET is not configured. The
+ * alternative is that the day the secret is missing or rotated, every form on
+ * the site silently rejects real people and the enquiries are simply lost —
+ * and a lost client enquiry is a worse outcome than an accepted spam one. The
+ * rate limit, origin check and honeypot all still apply in that state.
+ *
+ * Once the secret IS set, a missing or bad token is refused.
+ */
+async function verifyTurnstile(request, env, token) {
+  if (!env.TURNSTILE_SECRET) return { ok: true, skipped: true };
+  if (!token || typeof token !== "string") return { ok: false };
+
+  const body = new FormData();
+  body.append("secret", env.TURNSTILE_SECRET);
+  body.append("response", token);
+  const ip = request.headers.get("cf-connecting-ip");
+  if (ip) body.append("remoteip", ip);
+
+  try {
+    const res = await fetch("https://challenges.cloudflare.com/turnstile/v0/siteverify", {
+      method: "POST",
+      body,
+    });
+    const data = await res.json();
+    return { ok: data.success === true };
+  } catch {
+    // Cloudflare unreachable. Same reasoning as above: do not lose the
+    // enquiry over an outage in the spam checker.
+    return { ok: true, skipped: true };
+  }
+}
+
 /* Neutralise spreadsheet formulas in exported CSV.
  *
  * A visitor who types `=HYPERLINK("http://evil","click")` — or the far worse
@@ -123,12 +163,8 @@ function csvSafe(v) {
   return /^[=+\-@\t\r]/.test(s) ? `'${s}` : s;
 }
 
-async function saveLead(request, env) {
+async function saveLead(body, request, env) {
   if (!env.LEADS) return json({ ok: false, error: "storage unavailable" }, 503);
-  if (await overLimit(env, request, "lead")) return json({ ok: false, error: "slow down" }, 429);
-
-  const body = await readJson(request);
-  if (!body) return json({ ok: false, error: "bad json" }, 400);
 
   const name = clean(body.name);
   const reach = clean(body.reach);
@@ -162,12 +198,8 @@ async function saveLead(request, env) {
  * every message a visitor sent was lost, on the one page that exists to get
  * people to make contact. Messages are stored next to the template leads now,
  * and read back through the same /api/leads endpoint. */
-async function saveMessage(request, env) {
+async function saveMessage(body, request, env) {
   if (!env.LEADS) return json({ ok: false, error: "storage unavailable" }, 503);
-  if (await overLimit(env, request, "msg")) return json({ ok: false, error: "slow down" }, 429);
-
-  const body = await readJson(request);
-  if (!body) return json({ ok: false, error: "bad json" }, 400);
 
   // The honeypot: a field hidden from people and irresistible to bots. Anything
   // that fills it gets a cheerful 200 and is dropped on the floor.
@@ -203,12 +235,8 @@ async function saveMessage(request, env) {
  * teardown, the first reel. The WhatsApp hand-off still opens in the browser,
  * but as with the template downloads, the claim is recorded here first so it
  * exists whether or not that message is ever sent. */
-async function saveClaim(request, env) {
+async function saveClaim(body, request, env) {
   if (!env.LEADS) return json({ ok: false, error: "storage unavailable" }, 503);
-  if (await overLimit(env, request, "claim")) return json({ ok: false, error: "slow down" }, 429);
-
-  const body = await readJson(request);
-  if (!body) return json({ ok: false, error: "bad json" }, 400);
 
   if (clean(body["bot-field"])) return json({ ok: true });
 
@@ -244,12 +272,8 @@ async function saveClaim(request, env) {
  * Contact is optional here on purpose. Tying feedback to an identity is the
  * fastest way to stop getting the unflattering kind, and the unflattering kind
  * is the entire reason the work is being given away. */
-async function saveFeedback(request, env) {
+async function saveFeedback(body, request, env) {
   if (!env.LEADS) return json({ ok: false, error: "storage unavailable" }, 503);
-  if (await overLimit(env, request, "fb")) return json({ ok: false, error: "slow down" }, 429);
-
-  const body = await readJson(request);
-  if (!body) return json({ ok: false, error: "bad json" }, 400);
 
   if (clean(body["bot-field"])) return json({ ok: true });
 
@@ -359,18 +383,45 @@ export default {
       });
     }
 
-    // One gate in front of every write, rather than the same check repeated
-    // four times inside the handlers where a fifth endpoint could forget it.
-    if (request.method === "POST" && pathname.startsWith("/api/") && !originAllowed(request)) {
-      return json({ ok: false, error: "forbidden" }, 403);
-    }
-
-    if (pathname === "/api/lead" && request.method === "POST") return saveLead(request, env);
-    if (pathname === "/api/claim" && request.method === "POST") return saveClaim(request, env);
-    if (pathname === "/api/feedback" && request.method === "POST")
-      return saveFeedback(request, env);
-    if (pathname === "/api/contact" && request.method === "POST") return saveMessage(request, env);
     if (pathname === "/api/leads" && request.method === "GET") return listLeads(request, env);
+
+    /* Every write goes through one gate.
+     *
+     * Origin check, body parse and spam check all happen here rather than
+     * inside the four handlers. Repeated in four places, the real failure
+     * mode is not that one of them is wrong — it is that a fifth endpoint
+     * gets added later and quietly skips one. Here that cannot happen: a new
+     * route in the table below is checked before its handler ever runs. */
+    const writers = {
+      "/api/lead": { fn: saveLead, bucket: "lead" },
+      "/api/claim": { fn: saveClaim, bucket: "claim" },
+      "/api/feedback": { fn: saveFeedback, bucket: "fb" },
+      "/api/contact": { fn: saveMessage, bucket: "msg" },
+    };
+    const route = Object.hasOwn(writers, pathname) ? writers[pathname] : null;
+    if (route && request.method === "POST") {
+      if (!env.LEADS) return json({ ok: false, error: "storage unavailable" }, 503);
+
+      // Cheapest checks first, deliberately. The origin check is a header
+      // comparison, the rate limit is one KV read; the Turnstile check is an
+      // outbound request to Cloudflare. Verifying before rate limiting would
+      // let a flood spend an API call per request on traffic that was going
+      // to be refused anyway.
+      if (!originAllowed(request)) return json({ ok: false, error: "forbidden" }, 403);
+      if (await overLimit(env, request, route.bucket)) {
+        return json({ ok: false, error: "slow down" }, 429);
+      }
+
+      const body = await readJson(request);
+      if (!body) return json({ ok: false, error: "bad json" }, 400);
+
+      const check = await verifyTurnstile(request, env, body["cf-turnstile-response"]);
+      if (!check.ok) {
+        return json({ ok: false, error: "failed the spam check, please try again" }, 403);
+      }
+
+      return route.fn(body, request, env);
+    }
 
     // Anything else under /api that we don't serve.
     if (pathname.startsWith("/api/")) return json({ ok: false, error: "not found" }, 404);

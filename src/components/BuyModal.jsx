@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { CONTACT, TEMPLATE_PACKAGES, templateZip } from "../siteData";
+import Turnstile from "./Turnstile";
 
 /* The delivery step, shared by the store grid and the live preview bar.
 
@@ -31,6 +32,7 @@ export default function BuyModal({ template, onClose }) {
   const [picked, setPicked] = useState(tiers.find((p) => p.free)?.id ?? tiers[0].id);
   const [who, setWho] = useState({ name: "", reach: "" });
   const [sent, setSent] = useState(false);
+  const [token, setToken] = useState("");
 
   useEffect(() => {
     const onKey = (e) => e.key === "Escape" && onClose();
@@ -154,6 +156,7 @@ export default function BuyModal({ template, onClose }) {
                   name: who.name,
                   reach: who.reach,
                   template: template.name,
+                  "cf-turnstile-response": token,
                 }),
                 keepalive: true,
               }).catch(() => {});
@@ -194,6 +197,8 @@ export default function BuyModal({ template, onClose }) {
                 />
               </label>
             </div>
+            <Turnstile onToken={setToken} />
+
             <button className="btn-book buy-go" type="submit">
               {sent ? "Download again" : `Download ${template.name}, free`}
             </button>

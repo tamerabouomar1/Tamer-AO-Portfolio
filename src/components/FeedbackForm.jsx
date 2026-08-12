@@ -1,6 +1,7 @@
 import { useState } from "react";
 import { motion } from "framer-motion";
 import { cardIn } from "./Page";
+import Turnstile from "./Turnstile";
 
 /* The two questions Stage 0 is actually built on.
  *
@@ -22,6 +23,10 @@ export default function FeedbackForm({
 }) {
   const [form, setForm] = useState({ verdict: "", better: "", reach: "" });
   const [status, setStatus] = useState("idle");
+  // The spam-check token. Sent as-is, including empty: whether an empty one is
+  // acceptable is the Worker's decision, not this form's, so a widget that
+  // fails to load never blocks somebody from writing in.
+  const [token, setToken] = useState("");
 
   const set = (k) => (e) => setForm((f) => ({ ...f, [k]: e.target.value }));
 
@@ -32,7 +37,7 @@ export default function FeedbackForm({
       const res = await fetch("/api/feedback", {
         method: "POST",
         headers: { "content-type": "application/json" },
-        body: JSON.stringify({ ...form, what }),
+        body: JSON.stringify({ ...form, what, "cf-turnstile-response": token }),
       });
       const data = await res.json().catch(() => ({}));
       if (!res.ok || !data.ok) throw new Error();
@@ -93,6 +98,8 @@ export default function FeedbackForm({
             onChange={set("reach")}
           />
         </label>
+
+        <Turnstile onToken={setToken} />
 
         <div className="msg-form__foot">
           <button className="btn-book" type="submit" disabled={status === "sending"}>

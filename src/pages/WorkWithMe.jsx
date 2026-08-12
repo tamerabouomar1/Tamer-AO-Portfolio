@@ -3,6 +3,7 @@ import { motion } from "framer-motion";
 import Page, { container, cardIn } from "../components/Page";
 import PriceCard from "../components/PriceCard";
 import FreeOffers from "../components/FreeOffers";
+import Turnstile from "../components/Turnstile";
 import { TrustedBy, Testimonials } from "../components/SocialProof";
 import {
   CONTACT,
@@ -71,6 +72,11 @@ function MessageForm() {
         placeholder="What do you have in mind?"
         required
       />
+      {/* No onToken needed: this form submits via new FormData(e.target), and
+          Turnstile writes its own hidden cf-turnstile-response input into the
+          form, so the token is collected with everything else. */}
+      <Turnstile />
+
       <div className="msg-form__foot">
         <button className="btn-book" type="submit" disabled={status === "sending"}>
           {status === "sending" ? "Sending…" : "Send message"}

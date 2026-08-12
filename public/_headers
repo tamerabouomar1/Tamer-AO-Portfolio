@@ -32,7 +32,11 @@
 # one moved. Loosening those costs little while script-src stays strict: an
 # image from the wrong host is an image, not code.
 /*
-  Content-Security-Policy: default-src 'self'; script-src 'self'; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com https://api.fontshare.com; font-src 'self' data: https://fonts.gstatic.com https://api.fontshare.com https://db.onlinewebfonts.com; img-src 'self' data: blob: https:; media-src 'self' blob: https:; frame-src https:; connect-src 'self' https:; object-src 'none'; base-uri 'self'; form-action 'self'; frame-ancestors 'none'; upgrade-insecure-requests
+  # challenges.cloudflare.com is Turnstile, the spam check on the forms. It
+  # needs script-src (its widget script) and frame-src (it runs the actual
+  # challenge inside an iframe). Remove either and every form on the site
+  # stops being submittable.
+  Content-Security-Policy: default-src 'self'; script-src 'self' https://challenges.cloudflare.com; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com https://api.fontshare.com; font-src 'self' data: https://fonts.gstatic.com https://api.fontshare.com https://db.onlinewebfonts.com; img-src 'self' data: blob: https:; media-src 'self' blob: https:; frame-src https:; connect-src 'self' https:; object-src 'none'; base-uri 'self'; form-action 'self'; frame-ancestors 'none'; upgrade-insecure-requests
   # Nobody may frame the site. Stops the page being loaded invisibly over
   # someone else's, so a click they think lands on their page lands on yours.
   X-Frame-Options: DENY
