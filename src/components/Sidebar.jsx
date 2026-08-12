@@ -3,11 +3,15 @@ import { NAV } from "./navItems";
 import ShinyText from "./ShinyText";
 import { CONTACT, PROFILE_TAGLINE } from "../siteData";
 
+/* strokeWidth 2, not 1.9, and rendered at 24px — same rule as the nav icons in
+   navItems.jsx: an even stroke on whole coordinates puts both edges on the
+   device pixel grid, where 1.9 scaled into a 20px box landed everything on
+   thirds of a pixel and softened every line. */
 const svgProps = {
   viewBox: "0 0 24 24",
   fill: "none",
   stroke: "currentColor",
-  strokeWidth: 1.9,
+  strokeWidth: 2,
   strokeLinecap: "round",
   strokeLinejoin: "round",
 };

@@ -309,7 +309,9 @@ ul { margin: 0; padding: 0; list-style: none; }
   color: #ffffff;                    /* inactive icons are white */
   transition: color 0.3s var(--ease), transform 0.3s var(--ease);
 }
-.nav-icon svg { width: 22px; height: 22px; display: block; }
+/* 24, not 22: the box is already 24px, and matching the viewBox 1:1 keeps the
+   strokes on whole pixels instead of resampling them by 0.917. */
+.nav-icon svg { width: 24px; height: 24px; display: block; }
 .nav-glyph { font-size: 22px; font-weight: 400; line-height: 1; }
 
 .nav-item:hover .nav-icon { color: #fff; transform: scale(1.12); }
@@ -345,16 +347,20 @@ ul { margin: 0; padding: 0; list-style: none; }
   padding-top: 30px;
 }
 .social {
-  width: 22px;
-  height: 22px;
+  width: 24px;
+  height: 24px;
   flex: none;
   display: flex;
   align-items: center;
   justify-content: center;
-  color: rgba(255, 255, 255, 0.82);   /* all icons same colour + size now */
+  /* Opaque, like the nav icons. At rgba(255,255,255,.82) the sidebar showed
+     through every stroke, which is what makes an icon look faded rather than
+     quiet. This is the same value composited, without the transparency. */
+  color: #d2d5da;
   transition: transform 0.3s var(--ease), color 0.3s var(--ease);
 }
-.social svg { width: 20px; height: 20px; display: block; }
+/* 24, matching the viewBox 1:1 — 20px meant scaling 24 units by 0.833. */
+.social svg { width: 24px; height: 24px; display: block; }
 .social:hover { transform: translateY(-3px) scale(1.12); color: #fff; }
 
 /* ---------------------------------------------------------- */
@@ -1223,6 +1229,21 @@ ul { margin: 0; padding: 0; list-style: none; }
   max-width: 74ch;
 }
 
+/* The small print under the monthly plans: what an edit is, what the term is,
+   who owns what. Same voice as .price-note, but a list, because four separate
+   conditions run together as a paragraph is how people miss one. */
+.care-notes {
+  margin-top: clamp(12px, 1.4vw, 18px);
+  display: flex; flex-direction: column; gap: 7px;
+  max-width: 82ch;
+  font-size: clamp(12px, 0.95vw, 14px); color: var(--faint); font-weight: 300; line-height: 1.5;
+}
+.care-notes li { position: relative; padding-left: 18px; }
+.care-notes li::before {
+  content: ""; position: absolute; left: 0; top: 0.62em;
+  width: 9px; height: 1px; background: var(--shiny); opacity: 0.65;
+}
+
 /* one-off work — categorized cards */
 .cat-grid {
   display: grid;
@@ -1473,9 +1494,12 @@ ul { margin: 0; padding: 0; list-style: none; }
      on every scroll frame, which stutters badly on phones. */
   background: #0a0a0c;
   border-top: 1px solid var(--line);
-  /* own compositor layer so scrolling never repaints the bar */
-  transform: translateZ(0);
-  will-change: transform;
+  /* NO will-change / translateZ(0) here. They were added to force the bar onto
+     its own compositor layer, and they did — along with greyscale
+     antialiasing and a rasterisation that no longer lines up with the device
+     pixel grid, which is what made every icon and label look faintly out of
+     focus. A position:fixed bar with a solid background is promoted by the
+     browser when it needs to be; `contain` still keeps repaints inside it. */
   contain: layout paint;
 }
 .tab {
@@ -1485,11 +1509,18 @@ ul { margin: 0; padding: 0; list-style: none; }
   padding: 7px 2px;
   min-width: 0;
   border: 0; background: none; cursor: pointer;
-  color: var(--faint);
+  /* An opaque grey, NOT var(--faint). --faint is rgba(255,255,255,.5), so
+     every inactive icon was a half-transparent stroke with the bar showing
+     through it — which reads as a washed-out icon, not a dimmed one. This
+     lands at the same brightness over #0a0a0c with none of the see-through. */
+  color: #8f959d;
   -webkit-tap-highlight-color: transparent;
   transition: color 0.2s var(--ease);
 }
-.tab__icon { width: 23px; height: 23px; display: grid; place-items: center; }
+/* 24px, matching the icons' 24-unit viewBox exactly. At 23px the browser was
+   resampling every stroke by 0.958 onto fractional device pixels, which is
+   half of why they looked soft. One SVG unit = one CSS pixel here. */
+.tab__icon { width: 24px; height: 24px; display: grid; place-items: center; }
 .tab__icon svg { width: 100%; height: 100%; }
 .tab__label {
   font-size: 10.5px; font-weight: 500; letter-spacing: 0.01em;
@@ -1530,8 +1561,13 @@ ul { margin: 0; padding: 0; list-style: none; }
   color: var(--text);
   -webkit-tap-highlight-color: transparent;
 }
-.tabsheet__icon { width: 21px; height: 21px; display: grid; place-items: center; color: var(--faint); }
+/* 24px and an opaque grey, for the same two reasons as .tab__icon above. */
+.tabsheet__icon { width: 24px; height: 24px; display: grid; place-items: center; color: #8f959d; }
 .tabsheet__icon svg { width: 100%; height: 100%; }
+/* About's "@" is type, not a stroked path, so it needs sizing down by hand to
+   carry the same weight as the 21px icons it sits under. At the inherited 22px
+   it was both taller than its box and visibly heavier than its neighbours. */
+.tabsheet__icon .nav-glyph { font-size: 20px; }
 .tabsheet__item.is-active { background: rgba(255, 255, 255, 0.06); color: var(--shiny); }
 .tabsheet__item.is-active .tabsheet__icon { color: var(--shiny); }
 .tabsheet__item--primary {

@@ -6,9 +6,17 @@ import LiveThumb from "../components/LiveThumb";
 import { LoadBar, LoadingImage } from "../components/LoadBar";
 import { BuyModalHost } from "../components/BuyModal";
 import PriceCard from "../components/PriceCard";
-import FeedbackForm from "../components/FeedbackForm";
+import MessageForm from "../components/MessageForm";
 import { prefetchTemplate } from "../templates/registry";
-import { CONTACT, TEMPLATES, TEMPLATE_PACKAGES, SERVICE_PACKAGES, WEBSITES } from "../siteData";
+import {
+  CONTACT,
+  TEMPLATES,
+  TEMPLATE_PACKAGES,
+  SERVICE_PACKAGES,
+  WEBSITE_CARE_PLANS,
+  WEBSITE_CARE_NOTES,
+  WEBSITES,
+} from "../siteData";
 
 /* One page covers both halves of the same question: sites already built for
    clients, and sites you can buy today. The store used to be its own
@@ -222,6 +230,15 @@ export default function Websites() {
       </section>
       <section className="proj-section">
         <h3 className="proj-section__title">Rather I did it for you?</h3>
+        {/* Named up front, not buried in the plan table below: the build fee
+            buys the build, and the site runs on a monthly plan from launch
+            day. Somebody who finds that out after they have agreed a price
+            feels sold to, which is the one thing this page cannot afford. */}
+        <p className="page-lead" style={{ marginTop: "-4px" }}>
+          A one-off fee to build it, then a monthly plan to run it. Hosting, the domain, SSL
+          and the upkeep are mine to look after, so nothing about the site is left for you to
+          maintain.
+        </p>
         <motion.div className="price-grid" variants={container} initial="hidden" animate="show">
           {SERVICE_PACKAGES.map((p) => (
             <PriceCard
@@ -250,15 +267,59 @@ export default function Websites() {
         </motion.div>
       </section>
 
-      {/* The other half of giving the work away: finding out what it was
-          missing. Someone who has just taken a template is the only person who
-          can say what the next one should do differently. */}
+      {/* The monthly half of the same deal. Mirrors §5.1 of the Website Build
+          & Hosting Agreement — if a price or an edit allowance moves here, it
+          moves in the contract too. */}
       <section className="proj-section">
-        <FeedbackForm
-          what="website template"
-          title="Took one? Tell me what it was missing."
-          lede="The templates are free because the feedback is worth more than the licence fee. Two questions, and the next one gets built around your answers."
-        />
+        <h3 className="proj-section__title">Keeping It Running</h3>
+        <p className="page-lead" style={{ marginTop: "-4px" }}>
+          Every site I build runs on one of these from launch day. You get a site that stays
+          up, stays current and never needs you to touch a hosting dashboard.
+        </p>
+        <motion.div className="price-grid" variants={container} initial="hidden" animate="show">
+          {WEBSITE_CARE_PLANS.map((p) => (
+            <PriceCard
+              key={p.id}
+              name={p.name}
+              tagline={p.tagline}
+              amount={`$${p.flat}`}
+              period={p.period}
+              badge={p.badge}
+              featured={p.featured}
+              features={p.features}
+              action={
+                <a
+                  className="btn-book"
+                  href={CONTACT.calendly}
+                  target="_blank"
+                  rel="noreferrer noopener"
+                >
+                  Talk it through
+                </a>
+              }
+            />
+          ))}
+        </motion.div>
+        <ul className="care-notes">
+          {WEBSITE_CARE_NOTES.map((n) => (
+            <li key={n}>{n}</li>
+          ))}
+        </ul>
+      </section>
+
+      {/* Was a two-question feedback form. Asking a stranger what they thought
+          of a template is one more thing to fill in before they can say the
+          thing they actually came to say, so the page ends with a message
+          instead: name, a way to reach them, and whatever they want. */}
+      <section className="proj-section">
+        <h3 className="proj-section__title">Send a Message</h3>
+        <motion.div className="card work-message" variants={cardIn} initial="hidden" animate="show">
+          <p className="card-body">
+            Took a template, want one built, or just have a question? Write it here and I&apos;ll
+            get back to you.
+          </p>
+          <MessageForm placeholder="What do you need? A site built, a template set up, or something else." />
+        </motion.div>
       </section>
 
       {/* full-page screenshot of a client site */}

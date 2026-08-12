@@ -1580,22 +1580,26 @@ export const TEMPLATE_PACKAGES = [
   },
 ];
 
-// Delivery, not access. These are services and stay one-off.
+// Delivery, not access. These are the one-off build fees — what it costs to
+// get the site made. Running it afterwards is WEBSITE_CARE_PLANS below, and
+// the two are sold together: the build scope here mirrors §3.3 of the Website
+// Build & Hosting Agreement so what a client signs is what this page promised.
 export const SERVICE_PACKAGES = [
   {
     id: "setup",
     name: "Done For You",
     tagline: "Live on your domain this week",
     flat: 200,
-    period: "flat, any template",
+    period: "one-off build, any template",
     featured: true,
     badge: "Most popular",
     features: [
       "Any template, set up for you",
       "Your copy, photos and branding applied",
-      "Deployed on your domain + SSL",
+      "Domain, DNS, SSL and deployment handled",
       "Contact form or booking hooked up",
-      "1 round of revisions",
+      "Basic on-page SEO: titles, descriptions, sitemap",
+      "Two rounds of revisions before launch",
     ],
     bonus: "Free logo animation for your hero",
     // Reduces the effort-and-sacrifice term: the buyer's real fear is not the
@@ -1608,16 +1612,84 @@ export const SERVICE_PACKAGES = [
     name: "Custom Build",
     tagline: "Start here, go anywhere",
     from: 600,
-    period: "quoted per project",
+    period: "one-off build, quoted per project",
     features: [
       "Template as the design starting point",
       "Redesigned around your brand",
       "Extra pages, shop or booking system",
       "Performance & SEO pass",
+      "Two rounds of revisions before launch",
       "30 days of post-launch support",
     ],
     bonus: "Free 30-minute strategy call first",
   },
+];
+
+// ── Running the site ──────────────────────────────────────────
+// The monthly side of the same deal, straight out of §5.1 of the Website
+// Build & Hosting Agreement. Every build ships onto one of these: hosting,
+// the domain, SSL, backups and monitoring are mine to run, which is why the
+// site cannot be bought as a standalone file and walked away with.
+//
+// Keep these three in step with the signed contract. If a price or an edit
+// allowance changes here, it changes in the agreement too — a client reading
+// one number on the site and another in the PDF is a dispute waiting to
+// happen.
+export const WEBSITE_CARE_PLANS = [
+  {
+    id: "essential",
+    name: "Essential",
+    tagline: "Online, backed up, watched",
+    flat: 29,
+    period: "per month, per site",
+    features: [
+      "Hosting, SSL, CDN and backups",
+      "Domain registered and renewed for you",
+      "Uptime monitoring",
+      "2 content edits a month",
+      "First reply within 5 business days",
+    ],
+  },
+  {
+    id: "growth",
+    name: "Growth",
+    tagline: "For a site that keeps moving",
+    flat: 59,
+    period: "per month, per site",
+    featured: true,
+    badge: "Most popular",
+    features: [
+      "Everything in Essential",
+      "6 content edits a month",
+      "First reply within 2 business days",
+      "2 new pages a year",
+      "Monthly performance report",
+      "Basic SEO maintenance",
+    ],
+  },
+  {
+    id: "premium",
+    name: "Premium",
+    tagline: "Treat me as part of the team",
+    flat: 99,
+    period: "per month, per site",
+    features: [
+      "Everything in Growth",
+      "Unlimited content edits, fair use 20 a month",
+      "First reply within 1 business day",
+      "6 new pages a year",
+      "Ongoing SEO maintenance",
+      "Priority support channel",
+    ],
+  },
+];
+
+/** What counts as a content edit, and what the monthly does not cover. */
+export const WEBSITE_CARE_NOTES = [
+  "A content edit is a change to existing text, images, prices, contact details or opening hours. New pages, new features and redesigns are quoted separately.",
+  "Unused edits don't roll over. Response times are for my first reply, not the finished change.",
+  "Billed monthly in advance from launch day, in USD. The first term runs 12 months and renews unless either of us gives 30 days' notice.",
+  "I own and run the hosting, domain and code while you're on a plan. Full ownership and domain transfer are available any time as a one-time buy-out.",
 ];
 
 /** Where a template's free source zip lives. Built by npm run build:zips. */
