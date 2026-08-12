@@ -36,10 +36,17 @@
   # needs script-src (its widget script) and frame-src (it runs the actual
   # challenge inside an iframe). Remove either and every form on the site
   # stops being submittable.
-  Content-Security-Policy: default-src 'self'; script-src 'self' https://challenges.cloudflare.com; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com https://api.fontshare.com; font-src 'self' data: https://fonts.gstatic.com https://api.fontshare.com https://db.onlinewebfonts.com; img-src 'self' data: blob: https:; media-src 'self' blob: https:; frame-src https:; connect-src 'self' https:; object-src 'none'; base-uri 'self'; form-action 'self'; frame-ancestors 'none'; upgrade-insecure-requests
-  # Nobody may frame the site. Stops the page being loaded invisibly over
-  # someone else's, so a click they think lands on their page lands on yours.
-  X-Frame-Options: DENY
+  Content-Security-Policy: default-src 'self'; script-src 'self' https://challenges.cloudflare.com; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com https://api.fontshare.com; font-src 'self' data: https://fonts.gstatic.com https://api.fontshare.com https://db.onlinewebfonts.com; img-src 'self' data: blob: https:; media-src 'self' blob: https:; frame-src https:; connect-src 'self' https:; object-src 'none'; base-uri 'self'; form-action 'self'; frame-ancestors 'self'; upgrade-insecure-requests
+  # Only this site may frame this site. Stops the page being loaded invisibly
+  # over someone else's, so a click they think lands on their page lands on
+  # yours — while still allowing the store's own template previews, which are
+  # same-origin iframes running the real /templates/:slug page.
+  #
+  # This was DENY, and DENY blocks same-origin framing too: every preview on
+  # /websites went blank with "Framing violates frame-ancestors 'none'". The
+  # clickjacking this defends against is by definition cross-origin, so
+  # SAMEORIGIN gives up nothing. Keep this in step with frame-ancestors above.
+  X-Frame-Options: SAMEORIGIN
   # Browsers must honour the declared Content-Type instead of sniffing it. An
   # uploaded or user-named file can otherwise be guessed into being script.
   X-Content-Type-Options: nosniff
