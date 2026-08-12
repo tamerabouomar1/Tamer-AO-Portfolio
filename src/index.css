@@ -80,41 +80,82 @@ ul { margin: 0; padding: 0; list-style: none; }
    CSS, no download, and it drifts like the clip it replaces. Two slow
    counter-rotating light pools, animated on transform only so it stays
    on the compositor and never costs a repaint. */
-/* What a phone gets instead of the video.
+/* What you see when the video is not playing: on phones, in a narrow window,
+   and on desktop for the moment before the clip has buffered.
 
-   This was three drifting radial-gradient blobs. Soft glowing blobs behind
-   dark cards are the most recognisable signature of a generated landing page,
-   and they say nothing about whose site this is. It is a photograph of the
-   work instead, heavily darkened so text stays legible, panned slowly so the
-   page is not static. */
+   A blue-and-black gradient, built in three layers rather than one. A single
+   two-stop gradient is what makes a background look cheap — it bands into
+   visible stripes on dark colours, and it has no depth. So:
+
+     1. the element itself  — the base wash, angled, four stops
+     2. ::before            — the light, drifting
+     3. ::after             — fine grain, which is what actually kills banding
+
+   The light sources are deliberately anchored off the edges of the screen
+   (18% / -10%, 88% / 108%) so you only ever see the shoulder of each one.
+   Centred circular glows read instantly as a template; the edge of a light
+   coming from somewhere off-frame reads as a room. */
 .video-bg__anim {
   position: absolute;
-  inset: -12%;
-  background-image: url("/assets/featured.jpg");
-  background-size: cover;
-  background-position: center 28%;
-  filter: grayscale(0.6) contrast(1.05) brightness(0.5);
-  animation: bg-drift 26s ease-in-out infinite alternate;
+  inset: -15%; /* room to drift without exposing an edge */
+  background:
+    /* a deep mass sitting low, so the bottom of the page never goes flat black */
+    radial-gradient(75% 55% at 50% 112%, rgba(28, 56, 120, 0.5), transparent 68%),
+    /* the base wash. 148deg, not straight down — a vertical fade reads as
+       "default", an angled one reads as lit. */
+    linear-gradient(148deg, #04060c 0%, #070c18 34%, #0b1730 58%, #060a14 82%, #03050a 100%);
+  animation: bg-drift 42s ease-in-out infinite alternate;
   will-change: transform;
 }
+
+/* The light. Two sources of different temperature — the brand blue high on
+   the left, the colder cyan low on the right — so the field has a direction
+   and a bit of tension in it rather than one even glow. Counter-drifts
+   against its parent, which is what gives the depth. */
+.video-bg__anim::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background:
+    radial-gradient(58% 44% at 18% -10%, rgba(74, 139, 238, 0.34), transparent 72%),
+    radial-gradient(46% 38% at 88% 84%, rgba(100, 206, 251, 0.14), transparent 74%),
+    radial-gradient(90% 60% at 62% 46%, rgba(16, 34, 78, 0.34), transparent 76%);
+  animation: bg-drift-counter 34s ease-in-out infinite alternate;
+  will-change: transform;
+}
+
+/* Grain.
+   Dark blue gradients band badly — the eye picks out the steps between
+   near-identical shades as hard stripes, and on an 8-bit screen there is no
+   way to avoid that with colour alone. A little noise breaks the steps up so
+   the eye reads a smooth field. It is the difference between a gradient that
+   looks designed and one that looks like a default. Static on purpose: moving
+   grain reads as television static. */
 .video-bg__anim::after {
   content: "";
   position: absolute;
   inset: 0;
-  background: linear-gradient(165deg, rgba(74, 139, 238, 0.42), rgba(7, 10, 18, 0.25) 55%, rgba(20, 40, 96, 0.4));
-  mix-blend-mode: color;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='140' height='140'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.8' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='140' height='140' filter='url(%23n)'/%3E%3C/svg%3E");
+  opacity: 0.14;
+  mix-blend-mode: overlay;
+  pointer-events: none;
 }
 
-/* the video, once live, covers the animation */
+/* the video, once live, covers the gradient */
 .video-bg.is-live .video-bg__anim { opacity: 0; transition: opacity 0.9s var(--ease); }
 
-/* A slow pan, not a lava lamp. */
+/* Slow enough that you never catch it moving, only notice it has. */
 @keyframes bg-drift {
-  from { transform: translate3d(-2%, -1.5%, 0) scale(1.06); }
-  to   { transform: translate3d(2%, 1.5%, 0) scale(1.1); }
+  from { transform: translate3d(-1.5%, -1%, 0) scale(1.04); }
+  to   { transform: translate3d(1.5%, 1%, 0) scale(1.08); }
+}
+@keyframes bg-drift-counter {
+  from { transform: translate3d(2%, 1.2%, 0) scale(1.06); }
+  to   { transform: translate3d(-2%, -1.2%, 0) scale(1.02); }
 }
 @media (prefers-reduced-motion: reduce) {
-  .video-bg__anim { animation: none; }
+  .video-bg__anim,
+  .video-bg__anim::before { animation: none; }
 }
 .video-bg__media {
   position: absolute;
@@ -140,9 +181,22 @@ ul { margin: 0; padding: 0; list-style: none; }
   from { opacity: 0; }
   to { opacity: 1; }
 }
+/* The scrim that keeps text readable over the background.
+ *
+ * It has to do two different jobs. Over the video — a bright, moving,
+ * unpredictable clip — it needs to be heavy or the headings stop being
+ * legible. Over the gradient it does not: that layer is already dark and its
+ * brightness is known, so the same heavy scrim just flattens the blue back to
+ * black and throws away the thing it was drawn for. So it is light by default
+ * and goes to full strength only once the video is actually playing. */
 .video-bg__overlay {
   position: absolute;
   inset: 0;
+  background:
+    radial-gradient(circle at 60% 40%, rgba(74, 139, 238, 0.10), transparent 55%),
+    linear-gradient(180deg, rgba(0, 0, 0, 0.40), rgba(0, 0, 0, 0.22) 48%, rgba(0, 0, 0, 0.52));
+}
+.video-bg.is-live .video-bg__overlay {
   background:
     radial-gradient(circle at 60% 40%, rgba(74, 139, 238, 0.16), transparent 55%),
     linear-gradient(180deg, rgba(0, 0, 0, 0.72), rgba(0, 0, 0, 0.62) 50%, rgba(0, 0, 0, 0.8));
