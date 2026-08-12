@@ -261,7 +261,7 @@ async function saveMessage(body, request, env, ctx) {
   const message =
     typeof body.message === "string" ? body.message.trim().slice(0, MAX_MESSAGE) : "";
   if (!name || !email || !message) {
-    return json({ ok: false, error: "name, email and message required" }, 400);
+    return json({ ok: false, error: "name, contact and message required" }, 400);
   }
 
   const at = new Date().toISOString();

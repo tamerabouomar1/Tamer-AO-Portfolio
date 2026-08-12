@@ -64,7 +64,18 @@ function MessageForm() {
       </p>
       <div className="msg-form__row">
         <input name="name" type="text" placeholder="Your name" required />
-        <input name="email" type="email" placeholder="Your email" required />
+        {/* Deliberately type="text", not type="email". This form used to demand
+            an address, and a browser silently refuses to submit a phone number
+            into type="email" — so anyone who reaches for WhatsApp first, which
+            here is most people, simply could not send the message. The other
+            three forms have always taken either. */}
+        <input
+          name="email"
+          type="text"
+          placeholder="Your email or WhatsApp"
+          autoComplete="email"
+          required
+        />
       </div>
       <textarea
         name="message"
