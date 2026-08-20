@@ -1,0 +1,631 @@
+/* Split — Login Screen (Signature). Scoped under .sgl.
+
+   The numbers here are measurements, not preferences. Several asymmetries are
+   deliberate and must survive an edit: the two headline lines differ slightly
+   in size and tracking (69.14 / 68.95px), the OR rules differ by a pixel
+   (205 / 204), the email and password fields differ in fill, height, border
+   and padding, and --login-padl is NEGATIVE so the Login label optically
+   centres against its trailing arrow.
+
+   They all hold at any window size because .sgl-card-in is scaled by the
+   layout engine rather than reflowed. */
+
+.sgl {
+  /* frame + boxes */
+  --W: 1464;
+  --H: 949;
+  --photoW: 836;
+  --paneW: 628;
+  --cardW: 613;
+  --cardH: 922;
+
+  /* type + spacing */
+  --badge-fs: 13.6px;
+  --badge-fw: 400;
+  --badge-ls: -0.163px;
+  --badge-gap: 10px;
+  --badge-left: 34px;
+  --badge-top: 684px;
+  --hl-lh: 1;
+  --hl-wght: 578;
+  --hl1-fs: 69.14px;
+  --hl1-ls: -1.936px;
+  --hl1-left: 33px;
+  --hl1-top: 750.02px;
+  --hl2-fs: 68.95px;
+  --hl2-ls: -1.931px;
+  --hl2-left: 32px;
+  --hl2-top: 831.01px;
+  --h1-top: 65px;
+  --h1-fs: 42.55px;
+  --h1-ls: -2.553px;
+  --h1-ws: 1.3px;
+  --h1-wght: 584;
+  --sub-top: 120px;
+  --sub-fs: 20.41px;
+  --sub-ls: -0.245px;
+  /* The word-spacing measurements (-2.000px on the sub, -2.060px on the footer,
+     -1.000px on the Google label) were taken off FreeSans metrics. Against the
+     substitute grotesque they eat the word space outright — "Don'thaveanaccount?"
+     — so they are relaxed here to the same optical effect on this face. */
+  --sub-ws: -0.25px;
+  --sub-fw: 400;
+  --sub-fwb: 700;
+  --fieldpad: 19px;
+  --eph-fs: 15.68px;
+  --eph-ls: -0.188px;
+  --eph-left: 17px;
+  --pph-fs: 17.29px;
+  --pph-ls: -0.698px;
+  --pph-left: 18px;
+  --login-fs: 16.38px;
+  --login-ls: 0.2px;
+  --login-gap: 10px;
+  --login-padl: -12px;
+  --arrow-w: 13.2px;
+  --div-top: 477px;
+  --or-fs: 11.5px;
+  --or-fw: 700;
+  --or-ls: 0.8px;
+  --or-dy: 2px;
+  --or-line-l: 205px;
+  --or-line-r: 204px;
+  --g-gap: 17px;
+  --g-icon: 18.5px;
+  --gt-fs: 18.1px;
+  --gt-ls: -0.217px;
+  --gt-ws: -0.2px;
+  --gt-dy: 1px;
+  --bt-top: 611px;
+  --bt-fs: 16.37px;
+  --bt-ls: -0.196px;
+  --bt-ws: -0.25px;
+  --bt-uo: 3px;
+  --card-shadow: 1px 10px 14px rgba(10, 14, 20, 0.14), 0 1px 3px rgba(10, 14, 20, 0.05);
+  --cs: 1;
+
+  /* palette */
+  --ink: #000;
+  --h1-color: #2c3343;
+  --sub-grey: #797979;
+  --badge-bg: #2f2a27;
+  --ph: #606060;
+  --or: #5a5a5b;
+  --gtext: #232424;
+  --bottom: #0a0a0a;
+  --btn1: #283139;
+  --btn2: #293340;
+  --inputFill: #fafafa;
+  --inputBorder: #acacae;
+  --pwFill: #f9f9f9;
+  --gBorder: #c8c8ca;
+  --divider: #b1b1b2;
+  --page: #fefefe;
+
+  position: relative;
+  width: 100%;
+  height: 100svh;
+  overflow: hidden;
+  background: var(--page);
+  color: var(--ink);
+  font-family: "FreeSans", Archivo, -apple-system, BlinkMacSystemFont, "Helvetica Neue", Arial, sans-serif;
+  -webkit-font-smoothing: antialiased;
+  text-rendering: geometricPrecision;
+}
+.sgl *,
+.sgl *::before,
+.sgl *::after { box-sizing: border-box; }
+.sgl h1, .sgl p { margin: 0; }
+.sgl a { color: inherit; }
+.sgl button { font: inherit; cursor: pointer; }
+.sgl :focus-visible { outline: 2px solid #2b6cb0; outline-offset: 2px; }
+
+.sgl-stage { position: absolute; inset: 0; overflow: hidden; }
+
+/* ── photo column ───────────────────────────────────────────── */
+.sgl-photo {
+  position: absolute;
+  left: 0;
+  top: 0;
+  height: 100%;
+  width: 57.1038%; /* 836 / 1464 */
+  overflow: hidden;
+  background: #0d1117; /* neutral field while the clip buffers */
+}
+.sgl-photo-img {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: 100% 50%;
+  display: block;
+  -webkit-user-drag: none;
+}
+.sgl-photo-img--wide { display: none; }
+
+/* defined here, used only by the phone mode */
+.sgl-scrim {
+  position: absolute;
+  inset: 0;
+  display: none;
+  background: linear-gradient(
+    180deg,
+    rgba(7, 10, 13, 0.02) 18%,
+    rgba(7, 10, 13, 0.12) 48%,
+    rgba(7, 10, 13, 0.78) 100%
+  );
+}
+
+/* ── hero block (scaled as a unit by the engine) ────────────── */
+.sgl-hero {
+  position: absolute;
+  left: 0;
+  bottom: 0;
+  width: 836px;
+  height: 949px;
+  transform-origin: left bottom;
+  pointer-events: none;
+}
+.sgl-hero > * { pointer-events: auto; }
+
+.sgl-badge {
+  position: absolute;
+  left: var(--badge-left);
+  top: var(--badge-top);
+  display: inline-flex;
+  align-items: center;
+  gap: var(--badge-gap);
+  height: 37px;
+  padding: 0 16px 0 19px;
+  border-radius: 999px;
+  background: var(--badge-bg);
+  backdrop-filter: blur(7px) saturate(120%);
+  -webkit-backdrop-filter: blur(7px) saturate(120%);
+  box-shadow: 0 1px 2px rgba(0, 0, 0, 0.18), 0 6px 18px rgba(0, 0, 0, 0.14);
+  color: #fff;
+  font-size: var(--badge-fs);
+  font-weight: var(--badge-fw);
+  letter-spacing: var(--badge-ls);
+  white-space: nowrap;
+}
+.sgl-badge svg { position: relative; top: -1px; width: 17px; height: 16.27px; flex: none; }
+
+.sgl-hl {
+  position: absolute;
+  font-family: "Eloquia", Manrope, sans-serif;
+  font-variation-settings: "wght" var(--hl-wght);
+  line-height: var(--hl-lh);
+  color: var(--ink);
+  white-space: nowrap;
+}
+.sgl-hl1 { left: var(--hl1-left); top: var(--hl1-top); font-size: var(--hl1-fs); letter-spacing: var(--hl1-ls); }
+.sgl-hl2 { left: var(--hl2-left); top: var(--hl2-top); font-size: var(--hl2-fs); letter-spacing: var(--hl2-ls); }
+
+/* ── pane + card ────────────────────────────────────────────── */
+.sgl-pane { position: absolute; left: 57.1038%; right: 0; top: 0; bottom: 0; }
+
+.sgl-card {
+  position: absolute;
+  left: 1px;
+  top: 14px;
+  width: 613px;
+  height: 922px;
+  border-radius: 26px;
+  overflow: hidden;
+  background: rgba(254, 254, 254, 0.9);
+  backdrop-filter: blur(28px) saturate(160%);
+  -webkit-backdrop-filter: blur(28px) saturate(160%);
+  border: 1px solid rgba(0, 0, 0, 0.036);
+  box-shadow: var(--card-shadow);
+}
+.sgl-card-in { position: absolute; left: 0; top: 0; width: 613px; height: 922px; transform-origin: left top; }
+
+.sgl-col { position: absolute; left: 62px; width: 488px; }
+.sgl-center { text-align: center; }
+
+.sgl-h1 {
+  top: var(--h1-top);
+  font-family: "Eloquia", Manrope, sans-serif;
+  font-variation-settings: "wght" var(--h1-wght);
+  font-size: var(--h1-fs);
+  letter-spacing: var(--h1-ls);
+  word-spacing: var(--h1-ws);
+  line-height: 1;
+  color: var(--h1-color);
+}
+.sgl-sub {
+  top: var(--sub-top);
+  font-size: var(--sub-fs);
+  font-weight: var(--sub-fw);
+  letter-spacing: var(--sub-ls);
+  word-spacing: var(--sub-ws);
+  color: var(--sub-grey);
+}
+.sgl-sub b { font-weight: var(--sub-fwb); color: var(--sub-grey); }
+
+.sgl-field {
+  position: absolute;
+  left: 62px;
+  width: 489px;
+  display: flex;
+  align-items: center;
+  border-radius: 12px;
+}
+.sgl-field input {
+  width: 100%;
+  border: 0;
+  background: none;
+  outline: none;
+  font-family: inherit;
+  color: var(--ink);
+}
+.sgl-email {
+  top: 203px;
+  height: 61px;
+  background: var(--inputFill);
+  border: 1.5px solid var(--inputBorder);
+}
+.sgl-email input {
+  padding-left: var(--eph-left);
+  font-size: var(--eph-fs);
+  letter-spacing: var(--eph-ls);
+}
+.sgl-email input::placeholder { color: var(--ph); }
+.sgl-pw { top: 273.5px; height: 59px; background: var(--pwFill); border: 0; }
+.sgl-pw input {
+  padding-left: var(--pph-left);
+  font-size: var(--pph-fs);
+  letter-spacing: var(--pph-ls);
+}
+.sgl-pw input::placeholder { color: var(--ph); }
+
+.sgl-login {
+  position: absolute;
+  left: 62px;
+  top: 366px;
+  width: 489px;
+  height: 65.5px;
+  border: 0;
+  border-radius: 999px;
+  background: linear-gradient(180deg, var(--btn1) 0%, var(--btn2) 100%);
+  color: #fff;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: var(--login-gap);
+  padding-left: var(--login-padl); /* negative on purpose — optical centring */
+  padding-right: 4px;
+  font-size: var(--login-fs);
+  font-weight: var(--login-fw, 400);
+  letter-spacing: var(--login-ls);
+  box-shadow: 0 8px 20px rgba(18, 26, 34, 0.16), 0 2px 5px rgba(18, 26, 34, 0.1);
+  transition: transform 0.18s cubic-bezier(0.2, 0.7, 0.3, 1), box-shadow 0.18s ease, filter 0.18s ease;
+}
+.sgl-login:hover { filter: brightness(1.12); }
+.sgl-login:active { transform: translateY(1px); }
+.sgl-arrow { width: var(--arrow-w); height: auto; flex: none; }
+
+.sgl-divider {
+  position: absolute;
+  left: 63px;
+  top: var(--div-top);
+  width: 487px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.sgl-divider i { height: 1.5px; background: var(--divider); }
+.sgl-divider i:first-child { flex: 0 0 var(--or-line-l); }
+.sgl-divider i:last-child { flex: 0 0 var(--or-line-r); }
+.sgl-divider b {
+  flex: 1 1 auto;
+  text-align: center;
+  transform: translateY(var(--or-dy));
+  color: var(--or);
+  font-size: var(--or-fs);
+  font-weight: var(--or-fw);
+  letter-spacing: var(--or-ls);
+}
+
+.sgl-gbtn {
+  position: absolute;
+  left: 62px;
+  top: 535px;
+  width: 489px;
+  height: 59.5px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: var(--g-gap);
+  border: 1.5px solid var(--gBorder);
+  border-radius: 999px;
+  background: rgba(255, 255, 255, 0.92);
+  box-shadow: 0 1px 2px rgba(0, 0, 0, 0.03);
+  color: var(--gtext);
+  transition: background 0.18s ease, box-shadow 0.18s ease, transform 0.18s cubic-bezier(0.2, 0.7, 0.3, 1);
+}
+.sgl-gbtn:hover { background: #fff; box-shadow: 0 3px 10px rgba(0, 0, 0, 0.07); }
+.sgl-gbtn:active { transform: translateY(1px); }
+.sgl-gbtn span {
+  transform: translateY(var(--gt-dy));
+  font-size: var(--gt-fs);
+  letter-spacing: var(--gt-ls);
+  word-spacing: var(--gt-ws);
+}
+.sgl-g { width: var(--g-icon); height: var(--g-icon); flex: none; }
+
+.sgl-bottom {
+  position: absolute;
+  left: 62px;
+  top: var(--bt-top);
+  width: 489px;
+  text-align: center;
+  font-size: var(--bt-fs);
+  letter-spacing: var(--bt-ls);
+  word-spacing: var(--bt-ws);
+  color: var(--bottom);
+}
+.sgl-bottom a {
+  color: #000;
+  font-weight: var(--bt-fwb, 700);
+  text-decoration: underline;
+  text-underline-offset: var(--bt-uo);
+  text-decoration-thickness: 2px;
+}
+
+/* ── entrance first frame ───────────────────────────────────── */
+/* The photo is the static stage and deliberately never animates. */
+.sgl.is-entry .sgl-card,
+.sgl.is-entry .sgl-badge,
+.sgl.is-entry .sgl-hl1,
+.sgl.is-entry .sgl-hl2,
+.sgl.is-entry .sgl-h1,
+.sgl.is-entry .sgl-sub,
+.sgl.is-entry .sgl-email,
+.sgl.is-entry .sgl-pw,
+.sgl.is-entry .sgl-login,
+.sgl.is-entry .sgl-divider,
+.sgl.is-entry .sgl-gbtn,
+.sgl.is-entry .sgl-bottom {
+  opacity: 0;
+  will-change: transform, opacity, clip-path;
+}
+.sgl.is-entry .sgl-card { transform: translateY(12px) scale(0.988); }
+.sgl.is-entry .sgl-badge { transform: translateY(8px); }
+.sgl.is-entry .sgl-hl1,
+.sgl.is-entry .sgl-hl2 { transform: translateY(16px); clip-path: inset(100% 0 0 0); }
+.sgl.is-entry .sgl-h1,
+.sgl.is-entry .sgl-sub { transform: translateY(10px); }
+.sgl.is-entry .sgl-email,
+.sgl.is-entry .sgl-pw,
+.sgl.is-entry .sgl-login,
+.sgl.is-entry .sgl-divider,
+.sgl.is-entry .sgl-gbtn,
+.sgl.is-entry .sgl-bottom { transform: translateY(8px); }
+
+@media (max-width: 699px) {
+  .sgl.is-entry .sgl-card { transform: translateY(14px); }
+  .sgl.is-entry .sgl-hl1,
+  .sgl.is-entry .sgl-hl2 { transform: translateY(12px); }
+}
+
+/* ── mode B: tablet portrait ────────────────────────────────── */
+/* the split has nowhere to go, so the photo becomes a masthead band and the
+   card takes the full measure underneath, fluid rather than scaled */
+.sgl.is-tabport .sgl-photo-img--tall { display: none; }
+.sgl.is-tabport .sgl-photo-img--wide { display: block; object-position: 50% 50%; }
+
+.sgl.is-tabport .sgl-hero {
+  position: absolute;
+  left: var(--tp-hero-side);
+  right: var(--tp-hero-side);
+  bottom: var(--tp-hero-bot);
+  top: auto;
+  width: auto;
+  height: auto;
+  display: flex;
+  flex-direction: column;
+  gap: var(--tp-hero-gap); /* negative on purpose */
+  transform: none;
+}
+.sgl.is-tabport .sgl-badge {
+  position: relative;
+  left: auto;
+  top: auto;
+  align-self: flex-start;
+  height: calc(37px * var(--badge-k));
+  padding: 0 calc(16px * var(--badge-k)) 0 calc(19px * var(--badge-k));
+  font-size: calc(var(--badge-fs) * var(--badge-k));
+}
+.sgl.is-tabport .sgl-badge svg {
+  width: calc(17px * var(--badge-k));
+  height: calc(16.27px * var(--badge-k));
+}
+.sgl.is-tabport .sgl-hl-wrap { max-width: var(--tp-hero-measure); }
+.sgl.is-tabport .sgl-hl {
+  position: static;
+  display: inline;
+  font-size: var(--tp-hero-fs);
+  line-height: var(--tp-hero-lh);
+  letter-spacing: calc(var(--hl1-ls) / var(--hl1-fs) * var(--tp-hero-fs));
+  white-space: normal;
+}
+.sgl.is-tabport .sgl-hl2::before { content: " "; }
+
+.sgl.is-tabport .sgl-card-in { width: auto; height: auto; }
+.sgl.is-tabport .sgl-col,
+.sgl.is-tabport .sgl-field,
+.sgl.is-tabport .sgl-login,
+.sgl.is-tabport .sgl-divider,
+.sgl.is-tabport .sgl-gbtn,
+.sgl.is-tabport .sgl-bottom {
+  left: var(--tp-pad);
+  right: var(--tp-pad);
+  width: auto;
+}
+.sgl.is-tabport .sgl-h1 {
+  top: var(--tp-h1-top);
+  font-size: var(--tp-h1-fs);
+  letter-spacing: calc(var(--h1-ls) / var(--h1-fs) * var(--tp-h1-fs));
+}
+.sgl.is-tabport .sgl-sub {
+  top: var(--tp-sub-top);
+  font-size: var(--tp-sub-fs);
+  letter-spacing: calc(var(--sub-ls) / var(--sub-fs) * var(--tp-sub-fs));
+}
+.sgl.is-tabport .sgl-email { top: var(--tp-em-top); height: var(--tp-em-h); border-radius: var(--tp-em-r); }
+.sgl.is-tabport .sgl-email input { font-size: var(--tp-eph-fs); padding-left: var(--tp-eph-pad); }
+.sgl.is-tabport .sgl-pw { top: var(--tp-pw-top); height: var(--tp-pw-h); border-radius: var(--tp-em-r); }
+.sgl.is-tabport .sgl-pw input { font-size: var(--tp-eph-fs); padding-left: var(--tp-eph-pad); }
+.sgl.is-tabport .sgl-login {
+  top: var(--tp-btn-top);
+  height: var(--tp-btn-h);
+  gap: var(--tp-btn-gap);
+  font-size: var(--tp-btn-fs);
+}
+.sgl.is-tabport .sgl-arrow { width: var(--tp-arrow); }
+.sgl.is-tabport .sgl-divider { top: var(--tp-div-top); }
+.sgl.is-tabport .sgl-divider i { height: var(--tp-div-h); flex: 1 1 auto; }
+.sgl.is-tabport .sgl-divider b { flex: 0 0 auto; padding: 0 var(--tp-or-pad); font-size: var(--tp-or-fs); }
+.sgl.is-tabport .sgl-gbtn { top: var(--tp-g-top); height: var(--tp-g-h); gap: var(--tp-g-gap); }
+.sgl.is-tabport .sgl-g { width: var(--tp-g-icon); height: var(--tp-g-icon); }
+.sgl.is-tabport .sgl-gbtn span { font-size: var(--tp-gt-fs); }
+.sgl.is-tabport .sgl-bottom { top: var(--tp-bt-top); font-size: var(--tp-bt-fs); }
+
+/* ── mode C: phone, real document flow ─────────────────────── */
+/* nothing is viewport-scaled here, so type stays readable and short screens
+   scroll instead of squeezing */
+@media (max-width: 699px) {
+  .sgl {
+    --mobile-hero-h: clamp(244px, 34svh, 304px);
+    height: auto;
+    min-height: 100%;
+    overflow: visible;
+    background: #fff;
+  }
+  .sgl-stage { position: relative; inset: auto; display: flex; flex-direction: column; min-height: 100svh; }
+
+  .sgl-photo { position: relative; width: 100%; height: var(--mobile-hero-h); }
+  .sgl-photo-img--tall { display: none; }
+  .sgl-photo-img--wide {
+    display: block;
+    object-position: 64% 48%;
+    transform: scale(1.015);
+  }
+  .sgl-scrim { display: block; }
+
+  .sgl-hero {
+    position: absolute;
+    left: 24px;
+    right: 24px;
+    /* clears the 28px the card pulls up over the photo, so the second headline
+       line is never tucked under its rounded top edge */
+    bottom: 44px;
+    top: auto;
+    width: auto;
+    height: auto;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 12px;
+    transform: none;
+  }
+  .sgl-badge {
+    position: relative;
+    left: auto;
+    top: auto;
+    height: 31px;
+    padding: 0 12px;
+    background: rgba(24, 27, 30, 0.82);
+    box-shadow: 0 4px 16px rgba(0, 0, 0, 0.18);
+    font-size: 11px;
+  }
+  .sgl-badge svg { width: 13px; height: 12.4px; }
+  .sgl-hl {
+    position: static;
+    display: block;
+    color: #fff;
+    font-size: clamp(30px, 8.8vw, 38px);
+    letter-spacing: -0.035em;
+    line-height: 0.96;
+    text-shadow: 0 2px 18px rgba(0, 0, 0, 0.32);
+  }
+
+  .sgl-pane { position: relative; left: auto; right: auto; top: auto; bottom: auto; flex: 1; }
+  .sgl-card {
+    position: relative;
+    left: auto;
+    top: auto;
+    width: auto;
+    height: auto;
+    min-height: calc(100svh - var(--mobile-hero-h) + 28px);
+    margin: -28px 0 0;
+    border: 0;
+    border-radius: 28px 28px 0 0;
+    background: #fff;
+    backdrop-filter: none;
+    -webkit-backdrop-filter: none;
+    box-shadow: 0 -10px 28px rgba(20, 28, 36, 0.1);
+  }
+  .sgl-card-in {
+    position: static;
+    width: auto;
+    height: auto;
+    max-width: 500px;
+    margin: 0 auto;
+    padding: 36px clamp(24px, 7vw, 38px) max(30px, env(safe-area-inset-bottom));
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    transform: none;
+  }
+  .sgl-card-in > * { position: static; width: 100%; left: auto; top: auto; }
+
+  .sgl-h1 { font-size: clamp(31px, 8.8vw, 38px); letter-spacing: -0.03em; }
+  .sgl-sub { margin-top: 10px; font-size: 15px; word-spacing: normal; }
+  .sgl-field { margin-top: 18px; height: 56px; }
+  .sgl-email { border-radius: 12px; }
+  .sgl-pw { background: #f4f4f5; border-radius: 12px; }
+  /* 16px keeps iOS from zooming the page on focus */
+  .sgl-field input { font-size: 16px; letter-spacing: -0.2px; padding-left: 16px; }
+  .sgl-login { margin-top: 22px; height: 58px; padding-left: 0; font-size: 16px; }
+  .sgl-divider { margin-top: 22px; }
+  .sgl-divider i { flex: 1 1 auto; }
+  .sgl-divider b { flex: 0 0 auto; padding: 0 14px; }
+  .sgl-gbtn { margin-top: 18px; height: 56px; }
+  .sgl-gbtn span { font-size: 16px; word-spacing: normal; }
+  .sgl-bottom { margin-top: 22px; font-size: 14px; word-spacing: normal; }
+}
+
+@media (max-width: 370px) {
+  .sgl { --mobile-hero-h: 232px; }
+  .sgl-card-in { padding-left: 20px; padding-right: 20px; }
+  .sgl-hl { font-size: 30px; }
+}
+
+@media (max-height: 520px) and (orientation: landscape) {
+  .sgl { --mobile-hero-h: 208px; }
+  .sgl-card-in { justify-content: flex-start; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .sgl * { transition: none !important; animation: none !important; }
+  .sgl.is-entry .sgl-card,
+  .sgl.is-entry .sgl-badge,
+  .sgl.is-entry .sgl-hl1,
+  .sgl.is-entry .sgl-hl2,
+  .sgl.is-entry .sgl-h1,
+  .sgl.is-entry .sgl-sub,
+  .sgl.is-entry .sgl-email,
+  .sgl.is-entry .sgl-pw,
+  .sgl.is-entry .sgl-login,
+  .sgl.is-entry .sgl-divider,
+  .sgl.is-entry .sgl-gbtn,
+  .sgl.is-entry .sgl-bottom {
+    opacity: 1;
+    transform: none;
+    clip-path: none;
+    will-change: auto;
+  }
+}

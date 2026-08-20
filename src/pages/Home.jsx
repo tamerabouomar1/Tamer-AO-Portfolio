@@ -3,7 +3,6 @@ import { Link } from "react-router-dom";
 import Page, { container, cardIn } from "../components/Page";
 import FreeOffers from "../components/FreeOffers";
 import { TrustedBy, Testimonials } from "../components/SocialProof";
-import { TEMPLATES } from "../siteData";
 
 const MotionLink = motion.create(Link);
 
@@ -75,11 +74,11 @@ export default function Home() {
             <span className="path__label">Websites</span>
             <span className="path__flag">Free source</span>
           </span>
-          {/* Counted, not typed. The figure was hardcoded in three places and
-              had already drifted to three different numbers. */}
-          <span className="path__desc">
-            Client builds &amp; {TEMPLATES.length} ready-made sites
-          </span>
+          {/* Uncounted on purpose. The figure used to be printed here and in
+              the store head, where it dates itself and invites "only that
+              many?" — the gallery answers the question better than a number
+              does. */}
+          <span className="path__desc">Client builds &amp; a gallery of ready-made sites</span>
           <span className="path__go">See the sites <span className="plus">+</span></span>
         </MotionLink>
         <MotionLink className="card path" to="/fitness" variants={cardIn}>

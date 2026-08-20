@@ -5,6 +5,8 @@ import Page, { container, cardIn } from "../components/Page";
 import LiveThumb from "../components/LiveThumb";
 import { LoadBar, LoadingImage } from "../components/LoadBar";
 import { BuyModalHost } from "../components/BuyModal";
+import { MemberModalHost } from "../components/MemberModal";
+import OfferProgram from "../components/OfferProgram";
 import PriceCard from "../components/PriceCard";
 import MessageForm from "../components/MessageForm";
 import { prefetchTemplate } from "../templates/registry";
@@ -12,11 +14,51 @@ import {
   CONTACT,
   TEMPLATES,
   TEMPLATE_PACKAGES,
+  GALLERY_PREVIEW_COUNT,
+  WEBSITE_PROGRAM,
   SERVICE_PACKAGES,
   WEBSITE_CARE_PLANS,
   WEBSITE_CARE_NOTES,
   WEBSITES,
+  subscribeUrl,
 } from "../siteData";
+
+/* The footer of any card for a plan billed monthly.
+ *
+ * Two states, decided by whether SUBSCRIBE_LINKS has a real URL for the plan:
+ * with one, the card is self-serve and Subscribe is the primary call, with
+ * booking a call demoted to a quiet line underneath — somebody ready to pay
+ * should never have to book a meeting to do it. Without one, the card keeps
+ * exactly the call to action it had before, so an unfilled link is invisible
+ * to a visitor rather than a dead button.
+ *
+ * Checkout is a hosted page on the processor's domain, so this is a plain
+ * link, not a fetch: no card details ever touch this site. */
+function SubscribeAction({ id, label = "Subscribe monthly" }) {
+  const url = subscribeUrl(id);
+
+  if (!url) {
+    return (
+      <a className="btn-book" href={CONTACT.calendly} target="_blank" rel="noreferrer noopener">
+        Talk it through
+      </a>
+    );
+  }
+
+  return (
+    <>
+      <a className="btn-book" href={url} target="_blank" rel="noreferrer noopener">
+        {label}
+      </a>
+      <p className="price-card__alt">
+        or{" "}
+        <a className="link" href={CONTACT.calendly} target="_blank" rel="noreferrer noopener">
+          talk it through first
+        </a>
+      </p>
+    </>
+  );
+}
 
 /* One page covers both halves of the same question: sites already built for
    clients, and sites you can buy today. The store used to be its own
@@ -24,10 +66,13 @@ import {
    already click when they want a website. Client work comes first — it is the
    proof — and the offer follows it. */
 
-/* One store card, deliberately thin. It used to carry a four-item feature
-   list, a "best for" line and a stack line on top of the description, which at
-   21 cards is a wall nobody reads. The live preview IS the pitch, so the card
-   keeps a name, a kicker, one line, and the two things you can do. */
+/* One gallery card, deliberately thin.
+
+   It used to carry a feature list, a "best for" line and a description on top
+   of the preview, which across a whole gallery is a wall nobody reads. The
+   live preview IS the pitch, so the card keeps a name, a kicker and the two
+   things you can do with it — which lets three or four sit in a row instead
+   of two, and lets someone scan the gallery instead of reading it. */
 function TemplateCard({ t, onBuy }) {
   return (
     <motion.article className="card tpl-card" variants={cardIn}>
@@ -47,14 +92,11 @@ function TemplateCard({ t, onBuy }) {
         <div className="tpl-card__row">
           <div>
             <span className="web-card__tag">{t.tag}</span>
-            <h4 className="web-card__title">
-              {t.name} <span className="tpl-card__kicker">{t.kicker}</span>
-            </h4>
+            <h4 className="web-card__title">{t.name}</h4>
+            <span className="tpl-card__kicker">{t.kicker}</span>
           </div>
           <span className="tpl-card__amount">Free</span>
         </div>
-
-        <p className="card-body">{t.desc}</p>
 
         <div className="tpl-card__actions">
           <Link
@@ -62,7 +104,7 @@ function TemplateCard({ t, onBuy }) {
             to={`/templates/${t.slug}`}
             onMouseEnter={() => prefetchTemplate(t.slug)}
           >
-            Live preview
+            Preview
           </Link>
           <button className="btn-book tpl-card__buy" onClick={() => onBuy(t)}>
             Get it free
@@ -73,10 +115,31 @@ function TemplateCard({ t, onBuy }) {
   );
 }
 
+/* The last tile in the gallery grid. It is a card rather than a button under
+   the grid on purpose: a plus sitting in the row where the templates stop
+   reads as "there are more of these", which is what it means. */
+function MoreCard({ onOpen }) {
+  return (
+    <motion.button type="button" className="card tpl-more" variants={cardIn} onClick={onOpen}>
+      <span className="tpl-more__plus" aria-hidden="true">
+        +
+      </span>
+      <span className="tpl-more__title">See the full gallery</span>
+      <span className="tpl-more__sub">
+        Every template and every font, from $19 a month
+      </span>
+      <span className="link tpl-more__go">
+        Become a member <span className="plus">+</span>
+      </span>
+    </motion.button>
+  );
+}
+
 export default function Websites() {
   const [active, setActive] = useState(null); // client site, or null
   const [buying, setBuying] = useState(null); // template being bought, or null
   const [siteReady, setSiteReady] = useState(false); // popup iframe loaded?
+  const [joining, setJoining] = useState(false); // membership window open?
 
   useEffect(() => {
     setSiteReady(false);
@@ -135,34 +198,42 @@ export default function Websites() {
         </motion.div>
       </section>
 
+      {/* The offer, immediately after the proof and before anything with a
+          price table on it. This page used to open with client work and then
+          make a visitor scroll through a free gallery, a membership table, a
+          build table and a care table before reaching the thing worth selling.
+          Nine comparable prices is a menu, and a menu gets compared and
+          deferred. One offer gets decided on. */}
+      <OfferProgram
+        program={WEBSITE_PROGRAM}
+        id="booked-out"
+        phasesTitle="How the 90 days run"
+      />
+
       {/* ── Ready-made sites ─────────────────────────────────── */}
       <section className="proj-section" id="store">
         <div className="storehead">
-          <span className="storehead__flag">All free · Something new every week</span>
+          <span className="storehead__flag">Free source · Something new every week</span>
           <h3 className="storehead__title">
-            {TEMPLATES.length} finished websites.
+            A gallery of finished websites.
             <br />
-            <span className="storehead__accent">Take any of them, free.</span>
+            <span className="storehead__accent">Take one, free.</span>
           </h3>
           <p className="storehead__lede">
-            Every card below is the real site running, not a screenshot. Open it, and if it
-            fits, download it. Two commands and it is live.
+            Every card is the real site running, not a screenshot. Open it, and if it fits,
+            download it.
           </p>
-
-          <a
-            className="link storehead__ask"
-            href={CONTACT.calendly}
-            target="_blank"
-            rel="noreferrer noopener"
-          >
-            Not sure which one fits? Book a free 30-minute call <span className="plus">+</span>
-          </a>
         </div>
 
+        {/* Only the first few are on the open shelf. The rest are the
+            membership — which is the whole reason a membership exists, and a
+            gate a visitor meets after they have seen the work is a different
+            thing from one they meet before. */}
         <motion.div className="tpl-grid" variants={container} initial="hidden" animate="show">
-          {TEMPLATES.map((t) => (
+          {TEMPLATES.slice(0, GALLERY_PREVIEW_COUNT).map((t) => (
             <TemplateCard key={t.slug} t={t} onBuy={setBuying} />
           ))}
+          <MoreCard onOpen={() => setJoining(true)} />
         </motion.div>
       </section>
 
@@ -170,8 +241,8 @@ export default function Websites() {
         <div className="storehead storehead--sig">
           <h3 className="proj-section__title">Take One, or Take the Lot</h3>
           <p className="storehead__lede">
-            Every template here is free, one at a time. The membership is for the flow:
-            the whole library including the fonts, and whatever ships next week.
+            One template costs nothing. The membership is the whole library, the fonts
+            with it, and whatever ships next week.
           </p>
         </div>
         <motion.div className="price-grid" variants={container} initial="hidden" animate="show">
@@ -207,15 +278,24 @@ export default function Websites() {
                   <button className="btn-book" onClick={() => setBuying(TEMPLATES[0])}>
                     Download one now
                   </button>
+                ) : subscribeUrl(p.id) ? (
+                  /* Label reads off the plan's own period rather than its id,
+                     so the yearly card doesn't say "monthly" and a future
+                     quarterly tier needs no change here. */
+                  <SubscribeAction
+                    id={p.id}
+                    label={
+                      p.period?.includes("year") ? "Subscribe yearly" : "Subscribe monthly"
+                    }
+                  />
                 ) : (
-                  <a
-                    className="btn-book"
-                    href={CONTACT.calendly}
-                    target="_blank"
-                    rel="noreferrer noopener"
-                  >
-                    Talk it through
-                  </a>
+                  /* No hosted checkout yet, so the card opens the same
+                     window the gallery gate opens — Whish, OMT or a
+                     transfer. Sending somebody ready to pay off to book a
+                     meeting instead was losing the sale at the till. */
+                  <button className="btn-book" onClick={() => setJoining(true)}>
+                    Become a member
+                  </button>
                 )
               }
             />
@@ -228,16 +308,15 @@ export default function Websites() {
           </Link>
         </p>
       </section>
+      {/* Deliberately below the offer and deliberately plain. Somebody who
+          only wants one page, or who already has a site and only wants it
+          kept alive, is a real buyer — but putting these in a big table above
+          the offer is what turned this page into a menu in the first place. */}
       <section className="proj-section">
-        <h3 className="proj-section__title">Rather I did it for you?</h3>
-        {/* Named up front, not buried in the plan table below: the build fee
-            buys the build, and the site runs on a monthly plan from launch
-            day. Somebody who finds that out after they have agreed a price
-            feels sold to, which is the one thing this page cannot afford. */}
+        <h3 className="proj-section__title">If That Isn&apos;t What You Need</h3>
         <p className="page-lead" style={{ marginTop: "-4px" }}>
-          A one-off fee to build it, then a monthly plan to run it. Hosting, the domain, SSL
-          and the upkeep are mine to look after, so nothing about the site is left for you to
-          maintain.
+          Not every business needs the whole thing. These are the smaller ways in, and
+          each one carries its own guarantee.
         </p>
         <motion.div className="price-grid" variants={container} initial="hidden" animate="show">
           {SERVICE_PACKAGES.map((p) => (
@@ -245,7 +324,11 @@ export default function Websites() {
               key={p.id}
               name={p.name}
               tagline={p.tagline}
-              amount={p.from ? `$${p.from}+` : `$${p.flat}`}
+              amount={
+                p.from
+                  ? `$${p.from.toLocaleString("en-US")}+`
+                  : `$${p.flat.toLocaleString("en-US")}`
+              }
               period={p.period}
               badge={p.badge}
               featured={p.featured}
@@ -271,10 +354,10 @@ export default function Websites() {
           & Hosting Agreement — if a price or an edit allowance moves here, it
           moves in the contract too. */}
       <section className="proj-section">
-        <h3 className="proj-section__title">Keeping It Running</h3>
+        <h3 className="proj-section__title">Already Have a Site?</h3>
         <p className="page-lead" style={{ marginTop: "-4px" }}>
-          Every site I build runs on one of these from launch day. You get a site that stays
-          up, stays current and never needs you to touch a hosting dashboard.
+          Then you don&apos;t need me to build one. These keep an existing site up, backed
+          up and current, and nothing more than that.
         </p>
         <motion.div className="price-grid" variants={container} initial="hidden" animate="show">
           {WEBSITE_CARE_PLANS.map((p) => (
@@ -287,16 +370,8 @@ export default function Websites() {
               badge={p.badge}
               featured={p.featured}
               features={p.features}
-              action={
-                <a
-                  className="btn-book"
-                  href={CONTACT.calendly}
-                  target="_blank"
-                  rel="noreferrer noopener"
-                >
-                  Talk it through
-                </a>
-              }
+              guarantee={p.guarantee}
+              action={<SubscribeAction id={p.id} />}
             />
           ))}
         </motion.div>
@@ -315,8 +390,8 @@ export default function Websites() {
         <h3 className="proj-section__title">Send a Message</h3>
         <motion.div className="card work-message" variants={cardIn} initial="hidden" animate="show">
           <p className="card-body">
-            Took a template, want one built, or just have a question? Write it here and I&apos;ll
-            get back to you.
+            Took a template, want one built, or just have a question? Write it here and
+            I&apos;ll get back to you.
           </p>
           <MessageForm placeholder="What do you need? A site built, a template set up, or something else." />
         </motion.div>
@@ -377,6 +452,7 @@ export default function Websites() {
       </AnimatePresence>
 
       <BuyModalHost template={buying} onClose={() => setBuying(null)} />
+      <MemberModalHost open={joining} onClose={() => setJoining(false)} />
     </Page>
   );
 }

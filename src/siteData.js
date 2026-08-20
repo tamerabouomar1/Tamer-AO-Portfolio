@@ -24,6 +24,69 @@ export const CONTACT = {
   linkedin: "https://www.linkedin.com/feed/",
 };
 
+// ── Recurring billing ─────────────────────────────────────────
+// One hosted checkout link per monthly plan. Deliberately provider-agnostic:
+// these are plain URLs, so Dodo, Stripe, Lemon Squeezy, Paddle or a bank
+// payment link all drop in here without a code change. Keys are plan ids from
+// TEMPLATE_PACKAGES and WEBSITE_CARE_PLANS below.
+//
+// An empty string means "not live yet" — that plan's card keeps the existing
+// "Talk it through" call and no Subscribe button renders. This is the point:
+// a Subscribe button that 404s costs more trust than no button at all, so a
+// plan only becomes self-serve once its link is real. Fill one in and that one
+// card goes live on the next deploy; the others are unaffected.
+export const SUBSCRIBE_LINKS = {
+  member: "",
+  "member-year": "",
+  care: "",
+  business: "",
+};
+
+/** The hosted checkout URL for a plan id, or "" while it isn't live yet. */
+export const subscribeUrl = (id) => SUBSCRIBE_LINKS[id] || "";
+
+// ── Paying from Lebanon ───────────────────────────────────────
+// A card processor is not the way most of this gets paid. Whish and OMT are
+// how money actually moves here, and a bank transfer covers everyone else, so
+// the membership window offers those three rather than pretending a Stripe
+// checkout exists.
+//
+// The flow is deliberately honest about what it is: pick a plan, pick a
+// method, send the amount, then one tap opens WhatsApp with the plan and
+// amount already written out. Access is opened by hand the same day. Nothing
+// on this site takes a card number, and nothing should — see SECURITY.md.
+//
+// TAMER: `detail` is what a payer is told to send money to. Whish and OMT both
+// run off the phone number, which is why they default to CONTACT.phone. Put
+// the real NEO / bank account line in below before this ships, or that card
+// tells someone to transfer money to a placeholder.
+export const PAYMENT_METHODS = [
+  {
+    id: "whish",
+    name: "Whish Money",
+    blurb: "Send in the app, in USD or LBP.",
+    detail: CONTACT.phone,
+    detailLabel: "Whish number",
+    note: "Open Whish, Send Money, enter the number, send the amount for your plan.",
+  },
+  {
+    id: "omt",
+    name: "OMT",
+    blurb: "Any OMT branch, cash over the counter.",
+    detail: CONTACT.phone,
+    detailLabel: "Phone number",
+    note: "Ask for a transfer to this number under the name Tamer Abou Omar, then keep the receipt.",
+  },
+  {
+    id: "neo",
+    name: "NEO / bank transfer",
+    blurb: "Straight from your banking app.",
+    detail: "",
+    detailLabel: "Account",
+    note: "Message me for the account details and I'll send them over, then transfer the amount for your plan.",
+  },
+];
+
 // ── The free offers ───────────────────────────────────────────
 // The site's front door, and the thing every page now points at.
 //
@@ -49,19 +112,19 @@ export const FREE_OFFERS = [
     id: "templates",
     name: "A Finished Website",
     kicker: "Websites",
-    // The three counts here are filled in from TEMPLATES.length at the bottom
-    // of this file — hardcoding them meant every new template silently made
-    // the front page understate the library.
+    // Deliberately uncounted. A number dates the moment it is printed and
+    // invites the wrong question ("only that many?") instead of the right one
+    // ("is one of them mine?"). The gallery answers that in one click.
     blurb:
-      "{n} complete sites, built and running. Open any of them, and if it fits, the whole React source is yours.",
-    proof: "{n} templates · full source · commercial use",
+      "A gallery of complete sites, built and running. Open any of them, and if it fits, the whole React source is yours.",
+    proof: "Full source · commercial use · new ones every week",
     turnaround: "Instant download",
     kind: "download",
     to: "/websites#store",
-    cta: "Browse the {n}",
+    cta: "Open the gallery",
     paid: {
       label: "When you want it live without touching code",
-      detail: "Done For You, $200 flat. Your copy, your domain, live this week.",
+      detail: "Set up for you from $350, live on your domain in a week.",
     },
   },
   {
@@ -117,10 +180,15 @@ export const FREE_OFFERS = [
 // every tier leads with reels. Prices in USD; `featured` = popular tier.
 //
 // Taglines state the OUTCOME the buyer is paying for rather than describing
-// the deliverable, because "10 reels a month" is a cost and "you post every
+// the deliverable, because "16 posts a month" is a cost and "you post every
 // week without touching it" is a result. The deliverables are still there —
 // they moved down into `features`, which is where a buyer checks the promise
 // rather than where they decide.
+//
+// Each tier buys a FIXED NUMBER OF PIECES, not a fixed mix. Reels, carousels
+// or story sets — the split is decided with the client on the kickoff call, so
+// a brand that only wants reels gets only reels. Starter and Growth run one
+// platform; only Premium goes up to three.
 //
 // `anchor` is the same volume bought one reel at a time at REEL_RATE. It is a
 // real comparison — that is the price on the rate card below — which is the
@@ -133,12 +201,12 @@ export const SOCIAL_PACKAGES = [
     tagline: "Stop going quiet for three weeks at a time",
     price: "$199",
     period: "/ month",
-    anchor: 260,
-    anchorNote: `4 reels at $${REEL_RATE} each`,
+    anchor: 520,
+    anchorNote: `8 pieces at $${REEL_RATE} each`,
     cta: "Book a meeting",
     features: [
-      "4 custom reels / month",
-      "4 feed posts / month",
+      "8 pieces of content / month",
+      "Reels, carousels or story sets \u2014 your mix",
       "1 platform (Instagram or TikTok)",
       "Hooks & captions written for you",
     ],
@@ -150,13 +218,13 @@ export const SOCIAL_PACKAGES = [
     price: "$449",
     period: "/ month",
     featured: true,
-    anchor: 650,
-    anchorNote: `10 reels at $${REEL_RATE} each`,
+    anchor: 1040,
+    anchorNote: `16 pieces at $${REEL_RATE} each`,
     cta: "Book a meeting",
     features: [
-      "10 custom reels / month",
-      "8 feed posts + story sets",
-      "Up to 2 platforms (Reels + TikTok)",
+      "16 pieces of content / month",
+      "Reels, carousels or story sets \u2014 your mix",
+      "1 platform, done properly",
       "Trend & hook research",
       "Content calendar + captions",
     ],
@@ -167,14 +235,14 @@ export const SOCIAL_PACKAGES = [
     tagline: "Hand the whole thing over and stop thinking about it",
     price: "$899",
     period: "/ month",
-    anchor: 1300,
-    anchorNote: `20 reels at $${REEL_RATE} each`,
+    anchor: 1820,
+    anchorNote: `28 pieces at $${REEL_RATE} each`,
     cta: "Book a meeting",
     features: [
-      "20 custom reels / month",
-      "12 feed posts + story sets",
+      "28 pieces of content / month",
+      "Reels, carousels or story sets \u2014 your mix",
       "Up to 3 platforms",
-      "Full reel & growth strategy + monthly report",
+      "Full content & growth strategy + monthly report",
       "Priority editing & turnaround",
       "Monthly strategy meeting",
     ],
@@ -360,6 +428,7 @@ export const DEFENSE_PROGRAM = {
   // himself and Friday is his private-class day, so the cap is genuine.
   intake: {
     seatsPerIntake: 6,
+    label: "6 seats per intake.",
     cadence: "New intake starts the first Monday of every month.",
     reason:
       "Six seats, because I coach every session myself and I am not going to hand you to someone else halfway through.",
@@ -887,14 +956,6 @@ export const WEBSITES = [
     desc: "A premium 'precision cuts and premium style' identity in gold and black, with booking kept front and center.",
   },
   {
-    name: "Sophia's Forum",
-    demo: "/demo/sophias-forum/index.html",
-    tag: "Website design",
-    image: "/assets/projects/web-sophia.jpg",
-    full: "/assets/projects/web-sophia.jpg",
-    desc: "A bilingual English/Arabic site for a breathwork and philosophy space in Baabda. The palette and mark are traced from the studio's own branding, and the whole thing mirrors cleanly into right-to-left Arabic.",
-  },
-  {
     name: "Rasif Aley",
     demo: "/demo/rasif-aley/index.html",
     tag: "Website design",
@@ -1332,6 +1393,121 @@ export const TEMPLATES = [
     ink: "#ffffff",
   },
 
+  /* ── Added 2026-08-17 ───────────────────────────────────────────────────
+     Six single-composition screens, each built around one real mechanic
+     rather than a layout: a live SVG refraction, a canvas morph-reveal, a
+     choreographed entrance, a counted stat row, a scaling layout engine, and
+     a height-locked unit system. Their demo media is remote and belongs to
+     its owners — a buyer swaps it before going live. */
+  {
+    slug: "refract",
+    name: "Refract",
+    kicker: "Liquid Glass Hero",
+    tag: "Landing page",
+    desc: "A card that really refracts the film behind it, rainbow fringing and all.",
+    highlights: [
+      "Live SVG refraction, no WebGL",
+      "Per-channel chromatic dispersion",
+      "Untinted full-strength video",
+      "Slide-in fullscreen menu",
+    ],
+    bestFor: "Research · Climate · Science",
+    stack: "React · SVG filters · Canvas",
+    accent: "#000000",
+    bg: "#c2ccd3",
+    ink: "#000000",
+  },
+  {
+    slug: "morph",
+    name: "Morph",
+    kicker: "Pixel Poster",
+    tag: "Poster",
+    desc: "Your cursor wipes one pixel-art lily into another along an organic trail.",
+    highlights: [
+      "Canvas morph-reveal masking",
+      "24-point noise-warped blobs",
+      "Serif wordmark rising out of its mask",
+      "One locked screen, no scroll",
+    ],
+    bestFor: "Software · Art direction · Launches",
+    stack: "React · Canvas",
+    accent: "#fd86db",
+    bg: "#161616",
+    ink: "#ffffff",
+  },
+  {
+    slug: "clarity",
+    name: "Clarity",
+    kicker: "Analytics Landing",
+    tag: "Landing page",
+    desc: "A dark cinematic pitch with a glass demo card in the opposite corner.",
+    highlights: [
+      "Choreographed one-shot entrance",
+      "Headline clipped up out of its own mask",
+      "Height-locked type scale",
+      "Glass card, watch button, play control",
+    ],
+    bestFor: "SaaS · Analytics · B2B",
+    stack: "React · CSS",
+    accent: "#ffffff",
+    bg: "#000000",
+    ink: "#ffffff",
+  },
+  {
+    slug: "matrix",
+    name: "Matrix",
+    kicker: "AI Platform Hero",
+    tag: "Landing page",
+    desc: "A dot-matrix headline over film, with four metrics counting themselves up.",
+    highlights: [
+      "Retro dot-matrix display face",
+      "Count-up metrics on easeOutCubic",
+      "Overlapping trust rings",
+      "White sheet menu on mobile",
+    ],
+    bestFor: "AI platforms · Infrastructure · Enterprise",
+    stack: "React · CSS",
+    accent: "#ffffff",
+    bg: "#000000",
+    ink: "#ffffff",
+  },
+  {
+    slug: "split",
+    name: "Split",
+    kicker: "Login Screen",
+    tag: "Login screen",
+    desc: "A sign-in worth landing on: a falcon in a dive holding half the frame.",
+    highlights: [
+      "Three-mode layout engine",
+      "Card interior scaled, not reflowed",
+      "Twelve-step WAAPI entrance",
+      "16px inputs, no iOS zoom",
+    ],
+    bestFor: "Products · Dashboards · Apps",
+    stack: "React · CSS",
+    accent: "#283139",
+    bg: "#fefefe",
+    ink: "#000000",
+  },
+  {
+    slug: "portal",
+    name: "Portal",
+    kicker: "AI Infrastructure Hero",
+    tag: "Landing page",
+    desc: "A figure walking into a door of light, measured in one height-locked unit.",
+    highlights: [
+      "Every value in one viewport unit",
+      "Measured letterbox + bottom fades",
+      "Gradient bolt mark",
+      "Frosted portrait menu",
+    ],
+    bestFor: "AI infrastructure · Deep tech · Platforms",
+    stack: "React · CSS",
+    accent: "#cccccc",
+    bg: "#050505",
+    ink: "#fafafa",
+  },
+
   // ── Signature ───────────────────────────────────────────────
   // `tier: "signature"` splits these into their own paid section of the store
   // These four are built from full design systems rather than single-screen
@@ -1500,32 +1676,18 @@ TEMPLATES.push(...SIGNATURE);
 /** How many websites the store actually holds, counted rather than typed. */
 export const TEMPLATE_COUNT = TEMPLATES.length;
 
-/* Fill the {n} placeholders in the free templates offer now that the library
-   is complete. Done here rather than in the literal above because SIGNATURE is
-   pushed on after FREE_OFFERS is declared, so the count is not final until
-   this point. */
-for (const offer of FREE_OFFERS) {
-  if (offer.id !== "templates") continue;
-  for (const key of ["blurb", "proof", "cta"]) {
-    offer[key] = offer[key].replaceAll("{n}", String(TEMPLATE_COUNT));
-  }
-}
+/* The templates offer used to have its counts patched in here from
+   TEMPLATES.length. Nothing on the site prints the size of the library any
+   more — the gallery shows it — so the placeholders and this loop are gone. */
 
 
 // ── Access ────────────────────────────────────────────────────
-// Every template is free, including the Signature five. That is the whole
-// offer: give the work away, and the person who took it knows who made it.
+// The gallery is free to browse and a handful of templates download free, no
+// questions asked. The library behind them — every template, every font, and
+// whatever ships next week — is the membership.
 //
-// So the money is not in the files, it is in the FLOW. Something new ships
-// every week — a template or a typeface — and a membership is the only way to
-// get it as it lands instead of coming back to hunt for it. That is a real
-// recurring reason to pay, which a one-off "bundle of what already exists"
-// never was. The fonts matter here: they are the half a template cannot be
-// downloaded one at a time.
-//
-// $19 is under the line where a freelancer thinks about it, and against four
-// new templates a month it is roughly $5 each. Yearly is priced at ten months
-// so the saving is legible without a discount table.
+// $19 is under the line where a freelancer stops to think about it, and yearly
+// is priced at ten months so the saving reads without a discount table.
 export const TEMPLATE_PACKAGES = [
   {
     id: "source",
@@ -1535,12 +1697,12 @@ export const TEMPLATE_PACKAGES = [
     // Downloading hands over the lead: the form asks for a name and a way to
     // reach them before the zip starts.
     gated: true,
-    period: "any template, no catch",
+    period: "free, no card",
     features: [
       "Full React source code",
-      "Runs with two commands, no setup",
+      "Runs with two commands",
       "Free for personal and client work",
-      "Deploy guide for Netlify, Vercel and Cloudflare",
+      "Deploy guide included",
     ],
     bonus: "No payment, no card, no email course",
   },
@@ -1554,13 +1716,15 @@ export const TEMPLATE_PACKAGES = [
     badge: "Most popular",
     subscription: true,
     features: [
-      "Every website template, in one download",
+      "Every template in the gallery",
       "The full font library with them",
-      "Something new every week, yours the day it ships",
-      "Commercial licence for unlimited client work",
-      "Cancel any time, keep everything you downloaded",
+      "Something new every week",
+      "Commercial licence, unlimited client work",
+      "Keep everything you downloaded",
     ],
     bonus: "Free 30-minute call to pick the right one",
+    guarantee:
+      "Cancel in the first 30 days and I refund the month. You keep whatever you already downloaded.",
   },
   {
     id: "member-year",
@@ -1573,124 +1737,313 @@ export const TEMPLATE_PACKAGES = [
     subscription: true,
     features: [
       "Everything in the monthly membership",
-      "Two months free against paying monthly",
+      "Two months free against monthly",
       "Locked at this price while you stay",
     ],
     bonus: "First pick of what gets built next",
+    guarantee:
+      "Cancel in the first 30 days and I refund the year. You keep whatever you already downloaded.",
   },
 ];
 
-// Delivery, not access. These are the one-off build fees — what it costs to
-// get the site made. Running it afterwards is WEBSITE_CARE_PLANS below, and
-// the two are sold together: the build scope here mirrors §3.3 of the Website
-// Build & Hosting Agreement so what a client signs is what this page promised.
+// ── The flagship website offer ────────────────────────────────
+//
+// Same structure as DEFENSE_PROGRAM above, and for the same reason: this page
+// used to be a menu. Nine priced cards in three tables, all of them nameable,
+// comparable and shoppable against any other freelancer in Beirut. A price
+// table invites a visitor to compare and defer, which is the opposite of what
+// the $100M Offers method is for.
+//
+// So the thing Tamer most wants to sell is no longer a column. It is one
+// offer, to one starving crowd, built on the same four levers:
+//
+//   Value = (Dream Outcome × Perceived Likelihood) ÷ (Time Delay × Effort)
+//
+// `promise` is the dream outcome as a capability, `proof` raises the
+// likelihood with sites that are actually running, `phases` collapses the time
+// delay into a dated plan, and the bonuses plus the guarantee take the effort
+// and the risk off the buyer.
+//
+// NAMING follows MAGIC: Goal ("Booked Out"), Interval (90 days), Container
+// ("Program"), Avatar per track.
+//
+// THE STRUCTURE. The build is free and the money is monthly. That is not a
+// discount — it is the "free installation" shape, and it works here because
+// the agreement ALREADY runs a 12-month first term (see WEBSITE_CARE_NOTES).
+// The build cost is recovered by about month five. `terms` states the early
+// exit condition out loud rather than hiding it in the contract, because a
+// buyer who discovers that later feels tricked and tells people so.
+//
+// TAMER, CONFIRM BEFORE THIS GOES LIVE:
+//   1. The free build. You are fronting ~$850 of work against a 12-month
+//      term. If a client leaves in month two you are out that work unless you
+//      actually enforce `terms`. Only ship this if you will enforce it.
+//   2. RATE_CARD below. Those are the numbers the stack is priced from. They
+//      have to be what you would genuinely charge for each thing on its own,
+//      because the total is only defensible if someone can ask you for the
+//      breakdown and get it.
+//   3. `intake.perMonth` — the site says you cap builds. Only true if you cap.
+//   4. The bonuses are promises. Four reels, the copy written, the logo
+//      animated, the Google profile fixed in week one. All four cost you
+//      hours in month one, on top of the build.
+
+/* What each line of the stack costs bought on its own. The stack total is only
+   worth printing if every line traces back to a price Tamer would actually
+   quote, so they live here in one place rather than as loose numbers. Two are
+   already published elsewhere on the site: the build fee is the Starter+
+   build, and REEL_RATE is the single-reel price on the services page. */
+const RATE_CARD = {
+  build: 850, // a designed multi-page site, one-off
+  hostingMonth: 39, // what Care costs on its own
+  seoPage: 120, // one page researched, written and optimised
+  gmbMonth: 50, // Google Business run and posted to
+  landingPage: 250, // a single-offer landing page
+  trackingSetup: 200, // call, form and WhatsApp tracking wired up
+  reportMonth: 40, // the monthly report
+  logoAnimation: 150, // already quoted at this on the services page
+  copywriting: 300, // a site's worth of copy from one interview
+  gmbFix: 150, // profile claimed, corrected and photographed
+};
+
+export const WEBSITE_PROGRAM = {
+  name: "Booked Out in 90 Days",
+  kicker: "One site, built and run for you · Three tracks, one outcome",
+  promise:
+    "In 90 days, people searching for what you sell find you, land on a site that is actually yours, and contact you directly instead of through an app that keeps a third of it.",
+  // Perceived likelihood: sites that are up and being used, not a claim.
+  proof:
+    "Already running for a burger shop in Aley, a manakish institution in Beirut, a barbershop, a coffee shop, a breathwork studio and a construction company that has been building since 1967. I build and run every one of them myself.",
+  price: 199,
+  period: "per month, 12-month term. The build costs you nothing.",
+  cta: "Claim a build slot",
+
+  // The route to the outcome, so 90 days reads as a plan and not a guess.
+  phases: [
+    {
+      weeks: "Days 1–7",
+      title: "Live",
+      body: "Your Google Business profile is claimed and corrected, and the site goes up on your own domain. Your name, your number and your hours are right everywhere someone might look.",
+    },
+    {
+      weeks: "Days 8–45",
+      title: "Found",
+      body: "Pages written around what people in your area actually type into Google, not what the industry calls it. Every call, form and WhatsApp message starts getting tracked back to where it came from.",
+    },
+    {
+      weeks: "Days 46–90",
+      title: "Enquiring",
+      body: "A landing page built for your strongest offer, reels pointing at it, and the first report: what came in, where from, and what we do next month.",
+    },
+  ],
+
+  tracks: [
+    {
+      id: "food",
+      name: "Own Your Orders",
+      who: "For restaurants, cafés and bakeries",
+      pain: "Every order comes through an app that keeps a third of it, and you don't even get the customer's number.",
+      outcome:
+        "People order from you directly, on your own site, and you keep the whole ticket and the customer with it.",
+      note: "The shape of what is already running for Kitchen Garage and Snack Faysal.",
+    },
+    {
+      id: "booking",
+      name: "Fill the Calendar",
+      who: "For salons, clinics and studios",
+      pain: "Bookings live in your DMs, you lose half of them to no-shows, and there is no record of who came or when.",
+      outcome:
+        "People book themselves in, get reminded, and turn up. You open the calendar in the morning and it is already full.",
+      note: "The shape of what is already running for Saifi Barbershop.",
+    },
+    {
+      id: "trade",
+      name: "Get Found First",
+      who: "For trades, contractors and services",
+      pain: "All your work is word of mouth, and when someone finally searches for what you do, they find a competitor.",
+      outcome:
+        "You come up when someone in your area searches, with the work and the credibility already on the page before they call.",
+      note: "The shape of what is already running for ACC and Sinar.",
+    },
+  ],
+
+  // Trim and stack. Everything included over the first twelve months, priced
+  // at what it costs bought on its own, so the gap against $199 is visible.
+  stack: [
+    { item: "The site itself, designed around your brand, up to 6 pages", value: RATE_CARD.build },
+    {
+      item: "Hosting, domain, SSL, backups and uptime monitoring, all year",
+      value: RATE_CARD.hostingMonth * 12,
+    },
+    {
+      item: "A page written and optimised to rank, every month",
+      value: RATE_CARD.seoPage * 12,
+    },
+    {
+      item: "Your Google Business profile run and posted to, every week",
+      value: RATE_CARD.gmbMonth * 12,
+    },
+    {
+      item: "A landing page built for each season or offer, four a year",
+      value: RATE_CARD.landingPage * 4,
+    },
+    {
+      item: "Every call, form and WhatsApp message tracked to its source",
+      value: RATE_CARD.trackingSetup,
+    },
+    {
+      item: "A report every month: what came in, and what we do next",
+      value: RATE_CARD.reportMonth * 12,
+    },
+  ],
+
+  // Each bonus answers the objection that lands AFTER the decision, in the
+  // order people raise them: "how long until anything happens", "I haven't got
+  // the words", "my logo is a JPEG", "what do I post while I wait".
+  bonuses: [
+    {
+      name: "Your Google profile fixed in week one",
+      value: RATE_CARD.gmbFix,
+      body: "Claimed, corrected and photographed before the site is even live, so the map listing starts working while I am still building.",
+    },
+    {
+      name: "All your copy written for you",
+      value: RATE_CARD.copywriting,
+      body: "One 45-minute call and I write the whole site from it. You do not write a word, and you do not hold the project up trying to.",
+    },
+    {
+      name: "Your logo animated for the hero",
+      value: RATE_CARD.logoAnimation,
+      body: "The same logo motion I charge for on its own, on the first thing anyone sees.",
+    },
+    {
+      name: "Four reels in your first month",
+      value: REEL_RATE * 4,
+      body: "Cut from your footage, captions and hooks written, pointed at the new site. Something to post the week it goes live.",
+    },
+  ],
+
+  // Conditional guarantee, the same shape as SOCIAL_GUARANTEE: measurable
+  // against a baseline recorded on day one, and paid in Tamer's hours rather
+  // than in refunded cash, which is what makes it safe to offer and honest.
+  //
+  // TAMER: this only works if you write down their previous 90 days at
+  // kickoff. Do it on day one or the promise has no baseline.
+  guarantee: {
+    title: "Beat your own 90 days, or the next three are free",
+    body: "On day one we write down what came in over your previous 90 days: calls, messages, walk-ins. If the 90 days after launch have not beaten that number, you do not pay for months four, five or six, and I keep working straight through them.",
+  },
+
+  // Real constraint, not a countdown clock. He designs, writes and builds
+  // every one of these himself, which is a hard ceiling on how many can run.
+  intake: {
+    perMonth: 3,
+    label: "3 builds a month.",
+    cadence: "New builds start on the first Monday of the month.",
+    reason:
+      "Three, because I design it, write it and build it myself. A fourth means all four wait.",
+  },
+
+  // Said out loud rather than buried in the agreement.
+  terms:
+    "The build is free against the 12-month term the agreement already runs. Leave before month twelve and the $850 build fee falls due, which is the only thing the free build is holding.",
+};
+
+// ── Everything else ───────────────────────────────────────────
+// Deliberately demoted, and deliberately small. These used to be two full
+// pricing tables above the fold, which turned the page into a menu and let a
+// visitor comparison-shop instead of deciding. They are still here because
+// somebody genuinely only wants a one-page site, or already has a site and
+// only wants it kept alive, and refusing to sell that would be posturing.
+//
+// Every one of them now carries a guarantee. A tier without one is a tier
+// where the risk is still sitting on the buyer.
 export const SERVICE_PACKAGES = [
   {
     id: "setup",
-    name: "Done For You",
-    tagline: "Live on your domain this week",
-    flat: 200,
-    period: "one-off build, any template",
-    featured: true,
-    badge: "Most popular",
+    name: "One Page, Live This Week",
+    tagline: "You have something to point at by Friday",
+    flat: 350,
+    period: "one-off, no monthly",
     features: [
-      "Any template, set up for you",
-      "Your copy, photos and branding applied",
-      "Domain, DNS, SSL and deployment handled",
-      "Contact form or booking hooked up",
-      "Basic on-page SEO: titles, descriptions, sitemap",
-      "Two rounds of revisions before launch",
+      "Any template from the gallery, set up for you",
+      "Your copy, photos and colours applied",
+      "Domain, SSL and deployment handled",
+      "Contact or WhatsApp button wired up",
+      "One round of revisions",
     ],
     bonus: "Free logo animation for your hero",
-    // Reduces the effort-and-sacrifice term: the buyer's real fear is not the
-    // $200, it is spending a fortnight chasing a freelancer for a site that
-    // never goes up. Naming the deadline is what removes it.
     guarantee: "Live within 7 days of getting your content, or you don't pay.",
   },
   {
     id: "custom",
-    name: "Custom Build",
-    tagline: "Start here, go anywhere",
-    from: 600,
-    period: "one-off build, quoted per project",
+    name: "Built From Scratch",
+    tagline: "When the site has a job to do",
+    from: 1500,
+    period: "quoted per project",
     features: [
-      "Template as the design starting point",
-      "Redesigned around your brand",
-      "Extra pages, shop or booking system",
-      "Performance & SEO pass",
-      "Two rounds of revisions before launch",
-      "30 days of post-launch support",
+      "Shop, accounts, payments or multi-language",
+      "Built to your flows, not a template's",
+      "Performance and technical SEO pass",
+      "Analytics and conversion tracking",
+      "Unlimited revisions inside the agreed scope",
+      "60 days of post-launch support",
     ],
-    bonus: "Free 30-minute strategy call first",
+    bonus: "Free 30-minute scoping call first",
+    guarantee:
+      "Fixed quote before a line is written. If it takes longer than quoted, that is mine to absorb, not yours to pay for.",
   },
 ];
 
-// ── Running the site ──────────────────────────────────────────
-// The monthly side of the same deal, straight out of §5.1 of the Website
-// Build & Hosting Agreement. Every build ships onto one of these: hosting,
-// the domain, SSL, backups and monitoring are mine to run, which is why the
-// site cannot be bought as a standalone file and walked away with.
-//
-// Keep these three in step with the signed contract. If a price or an edit
-// allowance changes here, it changes in the agreement too — a client reading
-// one number on the site and another in the PDF is a dispute waiting to
-// happen.
+// ── Keeping an existing site alive ────────────────────────────
+// What is left of the old care table once Growth was promoted out of it and
+// into WEBSITE_PROGRAM. These two are maintenance, and they are sold as
+// maintenance: keeping a site up is not the same product as growing a
+// business, and pricing them in the same table implied it was.
 export const WEBSITE_CARE_PLANS = [
   {
-    id: "essential",
-    name: "Essential",
+    id: "care",
+    name: "Care",
     tagline: "Online, backed up, watched",
-    flat: 29,
+    flat: 39,
     period: "per month, per site",
     features: [
       "Hosting, SSL, CDN and backups",
-      "Domain registered and renewed for you",
+      "Domain registered and renewed",
       "Uptime monitoring",
       "2 content edits a month",
-      "First reply within 5 business days",
+      "Reply within 5 business days",
     ],
+    guarantee: "Down for more than a day and that month is free.",
   },
   {
-    id: "growth",
-    name: "Growth",
+    id: "business",
+    name: "Business",
     tagline: "For a site that keeps moving",
-    flat: 59,
+    flat: 89,
     period: "per month, per site",
     featured: true,
     badge: "Most popular",
     features: [
-      "Everything in Essential",
+      "Everything in Care",
       "6 content edits a month",
-      "First reply within 2 business days",
+      "Reply within 2 business days",
       "2 new pages a year",
-      "Monthly performance report",
+      "Monthly traffic report",
       "Basic SEO maintenance",
     ],
-  },
-  {
-    id: "premium",
-    name: "Premium",
-    tagline: "Treat me as part of the team",
-    flat: 99,
-    period: "per month, per site",
-    features: [
-      "Everything in Growth",
-      "Unlimited content edits, fair use 20 a month",
-      "First reply within 1 business day",
-      "6 new pages a year",
-      "Ongoing SEO maintenance",
-      "Priority support channel",
-    ],
+    guarantee: "Down for more than a day and that month is free.",
   },
 ];
 
 /** What counts as a content edit, and what the monthly does not cover. */
 export const WEBSITE_CARE_NOTES = [
-  "A content edit is a change to existing text, images, prices, contact details or opening hours. New pages, new features and redesigns are quoted separately.",
-  "Unused edits don't roll over. Response times are for my first reply, not the finished change.",
-  "Billed monthly in advance from launch day, in USD. The first term runs 12 months and renews unless either of us gives 30 days' notice.",
-  "I own and run the hosting, domain and code while you're on a plan. Full ownership and domain transfer are available any time as a one-time buy-out.",
+  "A content edit is a change to existing text, images, prices or opening hours. New pages, new features and redesigns are quoted separately.",
+  "Billed monthly in advance from launch day, in USD. Unused edits don't roll over.",
+  "I run the hosting, domain and code while you're on a plan. Full ownership and domain transfer are available any time as a one-time buy-out.",
 ];
+
+/** How many templates show before the gallery asks for a membership. */
+export const GALLERY_PREVIEW_COUNT = 9;
 
 /** Where a template's free source zip lives. Built by npm run build:zips. */
 export const templateZip = (slug) => `/downloads/${slug}-template.zip`;

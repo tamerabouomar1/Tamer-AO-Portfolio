@@ -1,0 +1,417 @@
+/* Refract — Liquid Glass Hero (Signature). Scoped under .trn.
+
+   The rule that defines this page: nothing sits between the video and the
+   type. No overlay, no tint, no scrim, at any breakpoint. Dark type on bright
+   footage at every width — only the sizes change across breakpoints.
+
+   Breakpoints follow Tailwind's: 640 / 768 / 1024, all min-width. */
+
+.trn {
+  position: relative;
+  width: 100%;
+  height: 100svh;
+  overflow: hidden;
+  /* only a pre-load fallback behind the video */
+  background: #c2ccd3;
+  color: #000;
+  font-family: "Helvetica Neue Light", "Helvetica Neue", Helvetica, Arial, sans-serif;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+.trn *,
+.trn *::before,
+.trn *::after { box-sizing: border-box; }
+.trn h1, .trn h2, .trn h3, .trn p { margin: 0; }
+
+.trn-video {
+  position: absolute;
+  top: 0;
+  left: 0;
+  display: block;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  z-index: 0;
+  opacity: 1; /* full strength, deliberately un-dimmed */
+  pointer-events: none;
+}
+
+.trn-defs { position: absolute; width: 0; height: 0; pointer-events: none; }
+
+.trn-icon { flex: none; }
+
+/* ── hero shell ─────────────────────────────────────────────── */
+.trn-hero {
+  position: relative;
+  z-index: 10;
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  height: 100%;
+  color: #000;
+  /* the composition is a layer over film; only real controls take the cursor */
+  pointer-events: none;
+}
+
+/* ── decorative vertical rules (>=768px) ────────────────────── */
+.trn-rule {
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  display: none;
+  flex-direction: column;
+  align-items: center;
+}
+.trn-rule--left { left: 1.25rem; }
+.trn-rule--right { right: 1.25rem; }
+.trn-rule__seg { width: 1px; background: rgba(0, 0, 0, 0.2); }
+.trn-rule__seg--end { height: 15%; }
+.trn-rule__seg--mid { flex: 1 1 0%; }
+.trn-rule__plus {
+  font-size: 0.75rem;
+  line-height: 1;
+  color: rgba(0, 0, 0, 0.4);
+  padding: 0.25rem 0;
+}
+
+/* ── navbar ─────────────────────────────────────────────────── */
+.trn-nav {
+  position: relative;
+  z-index: 2;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 1.25rem;
+}
+.trn-nav__item {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.625rem;
+  color: #000;
+  background: none;
+  border: 0;
+  padding: 0;
+  font: inherit;
+  text-decoration: none;
+  cursor: pointer;
+  pointer-events: auto;
+  transition: opacity 300ms;
+}
+.trn-nav__item:hover { opacity: 0.6; }
+.trn-nav__label { font-size: 0.875rem; line-height: 1.25rem; letter-spacing: 0.025em; }
+.trn-nav__label--menu { display: none; } /* icon-only on mobile */
+.trn-nav__dot { width: 8px; height: 8px; border-radius: 9999px; background: #000; }
+
+/* ── bottom row ─────────────────────────────────────────────── */
+.trn-bottom {
+  position: relative;
+  z-index: 2;
+  margin-top: auto;
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+  /* matches .trn-nav so the columns align with the navbar */
+  padding: 0 1.25rem 1.5rem;
+}
+
+/* ── left column ────────────────────────────────────────────── */
+.trn-lede { max-width: 24rem; }
+.trn-lede__title {
+  font-size: 1.25rem;
+  font-weight: 300;
+  line-height: 1.25;
+  letter-spacing: -0.025em;
+  color: #000;
+}
+.trn-lede__body {
+  margin-top: 0.75rem;
+  max-width: 280px;
+  font-size: 0.75rem;
+  line-height: 1.625;
+  color: rgba(0, 0, 0, 0.6);
+}
+
+/* ── chamfered button ───────────────────────────────────────── */
+/* Rectangle with the top-left and bottom-right corners cut at 14px. The
+   outline is an SVG polygon so the 1.5px stroke survives the stretch;
+   non-scaling-stroke is what keeps it hairline under preserveAspectRatio
+   none. */
+.trn-chamfer {
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  width: 220px;
+  height: 44px;
+  margin-top: 1.5rem;
+  padding: 0 1.25rem;
+  color: #000;
+  text-decoration: none;
+  pointer-events: auto;
+  transition: opacity 300ms;
+}
+.trn-chamfer:hover { opacity: 0.7; }
+/* mobile-only frosted backing, clipped to the same silhouette */
+.trn-chamfer__glass {
+  position: absolute;
+  inset: 0;
+  background: rgba(255, 255, 255, 0.6);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  border: 1px solid rgba(0, 0, 0, 0.2);
+  clip-path: polygon(14px 0, 100% 0, 100% calc(100% - 14px), calc(100% - 14px) 100%, 0 100%, 0 14px);
+}
+.trn-chamfer__outline {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  overflow: visible;
+}
+.trn-chamfer__label { position: relative; font-size: 0.75rem; letter-spacing: 0.025em; }
+.trn-chamfer .trn-icon { position: relative; }
+
+/* ── the glass card ─────────────────────────────────────────── */
+.trn-card {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  width: 340px;
+  max-width: 100%;
+  height: 460px;
+  padding: 2rem;
+  border-radius: 48px;
+  overflow: hidden; /* clips the duplicate to the card */
+  background: transparent; /* the refraction IS the fill */
+  border: 1px solid rgba(47, 47, 47, 0.15);
+  pointer-events: auto;
+  animation: trn-card-in 900ms cubic-bezier(0.16, 1, 0.3, 1) both;
+}
+@keyframes trn-card-in {
+  from { opacity: 0; transform: translateY(28px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+/* left/top/width/height are written every frame by the card's rAF loop */
+.trn-dup {
+  position: absolute;
+  left: 0;
+  top: 0;
+  z-index: 0;
+  overflow: hidden;
+  pointer-events: none;
+}
+.trn-dup__canvas {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  filter: url(#trn-liquid-glass);
+}
+
+.trn-card__frost {
+  position: absolute;
+  inset: 0;
+  z-index: 1;
+  border-radius: 48px;
+  pointer-events: none;
+  background: rgba(255, 255, 255, 0.05);
+  box-shadow:
+    inset 0 1.5px 2px rgba(255, 255, 255, 0.3),
+    inset 0 -1px 2px rgba(0, 0, 0, 0.15);
+  transition: background 400ms;
+}
+.trn-card:hover .trn-card__frost { background: rgba(255, 255, 255, 0.1); }
+
+.trn-card__head,
+.trn-card__body,
+.trn-card__wave { position: relative; z-index: 2; }
+
+.trn-card__head {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: 1rem;
+  padding-bottom: 0.75rem;
+  border-bottom: 1px solid rgba(0, 0, 0, 0.1);
+}
+.trn-card__title { font-size: 1rem; font-weight: 500; letter-spacing: -0.025em; }
+.trn-card__index { font-size: 0.75rem; color: rgba(0, 0, 0, 0.4); }
+.trn-card__body { display: flex; flex-direction: column; gap: 1rem; margin-top: 1rem; }
+.trn-finding__title { font-size: 0.875rem; font-weight: 600; letter-spacing: -0.025em; }
+.trn-finding__text {
+  margin-top: 0.25rem;
+  font-size: 0.75rem;
+  line-height: 1.625;
+  color: rgba(0, 0, 0, 0.5);
+}
+.trn-card__wave { display: block; width: 100%; height: auto; margin-top: 1.25rem; }
+
+/* ── slide-in menu ──────────────────────────────────────────── */
+/* visibility is delayed on close so the slide-out finishes before the layer
+   goes inert */
+.trn-menu {
+  position: absolute;
+  inset: 0;
+  z-index: 50;
+  visibility: hidden;
+  pointer-events: none;
+  transition: visibility 0s linear 500ms;
+}
+.trn-menu.is-open { visibility: visible; pointer-events: auto; transition-delay: 0s; }
+
+.trn-menu__backdrop {
+  position: absolute;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.4);
+  backdrop-filter: blur(4px);
+  -webkit-backdrop-filter: blur(4px);
+  opacity: 0;
+  transition: opacity 500ms;
+}
+.trn-menu.is-open .trn-menu__backdrop { opacity: 1; }
+
+.trn-menu__panel {
+  position: absolute;
+  top: 0;
+  left: 0;
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  height: 100%;
+  padding: 1.5rem 2rem;
+  background: #f5f4f0;
+  transform: translateX(-100%);
+  transition: transform 500ms cubic-bezier(0.16, 1, 0.3, 1);
+}
+.trn-menu.is-open .trn-menu__panel { transform: translateX(0); }
+
+.trn-menu__close {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.625rem;
+  align-self: flex-start;
+  margin-bottom: 3rem;
+  padding: 0;
+  background: none;
+  border: 0;
+  font: inherit;
+  font-size: 0.875rem;
+  color: #000;
+  cursor: pointer;
+  transition: opacity 300ms;
+}
+.trn-menu__close:hover { opacity: 0.6; }
+
+.trn-menu__nav { display: flex; flex-direction: column; }
+.trn-menu__link {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 1rem 0;
+  border-bottom: 1px solid rgba(0, 0, 0, 0.1);
+  color: #000;
+  text-decoration: none;
+  opacity: 0;
+  transform: translateY(20px);
+  transition: opacity 500ms, transform 500ms;
+}
+.trn-menu__linkText {
+  font-size: 1.5rem;
+  font-weight: 300;
+  letter-spacing: -0.025em;
+  transition: transform 300ms;
+}
+.trn-menu__link:hover .trn-menu__linkText { transform: translateX(8px); }
+.trn-menu__arrow { opacity: 0; transform: translateX(8px); transition: opacity 300ms, transform 300ms; }
+.trn-menu__link:hover .trn-menu__arrow { opacity: 1; transform: translateX(0); }
+
+.trn-menu.is-open .trn-menu__link { opacity: 1; transform: translateY(0); }
+.trn-menu.is-open .trn-menu__link:nth-child(1) { transition-delay: 150ms; }
+.trn-menu.is-open .trn-menu__link:nth-child(2) { transition-delay: 225ms; }
+.trn-menu.is-open .trn-menu__link:nth-child(3) { transition-delay: 300ms; }
+.trn-menu.is-open .trn-menu__link:nth-child(4) { transition-delay: 375ms; }
+.trn-menu.is-open .trn-menu__link:nth-child(5) { transition-delay: 450ms; }
+
+.trn-menu__foot {
+  margin-top: auto;
+  padding: 1.5rem 0 2rem;
+  border-top: 1px solid rgba(0, 0, 0, 0.1);
+  opacity: 0;
+  transform: translateY(20px);
+  transition: opacity 500ms, transform 500ms;
+}
+.trn-menu.is-open .trn-menu__foot { opacity: 1; transform: translateY(0); transition-delay: 600ms; }
+.trn-menu__footLabel {
+  display: block;
+  margin-bottom: 0.75rem;
+  font-size: 0.75rem;
+  text-transform: uppercase;
+  letter-spacing: 0.025em;
+  color: rgba(0, 0, 0, 0.4);
+}
+.trn-menu__mail {
+  font-size: 0.875rem;
+  color: rgba(0, 0, 0, 0.7);
+  text-decoration: none;
+  transition: color 300ms;
+}
+.trn-menu__mail:hover { color: #000; }
+
+/* ── breakpoints ────────────────────────────────────────────── */
+@media (min-width: 640px) {
+  .trn-nav { padding: 1.25rem 1.5rem; }
+  .trn-nav__label--menu { display: inline; }
+  .trn-bottom { padding: 0 1.5rem 2rem; }
+  .trn-lede__title { font-size: 1.5rem; }
+  .trn-lede__body { font-size: 0.875rem; }
+  .trn-chamfer { width: 260px; height: 48px; padding: 0 1.5rem; }
+  .trn-chamfer__label { font-size: 0.875rem; }
+  /* the inversion: the frosted fill exists only below 640px */
+  .trn-chamfer__glass {
+    background: transparent;
+    backdrop-filter: none;
+    -webkit-backdrop-filter: none;
+    border-color: transparent;
+  }
+  .trn-card__title { font-size: 1.125rem; }
+  .trn-menu__panel { width: 380px; padding: 1.5rem 2.5rem; }
+  .trn-menu__linkText { font-size: 1.875rem; }
+}
+
+@media (min-width: 768px) {
+  .trn-rule { display: flex; }
+  .trn-nav { padding: 1.5rem 3rem; }
+  /* full-height row: copy top-left, card bottom-right. The diagonal is the
+     whole composition. */
+  .trn-bottom {
+    flex: 1;
+    margin-top: 0;
+    flex-direction: row;
+    align-items: stretch;
+    justify-content: space-between;
+    gap: 3rem;
+    padding: 2rem 3rem 3rem;
+  }
+  .trn-lede { align-self: flex-start; }
+  .trn-card { align-self: flex-end; }
+  .trn-lede__title { font-size: 1.875rem; }
+  .trn-lede__body { margin-top: 1rem; }
+  .trn-chamfer { margin-top: 2rem; }
+  .trn-card__head { padding-bottom: 1rem; }
+  .trn-card__title { font-size: 1.25rem; }
+  .trn-card__body { gap: 1.25rem; margin-top: 1.25rem; }
+  .trn-finding__title { font-size: 1rem; }
+  .trn-finding__text { font-size: 0.875rem; margin-top: 0.375rem; }
+  .trn-card__wave { margin-top: 1.5rem; }
+}
+
+@media (min-width: 1024px) {
+  .trn-lede__title { font-size: 2.25rem; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .trn * { transition-duration: 0.01ms !important; }
+  .trn-card { animation: none; }
+}

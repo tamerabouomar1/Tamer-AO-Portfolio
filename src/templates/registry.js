@@ -48,6 +48,12 @@ const loaders = {
   prism: () => import("./prism/PrismSite"),
   darkroom: () => import("./darkroom/DarkroomSite"),
   abyss: () => import("./abyss/AbyssSite"),
+  refract: () => import("./refract/RefractSite"),
+  morph: () => import("./morph/MorphSite"),
+  clarity: () => import("./clarity/ClaritySite"),
+  matrix: () => import("./matrix/MatrixSite"),
+  split: () => import("./split/SplitSite"),
+  portal: () => import("./portal/PortalSite"),
 };
 
 export const TEMPLATE_VIEWS = Object.fromEntries(

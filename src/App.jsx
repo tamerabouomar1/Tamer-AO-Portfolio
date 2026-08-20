@@ -5,6 +5,7 @@ import { AnimatePresence } from "framer-motion";
 import VideoBackground from "./components/VideoBackground";
 import Sidebar from "./components/Sidebar";
 import MobileTabBar from "./components/MobileTabBar";
+import ChatWidget from "./components/ChatWidget";
 import { preloadAllImages } from "./lib/preloadImages";
 import usePageMeta, { PAGE_META } from "./lib/usePageMeta";
 
@@ -59,6 +60,11 @@ export default function App() {
         <Routes location={location}>
           <Route path="/templates/:slug" element={<TemplatePreview />} />
         </Routes>
+        {/* Rendered, but hidden. The assistant has to stay mounted across this
+            route rather than be dropped from the tree: its launcher lives in a
+            portal on <body> that React cannot take back, so leaving it out
+            here would leave the bubble sitting on top of the preview. */}
+        <ChatWidget hidden />
       </>
     );
   }
@@ -86,6 +92,13 @@ export default function App() {
         </AnimatePresence>
       </div>
       <MobileTabBar />
+      {/* Outside .app on purpose. The mobile header carries
+          `transform: translateZ(0)`, and a transformed ancestor becomes the
+          containing block for position:fixed descendants — the launcher would
+          anchor to the header instead of the viewport. It is also deliberately
+          absent from the template-preview branch above: a chat bubble over a
+          preview would appear to belong to the template being sold. */}
+      <ChatWidget />
     </>
   );
 }

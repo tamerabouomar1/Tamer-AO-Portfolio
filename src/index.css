@@ -1104,6 +1104,13 @@ ul { margin: 0; padding: 0; list-style: none; }
 .offer-close__seats strong { color: var(--shiny); font-weight: 700; }
 .offer-close__btn { align-self: flex-start; padding-left: 30px; padding-right: 30px; background: var(--shiny); border-color: var(--shiny); color: #07121f; }
 .offer-close__btn:hover { box-shadow: 0 12px 30px rgba(100, 206, 251, 0.35); }
+/* The catch, on the page rather than in the agreement. Quiet on purpose: it
+   has to be readable and findable, not shouted, or it reads as a warning. */
+.offer-close__terms {
+  font-size: clamp(11.5px, 0.9vw, 13px);
+  line-height: 1.55; font-weight: 300; color: var(--faint);
+  padding-top: 12px; border-top: 1px solid var(--line);
+}
 
 /* generic page heading block inside cards */
 .section-title { font-size: clamp(22px, 2.4vw, 35px); font-weight: 700; margin-bottom: clamp(10px, 1.2vw, 18px); }
@@ -1207,6 +1214,16 @@ ul { margin: 0; padding: 0; list-style: none; }
   background: rgba(100, 206, 251, 0.07);
   font-size: clamp(12px, 0.95vw, 14px); line-height: 1.45; font-weight: 400;
   color: var(--text);
+}
+
+/* the quiet second option under a Subscribe button — booking a call stays
+   available without competing with the thing that takes the money */
+.price-card__alt {
+  margin-top: 8px;
+  text-align: center;
+  font-size: clamp(12px, 0.9vw, 13px);
+  line-height: 1.4;
+  color: var(--muted);
 }
 
 /* book button (Calendly) */
@@ -1577,6 +1594,68 @@ ul { margin: 0; padding: 0; list-style: none; }
 .tabsheet__item--primary.is-active { background: var(--shiny); color: #07121f; }
 
 /* ---------------------------------------------------------- */
+/*  AI assistant launcher (MyChatBot)                          */
+/* ---------------------------------------------------------- */
+/* The vendor mounts its own launcher into a body-level portal fixed to the
+   bottom-right of the viewport. These rules are the only thing deciding where
+   it actually sits, so they are load-bearing — see ChatWidget.jsx.
+   `.mcb-topmost` is the vendor's positioned wrapper; #mcb-widget-portal is
+   theirs too. Both are third-party class names: if the bubble ever reappears
+   in the default corner, they renamed something, and this is the file to fix. */
+/* !important is not optional here. The vendor writes the position as an INLINE
+   style on this element (`position:fixed; right:20px; bottom:20px`), and an
+   inline declaration beats any normal rule in a stylesheet — the first version
+   of these rules did nothing at all. An author !important does outrank a plain
+   inline style, which is what makes this work.
+
+   Anchored by `left` on desktop, not `right`: 100vw counts the scrollbar while
+   the sidebar does not, so measuring in from the right edge drifts by the
+   scrollbar's width on any machine that shows one. */
+/* Scoped to the CLOSED launcher, and that scoping is the important part.
+
+   Two conditions, because each covers the other's blind spot. `:has(.mcb-cursor-pointer)`
+   is the launcher circle itself — the opened window has no such element.
+   `:not(:has(> :nth-child(2)))` is structural: closed, their wrapper holds
+   exactly one child; opened it grows a header row (and, on desktop, a drag
+   handle). The class alone would misfire the day a chat message contains
+   something clickable; the child count alone would misfire if the launcher
+   ever grows a second child, such as the popup-text bubble that the widget
+   settings can turn back on. Together they only ever match the 48px circle.
+
+   The open window is deliberately left exactly where the vendor puts it. It is
+   413px wide (768 expanded) and the user can drag it around by that handle,
+   which writes its own inline position; an !important of ours would pin it and
+   the drag would silently stop working. It would also hang two thirds of the
+   window off the left edge if it inherited a position centred in a 232px
+   sidebar. So: we place the button, they place the window.
+
+   If :has() is unsupported (Safari below 15.4) none of this applies and the
+   launcher simply stays in its default bottom-right corner. */
+/* Full-bleed template previews. ChatWidget puts this class on <html>; the
+   portal is a child of <body> and outside React's control, so this is the only
+   way to take the launcher off that route once it has been mounted. */
+.mcb-hidden #mcb-widget-portal { display: none !important; }
+
+#mcb-widget-portal .mcb-topmost:has(.mcb-cursor-pointer):not(:has(> :nth-child(2))) {
+  /* Desktop: centred in the empty stretch of the sidebar, under the nav and
+     above the social icons. The 24px is half the launcher circle — measured,
+     not guessed: their button renders at 48px. */
+  left: calc(var(--sidebar-w) / 2 - 24px) !important;
+  right: auto !important;
+  bottom: clamp(96px, 12vh, 150px) !important;
+}
+
+@media (max-width: 760px) {
+  #mcb-widget-portal .mcb-topmost:has(.mcb-cursor-pointer):not(:has(> :nth-child(2))) {
+    /* Phone: bottom-right corner, lifted clear of the tab bar and the iPhone
+       home indicator. Sitting any lower would cover the More tab. */
+    left: auto !important;
+    right: 14px !important;
+    bottom: calc(74px + env(safe-area-inset-bottom, 0px)) !important;
+  }
+}
+
+/* ---------------------------------------------------------- */
 /*  Responsive — keep everything intact, nothing distorts      */
 /* ---------------------------------------------------------- */
 @media (max-width: 1100px) {
@@ -1699,10 +1778,18 @@ ul { margin: 0; padding: 0; list-style: none; }
   padding: clamp(20px, 2.2vw, 34px);
 }
 
+/* The gallery used to run at a 400px minimum, which on a normal laptop is two
+   cards to a row and a lot of scrolling for a wall of previews. At 250px it
+   settles into three or four, and the card below is trimmed to match so the
+   smaller tile does not just squash the old contents.
+
+   220, not 250: the fixed sidebar eats enough width that a 250 minimum still
+   fell back to two columns on a 1024 laptop, which is the size this was meant
+   to fix. */
 .tpl-grid {
   display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(min(100%, 400px), 1fr));
-  gap: var(--gap);
+  grid-template-columns: repeat(auto-fill, minmax(min(100%, 220px), 1fr));
+  gap: clamp(12px, 1.2vw, 20px);
   align-items: stretch;
 }
 
@@ -1750,33 +1837,71 @@ ul { margin: 0; padding: 0; list-style: none; }
 .tpl-card__body {
   display: flex;
   flex-direction: column;
-  gap: 12px;
-  padding: clamp(16px, 1.6vw, 24px);
+  gap: 10px;
+  padding: clamp(12px, 1.1vw, 16px);
   flex: 1;
 }
-.tpl-card__row { display: flex; align-items: flex-start; justify-content: space-between; gap: 14px; }
-.tpl-card__kicker { font-weight: 300; color: var(--muted); }
-.tpl-card__price { text-align: right; flex: none; }
-.tpl-card__from { display: block; font-size: 11px; text-transform: uppercase; letter-spacing: 0.08em; color: var(--faint); }
-.tpl-card__amount { font-size: clamp(24px, 2.2vw, 32px); font-weight: 800; line-height: 1.12; }
-
-.tpl-card__feats { display: grid; grid-template-columns: 1fr 1fr; gap: 8px 14px; }
-.tpl-card__feats li {
-  display: flex; align-items: flex-start; gap: 9px;
-  font-size: clamp(12px, 0.95vw, 14px); line-height: 1.35; color: var(--muted); font-weight: 300;
+.tpl-card__row { display: flex; align-items: flex-start; justify-content: space-between; gap: 10px; }
+.tpl-card__row .web-card__title { font-size: clamp(15px, 1.25vw, 18px); }
+.tpl-card__kicker {
+  display: block;
+  margin-top: 2px;
+  font-size: 12px; font-weight: 300; line-height: 1.3;
+  color: var(--faint);
 }
-.tpl-card__feats .tick, .buy__features .tick {
+.tpl-card__price { text-align: right; flex: none; }
+.tpl-card__amount { font-size: clamp(15px, 1.3vw, 19px); font-weight: 800; line-height: 1.12; flex: none; }
+
+.buy__features .tick {
   flex: none; width: 12px; height: 1px; margin-top: 0.6em;
   background: var(--shiny);
 }
 
-.tpl-card__meta { font-size: 12px; color: var(--faint); font-weight: 300; line-height: 1.5; }
-.tpl-card__meta strong { color: var(--muted); font-weight: 600; }
-
-.tpl-card__actions { display: flex; gap: 10px; margin-top: auto; padding-top: 4px; flex-wrap: wrap; }
-.tpl-card__actions .btn-book { flex: 1 1 140px; cursor: pointer; font-family: inherit; }
+.tpl-card__actions { display: flex; gap: 8px; margin-top: auto; padding-top: 2px; flex-wrap: wrap; }
+.tpl-card__actions .btn-book {
+  flex: 1 1 90px;
+  cursor: pointer; font-family: inherit;
+  padding: 9px 12px; font-size: 12.5px;
+  text-align: center;
+}
 .tpl-card__buy { background: var(--shiny); border-color: var(--shiny); color: #07121f; }
 .tpl-card__buy:hover { box-shadow: 0 12px 30px rgba(0, 0, 0, 0.45); background: var(--shiny); }
+
+/* The tile that closes the gallery. It sits in the grid rather than under it
+   so the plus lands exactly where the templates stop, which is where somebody
+   is already asking whether there are more. */
+.tpl-more {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  padding: clamp(20px, 2vw, 30px) clamp(16px, 1.6vw, 24px);
+  text-align: center;
+  cursor: pointer;
+  font-family: inherit;
+  color: inherit;
+  border-color: rgba(100, 206, 251, 0.45);
+  background:
+    radial-gradient(120% 90% at 50% 0%, rgba(100, 206, 251, 0.13), transparent 70%),
+    var(--card);
+  transition: border-color 0.25s var(--ease), transform 0.25s var(--ease);
+}
+.tpl-more:hover { border-color: var(--shiny); transform: translateY(-3px); }
+.tpl-more__plus {
+  display: grid; place-items: center;
+  width: 46px; height: 46px;
+  border-radius: 50%;
+  border: 1px solid rgba(100, 206, 251, 0.5);
+  color: var(--shiny);
+  font-size: 26px; font-weight: 300; line-height: 1;
+}
+.tpl-more__title { font-size: clamp(15px, 1.3vw, 18px); font-weight: 700; }
+.tpl-more__sub {
+  font-size: 12.5px; font-weight: 300; line-height: 1.45;
+  color: var(--muted); max-width: 24ch;
+}
+.tpl-more__go { font-size: 12.5px; font-weight: 500; margin-top: 2px; }
 
 /* ---------------------------------------------------------- */
 /*  Zero-weight card mockups                                   */
@@ -1939,6 +2064,52 @@ ul { margin: 0; padding: 0; list-style: none; }
 .buy-tier__name { font-size: 15px; font-weight: 700; }
 .buy-tier__tagline { font-size: 12px; color: var(--muted); font-weight: 300; line-height: 1.35; }
 .buy-tier__price { font-size: 20px; font-weight: 800; margin-top: 6px; }
+.buy-tier__per { font-size: 12px; font-weight: 400; font-style: normal; color: var(--faint); }
+
+/* ── Membership window ─────────────────────────────────────────
+   The gallery gate. Same shell as the download modal, plus the row of ways to
+   actually pay: Whish, OMT or a transfer, which is how money moves here. It
+   shows a destination and a note and nothing else — no field on this site ever
+   takes a card, an account number or a confirmation code. */
+.member__pay {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  padding-top: clamp(12px, 1.4vw, 18px);
+  border-top: 1px solid var(--line);
+}
+.member__pay-title {
+  font-size: 11px; font-weight: 700; letter-spacing: 0.1em; text-transform: uppercase;
+  color: var(--faint);
+}
+.member__methods { display: grid; grid-template-columns: repeat(auto-fit, minmax(150px, 1fr)); gap: 10px; }
+.member__method {
+  display: flex; flex-direction: column; gap: 4px;
+  padding: 12px 14px; text-align: left;
+  border-radius: 12px;
+  border: 1px solid var(--line);
+  background: rgba(255, 255, 255, 0.03);
+  color: inherit; font-family: inherit; cursor: pointer;
+  transition: border-color 0.2s var(--ease), background 0.2s var(--ease), transform 0.2s var(--ease);
+}
+.member__method:hover { transform: translateY(-2px); background: rgba(255, 255, 255, 0.06); }
+.member__method.is-on { border-color: var(--shiny); background: rgba(100, 206, 251, 0.1); }
+.member__method-name { font-size: 14px; font-weight: 700; }
+.member__method-blurb { font-size: 12px; font-weight: 300; line-height: 1.35; color: var(--muted); }
+.member__detail {
+  display: flex; flex-direction: column; gap: 6px;
+  padding: 14px 16px;
+  border-radius: 12px;
+  border: 1px solid rgba(100, 206, 251, 0.35);
+  background: rgba(100, 206, 251, 0.07);
+}
+.member__detail-line { display: flex; flex-wrap: wrap; align-items: baseline; gap: 8px; }
+.member__detail-label {
+  font-size: 10.5px; font-weight: 700; letter-spacing: 0.09em; text-transform: uppercase;
+  color: var(--faint);
+}
+.member__detail-line strong { font-size: 17px; font-weight: 700; letter-spacing: 0.01em; }
+.member__detail-note { font-size: 12.5px; font-weight: 300; line-height: 1.5; color: var(--muted); }
 
 .buy__features { gap: 9px; }
 .buy__actions { display: flex; flex-wrap: wrap; gap: 10px; }
@@ -2067,10 +2238,6 @@ ul { margin: 0; padding: 0; list-style: none; }
   .tplview__name { display: flex; }
 }
 
-@media (max-width: 620px) {
-  .tpl-card__feats { grid-template-columns: 1fr; }
-}
-
 /* The store path is the only card on Home that sells something directly, so
    it carries a small flag and a warmer border to pull the eye first. */
 .path--store { border-color: rgba(100, 206, 251, 0.45); }
@@ -2180,7 +2347,6 @@ ul { margin: 0; padding: 0; list-style: none; }
   font-weight: 600;
   color: var(--shiny);
 }
-.storehead__ask { font-weight: 500; }
 
 @media (min-width: 720px) {
   .storeprops { grid-template-columns: repeat(3, 1fr); }
