@@ -2042,12 +2042,17 @@ export const WEBSITE_CARE_NOTES = [
   "I run the hosting, domain and code while you're on a plan. Full ownership and domain transfer are available any time as a one-time buy-out.",
 ];
 
-/** How many templates the gallery opens on. The rest are one click away and
-    cost nothing either — this is a first screenful, NOT a paywall. Every
-    template is free, and the membership sells the library and the fonts, so
-    hiding templates behind it would be selling something already given away.
-    It also caps how many live preview iframes exist before someone asks. */
-export const GALLERY_PREVIEW_COUNT = 12;
+/** How many templates sit on the open shelf, free and downloadable one at a
+    time. Most of the library, deliberately: somebody has to be able to judge
+    the work before there is any reason to pay for it, and a gallery that shows
+    a teaser and gates the rest reads as bait. What is behind the membership is
+    the REST of the shelf plus every font, in one download, plus next week's.
+
+    One number, one gate, one call to action. There is no second "view more"
+    button that reveals the rest for free — that made two buttons doing what a
+    visitor reads as the same job, and split the one decision worth asking
+    for. */
+export const GALLERY_PREVIEW_COUNT = 30;
 
 /** Where a template's free source zip lives. Built by npm run build:zips. */
 export const templateZip = (slug) => `/downloads/${slug}-template.zip`;

@@ -115,24 +115,27 @@ function TemplateCard({ t, onBuy }) {
   );
 }
 
-/* The last tile in the gallery grid.
+/* The last tile in the gallery grid, and the only call to action in it.
 
-   It used to say "See the full gallery" and open the payment window, which
-   implied the rest of the templates were behind it. They are not — every
-   template on this page is free, and always was. Selling access to something
-   already given away is the fastest way to lose someone who has just been
-   handed a gift. So the tile now sells what the membership actually is: the
-   whole library in one download, the fonts that come with it, and next week's.
-   Seeing the rest of the free templates is the separate button underneath. */
+   There were briefly two: a "view the full gallery" button that revealed the
+   rest for free, and a separate "become a member" card. A visitor reads those
+   as the same job offered twice, and two buttons for one decision is how you
+   get neither pressed. They are one thing now — the rest of the gallery IS
+   the membership, along with every font and next week's template.
+
+   It sits in the grid rather than under it so the plus lands exactly where the
+   templates stop, which is the moment somebody is already wondering whether
+   there are more. */
 function MemberCard({ onOpen }) {
   return (
     <motion.button type="button" className="card tpl-more" variants={cardIn} onClick={onOpen}>
       <span className="tpl-more__plus" aria-hidden="true">
         +
       </span>
-      <span className="tpl-more__title">Take the whole library</span>
+      <span className="tpl-more__title">See the full gallery</span>
       <span className="tpl-more__sub">
-        Every template and every font in one download, plus next week&apos;s. $19 a month.
+        The rest of the templates, every font with them, and whatever ships next week.
+        One download, $19 a month.
       </span>
       <span className="link tpl-more__go">
         Become a member <span className="plus">+</span>
@@ -146,7 +149,6 @@ export default function Websites() {
   const [buying, setBuying] = useState(null); // template being bought, or null
   const [siteReady, setSiteReady] = useState(false); // popup iframe loaded?
   const [joining, setJoining] = useState(false); // membership window open?
-  const [showAll, setShowAll] = useState(false); // whole gallery revealed?
 
   useEffect(() => {
     setSiteReady(false);
@@ -232,35 +234,15 @@ export default function Websites() {
           </p>
         </div>
 
-        {/* Opens on a screenful and reveals the rest in place. Nothing here is
-            gated: the button below costs nothing to press, and every card in
-            the gallery downloads free whether it is one of the first twelve or
-            the last. The batch exists so the page opens fast and so forty-odd
-            live preview iframes are not all running before anyone has asked
-            to see them. */}
+        {/* Most of the library, free and downloadable one at a time, then the
+            single tile that opens the membership. No second button revealing
+            the rest for free: that is what the membership is. */}
         <motion.div className="tpl-grid" variants={container} initial="hidden" animate="show">
-          {(showAll ? TEMPLATES : TEMPLATES.slice(0, GALLERY_PREVIEW_COUNT)).map((t) => (
+          {TEMPLATES.slice(0, GALLERY_PREVIEW_COUNT).map((t) => (
             <TemplateCard key={t.slug} t={t} onBuy={setBuying} />
           ))}
           <MemberCard onOpen={() => setJoining(true)} />
         </motion.div>
-
-        {TEMPLATES.length > GALLERY_PREVIEW_COUNT && (
-          <div className="gallery-more">
-            <button
-              type="button"
-              className="btn-book gallery-more__btn"
-              onClick={() => setShowAll((v) => !v)}
-              aria-expanded={showAll}
-            >
-              {showAll ? "Show fewer" : "View the full gallery"}{" "}
-              <span className="plus">{showAll ? "−" : "+"}</span>
-            </button>
-            <p className="gallery-more__note">
-              All of them free, all of them the real site running.
-            </p>
-          </div>
-        )}
       </section>
 
       <section className="proj-section">
