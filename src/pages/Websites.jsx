@@ -115,18 +115,24 @@ function TemplateCard({ t, onBuy }) {
   );
 }
 
-/* The last tile in the gallery grid. It is a card rather than a button under
-   the grid on purpose: a plus sitting in the row where the templates stop
-   reads as "there are more of these", which is what it means. */
-function MoreCard({ onOpen }) {
+/* The last tile in the gallery grid.
+
+   It used to say "See the full gallery" and open the payment window, which
+   implied the rest of the templates were behind it. They are not — every
+   template on this page is free, and always was. Selling access to something
+   already given away is the fastest way to lose someone who has just been
+   handed a gift. So the tile now sells what the membership actually is: the
+   whole library in one download, the fonts that come with it, and next week's.
+   Seeing the rest of the free templates is the separate button underneath. */
+function MemberCard({ onOpen }) {
   return (
     <motion.button type="button" className="card tpl-more" variants={cardIn} onClick={onOpen}>
       <span className="tpl-more__plus" aria-hidden="true">
         +
       </span>
-      <span className="tpl-more__title">See the full gallery</span>
+      <span className="tpl-more__title">Take the whole library</span>
       <span className="tpl-more__sub">
-        Every template and every font, from $19 a month
+        Every template and every font in one download, plus next week&apos;s. $19 a month.
       </span>
       <span className="link tpl-more__go">
         Become a member <span className="plus">+</span>
@@ -140,6 +146,7 @@ export default function Websites() {
   const [buying, setBuying] = useState(null); // template being bought, or null
   const [siteReady, setSiteReady] = useState(false); // popup iframe loaded?
   const [joining, setJoining] = useState(false); // membership window open?
+  const [showAll, setShowAll] = useState(false); // whole gallery revealed?
 
   useEffect(() => {
     setSiteReady(false);
@@ -225,16 +232,35 @@ export default function Websites() {
           </p>
         </div>
 
-        {/* Only the first few are on the open shelf. The rest are the
-            membership — which is the whole reason a membership exists, and a
-            gate a visitor meets after they have seen the work is a different
-            thing from one they meet before. */}
+        {/* Opens on a screenful and reveals the rest in place. Nothing here is
+            gated: the button below costs nothing to press, and every card in
+            the gallery downloads free whether it is one of the first twelve or
+            the last. The batch exists so the page opens fast and so forty-odd
+            live preview iframes are not all running before anyone has asked
+            to see them. */}
         <motion.div className="tpl-grid" variants={container} initial="hidden" animate="show">
-          {TEMPLATES.slice(0, GALLERY_PREVIEW_COUNT).map((t) => (
+          {(showAll ? TEMPLATES : TEMPLATES.slice(0, GALLERY_PREVIEW_COUNT)).map((t) => (
             <TemplateCard key={t.slug} t={t} onBuy={setBuying} />
           ))}
-          <MoreCard onOpen={() => setJoining(true)} />
+          <MemberCard onOpen={() => setJoining(true)} />
         </motion.div>
+
+        {TEMPLATES.length > GALLERY_PREVIEW_COUNT && (
+          <div className="gallery-more">
+            <button
+              type="button"
+              className="btn-book gallery-more__btn"
+              onClick={() => setShowAll((v) => !v)}
+              aria-expanded={showAll}
+            >
+              {showAll ? "Show fewer" : "View the full gallery"}{" "}
+              <span className="plus">{showAll ? "−" : "+"}</span>
+            </button>
+            <p className="gallery-more__note">
+              All of them free, all of them the real site running.
+            </p>
+          </div>
+        )}
       </section>
 
       <section className="proj-section">
