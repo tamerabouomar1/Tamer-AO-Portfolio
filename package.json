@@ -5,11 +5,12 @@
   "type": "module",
   "scripts": {
     "dev": "vite",
-    "build": "node scripts/build-sitemap.mjs && vite build",
+    "build": "node scripts/build-sitemap.mjs && vite build && node scripts/prerender-head.mjs",
     "preview": "vite preview",
     "build:zips": "node scripts/build-template-zips.mjs",
     "build:tokens": "node scripts/build-design-tokens.mjs",
-    "build:sitemap": "node scripts/build-sitemap.mjs"
+    "build:sitemap": "node scripts/build-sitemap.mjs",
+    "prerender": "node scripts/prerender-head.mjs"
   },
   "dependencies": {
     "framer-motion": "^11.5.4",

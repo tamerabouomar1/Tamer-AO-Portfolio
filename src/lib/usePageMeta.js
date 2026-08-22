@@ -38,7 +38,7 @@ export const PAGE_META = {
   "/websites": {
     title: "Websites & Templates",
     description:
-      "Client websites plus 25 finished website templates. Take the source free, have it set up for you, or commission a custom build.",
+      "Client websites plus 42 finished website templates. Take the source free, have it set up for you, or commission a custom build.",
   },
   "/media": {
     title: "Motion, Video Edits & Social",

@@ -29,6 +29,7 @@ const PAGES = [
   ["/", "weekly", "1.0"],
   ["/free", "weekly", "0.9"],
   ["/websites", "weekly", "0.9"],
+  ["/templates", "weekly", "0.9"],
   ["/projects", "monthly", "0.9"],
   ["/work-with-me", "monthly", "0.8"],
   ["/fitness", "monthly", "0.8"],
