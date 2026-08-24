@@ -1594,68 +1594,6 @@ ul { margin: 0; padding: 0; list-style: none; }
 .tabsheet__item--primary.is-active { background: var(--shiny); color: #07121f; }
 
 /* ---------------------------------------------------------- */
-/*  AI assistant launcher (MyChatBot)                          */
-/* ---------------------------------------------------------- */
-/* The vendor mounts its own launcher into a body-level portal fixed to the
-   bottom-right of the viewport. These rules are the only thing deciding where
-   it actually sits, so they are load-bearing — see ChatWidget.jsx.
-   `.mcb-topmost` is the vendor's positioned wrapper; #mcb-widget-portal is
-   theirs too. Both are third-party class names: if the bubble ever reappears
-   in the default corner, they renamed something, and this is the file to fix. */
-/* !important is not optional here. The vendor writes the position as an INLINE
-   style on this element (`position:fixed; right:20px; bottom:20px`), and an
-   inline declaration beats any normal rule in a stylesheet — the first version
-   of these rules did nothing at all. An author !important does outrank a plain
-   inline style, which is what makes this work.
-
-   Anchored by `left` on desktop, not `right`: 100vw counts the scrollbar while
-   the sidebar does not, so measuring in from the right edge drifts by the
-   scrollbar's width on any machine that shows one. */
-/* Scoped to the CLOSED launcher, and that scoping is the important part.
-
-   Two conditions, because each covers the other's blind spot. `:has(.mcb-cursor-pointer)`
-   is the launcher circle itself — the opened window has no such element.
-   `:not(:has(> :nth-child(2)))` is structural: closed, their wrapper holds
-   exactly one child; opened it grows a header row (and, on desktop, a drag
-   handle). The class alone would misfire the day a chat message contains
-   something clickable; the child count alone would misfire if the launcher
-   ever grows a second child, such as the popup-text bubble that the widget
-   settings can turn back on. Together they only ever match the 48px circle.
-
-   The open window is deliberately left exactly where the vendor puts it. It is
-   413px wide (768 expanded) and the user can drag it around by that handle,
-   which writes its own inline position; an !important of ours would pin it and
-   the drag would silently stop working. It would also hang two thirds of the
-   window off the left edge if it inherited a position centred in a 232px
-   sidebar. So: we place the button, they place the window.
-
-   If :has() is unsupported (Safari below 15.4) none of this applies and the
-   launcher simply stays in its default bottom-right corner. */
-/* Full-bleed template previews. ChatWidget puts this class on <html>; the
-   portal is a child of <body> and outside React's control, so this is the only
-   way to take the launcher off that route once it has been mounted. */
-.mcb-hidden #mcb-widget-portal { display: none !important; }
-
-#mcb-widget-portal .mcb-topmost:has(.mcb-cursor-pointer):not(:has(> :nth-child(2))) {
-  /* Desktop: centred in the empty stretch of the sidebar, under the nav and
-     above the social icons. The 24px is half the launcher circle — measured,
-     not guessed: their button renders at 48px. */
-  left: calc(var(--sidebar-w) / 2 - 24px) !important;
-  right: auto !important;
-  bottom: clamp(96px, 12vh, 150px) !important;
-}
-
-@media (max-width: 760px) {
-  #mcb-widget-portal .mcb-topmost:has(.mcb-cursor-pointer):not(:has(> :nth-child(2))) {
-    /* Phone: bottom-right corner, lifted clear of the tab bar and the iPhone
-       home indicator. Sitting any lower would cover the More tab. */
-    left: auto !important;
-    right: 14px !important;
-    bottom: calc(74px + env(safe-area-inset-bottom, 0px)) !important;
-  }
-}
-
-/* ---------------------------------------------------------- */
 /*  Responsive — keep everything intact, nothing distorts      */
 /* ---------------------------------------------------------- */
 @media (max-width: 1100px) {

@@ -37,15 +37,12 @@
   # challenge inside an iframe). Remove either and every form on the site
   # stops being submittable.
   #
-  # storage.googleapis.com is where MyChatBot serves the AI assistant's
-  # widget.js and style.css from, so it is in script-src and style-src. Note
-  # what this does and does not give up: it is a shared bucket host, so the
-  # exception is "any file on that host", not "that one file" — the assistant
-  # is worth it, a second vendor on the same host would not automatically be.
-  # The chat itself talks to api.mychatbot.app, already covered by
-  # `connect-src https:`. There is deliberately no inline-script exemption:
-  # ChatWidget.jsx loads the file and calls mount() from our own bundle
-  # precisely so that 'unsafe-inline' never has to come back.
+  # The MyChatBot assistant was removed on 2026-08-21, and its CSP exceptions
+  # came out with it: storage.googleapis.com is gone from script-src and
+  # style-src, and wss://api.mychatbot.app from connect-src. Nothing else on
+  # the site used either. script-src is back to Turnstile and self alone,
+  # which is the tightest it has been — put nothing back here without a
+  # reason that outlives the vendor that asked for it.
   #
   # db.onlinewebfonts.com and cdnjs.cloudflare.com are in style-src as well as
   # font-src because both serve a STYLESHEET that then references the font
@@ -54,7 +51,7 @@
   # icon CSS. font-src alone is not enough — the @font-face rules never load,
   # the request is blocked at the <link>, and the template silently falls back
   # to Arial. Neither is in script-src, and neither ever needs to be.
-  Content-Security-Policy: default-src 'self'; script-src 'self' https://challenges.cloudflare.com https://storage.googleapis.com; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com https://api.fontshare.com https://storage.googleapis.com https://db.onlinewebfonts.com https://cdnjs.cloudflare.com; font-src 'self' data: https://fonts.gstatic.com https://api.fontshare.com https://db.onlinewebfonts.com https://cdnjs.cloudflare.com; img-src 'self' data: blob: https:; media-src 'self' blob: https:; frame-src https:; connect-src 'self' https: wss://api.mychatbot.app; object-src 'none'; base-uri 'self'; form-action 'self'; frame-ancestors 'self'; upgrade-insecure-requests
+  Content-Security-Policy: default-src 'self'; script-src 'self' https://challenges.cloudflare.com; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com https://api.fontshare.com https://db.onlinewebfonts.com https://cdnjs.cloudflare.com; font-src 'self' data: https://fonts.gstatic.com https://api.fontshare.com https://db.onlinewebfonts.com https://cdnjs.cloudflare.com; img-src 'self' data: blob: https:; media-src 'self' blob: https:; frame-src https:; connect-src 'self' https:; object-src 'none'; base-uri 'self'; form-action 'self'; frame-ancestors 'self'; upgrade-insecure-requests
   # Only this site may frame this site. Stops the page being loaded invisibly
   # over someone else's, so a click they think lands on their page lands on
   # yours — while still allowing the store's own template previews, which are
