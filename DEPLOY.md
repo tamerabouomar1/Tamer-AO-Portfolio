@@ -1,7 +1,7 @@
 # Deploying the portfolio (live + editable)
 
 > **Where it actually lives now:** Cloudflare Workers, at
-> `portfolio.tamerao.workers.dev`, configured by `wrangler.jsonc`.
+> `tamerabouomar.com`, configured by `wrangler.jsonc`.
 > The Netlify instructions further down are kept as a fallback only. To publish:
 >
 > ```bash

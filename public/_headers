@@ -37,12 +37,19 @@
   # challenge inside an iframe). Remove either and every form on the site
   # stops being submittable.
   #
-  # The MyChatBot assistant was removed on 2026-08-21, and its CSP exceptions
+  # The MyChatBot assistant was removed on 2026-08-21 and its CSP exceptions
   # came out with it: storage.googleapis.com is gone from script-src and
-  # style-src, and wss://api.mychatbot.app from connect-src. Nothing else on
-  # the site used either. script-src is back to Turnstile and self alone,
-  # which is the tightest it has been — put nothing back here without a
-  # reason that outlives the vendor that asked for it.
+  # style-src, and wss://api.mychatbot.app from connect-src.
+  #
+  # static.cloudflareinsights.com is Cloudflare Web Analytics, added 2026-08-25
+  # with the move to tamerabouomar.com. Cloudflare injects that beacon into
+  # every proxied response by itself, so this is not a choice to load it — it
+  # is a choice between allowing it and having the browser log a CSP violation
+  # on every page load while collecting no analytics at all. It is a
+  # single-purpose first-party host owned by the same company already serving
+  # this site, which is a far narrower grant than the shared bucket the chat
+  # widget needed. To remove it, turn Web Analytics off in the Cloudflare
+  # dashboard FIRST, then delete it here.
   #
   # db.onlinewebfonts.com and cdnjs.cloudflare.com are in style-src as well as
   # font-src because both serve a STYLESHEET that then references the font
@@ -51,7 +58,7 @@
   # icon CSS. font-src alone is not enough — the @font-face rules never load,
   # the request is blocked at the <link>, and the template silently falls back
   # to Arial. Neither is in script-src, and neither ever needs to be.
-  Content-Security-Policy: default-src 'self'; script-src 'self' https://challenges.cloudflare.com; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com https://api.fontshare.com https://db.onlinewebfonts.com https://cdnjs.cloudflare.com; font-src 'self' data: https://fonts.gstatic.com https://api.fontshare.com https://db.onlinewebfonts.com https://cdnjs.cloudflare.com; img-src 'self' data: blob: https:; media-src 'self' blob: https:; frame-src https:; connect-src 'self' https:; object-src 'none'; base-uri 'self'; form-action 'self'; frame-ancestors 'self'; upgrade-insecure-requests
+  Content-Security-Policy: default-src 'self'; script-src 'self' https://challenges.cloudflare.com https://static.cloudflareinsights.com; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com https://api.fontshare.com https://db.onlinewebfonts.com https://cdnjs.cloudflare.com; font-src 'self' data: https://fonts.gstatic.com https://api.fontshare.com https://db.onlinewebfonts.com https://cdnjs.cloudflare.com; img-src 'self' data: blob: https:; media-src 'self' blob: https:; frame-src https:; connect-src 'self' https:; object-src 'none'; base-uri 'self'; form-action 'self'; frame-ancestors 'self'; upgrade-insecure-requests
   # Only this site may frame this site. Stops the page being loaded invisibly
   # over someone else's, so a click they think lands on their page lands on
   # yours — while still allowing the store's own template previews, which are

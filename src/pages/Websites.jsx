@@ -310,7 +310,15 @@ export default function Websites() {
           ))}
         </motion.div>
         <p className="price-note">
-          Want something that isn&apos;t here? I build custom sites from scratch too.{" "}
+          More on{" "}
+          <Link className="link" to="/website-design-lebanon">
+            website design in Lebanon
+          </Link>{" "}
+          and{" "}
+          <Link className="link" to="/restaurant-website-lebanon">
+            restaurant websites
+          </Link>
+          . Want something that isn&apos;t here? I build custom sites from scratch too.{" "}
           <Link className="link" to="/work-with-me">
             see how we&apos;d work together <span className="plus">+</span>
           </Link>

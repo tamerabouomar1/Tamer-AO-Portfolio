@@ -13,6 +13,31 @@
   "main": "worker/index.js",
   "compatibility_date": "2026-07-01",
 
+  // The real home of the site, from 2026-08-25. tamerabouomar.com is
+  // registered at Cloudflare and on Cloudflare nameservers, so the zone is in
+  // this account and `custom_domain: true` creates and manages the DNS record
+  // and the certificate on deploy — nothing to add by hand in the dashboard.
+  //
+  // www is attached as well so it resolves rather than erroring, and the
+  // worker 301s it to the apex. One canonical hostname, chosen once: the
+  // apex is what every canonical tag, the sitemap and the schema now name.
+  //
+  // portfolio.tamerao.workers.dev keeps working and 301s here, so old links
+  // and anything Google has already indexed transfer instead of dying.
+  "routes": [
+    { "pattern": "tamerabouomar.com", "custom_domain": true },
+    { "pattern": "www.tamerabouomar.com", "custom_domain": true }
+  ],
+
+  // MUST stay true. Declaring `routes` turns the workers.dev route OFF by
+  // default, which takes portfolio.tamerao.workers.dev to a 404 the moment
+  // the custom domain is added — every existing link, and anything Google has
+  // already indexed, dead in one deploy. It stays on so the old host can 301
+  // here instead (see worker/index.js), which is what actually moves the
+  // ranking signals across. Turn it off only once the old URL has no traffic
+  // left, and check Search Console before deciding that.
+  "workers_dev": true,
+
   "assets": {
     "directory": "./dist",
     "binding": "ASSETS",
@@ -46,7 +71,16 @@
     // handler answers /<token>.html with a 307 to the extensionless path, and
     // Google's file check does not follow redirects, so verification failed.
     // Running the Worker first on that one path lets it reply 200.
-    "run_worker_first": ["/api/*", "/googlecdc160a1620c12b8.html"]
+    // Was ["/api/*", "/googlecdc160a1620c12b8.html"]. The asset handler answers
+    // before the Worker for anything not listed here, so with a narrow list the
+    // old hostname would keep serving the whole site happily and the 301 in
+    // worker/index.js would never run for a single page. It has to see every
+    // request to redirect every request.
+    //
+    // The cost is one Worker invocation per request instead of a pure edge
+    // asset hit. The handler falls straight through to env.ASSETS.fetch() for
+    // anything that is not /api or a redirect, so the response is the same.
+    "run_worker_first": true
   },
 
   // Lead records from the free template downloads. Created 2026-07-30.

@@ -2042,6 +2042,183 @@ export const WEBSITE_CARE_NOTES = [
   "I run the hosting, domain and code while you're on a plan. Full ownership and domain transfer are available any time as a one-time buy-out.",
 ];
 
+// ── Service pages ─────────────────────────────────────────────
+// Three pages that exist because of what people type into Google, which is
+// not what the rest of this site is organised around. Nobody searches "Start
+// Free" or "Work With Me"; they search "website design lebanon" and
+// "restaurant website lebanon". The eight pages the site already had answer
+// none of those queries directly.
+//
+// The rule these have to earn their place by: every one of them is about work
+// Tamer has actually done, names real clients with sites that are live, and
+// quotes prices that match the rest of siteData. A page written for a search
+// engine and not for the person who arrives is worth less than no page — it
+// ranks briefly, converts nobody, and teaches Google the site is thin.
+//
+// `faqs` become FAQPage structured data as well as visible copy. Keep the two
+// identical: marking up an answer that is not on the page is a guideline
+// violation, and the visible version is the one that has to convince anyone.
+export const SERVICE_PAGES = [
+  {
+    slug: "website-design-lebanon",
+    h1: "Website Design in Lebanon",
+    kicker: "For businesses that need the phone to ring",
+    lede:
+      "Most small business sites in Lebanon are a logo, a phone number and a Facebook link. They sit there. A site should bring you work, and that is a different job from looking nice.",
+    sections: [
+      {
+        title: "What actually gets built",
+        body:
+          "A site designed around your brand rather than a theme, on your own domain, with the pages written to come up when someone in your area searches for what you sell. Booking, ordering, a menu or an enquiry form, whichever one is the thing you need people to do. Hosting, the domain, SSL, backups and monitoring are mine to run, so nothing about it is left for you to maintain.",
+      },
+      {
+        title: "Who I build for",
+        body:
+          "Restaurants and cafés paying a delivery app a third of every order. Salons and clinics losing bookings in their DMs. Contractors and trades who are invisible the moment somebody searches instead of asking a friend. Different problems, one fix: a site you own, that people can find.",
+      },
+      {
+        title: "What it costs",
+        body:
+          "The flagship is Booked Out in 90 Days: the build costs you nothing and you pay $199 a month on a 12-month term, which covers hosting, a page written to rank every month, your Google Business profile, a landing page each season and a monthly report on what came in. If that is more than you need, a single page set up from the free gallery is $350 one-off, and a site built from scratch to your own flows starts at $1,500.",
+      },
+    ],
+    proof: [
+      { name: "Kitchen Garage", what: "Full ordering site in Aley: menu, cart, accounts and every payment method." },
+      { name: "Rasif Aley", what: "A coffee shop, built on their real menu, real photographs and real reviews." },
+      { name: "Snack Faysal", what: "A Beirut manakish institution, appetite-led and built around the menu." },
+      { name: "Sophia's Forum", what: "Bilingual English and Arabic, mirroring cleanly into right-to-left." },
+      { name: "ACC", what: "Arabian Construction Company, building since 1967." },
+    ],
+    faqs: [
+      {
+        q: "How much does a website cost in Lebanon?",
+        a: "On my flagship plan the build is free and you pay $199 a month on a 12-month term. A one-page site set up from the free gallery is $350 as a one-off. A site built from scratch, with a shop or booking system behind it, starts at $1,500. Every price on this site is the price you pay.",
+      },
+      {
+        q: "How long does it take?",
+        a: "A single page from the gallery is live within 7 days of you sending your content, or you do not pay. A full build runs to 90 days, but your Google Business profile is fixed in week one and the site itself is up in the first week, so you are not waiting three months to see anything.",
+      },
+      {
+        q: "Do I own the website?",
+        a: "You own your domain, your content and your brand. While you are on a monthly plan I run the hosting and the code, which is what lets me keep it up and keep working on it. Full ownership and a domain transfer are available any time as a one-time buy-out.",
+      },
+      {
+        q: "Can you do the site in Arabic?",
+        a: "Yes. Sophia's Forum is bilingual English and Arabic and mirrors cleanly into right-to-left, which is the part most templates get wrong.",
+      },
+      {
+        q: "What if it does not bring in any enquiries?",
+        a: "On day one we write down what came in over your previous 90 days: calls, messages, walk-ins. If the 90 days after launch have not beaten that number, you do not pay for months four, five or six, and I keep working straight through them.",
+      },
+    ],
+    cta: { label: "See the offer", to: "/websites" },
+  },
+
+  {
+    slug: "logo-design-beirut",
+    h1: "Logo Design & Brand Identity in Beirut",
+    kicker: "A mark, and everything that has to live around it",
+    lede:
+      "A logo on its own is not an identity. What you need is the mark, the type, the colours and the rules for using them, so everything you put out afterwards looks like it came from the same place.",
+    sections: [
+      {
+        title: "Start with the teardown, free",
+        body:
+          "Send your logo, your Instagram or your site and you get back a short recorded critique: what is working, what is quietly costing you, and the three things I would change first. It is real work, it takes me an afternoon, and it costs you nothing. Most people can act on it without hiring anybody.",
+      },
+      {
+        title: "What a full identity includes",
+        body:
+          "The primary mark and its variations, the typefaces and how they are set, the palette, and the rules that keep it consistent. Logo motion if the mark needs to move, which it usually does the moment it goes on a reel or a story. Then the applications: apparel, packaging, print, whatever the brand actually has to survive.",
+      },
+      {
+        title: "Where the work has gone",
+        body:
+          "Brand identity, logos, logo motion and apparel for clients across Beirut and beyond, including athletic and combat-sports brands where the mark has to work stitched onto a rashguard at two centimetres and on a banner at two metres. That constraint is the whole test of a logo.",
+      },
+    ],
+    proof: [
+      { name: "OKIRO", what: "Brand identity and apparel." },
+      { name: "10th Planet Jiu Jitsu", what: "Combat-sports identity and kit design." },
+      { name: "FabricAID", what: "Identity work for their uniform arm." },
+      { name: "KARV Pilates Studio", what: "Studio branding." },
+      { name: "Playwear Club", what: "Apparel and identity." },
+    ],
+    faqs: [
+      {
+        q: "How much does a logo cost in Beirut?",
+        a: "One-off design work is quoted per project, because a single mark and a full identity with apparel and packaging behind it are not the same job. Start with the free brand teardown and you will know what you actually need before anyone quotes you anything.",
+      },
+      {
+        q: "What do I get at the end?",
+        a: "The mark in every format you will need for print and screen, the typefaces and colours written down, and the rules for using them. If we do motion, you get the animated version for your reels and stories too.",
+      },
+      {
+        q: "Is the brand teardown really free?",
+        a: "Yes. No card, no trial, no email course. You send what you have, I record a critique and send it back within 3 days, and it is yours to keep whether or not you ever hire me.",
+      },
+      {
+        q: "Do you design for apparel and packaging as well?",
+        a: "Yes, and it changes how the mark should be drawn. A logo that only works on a website falls apart embroidered on a sleeve. Rashguards, fight kits, retail packaging and print are all work I do regularly.",
+      },
+    ],
+    cta: { label: "Claim the free teardown", to: "/free" },
+  },
+
+  {
+    slug: "restaurant-website-lebanon",
+    h1: "Restaurant Websites in Lebanon",
+    kicker: "Stop paying a third of every order to an app",
+    lede:
+      "The delivery apps did not give you customers. They rented them to you, they keep about a third of every order, and they will not tell you the phone number of the person who just ate your food.",
+    sections: [
+      {
+        title: "The arithmetic",
+        body:
+          "On a $20 order an app can keep around $6. Twenty orders a day through the app is roughly $3,600 a month gone. A site that takes your orders directly costs $199 a month, and the customer becomes yours: their number, their order history, and a reason to come back that does not involve somebody else's push notification.",
+      },
+      {
+        title: "What the site does",
+        body:
+          "Your full menu, priced and photographed, with a cart and every payment method that actually works here. Orders land with you. It comes up on Google when somebody nearby searches for what you serve, and your Google Business profile gets fixed in the first week so the map listing is right before the site is even finished.",
+      },
+      {
+        title: "Already built and running",
+        body:
+          "This is not a plan, it is the thing I have already built more than once. Kitchen Garage in Aley takes smash burger orders through a full cart and accounts system. Snack Faysal is built around a manakish menu and the brand's heritage. Rasif Aley runs on their real menu, real photographs and real reviews.",
+      },
+    ],
+    proof: [
+      { name: "Kitchen Garage", what: "Menu, cart, accounts and every payment method, in Aley." },
+      { name: "Snack Faysal", what: "Beirut manakish and fatayer, appetite-led and menu-first." },
+      { name: "Rasif Aley", what: "Coffee shop, warm and unhurried, the way the place is." },
+    ],
+    faqs: [
+      {
+        q: "Can people order directly from the site?",
+        a: "Yes. Kitchen Garage runs a full cart with accounts and every payment method, and that is the same system I would build for you. The order comes to you, and so does the customer.",
+      },
+      {
+        q: "Do I have to leave the delivery apps?",
+        a: "No, and I would not advise it on day one. Keep them for reach and run your own ordering alongside, then watch which one costs you less per order. The apps stop being a problem once they stop being the only way anyone can order.",
+      },
+      {
+        q: "What does it cost to run?",
+        a: "$199 a month on a 12-month term, with the build included at no cost. That covers hosting, the domain, a page written to rank each month, your Google Business profile, and a monthly report on what came in.",
+      },
+      {
+        q: "Can you put the menu in Arabic?",
+        a: "Yes. I have built a fully bilingual site that mirrors into right-to-left properly, which is the part most templates get wrong.",
+      },
+      {
+        q: "What if it does not work?",
+        a: "We write down what came in over your previous 90 days before we start. If the 90 days after launch have not beaten it, you do not pay for months four, five or six and I keep working through them.",
+      },
+    ],
+    cta: { label: "See the offer", to: "/websites" },
+  },
+];
+
 /** How many templates sit on the open shelf, free and downloadable one at a
     time. Most of the library, deliberately: somebody has to be able to judge
     the work before there is any reason to pay for it, and a gallery that shows

@@ -32,10 +32,35 @@ const RATE_WINDOW = 600; // ...per this many seconds
 // stops other people's pages from quietly posting into your storage, which is
 // the cheap way to fill a KV namespace from a browser that isn't yours.
 const ALLOWED_ORIGINS = [
+  "https://tamerabouomar.com",
+  "https://www.tamerabouomar.com",
+  // Kept so anything still open on the old host can finish sending. Every GET
+  // there 301s to the new domain now, so this only covers a page loaded
+  // before the move with a form still on screen. Safe to drop later.
   "https://portfolio.tamerao.workers.dev",
-  "https://tamerao.com",
-  "https://www.tamerao.com",
 ];
+
+/* The one hostname the site answers on. Everything else 301s here.
+ *
+ * A site reachable at three hostnames is three copies of itself as far as a
+ * crawler is concerned, and the ranking signals split between them. 301 is
+ * the permanent form, which is what tells Google to move the signals rather
+ * than remember both. */
+const CANONICAL_HOST = "tamerabouomar.com";
+
+function canonicalRedirect(request) {
+  const url = new URL(request.url);
+  if (url.hostname === CANONICAL_HOST) return null;
+
+  // Only GET and HEAD. 301-ing a POST would drop the body, so a form still
+  // open on the old host would silently lose the message it was sending.
+  if (request.method !== "GET" && request.method !== "HEAD") return null;
+
+  url.hostname = CANONICAL_HOST;
+  url.protocol = "https:";
+  url.port = "";
+  return Response.redirect(url.toString(), 301);
+}
 
 const json = (body, status = 200) =>
   new Response(JSON.stringify(body), {
@@ -452,6 +477,11 @@ const GSC_TOKEN = "googlecdc160a1620c12b8";
 export default {
   async fetch(request, env, ctx) {
     const { pathname } = new URL(request.url);
+
+    // Before everything, including the asset handler: www and the old
+    // workers.dev host both land on the canonical domain, path intact.
+    const moved = canonicalRedirect(request);
+    if (moved) return moved;
 
     if (pathname === `/${GSC_TOKEN}.html`) {
       return new Response(`google-site-verification: ${GSC_TOKEN}.html`, {

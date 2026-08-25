@@ -1,4 +1,5 @@
 import { motion } from "framer-motion";
+import { Link } from "react-router-dom";
 import Page, { container, cardIn } from "../components/Page";
 import PriceCard from "../components/PriceCard";
 import FreeOffers from "../components/FreeOffers";
@@ -16,7 +17,7 @@ const CALENDLY_EMBED =
   CONTACT.calendly +
   "?embed_type=Inline&hide_gdpr_banner=1&background_color=101010&text_color=ffffff&primary_color=64cefb" +
   "&embed_domain=" +
-  (typeof window !== "undefined" ? window.location.hostname : "portfolio.tamerao.workers.dev");
+  (typeof window !== "undefined" ? window.location.hostname : "tamerabouomar.com");
 
 export default function WorkWithMe() {
   return (
@@ -180,6 +181,15 @@ export default function WorkWithMe() {
             the same perk as access does not. */}
         <p className="price-note">
           Monthly clients go to the front of the queue on one-off work, at their member rate.
+          More on{" "}
+          <Link className="link" to="/logo-design-beirut">
+            logo design &amp; brand identity in Beirut
+          </Link>{" "}
+          and{" "}
+          <Link className="link" to="/website-design-lebanon">
+            website design in Lebanon
+          </Link>
+          .
         </p>
       </section>
 

@@ -14,7 +14,7 @@ import { useEffect } from "react";
  * but there is no cost to keeping them in step.
  */
 
-const SITE = "https://portfolio.tamerao.workers.dev"; // SITE-URL
+const SITE = "https://tamerabouomar.com"; // SITE-URL
 const SUFFIX = "Tamer AO";
 
 /* One entry per route. Each description is written to be read in a search
@@ -54,6 +54,23 @@ export const PAGE_META = {
     title: "Self-Defense Classes & Personal Training in Beirut",
     description:
       "The 90-Day Self-Defense Program in Beirut — tracks for women, teens and adults — plus martial-arts instruction, personal training and the class schedule.",
+  },
+  // The search-intent pages. Titles here lead with the query the page is
+  // built to answer, because the title is the headline of the search result.
+  "/website-design-lebanon": {
+    title: "Website Design in Lebanon",
+    description:
+      "Websites designed, built and run for businesses in Lebanon. The build is free, $199/month covers hosting, SEO and your Google profile. Real client sites, real prices.",
+  },
+  "/logo-design-beirut": {
+    title: "Logo Design & Brand Identity in Beirut",
+    description:
+      "Logo design, brand identity, logo motion and apparel in Beirut. Start with a free recorded brand teardown: what is working, what is costing you, what to change first.",
+  },
+  "/restaurant-website-lebanon": {
+    title: "Restaurant Websites in Lebanon",
+    description:
+      "Take orders on your own site instead of paying a delivery app a third of every one. Built already for Kitchen Garage, Snack Faysal and Rasif Aley. $199/month, build included.",
   },
   "/work-with-me": {
     title: "Design & Social Media Services",

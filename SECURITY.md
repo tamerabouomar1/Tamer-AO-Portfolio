@@ -16,7 +16,7 @@ the site for its visitors.
 
 The live sites and the code in this repository:
 
-- https://portfolio.tamerao.workers.dev
+- https://tamerabouomar.com
 - https://fitness.tamerao.workers.dev
 
 Third-party services embedded in the pages (Calendly, Google Fonts, Cloudflare)

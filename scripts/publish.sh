@@ -19,7 +19,7 @@ PASSFILE="$HOME/Desktop/portfolio-leads-password.txt"
 # account subdomain changed once (tamerabouomar1 -> tamerao) and the old value
 # sat in here handing out a dead link long after the site was fine. Falls back
 # to the current known URL only if the deploy output cannot be parsed.
-SITE_FALLBACK="https://portfolio.tamerao.workers.dev"
+SITE_FALLBACK="https://tamerabouomar.com"
 SITE="$SITE_FALLBACK"
 
 line() { printf '\n────────────────────────────────────────\n'; }

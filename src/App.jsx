@@ -7,6 +7,7 @@ import Sidebar from "./components/Sidebar";
 import MobileTabBar from "./components/MobileTabBar";
 import { preloadAllImages } from "./lib/preloadImages";
 import usePageMeta, { PAGE_META } from "./lib/usePageMeta";
+import { SERVICE_PAGES } from "./siteData";
 
 import Home from "./pages/Home";
 import Free from "./pages/Free";
@@ -17,6 +18,7 @@ import Media from "./pages/Media";
 import About from "./pages/About";
 import Fitness from "./pages/Fitness";
 import WorkWithMe from "./pages/WorkWithMe";
+import ServicePage from "./pages/ServicePage";
 
 function ScrollToTop() {
   const { pathname } = useLocation();
@@ -81,6 +83,12 @@ export default function App() {
             <Route path="/about" element={<About />} />
             <Route path="/fitness" element={<Fitness />} />
             <Route path="/work-with-me" element={<WorkWithMe />} />
+            {/* The search-intent pages. One route per slug rather than a
+                wildcard, so an unknown path still falls through to the
+                catch-all below instead of rendering an empty service page. */}
+            {SERVICE_PAGES.map((s) => (
+              <Route key={s.slug} path={`/${s.slug}`} element={<ServicePage slug={s.slug} />} />
+            ))}
             <Route path="*" element={<Home />} />
           </Routes>
         </AnimatePresence>

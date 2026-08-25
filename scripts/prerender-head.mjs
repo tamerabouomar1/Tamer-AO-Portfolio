@@ -23,7 +23,7 @@ import { pathToFileURL } from "node:url";
 
 const ROOT = path.resolve(path.dirname(fileURLToPath(import.meta.url)), "..");
 const DIST = path.join(ROOT, "dist");
-const SITE = "https://portfolio.tamerao.workers.dev"; // SITE-URL
+const SITE = "https://tamerabouomar.com"; // SITE-URL
 const SUFFIX = "Tamer AO";
 
 /* The build-time renderer, from `vite build --ssr src/entry-server.jsx`.

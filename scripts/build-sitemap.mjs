@@ -20,7 +20,7 @@ import { fileURLToPath } from "node:url";
 const here = dirname(fileURLToPath(import.meta.url));
 const root = resolve(here, "..");
 
-const SITE = "https://portfolio.tamerao.workers.dev";
+const SITE = "https://tamerabouomar.com";
 
 /* The static routes, in the order they matter. `priority` is only a hint to
    crawlers about relative importance within this one site — it says nothing
@@ -36,15 +36,46 @@ const PAGES = [
   // indexed. The route still works for anyone holding an old link.
   ["/projects", "monthly", "0.9"],
   ["/work-with-me", "monthly", "0.8"],
+  // The search-intent pages. High priority because they are the ones written
+  // to be found, rather than to be navigated to from inside the site.
+  ["/website-design-lebanon", "monthly", "0.9"],
+  ["/logo-design-beirut", "monthly", "0.9"],
+  ["/restaurant-website-lebanon", "monthly", "0.9"],
   ["/fitness", "monthly", "0.8"],
   ["/media", "monthly", "0.7"],
   ["/about", "monthly", "0.7"],
 ];
 
 // Every slug in TEMPLATES, including the ones pushed on from SIGNATURE.
+/* Slugs from TEMPLATES and SIGNATURE only.
+ *
+ * This used to scan the whole file for any four-space-indented `slug:`, which
+ * was fine while templates were the only thing in siteData.js with a slug. The
+ * moment SERVICE_PAGES arrived it silently swept those up too and published
+ * /templates/website-design-lebanon and two more like it — URLs that render
+ * nothing, in a sitemap that tells Google they are worth crawling.
+ *
+ * Scoped to the arrays that actually hold templates, so a future array with
+ * slugs in it cannot leak in the same way. */
 function templateSlugs() {
   const src = readFileSync(join(root, "src/siteData.js"), "utf8");
-  const slugs = [...src.matchAll(/^\s{4}slug:\s*"([\w-]+)"/gm)].map((m) => m[1]);
+
+  // SIGNATURE is a plain `const`, not an export — it is pushed onto TEMPLATES
+  // further down the file — so both declaration forms have to be matched or
+  // its six templates go missing from the sitemap.
+  const arrays = ["TEMPLATES", "SIGNATURE"]
+    .map((name) => {
+      const start = ["export const", "const"]
+        .map((kw) => src.indexOf(`${kw} ${name} = [`))
+        .filter((i) => i !== -1)
+        .sort((a, b) => a - b)[0];
+      if (start === undefined) return "";
+      const end = src.indexOf("\n];", start);
+      return end === -1 ? "" : src.slice(start, end);
+    })
+    .join("\n");
+
+  const slugs = [...arrays.matchAll(/^\s{4}slug:\s*"([\w-]+)"/gm)].map((m) => m[1]);
   const seen = new Set();
   return slugs.filter((s) => !seen.has(s) && seen.add(s));
 }

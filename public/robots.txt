@@ -1,4 +1,4 @@
 User-agent: *
 Allow: /
 
-Sitemap: https://portfolio.tamerao.workers.dev/sitemap.xml
+Sitemap: https://tamerabouomar.com/sitemap.xml
