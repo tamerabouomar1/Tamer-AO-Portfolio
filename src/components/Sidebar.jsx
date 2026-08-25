@@ -69,7 +69,12 @@ export default function Sidebar() {
           <img src="/assets/avatar-square.jpg?v=2" alt="Portrait of Tamer AO" />
         </div>
         <div className="sidebar__id">
-          <ShinyText as="h1" className="sidebar__name" text="Tamer AO" speed={4} />
+          {/* Was an <h1>. It rendered on EVERY page, ahead of the page's own
+              heading, so all eight pages announced themselves to a crawler as
+              "Tamer AO" and the heading that says what the page is about came
+              second. A site name in a persistent sidebar is identity, not the
+              heading of the document — the page's own <h1> is in its topbar. */}
+          <ShinyText as="p" className="sidebar__name" text="Tamer AO" speed={4} />
           <p className="sidebar__tagline">{PROFILE_TAGLINE}</p>
         </div>
       </div>

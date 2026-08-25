@@ -29,7 +29,11 @@ const PAGES = [
   ["/", "weekly", "1.0"],
   ["/free", "weekly", "0.9"],
   ["/websites", "weekly", "0.9"],
-  ["/templates", "weekly", "0.9"],
+  // NOT /templates. That route is a client-side <Navigate> to /websites, so
+  // it is a redirect rather than a destination: a crawler that runs no JS
+  // sees an all-but-empty page, and one that does gets bounced. Submitting a
+  // redirect in a sitemap asks Google to index a URL that does not want to be
+  // indexed. The route still works for anyone holding an old link.
   ["/projects", "monthly", "0.9"],
   ["/work-with-me", "monthly", "0.8"],
   ["/fitness", "monthly", "0.8"],

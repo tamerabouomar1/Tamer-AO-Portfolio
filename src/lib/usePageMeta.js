@@ -21,27 +21,27 @@ const SUFFIX = "Tamer AO";
    result: what the page holds and why to click it, not a keyword list. */
 export const PAGE_META = {
   "/": {
-    title: "Graphic Designer & Brand Identity, Beirut",
+    title: "Graphic Designer in Beirut, Lebanon",
     description:
-      "Brand identity, logos, logo motion and apparel design from Beirut. Selected work for OKIRO, 10th Planet Jiu Jitsu, FabricAID and more, by Tamer Abou Omar.",
+      "Brand identity, logos, logo motion and apparel design in Beirut. Work for OKIRO, 10th Planet Jiu Jitsu, FabricAID and Kitchen Garage, by Tamer Abou Omar.",
   },
   "/free": {
-    title: "Start Free — A Website, a Teardown, a Reel or an Hour",
+    title: "Free Website Templates, Brand Teardown & Reel",
     description:
       "Four things that cost nothing: a finished website in full source, a brand teardown, your first reel edited, or an hour of coaching. No card, no obligation.",
   },
   "/projects": {
-    title: "Projects, Branding, Packaging & Apparel",
+    title: "Design & Branding Projects",
     description:
       "Design work across brand identity, clothing, packaging and print: athlete profiles, rashguards and fight kits, retail packaging and university projects.",
   },
   "/websites": {
-    title: "Websites & Templates",
+    title: "Website Design in Lebanon",
     description:
-      "Client websites plus 42 finished website templates. Take the source free, have it set up for you, or commission a custom build.",
+      "Websites designed, built and run for restaurants, salons, clinics and trades in Lebanon. See client sites, take a free template, or get booked out in 90 days.",
   },
   "/media": {
-    title: "Motion, Video Edits & Social",
+    title: "Logo Motion & Video Editing",
     description:
       "Logo motion, video edits and social-media design, with the real Instagram posts and the view, like and comment counts they earned.",
   },
@@ -51,14 +51,14 @@ export const PAGE_META = {
       "Graphic designer, martial-arts instructor and AUB student athlete in Beirut. Two athletic scholarships, seven years of working experience.",
   },
   "/fitness": {
-    title: "Self-Defense Coaching & Personal Training",
+    title: "Self-Defense Classes & Personal Training in Beirut",
     description:
       "The 90-Day Self-Defense Program in Beirut — tracks for women, teens and adults — plus martial-arts instruction, personal training and the class schedule.",
   },
   "/work-with-me": {
-    title: "Services & Pricing",
+    title: "Design & Social Media Services",
     description:
-      "Social-media management from $199/month, one-off design work, and a free 30-minute call. Reels-first packages built around short-form reach.",
+      "Social-media management from $199/month, logo and brand identity design, and websites. Beirut-based, with a free 30-minute call and the first reel free.",
   },
 };
 

@@ -15,7 +15,7 @@ export default function About() {
     <Page>
       <header className="topbar">
         <div>
-          <h2 className="topbar__title">Your Ultimate Student Athlete</h2>
+          <h1 className="topbar__title">About Tamer Abou Omar</h1>
           <p className="topbar__sub">What do I do</p>
         </div>
         <Link className="link" to="/work-with-me">

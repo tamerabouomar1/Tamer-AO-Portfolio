@@ -23,7 +23,7 @@ export default function WorkWithMe() {
     <Page>
       <header className="topbar">
         <div>
-          <h2 className="topbar__title">Services &amp; Pricing</h2>
+          <h1 className="topbar__title">Design &amp; Social Media Services</h1>
           <p className="topbar__sub">Social media, branding, websites &amp; design</p>
         </div>
       </header>

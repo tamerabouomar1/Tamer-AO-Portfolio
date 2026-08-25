@@ -68,36 +68,157 @@
     />
 
     <!-- Structured data: tells Google who this site is about (rich results). -->
+    <!-- Structured data, as one @graph so the nodes can reference each other
+         by @id instead of repeating the same details three times.
+
+         Person alone was never enough. Google's local and service results are
+         keyed off an organisation with a place and a service catalogue, not
+         off a person with a job title, so ProfessionalService is what makes
+         "graphic designer Beirut" a query this site can answer.
+
+         WHAT IS DELIBERATELY ABSENT: aggregateRating and review. There are no
+         published testimonials on this site (TESTIMONIALS in siteData.js is
+         intentionally empty), and marking up ratings that do not exist is
+         fabrication — it is also the single most common trigger for a
+         structured-data manual action. Add them here only when real, named,
+         verifiable reviews exist on the page itself.
+
+         KEEP PRICES IN STEP with siteData.js. A price here that disagrees
+         with the page is worse than no price at all: Google reads this one
+         and shows it, and the visitor reads the other one. -->
     <script type="application/ld+json">
       {
         "@context": "https://schema.org",
-        "@type": "Person",
-        "name": "Tamer Abou Omar",
-        "alternateName": "Tamer AO",
-        "url": "https://portfolio.tamerao.workers.dev/",
-        "image": "https://portfolio.tamerao.workers.dev/assets/avatar.jpg",
-        "jobTitle": "Graphic Designer & Martial Arts Instructor",
-        "email": "mailto:tamerabouomar1@gmail.com",
-        "telephone": "+961 70477595",
-        "address": {
-          "@type": "PostalAddress",
-          "addressLocality": "Beirut",
-          "addressCountry": "Lebanon"
-        },
-        "knowsAbout": [
-          "Brand Identity",
-          "Logo Design",
-          "Logo Motion",
-          "Apparel & Rashguard Design",
-          "Social Media Design",
-          "Jiu-Jitsu",
-          "Strength & Conditioning"
-        ],
-        "worksFor": {
-          "@type": "Organization",
-          "name": "Combat Sports Academy"
-        },
-        "sameAs": ["https://www.instagram.com/tamer_ao/"]
+        "@graph": [
+          {
+            "@type": "Person",
+            "@id": "https://portfolio.tamerao.workers.dev/#person",
+            "name": "Tamer Abou Omar",
+            "alternateName": "Tamer AO",
+            "url": "https://portfolio.tamerao.workers.dev/",
+            "image": "https://portfolio.tamerao.workers.dev/assets/avatar.jpg",
+            "jobTitle": "Graphic Designer & Martial Arts Instructor",
+            "email": "mailto:tamerabouomar1@gmail.com",
+            "telephone": "+961 70477595",
+            "address": {
+              "@type": "PostalAddress",
+              "addressLocality": "Beirut",
+              "addressCountry": "LB"
+            },
+            "knowsAbout": [
+              "Brand Identity",
+              "Logo Design",
+              "Logo Motion",
+              "Apparel & Rashguard Design",
+              "Social Media Design",
+              "Web Design",
+              "Jiu-Jitsu",
+              "Strength & Conditioning"
+            ],
+            "worksFor": {
+              "@type": "Organization",
+              "name": "Combat Sports Academy"
+            },
+            "sameAs": ["https://www.instagram.com/tamer_ao/"]
+          },
+          {
+            "@type": "ProfessionalService",
+            "@id": "https://portfolio.tamerao.workers.dev/#business",
+            "name": "Tamer AO — Design & Websites",
+            "description": "Brand identity, logo design, social-media management and websites, built and run for businesses in Lebanon.",
+            "url": "https://portfolio.tamerao.workers.dev/",
+            "image": "https://portfolio.tamerao.workers.dev/assets/featured.jpg",
+            "telephone": "+961 70477595",
+            "email": "mailto:tamerabouomar1@gmail.com",
+            "priceRange": "$19-$1500",
+            "founder": { "@id": "https://portfolio.tamerao.workers.dev/#person" },
+            "address": {
+              "@type": "PostalAddress",
+              "addressLocality": "Beirut",
+              "addressCountry": "LB"
+            },
+            "areaServed": [
+              { "@type": "Country", "name": "Lebanon" },
+              { "@type": "City", "name": "Beirut" },
+              { "@type": "City", "name": "Aley" }
+            ],
+            "sameAs": ["https://www.instagram.com/tamer_ao/"],
+            "hasOfferCatalog": {
+              "@type": "OfferCatalog",
+              "name": "Design, social media and website services",
+              "itemListElement": [
+                {
+                  "@type": "Offer",
+                  "priceCurrency": "USD",
+                  "price": "199",
+                  "url": "https://portfolio.tamerao.workers.dev/websites",
+                  "itemOffered": {
+                    "@type": "Service",
+                    "name": "Booked Out in 90 Days",
+                    "serviceType": "Website design, hosting and local SEO",
+                    "description": "A website designed, built and run for you, with the build included and the monthly covering hosting, pages written to rank, Google Business and lead tracking."
+                  }
+                },
+                {
+                  "@type": "Offer",
+                  "priceCurrency": "USD",
+                  "price": "350",
+                  "url": "https://portfolio.tamerao.workers.dev/websites",
+                  "itemOffered": {
+                    "@type": "Service",
+                    "name": "One Page, Live This Week",
+                    "serviceType": "Website design",
+                    "description": "A template from the gallery set up on your own domain, with your copy, photos and branding applied."
+                  }
+                },
+                {
+                  "@type": "Offer",
+                  "priceCurrency": "USD",
+                  "price": "1500",
+                  "url": "https://portfolio.tamerao.workers.dev/websites",
+                  "itemOffered": {
+                    "@type": "Service",
+                    "name": "Built From Scratch",
+                    "serviceType": "Custom website development",
+                    "description": "A website built to your own flows: shop, accounts, payments or multi-language, with tracking and a technical SEO pass."
+                  }
+                },
+                {
+                  "@type": "Offer",
+                  "priceCurrency": "USD",
+                  "price": "199",
+                  "url": "https://portfolio.tamerao.workers.dev/work-with-me",
+                  "itemOffered": {
+                    "@type": "Service",
+                    "name": "Social Media Management",
+                    "serviceType": "Social media management",
+                    "description": "Reels-first social-media management: custom reels, feed posts, hooks and captions written for you."
+                  }
+                },
+                {
+                  "@type": "Offer",
+                  "priceCurrency": "USD",
+                  "price": "997",
+                  "url": "https://portfolio.tamerao.workers.dev/fitness",
+                  "itemOffered": {
+                    "@type": "Service",
+                    "name": "The 90-Day Self-Defense Program",
+                    "serviceType": "Self-defense and personal training",
+                    "description": "Twelve weeks of coached self-defense in Beirut, with tracks for women, teens and adults."
+                  }
+                }
+              ]
+            }
+          },
+          {
+            "@type": "WebSite",
+            "@id": "https://portfolio.tamerao.workers.dev/#website",
+            "url": "https://portfolio.tamerao.workers.dev/",
+            "name": "Tamer AO",
+            "inLanguage": "en",
+            "publisher": { "@id": "https://portfolio.tamerao.workers.dev/#business" }
+          }
+        ]
       }
     </script>
   </head>

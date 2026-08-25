@@ -11,7 +11,7 @@ export default function Home() {
     <Page>
       <header className="topbar">
         <div>
-          <h2 className="topbar__title">Graphic Designer</h2>
+          <h1 className="topbar__title">Graphic Designer in Beirut</h1>
           <p className="topbar__sub">Student Athlete</p>
         </div>
         <Link className="link" to="/free">

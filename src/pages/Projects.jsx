@@ -79,8 +79,8 @@ export default function Projects() {
     <Page>
       <header className="topbar">
         <div>
-          <h2 className="topbar__title">Graphic Designer</h2>
-          <p className="topbar__sub">Student Athlete</p>
+          <h1 className="topbar__title">Design &amp; Branding Projects</h1>
+          <p className="topbar__sub">Logos, identities, packaging &amp; apparel</p>
         </div>
         <Link className="link" to="/work-with-me">
           Work with me <span className="plus">+</span>

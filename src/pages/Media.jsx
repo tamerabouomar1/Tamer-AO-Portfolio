@@ -71,7 +71,7 @@ export default function Media() {
     <Page>
       <header className="topbar">
         <div>
-          <h2 className="topbar__title">Media</h2>
+          <h1 className="topbar__title">Logo Motion &amp; Video Editing</h1>
           <p className="topbar__sub">Motion, edits &amp; social</p>
         </div>
         <Link className="link" to="/work-with-me">

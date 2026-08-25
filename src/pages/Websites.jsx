@@ -166,7 +166,7 @@ export default function Websites() {
     <Page>
       <header className="topbar">
         <div>
-          <h2 className="topbar__title">Websites</h2>
+          <h1 className="topbar__title">Website Design in Lebanon</h1>
           <p className="topbar__sub">Designed &amp; built, end to end</p>
         </div>
         <Link className="link" to="/work-with-me">

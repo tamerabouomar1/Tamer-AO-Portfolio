@@ -14,9 +14,9 @@ export default function Fitness() {
     <Page>
       <header className="topbar">
         <div>
-          <h2 className="topbar__title">Your Ultimate Coach</h2>
+          <h1 className="topbar__title">Self-Defense Coaching in Beirut</h1>
           <p className="topbar__sub">
-            Self-defense, strength and martial arts — Beirut
+            Martial arts, strength &amp; personal training
           </p>
         </div>
         <a className="link" href={CONTACT.calendly} target="_blank" rel="noreferrer">

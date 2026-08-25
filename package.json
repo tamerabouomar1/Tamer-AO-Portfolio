@@ -5,7 +5,7 @@
   "type": "module",
   "scripts": {
     "dev": "vite",
-    "build": "node scripts/build-sitemap.mjs && vite build && node scripts/prerender-head.mjs",
+    "build": "node scripts/build-sitemap.mjs && vite build && vite build --ssr src/entry-server.jsx --outDir dist-ssr --logLevel warn && node scripts/prerender-head.mjs",
     "preview": "vite preview",
     "build:zips": "node scripts/build-template-zips.mjs",
     "build:tokens": "node scripts/build-design-tokens.mjs",

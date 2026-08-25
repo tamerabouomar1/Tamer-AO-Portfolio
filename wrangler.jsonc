@@ -23,6 +23,22 @@
     // equivalent of the SPA rule in netlify.toml and public/_redirects.
     "not_found_handling": "single-page-application",
 
+    // Serve /websites directly instead of 307-redirecting it to /websites/.
+    //
+    // prerender-head.mjs writes dist/<route>/index.html, and the default
+    // "auto-trailing-slash" answers the extensionless URL with a 307 to the
+    // slashed one. That put a redirect hop in front of EVERY page on the site
+    // except the home page — and since sitemap.xml and every rel=canonical
+    // name the extensionless form, every URL submitted to Google was a
+    // redirect rather than a page. A 307 is a TEMPORARY redirect, so it also
+    // tells a crawler not to consolidate ranking signals on the target.
+    //
+    // "drop-trailing-slash" makes the extensionless URL the real one and
+    // redirects the slashed form to it, which is the form the sitemap and the
+    // canonicals already agree on. Keep those three in step: if this ever
+    // changes, build-sitemap.mjs and usePageMeta.js change with it.
+    "html_handling": "drop-trailing-slash",
+
     // Without this, the SPA rule above would answer /api/lead with index.html
     // before the Worker ever saw it. Only these paths run the script first.
     //

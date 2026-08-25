@@ -18,7 +18,7 @@ export default function Free() {
     <Page>
       <header className="topbar">
         <div>
-          <h2 className="topbar__title">Start Free</h2>
+          <h1 className="topbar__title">Free Websites, Branding &amp; Coaching</h1>
           <p className="topbar__sub">Take the work first, decide afterwards</p>
         </div>
         <Link className="link" to="/work-with-me">

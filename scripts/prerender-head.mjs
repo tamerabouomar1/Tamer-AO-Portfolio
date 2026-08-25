@@ -19,11 +19,24 @@
 import fs from "node:fs";
 import path from "node:path";
 import { fileURLToPath } from "node:url";
+import { pathToFileURL } from "node:url";
 
 const ROOT = path.resolve(path.dirname(fileURLToPath(import.meta.url)), "..");
 const DIST = path.join(ROOT, "dist");
 const SITE = "https://portfolio.tamerao.workers.dev"; // SITE-URL
 const SUFFIX = "Tamer AO";
+
+/* The build-time renderer, from `vite build --ssr src/entry-server.jsx`.
+   If that step has not run, fall back to head-only output rather than failing
+   the build: a site with correct titles and no body text is a regression, a
+   site that will not deploy is an outage. */
+const SSR = path.join(ROOT, "dist-ssr/entry-server.js");
+let render_ = null;
+if (fs.existsSync(SSR)) {
+  ({ render: render_ } = await import(pathToFileURL(SSR).href));
+} else {
+  console.warn("prerender-head: no dist-ssr build found, writing heads only");
+}
 
 const shell = fs.readFileSync(path.join(DIST, "index.html"), "utf8")
   // strip a block left by a previous run so re-running is idempotent
@@ -42,12 +55,16 @@ const templates = [...dataSrc.matchAll(
 const routes = [];
 for (const [p, m] of Object.entries(PAGE_META)) {
   if (p === "/") continue;                       // the shell already is the home page
-  routes.push({ path: p, title: `${m.title} | ${SUFFIX}`, description: m.description });
+  routes.push({ path: p, title: `${m.title} | ${SUFFIX}`, description: m.description, body: true });
 }
 routes.push({
   path: "/templates",
-  title: `${templates.length} Free Website Templates | ${SUFFIX}`,
-  description: `${templates.length} finished website templates — portfolios, landing pages, product showcases and storefronts. Take the full source free, have it set up for you, or commission a custom build.`,
+  title: `Free Website Templates | ${SUFFIX}`,
+  // Deliberately uncounted, like the gallery itself: a number printed here
+  // dates the moment it is written and has to be kept in step with a page
+  // that no longer states one.
+  description:
+    "A gallery of finished website templates — portfolios, landing pages, product showcases and storefronts. Open any of them live, then take the full React source free.",
 });
 for (const t of templates) {
   routes.push({
@@ -74,11 +91,40 @@ function render(route) {
   set(/(<meta\s+name="twitter:title"\s+content=")[^"]*(")/, `$1${esc(route.title)}$2`);
   set(/(<meta\s+name="twitter:description"\s+content=")[\s\S]*?(")/, `$1${esc(route.description)}$2`);
 
-  // A crawler that runs no JS otherwise receives an empty <div id="root">.
+  // Breadcrumbs. Cheap, and it is what puts a readable path under the result
+  // instead of the bare URL. The home page is its own root, so it gets none.
+  if (route.path !== "/") {
+    const crumbs = {
+      "@context": "https://schema.org",
+      "@type": "BreadcrumbList",
+      itemListElement: [
+        { "@type": "ListItem", position: 1, name: "Home", item: SITE + "/" },
+        { "@type": "ListItem", position: 2, name: route.title.split(" | ")[0], item: url },
+      ],
+    };
+    h = h.replace("</head>",
+      `  <script type="application/ld+json">${JSON.stringify(crumbs)}</script>\n  </head>`);
+  }
+
+  // The body. Where a real render is available the page ships its actual
+  // markup, so a crawler that runs no JavaScript reads the same words a
+  // visitor does. main.jsx mounts with createRoot and replaces all of it, so
+  // nothing here has to match what React produces at runtime.
+  if (route.body && render_) {
+    try {
+      return h.replace('<div id="root"></div>', `<div id="root">${render_(route.path)}</div>`);
+    } catch (err) {
+      console.warn(`prerender-head: ${route.path} did not render (${err.message}), using the stub`);
+    }
+  }
+
+  // Fallback, and what the 42 template previews always get: they load through
+  // React.lazy, which renderToString cannot resolve, so there is no markup to
+  // put here. A short block beats an empty <div id="root">.
   const nos = `<noscript data-prerender><h1>${esc(route.title.split(" | ")[0])}</h1><p>${esc(route.description)}</p>` +
     `<p>Tamer Abou Omar — graphic designer and brand identity, Beirut, Lebanon. ` +
     `<a href="${SITE}/">Home</a> · <a href="${SITE}/projects">Projects</a> · ` +
-    `<a href="${SITE}/websites">Websites</a> · <a href="${SITE}/templates">Templates</a> · ` +
+    `<a href="${SITE}/websites">Websites</a> · ` +
     `<a href="${SITE}/media">Media</a> · <a href="${SITE}/about">About</a> · ` +
     `<a href="${SITE}/work-with-me">Services &amp; pricing</a></p></noscript>`;
   return h.replace('<div id="root"></div>', nos + '\n    <div id="root"></div>');
@@ -95,8 +141,9 @@ for (const r of routes) {
 // the home page keeps the shell's own head, and gains the same noscript body
 fs.writeFileSync(path.join(DIST, "index.html"), render({
   path: "/",
-  title: "Tamer AO, Graphic Designer & Brand Identity | Beirut",
+  title: `${PAGE_META["/"].title} | ${SUFFIX}`,
   description: PAGE_META["/"].description,
+  body: true,
 }).replace(/(<link\s+rel="canonical"\s+href=")[^"]*(")/, `$1${SITE}/$2`)
   .replace(/(<meta\s+property="og:url"\s+content=")[^"]*(")/, `$1${SITE}/$2`));
 
