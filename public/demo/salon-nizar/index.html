@@ -3,24 +3,26 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Saifi Barber Shop — Precision Cuts, Premium Style</title>
+  <title>Salon Nizar | Barbershop for Men in Abadiyeh</title>
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-  <link href="https://fonts.googleapis.com/css2?family=Bodoni+Moda:ital,opsz,wght@0,6..96,400;0,6..96,500;0,6..96,700;0,6..96,900;1,6..96,500&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet" />
-  <link rel="stylesheet" href="style.css" />
+  <link href="https://fonts.googleapis.com/css2?family=Bodoni+Moda:ital,opsz,wght@0,6..96,400;0,6..96,500;0,6..96,700;0,6..96,900;1,6..96,500&family=Jost:wght@300;400;500;600&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="style.css?v=10" />
 </head>
 <body>
 
   <!-- NAV -->
   <nav id="nav">
     <div class="nav-inner">
-      <a class="nav-logo" href="#hero">✦ SAIFI</a>
+      <a class="nav-logo" href="#hero" aria-label="Salon Nizar home">
+        <img src="assets/logo-nizar.png" alt="Salon Nizar for men" />
+      </a>
       <ul class="nav-links">
         <li><a href="#services">Services</a></li>
-        <li><a href="#membership">Membership</a></li>
+        <li><a href="#treatment">What's Free</a></li>
         <li><a href="#booking">Book</a></li>
         <li><a href="#location">Find Us</a></li>
-        <li><a href="#booking" class="btn-nav">Book Now</a></li>
+        <li><a href="https://www.fresha.com/book-now/salon-nizar-s5mive31/all-offer?share=true&amp;pId=3069525" target="_blank" rel="noopener" class="btn-nav">Book Now</a></li>
       </ul>
       <button class="nav-burger" id="burger" aria-label="Menu">
         <span></span><span></span><span></span>
@@ -72,11 +74,11 @@
             <stop offset="100%" stop-color="#5e1f0c"/>
           </linearGradient>
           <linearGradient id="gold" x1="0" y1="0" x2="1" y2="1">
-            <stop offset="0%"  stop-color="#6e521b"/>
-            <stop offset="35%" stop-color="#e7c869"/>
-            <stop offset="50%" stop-color="#fff7d4"/>
-            <stop offset="65%" stop-color="#c9a84c"/>
-            <stop offset="100%" stop-color="#6e521b"/>
+            <stop offset="0%"  stop-color="#275D38"/>
+            <stop offset="35%" stop-color="#9BCB72"/>
+            <stop offset="50%" stop-color="#E6F5D7"/>
+            <stop offset="65%" stop-color="#6FA84F"/>
+            <stop offset="100%" stop-color="#275D38"/>
           </linearGradient>
           <radialGradient id="bristle" cx="0.5" cy="0.3" r="0.8">
             <stop offset="0%"  stop-color="#d9d2c4"/>
@@ -221,16 +223,16 @@
 
     <!-- Hero text layers -->
     <div class="hero-content" id="hero-content">
-      <div class="hero-badge">EST. 2017</div>
+      <div class="hero-badge">PREMIUM GROOMING</div>
       <h1 class="hero-title">
-        <span class="line1">PRECISION</span>
-        <span class="line2 gold-text">CUTS &amp;</span>
-        <span class="line3">PREMIUM</span>
-        <span class="line4 gold-text">STYLE</span>
+        <span class="line1">SHARP</span>
+        <span class="line2 gold-text">CUTS,</span>
+        <span class="line3">FAIR</span>
+        <span class="line4 gold-text">PRICE</span>
       </h1>
-      <p class="hero-sub">Where every cut tells your story</p>
+      <p class="hero-sub">$10 haircut. Hot towel, scrub and face massage free.</p>
       <div class="hero-cta">
-        <a href="#booking" class="btn-primary">Book Your Appointment</a>
+        <a href="https://www.fresha.com/book-now/salon-nizar-s5mive31/all-offer?share=true&amp;pId=3069525" target="_blank" rel="noopener" class="btn-primary">Book on Fresha</a>
         <a href="#services" class="btn-ghost">View Services</a>
       </div>
     </div>
@@ -244,32 +246,79 @@
   <!-- MARQUEE STRIP -->
   <div class="marquee-strip">
     <div class="marquee-inner">
-      <span>SAIFI BARBER SHOP</span>
+      <span>SALON NIZAR</span>
       <span class="dot">✦</span>
-      <span>PRECISION CUTS</span>
+      <span>HAIRCUT $10</span>
       <span class="dot">✦</span>
-      <span>BEARD TRIMS</span>
+      <span>FREE HOT TOWEL · SCRUB · FACE MASSAGE</span>
       <span class="dot">✦</span>
-      <span>FADES &amp; TAPERS</span>
+      <span>BEARD TRIM $5</span>
       <span class="dot">✦</span>
-      <span>SAIFI BARBER SHOP</span>
+      <span>SALON NIZAR</span>
       <span class="dot">✦</span>
-      <span>PRECISION CUTS</span>
+      <span>HAIRCUT $10</span>
       <span class="dot">✦</span>
-      <span>BEARD TRIMS</span>
+      <span>FREE HOT TOWEL · SCRUB · FACE MASSAGE</span>
       <span class="dot">✦</span>
-      <span>FADES &amp; TAPERS</span>
+      <span>BEARD TRIM $5</span>
       <span class="dot">✦</span>
     </div>
   </div>
 
+
+  <!-- FREE FACE TREATMENT, the differentiator, given top billing -->
+  <section id="treatment" class="treatment">
+    <div class="container">
+      <div class="treatment-head">
+        <span class="treatment-flag">Included free · with every haircut</span>
+        <h2 class="treatment-title">The full face treatment,<br/>on the house</h2>
+        <p class="treatment-sub">Other shops charge extra for this, or skip it altogether.
+           At Salon Nizar it comes with every haircut and your bill still says $10.</p>
+      </div>
+
+      <div class="treatment-grid">
+        <article class="treat-card">
+          <span class="treat-free">Free</span>
+          <span class="treat-icon">
+            <svg viewBox="0 0 48 48" fill="none"><rect x="8" y="27" width="32" height="13" rx="4"/><line x1="8" y1="32" x2="40" y2="32"/><path d="M17 22 c-2.5 -3 2.5 -5 0 -8" stroke-linecap="round"/><path d="M24 22 c-2.5 -3 2.5 -5 0 -8" stroke-linecap="round"/><path d="M31 22 c-2.5 -3 2.5 -5 0 -8" stroke-linecap="round"/></svg>
+          </span>
+          <h3>Hot Towel</h3>
+          <p>A steamed towel that opens the pores and softens the skin before we finish up.</p>
+        </article>
+
+        <article class="treat-card">
+          <span class="treat-free">Free</span>
+          <span class="treat-icon">
+            <svg viewBox="0 0 48 48" fill="none"><path d="M24 8 c7 6 11 11 11 17 a11 11 0 0 1 -22 0 c0 -6 4 -11 11 -17 Z" stroke-linejoin="round"/><path d="M19 27 c1.5 3 4 4.5 7 4.5" stroke-linecap="round"/></svg>
+          </span>
+          <h3>Face Scrub</h3>
+          <p>Clears off the dust and dead skin so your face feels clean, not just your hair.</p>
+        </article>
+
+        <article class="treat-card">
+          <span class="treat-free">Free</span>
+          <span class="treat-icon">
+            <svg viewBox="0 0 48 48" fill="none"><circle cx="24" cy="24" r="15"/><path d="M17 21 c2 -3 5 -3 7 0 M24 21 c2 -3 5 -3 7 0" stroke-linecap="round"/><path d="M17 30 c4 4 10 4 14 0" stroke-linecap="round"/></svg>
+          </span>
+          <h3>Face Massage</h3>
+          <p>A few minutes on the jaw, temples and forehead to take the tension out.</p>
+        </article>
+      </div>
+
+      <div class="treatment-cta">
+        <p class="treatment-value">All three come with your <b>$10</b> haircut.</p>
+        <a href="https://www.fresha.com/book-now/salon-nizar-s5mive31/all-offer?share=true&amp;pId=3069525" target="_blank" rel="noopener" class="btn-primary">Book Your Chair</a>
+      </div>
+    </div>
+  </section>
+
   <!-- SERVICES -->
-  <section id="services" class="section-dark">
+<section id="services" class="section-dark">
     <div class="container">
       <div class="section-header">
         <span class="section-tag">What We Offer</span>
-        <h2 class="section-title">Our Services</h2>
-        <p class="section-desc">Classic techniques meet modern artistry. Every service is a masterpiece.</p>
+        <h2 class="section-title">Services &amp; Prices</h2>
+        <p class="section-desc">Simple prices. The face treatment is always included, never an add-on.</p>
       </div>
 
       <div class="services-grid">
@@ -277,157 +326,75 @@
           <div class="service-icon">
             <svg viewBox="0 0 48 48" fill="none"><circle cx="12" cy="13" r="5"/><circle cx="12" cy="35" r="5"/><path d="M16.3 16 L40 32"/><path d="M16.3 32 L40 16"/><circle cx="25" cy="24" r="1.4" fill="currentColor" stroke="none"/></svg>
           </div>
-          <h3>Classic Cut</h3>
-          <p>Traditional scissor cut tailored to your face shape and personal style. The foundation of great grooming.</p>
+          <h3>Haircut</h3>
+          <p>A clean cut shaped to suit you, finished with a hot towel, face scrub and massage.</p>
           <div class="service-footer">
-            <span class="service-price">From $25</span>
-            <a href="#booking" class="service-book">Book →</a>
+            <span class="service-price">$10</span>
+            <a href="https://www.fresha.com/book-now/salon-nizar-s5mive31/all-offer?share=true&amp;pId=3069525" target="_blank" rel="noopener" class="service-book">Book →</a>
           </div>
         </div>
 
-        <div class="service-card featured" data-delay="100">
-          <div class="service-badge">Most Popular</div>
-          <div class="service-icon">
-            <svg viewBox="0 0 48 48" fill="none"><rect x="16" y="6" width="16" height="24" rx="4"/><line x1="20" y1="12" x2="28" y2="12"/><path d="M15 30 L11 42 M19.5 30 L18 42 M24 30 L24 42 M28.5 30 L30 42 M33 30 L37 42"/></svg>
-          </div>
-          <h3>Fade &amp; Taper</h3>
-          <p>Clean, precise fades — from skin to shadow to low. Machine mastery that frames your face perfectly.</p>
-          <div class="service-footer">
-            <span class="service-price">From $30</span>
-            <a href="#booking" class="service-book">Book →</a>
-          </div>
-        </div>
-
-        <div class="service-card" data-delay="200">
+        <div class="service-card" data-delay="100">
           <div class="service-icon">
             <svg viewBox="0 0 48 48" fill="none"><rect x="6" y="14" width="36" height="8" rx="3"/><path d="M9.5 22 V34 M14.5 22 V34 M19.5 22 V34 M24 22 V35 M28.5 22 V34 M33.5 22 V34 M38.5 22 V34"/></svg>
           </div>
-          <h3>Beard Trim &amp; Shape</h3>
-          <p>Sculpted beards that define your jawline and enhance your natural features. Sharp lines guaranteed.</p>
+          <h3>Beard Trim</h3>
+          <p>Shaped and lined up to frame your jaw. Add it to a haircut or book it on its own.</p>
           <div class="service-footer">
-            <span class="service-price">From $20</span>
-            <a href="#booking" class="service-book">Book →</a>
+            <span class="service-price">$5</span>
+            <a href="https://www.fresha.com/book-now/salon-nizar-s5mive31/all-offer?share=true&amp;pId=3069525" target="_blank" rel="noopener" class="service-book">Book →</a>
           </div>
         </div>
 
-        <div class="service-card" data-delay="300">
+        <div class="service-card featured" data-delay="200">
+          <div class="service-badge">Most Popular</div>
           <div class="service-icon">
-            <svg viewBox="0 0 48 48" fill="none"><path d="M8 33 L10 15 L18.5 25 L24 11 L29.5 25 L38 15 L40 33 Z" stroke-linejoin="round"/><line x1="9" y1="38" x2="39" y2="38"/></svg>
+            <svg viewBox="0 0 48 48" fill="none"><path d="M14 24 v-7 a4 4 0 0 1 4 -4 h12 a4 4 0 0 1 4 4 v7" stroke-linejoin="round"/><rect x="10" y="24" width="28" height="6" rx="2"/><path d="M15 30 v9 M33 30 v9"/></svg>
           </div>
-          <h3>VIP Full Groom</h3>
-          <p>The complete experience — haircut, beard shape, hot towel, and scalp massage. Pure luxury.</p>
+          <h3>Haircut &amp; Beard</h3>
+          <p>Haircut and beard in one sitting, with the hot towel, scrub and face massage included.</p>
           <div class="service-footer">
-            <span class="service-price">From $60</span>
-            <a href="#booking" class="service-book">Book →</a>
-          </div>
-        </div>
-
-        <div class="service-card" data-delay="400">
-          <div class="service-icon">
-            <svg viewBox="0 0 48 48" fill="none"><rect x="8" y="27" width="32" height="13" rx="4"/><line x1="8" y1="32" x2="40" y2="32"/><path d="M17 22 c-2.5 -3 2.5 -5 0 -8" stroke-linecap="round"/><path d="M24 22 c-2.5 -3 2.5 -5 0 -8" stroke-linecap="round"/><path d="M31 22 c-2.5 -3 2.5 -5 0 -8" stroke-linecap="round"/></svg>
-          </div>
-          <h3>Hot Towel Shave</h3>
-          <p>Straight razor tradition with a modern touch. Hot towel preparation for the ultimate close shave.</p>
-          <div class="service-footer">
-            <span class="service-price">From $35</span>
-            <a href="#booking" class="service-book">Book →</a>
-          </div>
-        </div>
-
-        <div class="service-card" data-delay="500">
-          <div class="service-icon">
-            <svg viewBox="0 0 48 48" fill="none"><path d="M14 24 v-7 a4 4 0 0 1 4 -4 h12 a4 4 0 0 1 4 4 v7" stroke-linejoin="round"/><rect x="10" y="24" width="28" height="6" rx="2"/><path d="M15 30 v9 M33 30 v9"/><path d="M14 17 h-4 a3 3 0 0 0 -3 3 v3"/></svg>
-          </div>
-          <h3>Kids Cut</h3>
-          <p>Patient, skilled cuts for the little ones. We make it fun and easy for kids of all ages.</p>
-          <div class="service-footer">
-            <span class="service-price">From $18</span>
-            <a href="#booking" class="service-book">Book →</a>
+            <span class="service-price">$15</span>
+            <a href="https://www.fresha.com/book-now/salon-nizar-s5mive31/all-offer?share=true&amp;pId=3069525" target="_blank" rel="noopener" class="service-book">Book →</a>
           </div>
         </div>
       </div>
-    </div>
+</div>
   </section>
 
-  <!-- STATS BANNER -->
-  <div class="stats-banner">
-    <div class="stat">
-      <span class="stat-num">7+</span>
-      <span class="stat-label">Years Experience</span>
-    </div>
-    <div class="stat-divider"></div>
-    <div class="stat">
-      <span class="stat-num">5K+</span>
-      <span class="stat-label">Happy Clients</span>
-    </div>
-    <div class="stat-divider"></div>
-    <div class="stat">
-      <span class="stat-num">100%</span>
-      <span class="stat-label">Satisfaction</span>
-    </div>
-    <div class="stat-divider"></div>
-    <div class="stat">
-      <span class="stat-num">5★</span>
-      <span class="stat-label">Rating</span>
-    </div>
-  </div>
-
-  <!-- MEMBERSHIP -->
-  <section id="membership" class="section-dark membership">
-    <div class="container">
-      <div class="section-header">
-        <span class="section-tag">Members Only</span>
-        <h2 class="section-title">The Saifi Club</h2>
-        <p class="section-desc">One membership. Unlimited sharp. Priority chairs, free cuts, and the full grooming experience every month.</p>
-      </div>
-
-      <div class="membership-card">
-        <div class="membership-glow"></div>
-        <div class="membership-top">
-          <div>
-            <span class="membership-tier">Premium Membership</span>
-            <div class="membership-price">
-              <span class="currency">$</span><span class="amount">75</span><span class="period">/month</span>
-            </div>
-          </div>
-          <div class="membership-seal">✦</div>
-        </div>
-
-        <ul class="membership-perks">
-          <li><span class="perk-check">✓</span> Unlimited haircuts — come as often as you like</li>
-          <li><span class="perk-check">✓</span> Priority booking — skip the queue, members' chairs reserved</li>
-          <li><span class="perk-check">✓</span> Free beard trim &amp; line-up with every visit</li>
-          <li><span class="perk-check">✓</span> One complimentary hot-towel shave each month</li>
-          <li><span class="perk-check">✓</span> 15% off all products &amp; guest cuts</li>
-          <li><span class="perk-check">✓</span> Exclusive member-only events &amp; early drops</li>
-        </ul>
-
-        <div class="membership-footer">
-          <a href="#" class="btn-primary membership-join" id="join-club">Become a Member</a>
-          <p class="membership-note">Cancel anytime · Billed monthly · Limited spots</p>
-        </div>
-      </div>
-    </div>
-  </section>
-
-  <!-- BOOKING -->
+  <!-- BOOKING (Fresha) -->
   <section id="booking" class="section-light">
     <div class="container">
       <div class="section-header">
         <span class="section-tag">Reserve Your Spot</span>
         <h2 class="section-title">Book Your Appointment</h2>
-        <p class="section-desc">Skip the wait — lock in your time slot online in seconds.</p>
+        <p class="section-desc">Pick a time on Fresha and you are booked. Walk-ins are welcome too.</p>
       </div>
 
-      <div class="calendly-wrapper">
-        <div class="calendly-inner">
-          <!-- Calendly inline widget -->
-          <div class="calendly-inline-widget"
-               data-url="https://calendly.com/saifi1997barber/saifi1997barber?hide_gdpr_banner=1&background_color=0a0a0a&text_color=f5f0e8&primary_color=C9A84C"
-               style="min-width:320px;height:700px;">
-          </div>
-          <script type="text/javascript" src="https://assets.calendly.com/assets/external/widget.js" async></script>
+      <div class="booking-card">
+        <div class="booking-card-main">
+          <span class="booking-brand">Booking with</span>
+          <span class="booking-fresha">fresha</span>
+          <ul class="booking-points">
+            <li>Pick a time that suits you</li>
+            <li>Get a reminder before your slot</li>
+            <li>Change or cancel whenever you need</li>
+          </ul>
+          <a href="https://www.fresha.com/book-now/salon-nizar-s5mive31/all-offer?share=true&amp;pId=3069525" target="_blank" rel="noopener" class="btn-primary booking-cta">Book on Fresha &#8594;</a>
+          <p class="booking-note">Haircut $10. Beard $5. Face treatment always free.</p>
         </div>
+
+        <aside class="booking-aside">
+          <h4>Rather just message?</h4>
+          <p>Send us a DM on Instagram and we will sort you a time.</p>
+          <a href="tel:+96181537088" class="btn-ghost btn-call">📞 +961 81 537 088</a>
+          <a href="https://www.instagram.com/danaf.nizar/" target="_blank" rel="noopener" class="btn-ghost">Message @danaf.nizar</a>
+          <div class="booking-hours">
+            <span><b>Tue – Fri</b> 9:00 AM – 8:00 PM</span>
+            <span><b>Sat – Sun</b> 9:00 AM – 6:00 PM</span>
+            <span class="closed"><b>Monday</b> Closed</span>
+          </div>
+        </aside>
       </div>
     </div>
   </section>
@@ -447,8 +414,9 @@
             <div class="info-icon">📍</div>
             <div>
               <h4>Address</h4>
-              <!-- UPDATE THIS ADDRESS with the actual barbershop address -->
-              <p>Saifi Village, Gemmayzeh<br/>Beirut, Lebanon</p>
+              <!-- UPDATE with Salon Nizar's real street address -->
+              <p>Abadiyeh (عبادية)<br/>Mount Lebanon, Lebanon</p>
+              <a class="dir-link" href="https://maps.app.goo.gl/mhsC6EbbD8KQxd5G9" target="_blank" rel="noopener">Get directions ↗</a>
             </div>
           </div>
 
@@ -456,9 +424,20 @@
             <div class="info-icon">🕐</div>
             <div>
               <h4>Opening Hours</h4>
-              <p>Mon – Fri: 9:00 AM – 8:00 PM<br/>
-                 Sat: 9:00 AM – 6:00 PM<br/>
-                 Sun: Closed</p>
+              <p class="hours">
+                <span><b>Tue – Fri</b><span>9:00 AM – 8:00 PM</span></span>
+                <span><b>Sat – Sun</b><span>9:00 AM – 6:00 PM</span></span>
+                <span class="closed"><b>Monday</b><span>Closed</span></span>
+              </p>
+            </div>
+          </div>
+
+          <div class="info-block">
+            <div class="info-icon">📞</div>
+            <div>
+              <h4>Call or WhatsApp</h4>
+              <a class="phone-link" href="tel:+96181537088">+961 81 537 088</a>
+              <p class="phone-note">Tap to call and we will fit you in.</p>
             </div>
           </div>
 
@@ -467,28 +446,27 @@
             <div>
               <h4>Follow &amp; Connect</h4>
               <div class="social-links">
-                <a href="https://www.instagram.com/saifi.barbershop/" target="_blank" class="social-link">
+                <a href="https://www.instagram.com/danaf.nizar/" target="_blank" rel="noopener noreferrer" class="social-link">
                   <svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zm0-2.163c-3.259 0-3.667.014-4.947.072-4.358.2-6.78 2.618-6.98 6.98-.059 1.281-.073 1.689-.073 4.948 0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98 1.281.058 1.689.072 4.948.072 3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98-1.281-.059-1.69-.073-4.949-.073zm0 5.838c-3.403 0-6.162 2.759-6.162 6.162s2.759 6.163 6.162 6.163 6.162-2.759 6.162-6.163c0-3.403-2.759-6.162-6.162-6.162zm0 10.162c-2.209 0-4-1.79-4-4 0-2.209 1.791-4 4-4s4 1.791 4 4c0 2.21-1.791 4-4 4zm6.406-11.845c-.796 0-1.441.645-1.441 1.44s.645 1.44 1.441 1.44c.795 0 1.439-.645 1.439-1.44s-.644-1.44-1.439-1.44z"/></svg>
-                  @saifi.barbershop
+                  @danaf.nizar
                 </a>
               </div>
             </div>
           </div>
 
-          <a href="#booking" class="btn-primary btn-location">Book an Appointment</a>
+          <a href="https://www.fresha.com/book-now/salon-nizar-s5mive31/all-offer?share=true&amp;pId=3069525" target="_blank" rel="noopener" class="btn-primary btn-location">Book an Appointment</a>
         </div>
 
         <div class="map-container">
-          <!-- Google Maps embed — update "Saifi Village, Beirut" to exact address if different -->
-          <iframe
-            src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3312.3!2d35.5132!3d33.8938!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x151f17215880a78f%3A0x729182bae99836b4!2sSaifi%20Village%2C%20Beirut%2C%20Lebanon!5e0!3m2!1sen!2s!4v1700000000000!5m2!1sen!2s"
+          <!-- Salon Nizar, Abadiyeh, Mount Lebanon -->
+          <iframe src="https://maps.google.com/maps?q=33.8373425,35.6204956&z=16&output=embed"
             width="100%"
             height="100%"
             style="border:0;"
             allowfullscreen=""
             loading="lazy"
             referrerpolicy="no-referrer-when-downgrade"
-            title="Saifi Barber Shop Location">
+            title="Salon Nizar Location">
           </iframe>
         </div>
       </div>
@@ -502,28 +480,42 @@
         <svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zm0-2.163c-3.259 0-3.667.014-4.947.072-4.358.2-6.78 2.618-6.98 6.98-.059 1.281-.073 1.689-.073 4.948 0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98 1.281.058 1.689.072 4.948.072 3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98-1.281-.059-1.69-.073-4.949-.073zm0 5.838c-3.403 0-6.162 2.759-6.162 6.162s2.759 6.163 6.162 6.163 6.162-2.759 6.162-6.163c0-3.403-2.759-6.162-6.162-6.162zm0 10.162c-2.209 0-4-1.79-4-4 0-2.209 1.791-4 4-4s4 1.791 4 4c0 2.21-1.791 4-4 4zm6.406-11.845c-.796 0-1.441.645-1.441 1.44s.645 1.44 1.441 1.44c.795 0 1.439-.645 1.439-1.44s-.644-1.44-1.439-1.44z"/></svg>
       </div>
       <div class="insta-text">
-        <h3>Follow Our Work</h3>
-        <p>See the latest cuts, fades, and transformations on Instagram</p>
+        <h3>See the latest cuts</h3>
+        <p>Fresh work posted on Instagram most days.</p>
       </div>
-      <a href="https://www.instagram.com/saifi.barbershop/" target="_blank" class="btn-gold">@saifi.barbershop ↗</a>
+      <a href="https://www.instagram.com/danaf.nizar/" target="_blank" rel="noopener noreferrer" class="btn-gold">@danaf.nizar ↗</a>
     </div>
   </section>
 
   <!-- FOOTER -->
   <footer class="footer">
     <div class="footer-inner">
-      <div class="footer-logo">✦ SAIFI</div>
-      <p class="footer-tagline">Precision Cuts. Premium Style.</p>
+      <div class="footer-logo">
+        <img src="assets/logo-nizar.png" alt="Salon Nizar for men" />
+      </div>
+      <p class="footer-tagline">Barbershop for men in Abadiyeh</p>
       <nav class="footer-nav">
         <a href="#services">Services</a>
+        <a href="#treatment">What's Free</a>
         <a href="#booking">Book</a>
         <a href="#location">Location</a>
-        <a href="https://www.instagram.com/saifi.barbershop/" target="_blank">Instagram</a>
+        <a href="https://www.instagram.com/danaf.nizar/" target="_blank" rel="noopener noreferrer">Instagram</a>
       </nav>
-      <p class="footer-copy">© 2024 Saifi Barber Shop. All rights reserved.</p>
+      <p class="footer-phone"><a href="tel:+96181537088">+961 81 537 088</a></p>
+      <p class="footer-copy">© 2024 Salon Nizar. All rights reserved.</p>
     </div>
   </footer>
 
-  <script src="main.js"></script>
+  <!-- STICKY BOOK BAR (mobile) -->
+  <div class="book-bar" id="book-bar">
+    <div class="book-bar-price">
+      <strong>$10</strong>
+      <span>Haircut</span>
+    </div>
+    <a href="tel:+96181537088" class="book-bar-call" aria-label="Call Salon Nizar">📞</a>
+    <a href="https://www.fresha.com/book-now/salon-nizar-s5mive31/all-offer?share=true&amp;pId=3069525" target="_blank" rel="noopener" class="btn-primary">Book Now</a>
+  </div>
+
+  <script src="main.js?v=10"></script>
 </body>
 </html>

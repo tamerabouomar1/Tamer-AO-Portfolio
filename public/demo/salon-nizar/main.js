@@ -1,30 +1,39 @@
 /* ============================================================
-   SAIFI BARBER SHOP — main.js
+   SALON NIZAR, main.js
    ============================================================ */
 
-/* ── CUSTOM CURSOR ─────────────────────────────────────────── */
-const cursorDot  = document.createElement('div');
-const cursorRing = document.createElement('div');
-cursorDot.className  = 'cursor-dot';
-cursorRing.className = 'cursor-ring';
-document.body.append(cursorDot, cursorRing);
+/* ── CUSTOM CURSOR (pointer devices only) ──────────────────────
+   Skipped entirely on touch screens: there's no cursor to draw and
+   the rAF loop would just burn battery on phones.
+   ──────────────────────────────────────────────────────────── */
+const finePointer = window.matchMedia('(hover: hover) and (pointer: fine)').matches;
 
-let mx = -100, my = -100, rx = -100, ry = -100;
+if (finePointer) {
+  const cursorDot  = document.createElement('div');
+  const cursorRing = document.createElement('div');
+  cursorDot.className  = 'cursor-dot';
+  cursorRing.className = 'cursor-ring';
+  document.body.append(cursorDot, cursorRing);
 
-document.addEventListener('mousemove', e => { mx = e.clientX; my = e.clientY; });
+  let mx = -100, my = -100, rx = -100, ry = -100;
 
-;(function animateCursor() {
-  rx += (mx - rx) * 0.12;
-  ry += (my - ry) * 0.12;
-  cursorDot.style.cssText  = `left:${mx}px;top:${my}px`;
-  cursorRing.style.cssText = `left:${rx}px;top:${ry}px`;
-  requestAnimationFrame(animateCursor);
-})();
+  document.addEventListener('mousemove', e => { mx = e.clientX; my = e.clientY; });
 
-document.querySelectorAll('a, button, .service-card').forEach(el => {
-  el.addEventListener('mouseenter', () => document.body.classList.add('cursor-hover'));
-  el.addEventListener('mouseleave', () => document.body.classList.remove('cursor-hover'));
-});
+  ;(function animateCursor() {
+    rx += (mx - rx) * 0.12;
+    ry += (my - ry) * 0.12;
+    cursorDot.style.cssText  = `left:${mx}px;top:${my}px`;
+    cursorRing.style.cssText = `left:${rx}px;top:${ry}px`;
+    requestAnimationFrame(animateCursor);
+  })();
+
+  document.querySelectorAll('a, button, .service-card').forEach(el => {
+    el.addEventListener('mouseenter', () => document.body.classList.add('cursor-hover'));
+    el.addEventListener('mouseleave', () => document.body.classList.remove('cursor-hover'));
+  });
+} else {
+  document.body.style.cursor = 'auto';
+}
 
 /* ── NAV SCROLL ─────────────────────────────────────────────── */
 const nav = document.getElementById('nav');
@@ -35,8 +44,38 @@ window.addEventListener('scroll', () => {
 /* ── MOBILE BURGER ───────────────────────────────────────────── */
 const burger    = document.getElementById('burger');
 const navLinks  = document.querySelector('.nav-links');
-burger.addEventListener('click', () => navLinks.classList.toggle('open'));
-navLinks.querySelectorAll('a').forEach(a => a.addEventListener('click', () => navLinks.classList.remove('open')));
+
+function setMenu(open) {
+  navLinks.classList.toggle('open', open);
+  document.body.classList.toggle('menu-open', open);
+  burger.setAttribute('aria-expanded', String(open));
+  // lock background scrolling while the full-screen menu is up
+  document.body.style.overflow = open ? 'hidden' : '';
+}
+burger.setAttribute('aria-expanded', 'false');
+burger.addEventListener('click', () => setMenu(!navLinks.classList.contains('open')));
+navLinks.querySelectorAll('a').forEach(a => a.addEventListener('click', () => setMenu(false)));
+// Esc closes, and never leave the menu open when rotating back to desktop
+document.addEventListener('keydown', e => { if (e.key === 'Escape') setMenu(false); });
+window.addEventListener('resize', () => { if (window.innerWidth > 768) setMenu(false); });
+
+/* ── STICKY BOOK BAR (mobile) ────────────────────────────────
+   Slides up once the hero is behind you, hides again over the
+   booking section so it never covers the thing it points at.
+   ──────────────────────────────────────────────────────────── */
+const bookBar = document.getElementById('book-bar');
+if (bookBar) {
+  const bookingSection = document.getElementById('booking');
+  window.addEventListener('scroll', () => {
+    const past = window.scrollY > window.innerHeight * 0.9;
+    let overBooking = false;
+    if (bookingSection) {
+      const r = bookingSection.getBoundingClientRect();
+      overBooking = r.top < window.innerHeight && r.bottom > 0;
+    }
+    bookBar.classList.toggle('show', past && !overBooking);
+  }, { passive: true });
+}
 
 /* ── CINEMATIC HERO SCENE (scroll-driven camera) ─────────────
    As you scroll through the tall hero, the barber-tools flat-lay:
@@ -68,7 +107,7 @@ const clamp = (v, a, b) => Math.min(Math.max(v, a), b);
 const lerp  = (a, b, t) => a + (b - a) * t;
 const ease  = t => 1 - Math.pow(1 - t, 3);   // easeOutCubic
 
-// Eased scroll progress — `smooth` chases the real scroll target every frame
+// Eased scroll progress, `smooth` chases the real scroll target every frame
 // so the focus-pull and dolly glide instead of snapping with each wheel step.
 let smooth = 0;
 
@@ -127,7 +166,7 @@ requestAnimationFrame(cinematicHero);
 
 /* ── SCROLL REVEAL ───────────────────────────────────────────── */
 const revealEls = document.querySelectorAll(
-  '.service-card, .section-header, .info-block, .stat, .calendly-wrapper, .map-container, .insta-cta-inner'
+  '.service-card, .treat-card, .section-header, .info-block, .booking-card, .map-container, .insta-cta-inner'
 );
 revealEls.forEach(el => el.classList.add('reveal'));
 
@@ -169,3 +208,36 @@ const sectionObserver = new IntersectionObserver((entries) => {
 }, { threshold: 0.4 });
 
 sections.forEach(s => sectionObserver.observe(s));
+
+/* ── FRESHA POPUP WINDOW ─────────────────────────────────────
+   Fresha forbids being iframed (frame-ancestors CSP), so a true
+   in-page embed is impossible. The closest legitimate thing is a
+   compact popup window layered over the site: on desktop it reads
+   as a booking widget rather than navigating away. On phones a
+   popup is meaningless, so those fall through to a normal new tab.
+   The href stays intact, so this still works with JS disabled.
+   ──────────────────────────────────────────────────────────── */
+(function freshaPopup() {
+  const links = document.querySelectorAll('a[href*="fresha.com"]');
+  if (!links.length) return;
+
+  const wantsPopup = () =>
+    window.matchMedia('(hover: hover) and (pointer: fine)').matches &&
+    window.innerWidth > 900;
+
+  links.forEach(a => {
+    a.addEventListener('click', e => {
+      if (!wantsPopup()) return;              // phones/tablets: normal new tab
+      if (e.metaKey || e.ctrlKey || e.shiftKey || e.button !== 0) return;
+
+      const w = 460, h = Math.min(820, screen.availHeight - 80);
+      const left = Math.round(screen.availLeft + (screen.availWidth - w) / 2);
+      const top  = Math.round(screen.availTop + (screen.availHeight - h) / 2);
+      const win = window.open(
+        a.href, 'freshaBooking',
+        `width=${w},height=${h},left=${left},top=${top},resizable=yes,scrollbars=yes`
+      );
+      if (win) { e.preventDefault(); win.focus(); }   // blocked? let the link work
+    });
+  });
+})();

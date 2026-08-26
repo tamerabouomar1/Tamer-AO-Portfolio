@@ -275,7 +275,7 @@ export const CLIENTS = [
   "Charbel Farah",
   "Kitchen Garage",
   "Snack Faysal",
-  "Saifi Barbershop",
+  "Salon Nizar",
   "Sinar",
   "MoCars",
   "Playwear Club",
@@ -948,12 +948,17 @@ export const WEBSITES = [
     desc: "A Beirut manakish and fatayer institution. The site is warm and appetite-led, built around the menu and the brand's heritage.",
   },
   {
-    name: "Saifi Barbershop",
-    demo: "/demo/saifi-barbershop/index.html",
+    name: "Salon Nizar",
+    demo: "/demo/salon-nizar/index.html",
     tag: "Website design",
-    image: "/assets/projects/web-saifi.webp",
-    full: "/assets/projects/web-saifi-full.webp",
-    desc: "A premium 'precision cuts and premium style' identity in gold and black, with booking kept front and center.",
+    // NO `image` yet, deliberately. The card's poster is the still shown
+    // before someone hovers and the live site loads in its place, and the
+    // only screenshots on hand were Saifi's — a different client's site under
+    // this one's name is worse than no still at all. Without it the card
+    // shows its dark ground and the "Open the real site" badge, then the real
+    // thing on hover. Drop a 16:10 screenshot in /assets/projects and set
+    // `image` (and `full`) to finish it.
+    desc: "A men's barbershop in Abadiyeh. The $10 haircut leads, the hot towel and face massage are free with it, and every screen books straight through to their Fresha calendar.",
   },
   {
     name: "Rasif Aley",
@@ -1853,7 +1858,7 @@ export const WEBSITE_PROGRAM = {
       pain: "Bookings live in your DMs, you lose half of them to no-shows, and there is no record of who came or when.",
       outcome:
         "People book themselves in, get reminded, and turn up. You open the calendar in the morning and it is already full.",
-      note: "The shape of what is already running for Saifi Barbershop.",
+      note: "The shape of what is already running for Salon Nizar."
     },
     {
       id: "trade",
