@@ -17,6 +17,12 @@
 /assets/*
   Cache-Control: public, max-age=2592000, stale-while-revalidate=86400
 
+# NOTE: the no-store rule for HTML is NOT here. A path rule like `/*.html`
+# never matches /websites, which is a URL without an extension served from
+# websites/index.html, so page routes kept their cacheable header while only
+# the bare `/` got covered. It is set in worker/index.js instead, keyed on the
+# response content-type, which cannot miss a route.
+
 # Security headers, applied to every response.
 #
 # The one that does the work is script-src 'self': no inline script, no eval,

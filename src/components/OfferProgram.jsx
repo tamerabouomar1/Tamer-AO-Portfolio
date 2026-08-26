@@ -32,7 +32,7 @@ export default function OfferProgram({ program, id, phasesTitle = "How the 90 da
       <motion.article className="card offer" variants={cardIn} initial="hidden" animate="show">
         <header>
           <p className="offer__kicker">{p.kicker}</p>
-          <h3 className="offer__name">{p.name}</h3>
+          <h2 className="offer__name">{p.name}</h2>
           <p className="offer__promise">{p.promise}</p>
           <p className="offer__proof">{p.proof}</p>
         </header>
@@ -42,7 +42,7 @@ export default function OfferProgram({ program, id, phasesTitle = "How the 90 da
           {p.tracks.map((t) => (
             <div className="offer-track" key={t.id}>
               <span className="offer-track__who">{t.who}</span>
-              <h4 className="offer-track__name">{t.name}</h4>
+              <h3 className="offer-track__name">{t.name}</h3>
               <p className="offer-track__pain">&ldquo;{t.pain}&rdquo;</p>
               <p className="offer-track__outcome">{t.outcome}</p>
               <p className="offer-track__note">{t.note}</p>
@@ -52,14 +52,14 @@ export default function OfferProgram({ program, id, phasesTitle = "How the 90 da
 
         {/* The route to the outcome, so 90 days reads as a plan not a guess. */}
         <div>
-          <h4 className="section-title" style={{ fontSize: "clamp(18px,1.7vw,24px)" }}>
+          <h3 className="section-title" style={{ fontSize: "clamp(18px,1.7vw,24px)" }}>
             {phasesTitle}
-          </h4>
+          </h3>
           <div className="offer__phases">
             {p.phases.map((ph) => (
               <div className="offer-phase" key={ph.weeks}>
                 <span className="offer-phase__weeks">{ph.weeks}</span>
-                <h5 className="offer-phase__title">{ph.title}</h5>
+                <h4 className="offer-phase__title">{ph.title}</h4>
                 <p className="offer-phase__body">{ph.body}</p>
               </div>
             ))}
@@ -69,9 +69,9 @@ export default function OfferProgram({ program, id, phasesTitle = "How the 90 da
         <div className="offer__stack-wrap">
           {/* Everything included, priced at what it costs bought separately. */}
           <div>
-            <h4 className="section-title" style={{ fontSize: "clamp(18px,1.7vw,24px)" }}>
+            <h3 className="section-title" style={{ fontSize: "clamp(18px,1.7vw,24px)" }}>
               Everything you get
-            </h4>
+            </h3>
             <div className="offer-stack">
               {p.stack.map((s) => (
                 <div className="offer-stack__row" key={s.item}>
@@ -108,7 +108,7 @@ export default function OfferProgram({ program, id, phasesTitle = "How the 90 da
             </div>
 
             <div className="offer-guarantee">
-              <h4 className="offer-guarantee__title">{p.guarantee.title}</h4>
+              <h3 className="offer-guarantee__title">{p.guarantee.title}</h3>
               <p className="offer-guarantee__body">{p.guarantee.body}</p>
             </div>
 

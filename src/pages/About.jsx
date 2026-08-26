@@ -46,7 +46,7 @@ export default function About() {
         </motion.div>
 
         <motion.aside className="card cta" variants={cardIn} initial="hidden" animate="show" style={{ minHeight: 0 }}>
-          <h3 className="card-title">Get In Touch</h3>
+          <h2 className="card-title">Get In Touch</h2>
           <div className="contact-list">
             <a href={CONTACT.phoneHref}><span className="dot" />{CONTACT.phone}</a>
             <a href={`mailto:${CONTACT.email}`}><span className="dot" />{CONTACT.email}</a>

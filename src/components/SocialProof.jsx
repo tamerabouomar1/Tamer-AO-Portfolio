@@ -13,7 +13,7 @@ export function TrustedBy({ title = "Notable clients" }) {
   if (!CLIENTS.length) return null;
   return (
     <section className="proj-section trusted">
-      <h3 className="trusted__title">{title}</h3>
+      <h2 className="trusted__title">{title}</h2>
       <motion.ul
         className="trusted__row"
         variants={container}
@@ -39,7 +39,7 @@ export function Testimonials({ title = "What clients say" }) {
   if (!TESTIMONIALS.length) return null;
   return (
     <section className="proj-section">
-      <h3 className="proj-section__title">{title}</h3>
+      <h2 className="proj-section__title">{title}</h2>
       <motion.div
         className="quote-grid"
         variants={container}

@@ -45,7 +45,7 @@ export default function PriceCard({
       </span>
 
       <div className="price-card__head">
-        <h4 className="price-card__name">{name}</h4>
+        <h3 className="price-card__name">{name}</h3>
         {tagline && <p className="price-card__tagline">{tagline}</p>}
       </div>
 

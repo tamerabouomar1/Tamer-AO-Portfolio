@@ -27,7 +27,7 @@ function OfferCard({ offer, onClaim, compact }) {
         <span className="freecard__kicker">{offer.kicker}</span>
         <span className="freecard__free">Free</span>
       </div>
-      <h4 className="freecard__name">{offer.name}</h4>
+      <h3 className="freecard__name">{offer.name}</h3>
       <p className="card-body freecard__blurb">{offer.blurb}</p>
       <ul className="freecard__meta">
         <li>{offer.turnaround}</li>
@@ -247,9 +247,9 @@ export default function FreeOffers({
     <section className="proj-section freeblock">
       <div className="storehead">
         {flag && <span className="storehead__flag">{flag}</span>}
-        <h3 className="storehead__title">
+        <h2 className="storehead__title">
           {title} {accent && <span className="storehead__accent">{accent}</span>}
-        </h3>
+        </h2>
         <p className="storehead__lede">{lede}</p>
       </div>
 

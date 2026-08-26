@@ -80,7 +80,7 @@ export default function Media() {
       </header>
 
       <section className="proj-section" style={{ marginTop: 0 }}>
-        <h3 className="section-title">Logo Motion</h3>
+        <h2 className="section-title">Logo Motion</h2>
         <motion.div className="motion-grid" variants={container} initial="hidden" animate="show">
           {LOGOMOTIONS.map((m) => (
             <motion.article className="card motion-card" key={m.src} variants={cardIn}>
@@ -100,13 +100,13 @@ export default function Media() {
       </section>
 
       <section className="proj-section">
-        <h3 className="section-title">Video Edits</h3>
+        <h2 className="section-title">Video Edits</h2>
         <motion.div className="video-grid" variants={container} initial="hidden" animate="show">
           {VIDEO_EDITS.map((v) => (
             <motion.article className="card video-card" key={v.src} variants={cardIn}>
               <video src={v.src} controls preload="metadata" playsInline />
               <div className="web-card__body">
-                <h4 className="web-card__title">{v.title}</h4>
+                <h3 className="web-card__title">{v.title}</h3>
                 <p className="card-body">{v.desc}</p>
               </div>
             </motion.article>
@@ -115,7 +115,7 @@ export default function Media() {
       </section>
 
       <section className="proj-section">
-        <h3 className="section-title">Instagram Posts</h3>
+        <h2 className="section-title">Instagram Posts</h2>
         <p className="card-body" style={{ maxWidth: "70ch", marginBottom: 14 }}>
           Six posts, <strong style={{ color: "#fff" }}>618,000 views and 40,000 likes</strong>. The
           newest did <strong style={{ color: "#fff" }}>23,400 views in its first two days</strong>.
@@ -129,7 +129,7 @@ export default function Media() {
               </a>
               <div className="reel-card__body">
                 <div className="reel-card__head">
-                  <h4 className="web-card__title">{r.title}</h4>
+                  <h3 className="web-card__title">{r.title}</h3>
                   {freshness(r.posted) && <span className="reel-fresh">{freshness(r.posted)}</span>}
                 </div>
                 <p className="card-body">{r.caption}</p>
@@ -169,7 +169,7 @@ export default function Media() {
       </section>
 
       <section className="proj-section">
-        <h3 className="section-title">Social Media</h3>
+        <h2 className="section-title">Social Media</h2>
         <p className="card-body" style={{ maxWidth: "70ch", marginBottom: 14 }}>{SOCIAL_POSTS.desc}</p>
         <motion.div className="post-grid" variants={container} initial="hidden" animate="show">
           {SOCIAL_POSTS.images.map((src, i) => (
@@ -188,7 +188,7 @@ export default function Media() {
 
       {INSTAGRAM_POSTS.length > 0 && (
         <section className="proj-section">
-          <h3 className="section-title">Reels</h3>
+          <h2 className="section-title">Reels</h2>
           <motion.div
             className="ig-grid"
             variants={container}
@@ -205,7 +205,7 @@ export default function Media() {
       )}
 
       <section className="proj-section">
-        <h3 className="section-title">On Instagram</h3>
+        <h2 className="section-title">On Instagram</h2>
         <motion.div
           className="card cta"
           variants={cardIn}

@@ -89,7 +89,7 @@ export default function Projects() {
 
       {PROJECT_GROUPS.map((group) => (
         <section className="proj-section" key={group.title}>
-          <h3 className="proj-section__title">{group.title}</h3>
+          <h2 className="proj-section__title">{group.title}</h2>
           <motion.div className="proj-grid" variants={container} initial="hidden" animate="show">
             {group.items.map((item) => (
               <motion.article

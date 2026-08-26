@@ -5,7 +5,7 @@ import { AnimatePresence } from "framer-motion";
 import VideoBackground from "./components/VideoBackground";
 import Sidebar from "./components/Sidebar";
 import MobileTabBar from "./components/MobileTabBar";
-import { preloadAllImages } from "./lib/preloadImages";
+import { preloadRouteImages } from "./lib/preloadImages";
 import usePageMeta, { PAGE_META } from "./lib/usePageMeta";
 import { SERVICE_PAGES } from "./siteData";
 
@@ -47,12 +47,12 @@ export default function App() {
     isPreview ? null : location.pathname
   );
 
-  // Warm every project image into cache once the page is idle, so popups
-  // and page switches open instantly. Skipped inside a preview — that route
-  // has its own images to fetch and shouldn't compete with them.
+  // Warm only the images THIS route shows, once it is idle. Re-runs on
+  // navigation, and each route is warmed at most once. Skipped inside a
+  // preview — that route has its own images and shouldn't compete with them.
   useEffect(() => {
-    if (!isPreview) preloadAllImages();
-  }, [isPreview]);
+    if (!isPreview) preloadRouteImages(location.pathname);
+  }, [isPreview, location.pathname]);
 
   if (isPreview) {
     return (

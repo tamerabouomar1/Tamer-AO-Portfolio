@@ -515,8 +515,8 @@ export const VIDEO_SRC =
 
 // helper: ordered carousel array of N optimized images for a project slug
 const imgs = (slug, n) =>
-  Array.from({ length: n }, (_, i) => `/assets/projects/${slug}-${i + 1}.jpg`);
-const pick = (...names) => names.map((n) => `/assets/projects/${n}.jpg`);
+  Array.from({ length: n }, (_, i) => `/assets/projects/${slug}-${i + 1}.webp`);
+const pick = (...names) => names.map((n) => `/assets/projects/${n}.webp`);
 
 // Projects — each distinct DESIGN is its own card; clicking opens a popup carousel.
 export const PROJECT_GROUPS = [
@@ -927,56 +927,56 @@ export const WEBSITES = [
     name: "FabricAID Uniforms",
     demo: "/demo/fabricaid/index.html",
     tag: "Website design",
-    image: "/assets/projects/web-fabricaid.jpg",
-    full: "/assets/projects/web-fabricaid.jpg",
+    image: "/assets/projects/web-fabricaid.webp",
+    full: "/assets/projects/web-fabricaid.webp",
     desc: "A seven-page site for FabricAID's uniform arm: workwear made in their own facility, with the social impact woven through rather than bolted on. Browse the range, the facility and the partner logos.",
   },
   {
     name: "Kitchen Garage",
     demo: "/demo/kitchen-garage/index.html",
     tag: "Website design",
-    image: "/assets/projects/web-kg.jpg",
-    full: "/assets/projects/web-kg-full.jpg",
+    image: "/assets/projects/web-kg.webp",
+    full: "/assets/projects/web-kg-full.webp",
     desc: "A full ordering site for Kitchen Garage in Aley: smash burgers, wings and loaded fries, with a menu, cart, accounts and every payment method.",
   },
   {
     name: "Snack Faysal",
     demo: "/demo/snack-faysal/index.html",
     tag: "Website design",
-    image: "/assets/projects/web-snack.jpg",
-    full: "/assets/projects/web-snack-full.jpg",
+    image: "/assets/projects/web-snack.webp",
+    full: "/assets/projects/web-snack-full.webp",
     desc: "A Beirut manakish and fatayer institution. The site is warm and appetite-led, built around the menu and the brand's heritage.",
   },
   {
     name: "Saifi Barbershop",
     demo: "/demo/saifi-barbershop/index.html",
     tag: "Website design",
-    image: "/assets/projects/web-saifi.jpg",
-    full: "/assets/projects/web-saifi-full.jpg",
+    image: "/assets/projects/web-saifi.webp",
+    full: "/assets/projects/web-saifi-full.webp",
     desc: "A premium 'precision cuts and premium style' identity in gold and black, with booking kept front and center.",
   },
   {
     name: "Rasif Aley",
     demo: "/demo/rasif-aley/index.html",
     tag: "Website design",
-    image: "/assets/projects/web-rasif.jpg",
-    full: "/assets/projects/web-rasif.jpg",
+    image: "/assets/projects/web-rasif.webp",
+    full: "/assets/projects/web-rasif.webp",
     desc: "A coffee shop in Aley, built on their real menu, their real photographs and their real reviews. Warm and unhurried, the way the place is.",
   },
   {
     name: "ACC",
     demo: "/demo/acc/index.html",
     tag: "Website design",
-    image: "/assets/projects/web-acc.jpg",
-    full: "/assets/projects/web-acc.jpg",
+    image: "/assets/projects/web-acc.webp",
+    full: "/assets/projects/web-acc.webp",
     desc: "Arabian Construction Company, building since 1967. Architectural graphite and red, with the history carrying the credibility rather than a claim about it.",
   },
   {
     name: "Sinar",
     demo: "/demo/sinar/index.html",
     tag: "Website design",
-    image: "/assets/projects/web-sinar.jpg",
-    full: "/assets/projects/web-sinar-full.jpg",
+    image: "/assets/projects/web-sinar.webp",
+    full: "/assets/projects/web-sinar-full.webp",
     desc: "A construction and interior fit-out company. The site is clean and architectural, positioning Sinar as a full solution partner.",
   },
 ];

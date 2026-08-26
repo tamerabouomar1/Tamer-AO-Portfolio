@@ -32,11 +32,11 @@ export default function Free() {
         initial="hidden"
         animate="show"
       >
-        <h3 className="freehero__title">
+        <h2 className="freehero__title">
           I would rather you had the work
           <br />
           <span className="storehead__accent">than a sales pitch about it.</span>
-        </h3>
+        </h2>
         <p className="card-body freehero__body">
           A finished website, a teardown of your brand, your first reel cut, or an hour of
           coaching. Take whichever one is useful. No card, no trial that quietly starts
@@ -78,7 +78,7 @@ export default function Free() {
           the thing they actually came to say, so the page ends the way every
           other page does: a name, a way to reach them, and a message. */}
       <section className="proj-section">
-        <h3 className="proj-section__title">Send a Message</h3>
+        <h2 className="proj-section__title">Send a Message</h2>
         <motion.div className="card work-message" variants={cardIn} initial="hidden" animate="show">
           <p className="card-body">
             Took something, want the paid version, or just have a question? Write it here

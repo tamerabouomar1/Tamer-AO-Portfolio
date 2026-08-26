@@ -38,7 +38,7 @@ export default function WorkWithMe() {
       >
         <div className="work-booking__grid">
           <div className="work-booking__head">
-            <h3 className="card-title">Book a Free 30-Min Call</h3>
+            <h2 className="card-title">Book a Free 30-Min Call</h2>
             <p className="card-body">
               Content that sells and design that stands out. Pick a time and we&apos;ll
               plan it together. No pitch, no obligation.
@@ -87,7 +87,7 @@ export default function WorkWithMe() {
 
       {/* Social media */}
       <section className="proj-section">
-        <h3 className="proj-section__title">Social Media</h3>
+        <h2 className="proj-section__title">Social Media</h2>
         <p className="page-lead" style={{ marginTop: "-4px" }}>
           Reels are what actually reach people. Mine have done 855K+ views, with six past 20,000
           and a best post at 219,000. Every plan is built reels-first to get you seen.
@@ -143,7 +143,7 @@ export default function WorkWithMe() {
           animate="show"
           style={{ marginTop: "var(--gap)" }}
         >
-          <h4 className="offer-guarantee__title">{SOCIAL_GUARANTEE.title}</h4>
+          <h3 className="offer-guarantee__title">{SOCIAL_GUARANTEE.title}</h3>
           <p className="offer-guarantee__body">{SOCIAL_GUARANTEE.body}</p>
         </motion.div>
 
@@ -155,7 +155,7 @@ export default function WorkWithMe() {
 
       {/* Design & identities, Clothing */}
       <section className="proj-section">
-        <h3 className="proj-section__title">One-off Work</h3>
+        <h2 className="proj-section__title">One-off Work</h2>
         <motion.div
           className="cat-grid"
           variants={container}
@@ -164,7 +164,7 @@ export default function WorkWithMe() {
         >
           {SERVICE_CATEGORIES.map((c) => (
             <motion.article className="card work-cat" key={c.name} variants={cardIn}>
-              <h4 className="work-cat__name">{c.name}</h4>
+              <h3 className="work-cat__name">{c.name}</h3>
               <p className="work-cat__desc">{c.desc}</p>
               <div className="chip-row">
                 {c.chips.map((chip) => (
@@ -195,7 +195,7 @@ export default function WorkWithMe() {
 
       {/* Message form */}
       <section className="proj-section">
-        <h3 className="proj-section__title">Send a Message</h3>
+        <h2 className="proj-section__title">Send a Message</h2>
         <motion.div
           className="card work-message"
           variants={cardIn}

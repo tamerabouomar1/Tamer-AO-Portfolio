@@ -35,9 +35,9 @@ export default function Home() {
             tag when it sits on its own line, so a <br> hidden by CSS on mobile
             left "teardown,your" run together. The line breaks are balanced by
             the browser instead. */}
-        <h3 className="freehero__title">
+        <h2 className="freehero__title">
           Take a finished website, a brand teardown, your first reel, or an hour of coaching.
-        </h3>
+        </h2>
         <p className="freehero__body">
           All four cost nothing. Decide about the paid work afterwards, once you have seen
           what mine looks like.
@@ -116,18 +116,18 @@ export default function Home() {
 
           <MotionLink className="card featured" to="/projects" variants={cardIn} aria-label="View all projects">
             <div className="featured-head">
-              <h3 className="card-title">Featured Projects</h3>
+              <h2 className="card-title">Featured Projects</h2>
               <span className="link featured-cta">View all<span className="plus">+</span></span>
             </div>
             <div className="featured-img">
-              <img src="/assets/featured.jpg" alt="Featured project: Charbel Farah portfolio cover" />
+              <img src="/assets/featured.webp" alt="Featured project: Charbel Farah portfolio cover" />
             </div>
           </MotionLink>
         </div>
 
         <div className="row row-bottom">
           <motion.article className="card cta" variants={cardIn}>
-            <h3 className="card-title">Your Ultimate Designer</h3>
+            <h2 className="card-title">Your Ultimate Designer</h2>
             <p className="card-body">
               I'm Tamer Abou Omar, a graphic designer based in Beirut, Lebanon. I build brand
               identities, logos, logo motion, social-media design and apparel, whether static or
@@ -139,7 +139,7 @@ export default function Home() {
               visitor the coaching was a hobby before they had read a word of
               it. It is a $997 program with a guarantee on it. */}
           <motion.article className="card cta" variants={cardIn}>
-            <h3 className="card-title">The 90-Day Self-Defense Program</h3>
+            <h2 className="card-title">The 90-Day Self-Defense Program</h2>
             <p className="card-body">
               Three tracks — women, teens and adults — and one finish line: in 90 days you can
               break a grip, create distance and get yourself out. Pass the day-90 pressure test

@@ -53,7 +53,7 @@ export default function Fitness() {
           course diary: a client is buying the expertise, not my transcript. */}
       <section className="proj-section" style={{ marginTop: 0 }}>
         <motion.div className="card cta" variants={cardIn} initial="hidden" animate="show" style={{ minHeight: 0 }}>
-          <h3 className="card-title">University-Trained in Nutrition &amp; Exercise Science</h3>
+          <h2 className="card-title">University-Trained in Nutrition &amp; Exercise Science</h2>
           <p className="card-body">
             Most trainers guess at nutrition. I studied it at the American University of Beirut —
             Nutrition (NFSC 220) and Physical Activity, Nutrition and Health (NFSC 223). So your
@@ -64,7 +64,7 @@ export default function Fitness() {
 
       {/* Workshops Given — the two programs the tracks grew out of. */}
       <section className="proj-section" style={{ marginTop: 0 }}>
-        <h3 className="section-title">Where the tracks came from</h3>
+        <h2 className="section-title">Where the tracks came from</h2>
         <p className="page-lead" style={{ marginTop: "-4px" }}>
           The women&apos;s and teens&apos; tracks aren&apos;t new ideas. They are the two programs
           I already run at Combat Sports Academy, rebuilt as something you can finish.
@@ -72,7 +72,7 @@ export default function Fitness() {
         <motion.div className="fit-photos" variants={container} initial="hidden" animate="show">
           <motion.div className="card fit-photo" variants={cardIn}>
             <img
-              src="/assets/projects/workshop-antibullying.jpg"
+              src="/assets/projects/workshop-antibullying.webp"
               alt="Combat Sports Academy Kids & Teenagers Anti-Bullying Program"
               loading="lazy"
               style={{ objectFit: "contain" }}
@@ -80,7 +80,7 @@ export default function Fitness() {
           </motion.div>
           <motion.div className="card fit-photo" variants={cardIn}>
             <img
-              src="/assets/projects/workshop-women.jpg"
+              src="/assets/projects/workshop-women.webp"
               alt="Combat Sports Academy Women Empowerment Program"
               loading="lazy"
               style={{ objectFit: "contain" }}
@@ -91,7 +91,7 @@ export default function Fitness() {
 
       {/* schedule */}
       <section className="proj-section">
-        <h3 className="section-title">Classes Schedule</h3>
+        <h2 className="section-title">Classes Schedule</h2>
         <motion.div className="card" variants={cardIn} initial="hidden" animate="show" style={{ padding: "clamp(16px,1.8vw,28px)" }}>
           <div className="schedule-grid">
             {SCHEDULE.map((d) => (
@@ -110,7 +110,7 @@ export default function Fitness() {
 
       {/* Ongoing training, for people not doing the 90 days. */}
       <section className="proj-section">
-        <h3 className="section-title">Not ready for the 90 days?</h3>
+        <h2 className="section-title">Not ready for the 90 days?</h2>
         <p className="page-lead" style={{ marginTop: "-4px" }}>
           Train with me week to week instead. Same coaching, no finish line.
         </p>
@@ -151,7 +151,7 @@ export default function Fitness() {
       {/* classes given */}
       <section className="proj-section">
         <motion.div className="card cta" variants={cardIn} initial="hidden" animate="show" style={{ minHeight: 0 }}>
-          <h3 className="card-title">Classes Given</h3>
+          <h2 className="card-title">Classes Given</h2>
           <p className="card-body">
             As a martial arts instructor and personal trainer, I have given classes at the International
             College (IC), at Academies (CSA), and at Private Clubs (Yarz leisure club).

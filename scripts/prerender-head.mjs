@@ -48,9 +48,40 @@ const block = metaSrc.slice(metaSrc.indexOf("export const PAGE_META = {") + "exp
 const PAGE_META = new Function("return " + block.slice(0, block.indexOf("\n};") + 2))();
 
 const dataSrc = fs.readFileSync(path.join(ROOT, "src/siteData.js"), "utf8");
-const templates = [...dataSrc.matchAll(
-  /slug:\s*"([^"]+)"[\s\S]{0,400}?name:\s*"([^"]+)"[\s\S]{0,200}?kicker:\s*"([^"]+)"[\s\S]{0,400}?desc:\s*"([^"]+)"/g
-)].map(([, slug, name, kicker, desc]) => ({ slug, name, kicker, desc }));
+/* Also pulls tag, highlights, bestFor and stack, because the 42 template
+   pages cannot server-render (React.lazy) and were shipping ~54 characters of
+   text each. Forty-two near-empty URLs in a sitemap is a thin-content
+   footprint, and thin pages drag on the pages that are not thin. Everything
+   here is already written and already true; it just was not in the HTML. */
+/* One entry per template, parsed field by field rather than with a single
+   ordered pattern.
+ *
+ * The previous version was one regex demanding slug, name, kicker, tag, desc,
+ * highlights, bestFor and stack in that exact order within a character budget.
+ * It matched 36 of the 42 and silently dropped the rest — no error, just six
+ * pages with no title, no description and no content. Splitting on the object
+ * boundary and reading each field on its own means a template with an unusual
+ * field order, or one missing an optional field, still gets everything it has.
+ */
+const templates = dataSrc
+  .split(/\n\s{2}\{\n/)                     // each object literal in the arrays
+  .map((chunk) => {
+    const one = (re) => (chunk.match(re) || [, ""])[1];
+    const slug = one(/\bslug:\s*"([^"]+)"/);
+    if (!slug) return null;
+    return {
+      slug,
+      name: one(/\bname:\s*"([^"]+)"/) || slug,
+      kicker: one(/\bkicker:\s*"([^"]+)"/),
+      tag: one(/\btag:\s*"([^"]+)"/),
+      desc: one(/\bdesc:\s*"([^"]+)"/),
+      bestFor: one(/\bbestFor:\s*"([^"]+)"/),
+      stack: one(/\bstack:\s*"([^"]+)"/),
+      highlights: [...(one(/\bhighlights:\s*\[([^\]]*)\]/) || "").matchAll(/"([^"]+)"/g)]
+        .map((m) => m[1]),
+    };
+  })
+  .filter((t) => t && t.desc);   // service pages have a slug but no desc
 
 const routes = [];
 for (const [p, m] of Object.entries(PAGE_META)) {
@@ -71,6 +102,7 @@ for (const t of templates) {
     path: `/templates/${t.slug}`,
     title: `${t.name} — ${t.kicker} Website Template | ${SUFFIX}`,
     description: `${t.desc} A free, production-ready ${t.kicker.toLowerCase()} template by Tamer Abou Omar — preview it live, then take the source.`,
+    template: t,
   });
 }
 
@@ -118,9 +150,33 @@ function render(route) {
     }
   }
 
-  // Fallback, and what the 42 template previews always get: they load through
-  // React.lazy, which renderToString cannot resolve, so there is no markup to
-  // put here. A short block beats an empty <div id="root">.
+  /* Template previews. They load through React.lazy, which renderToString
+     cannot resolve, so there is no component markup to put here — but the
+     template's own data is right there in siteData and describes it perfectly
+     well. Written into #root rather than <noscript> because React replaces
+     the container wholesale on mount, so a visitor never sees it and a
+     crawler always does. */
+  if (route.template) {
+    const t = route.template;
+    const block =
+      `<article data-prerender>` +
+      `<h1>${esc(t.name)} — ${esc(t.kicker)} Website Template</h1>` +
+      `<p>${esc(t.desc)}</p>` +
+      `<p>A free, production-ready ${esc(t.tag.toLowerCase())} template. ` +
+      `Open the live preview, and if it fits, take the whole React source: it is yours ` +
+      `for personal and client work at no cost.</p>` +
+      `<h2>What it includes</h2><ul>${t.highlights.map((x) => `<li>${esc(x)}</li>`).join("")}</ul>` +
+      `<p><strong>Best for:</strong> ${esc(t.bestFor)}</p>` +
+      `<p><strong>Built with:</strong> ${esc(t.stack)}</p>` +
+      `<p>Part of a gallery of finished website templates by Tamer Abou Omar, a graphic ` +
+      `and web designer in Beirut, Lebanon. ` +
+      `<a href="${SITE}/websites">See the whole gallery</a> · ` +
+      `<a href="${SITE}/website-design-lebanon">Website design in Lebanon</a></p>` +
+      `</article>`;
+    return h.replace('<div id="root"></div>', `<div id="root">${block}</div>`);
+  }
+
+  // Last resort, if a route is neither renderable nor a template.
   const nos = `<noscript data-prerender><h1>${esc(route.title.split(" | ")[0])}</h1><p>${esc(route.description)}</p>` +
     `<p>Tamer Abou Omar — graphic designer and brand identity, Beirut, Lebanon. ` +
     `<a href="${SITE}/">Home</a> · <a href="${SITE}/projects">Projects</a> · ` +

@@ -66,7 +66,7 @@ export default function Sidebar() {
     <aside className="sidebar">
       <div className="sidebar__profile">
         <div className="avatar">
-          <img src="/assets/avatar-square.jpg?v=2" alt="Portrait of Tamer AO" />
+          <img src="/assets/avatar-square.webp?v=2" alt="Portrait of Tamer AO" />
         </div>
         <div className="sidebar__id">
           {/* Was an <h1>. It rendered on EVERY page, ahead of the page's own

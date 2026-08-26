@@ -92,7 +92,7 @@ function TemplateCard({ t, onBuy }) {
         <div className="tpl-card__row">
           <div>
             <span className="web-card__tag">{t.tag}</span>
-            <h4 className="web-card__title">{t.name}</h4>
+            <h3 className="web-card__title">{t.name}</h3>
             <span className="tpl-card__kicker">{t.kicker}</span>
           </div>
           <span className="tpl-card__amount">Free</span>
@@ -175,7 +175,7 @@ export default function Websites() {
       </header>
 
       <section className="proj-section" style={{ marginTop: 0 }}>
-        <h3 className="proj-section__title">Client Work</h3>
+        <h2 className="proj-section__title">Client Work</h2>
         <motion.div className="web-grid" variants={container} initial="hidden" animate="show">
           {WEBSITES.map((w) => (
             <motion.article
@@ -199,7 +199,7 @@ export default function Websites() {
               </div>
               <div className="web-card__body">
                 <span className="web-card__tag">{w.tag}</span>
-                <h4 className="web-card__title">{w.name}</h4>
+                <h3 className="web-card__title">{w.name}</h3>
                 <p className="card-body">{w.desc}</p>
               </div>
             </motion.article>
@@ -223,11 +223,11 @@ export default function Websites() {
       <section className="proj-section" id="store">
         <div className="storehead">
           <span className="storehead__flag">Free source · Something new every week</span>
-          <h3 className="storehead__title">
+          <h2 className="storehead__title">
             A gallery of finished websites.
             <br />
             <span className="storehead__accent">Take one, free.</span>
-          </h3>
+          </h2>
           <p className="storehead__lede">
             Every card is the real site running, not a screenshot. Open it, and if it fits,
             download it.
@@ -247,7 +247,7 @@ export default function Websites() {
 
       <section className="proj-section">
         <div className="storehead storehead--sig">
-          <h3 className="proj-section__title">Take One, or Take the Lot</h3>
+          <h2 className="proj-section__title">Take One, or Take the Lot</h2>
           <p className="storehead__lede">
             One template costs nothing. The membership is the whole library, the fonts
             with it, and whatever ships next week.
@@ -329,7 +329,7 @@ export default function Websites() {
           kept alive, is a real buyer — but putting these in a big table above
           the offer is what turned this page into a menu in the first place. */}
       <section className="proj-section">
-        <h3 className="proj-section__title">If That Isn&apos;t What You Need</h3>
+        <h2 className="proj-section__title">If That Isn&apos;t What You Need</h2>
         <p className="page-lead" style={{ marginTop: "-4px" }}>
           Not every business needs the whole thing. These are the smaller ways in, and
           each one carries its own guarantee.
@@ -370,7 +370,7 @@ export default function Websites() {
           & Hosting Agreement — if a price or an edit allowance moves here, it
           moves in the contract too. */}
       <section className="proj-section">
-        <h3 className="proj-section__title">Already Have a Site?</h3>
+        <h2 className="proj-section__title">Already Have a Site?</h2>
         <p className="page-lead" style={{ marginTop: "-4px" }}>
           Then you don&apos;t need me to build one. These keep an existing site up, backed
           up and current, and nothing more than that.
@@ -403,7 +403,7 @@ export default function Websites() {
           thing they actually came to say, so the page ends with a message
           instead: name, a way to reach them, and whatever they want. */}
       <section className="proj-section">
-        <h3 className="proj-section__title">Send a Message</h3>
+        <h2 className="proj-section__title">Send a Message</h2>
         <motion.div className="card work-message" variants={cardIn} initial="hidden" animate="show">
           <p className="card-body">
             Took a template, want one built, or just have a question? Write it here and

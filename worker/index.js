@@ -532,8 +532,87 @@ export default {
     // Anything else under /api that we don't serve.
     if (pathname.startsWith("/api/")) return json({ ok: false, error: "not found" }, 404);
 
-    // Should be unreachable given run_worker_first, but if the routing config
-    // ever changes, fall through to the static site rather than 500.
-    return env.ASSETS.fetch(request);
+    /* A build asset that no longer exists must 404, not fall through to the
+       SPA.
+       
+       `not_found_handling: "single-page-application"` answers ANY unmatched
+       path with index.html and a 200 — including /assets/index-OLDHASH.css.
+       The browser then gets `content-type: text/html` where it asked for CSS
+       or JavaScript, fails to parse it, and reports nothing: the stylesheet
+       silently does not apply and the module silently does not run.
+       
+       That is what an in-app browser (Instagram, Facebook, TikTok) hits when
+       it holds a cached copy of the HTML from an earlier deploy and asks for
+       filenames this deploy no longer has. The page paints the prerendered
+       markup with no CSS and no React: white background, default-blue links,
+       SVG icons at natural size.
+       
+       A real 404 does not repair that visit on its own, but it stops the
+       browser being lied to, lets it report a failed subresource, and makes
+       the cause visible in devtools instead of invisible. The cache fix that
+       prevents it in the first place is on the HTML, in public/_headers. */
+    /* Applies to ANY request that names a real file extension, not just
+       /assets — /demo/styles.css was hitting the same fallback and being
+       answered with a page. A path that ends in .css, .js, .webp and so on is
+       never a SPA route, so HTML is always the wrong answer for it. */
+    if (/\.(css|js|mjs|json|webp|jpg|jpeg|png|svg|gif|avif|woff2?|ttf|otf|mp4|webm|m3u8|zip|ico|map)$/i.test(pathname)) {
+      const res = await env.ASSETS.fetch(request);
+      const type = res.headers.get("content-type") || "";
+      if (type.includes("text/html")) {
+        return new Response("Not found", {
+          status: 404,
+          headers: { "content-type": "text/plain; charset=utf-8", "cache-control": "no-store" },
+        });
+      }
+      return res;
+    }
+
+    /* The runnable client-site copies under /demo/ must be served at the URL
+       that was asked for, redirects resolved server-side.
+
+       `html_handling: "drop-trailing-slash"` — added so /websites serves
+       directly instead of 307-ing to /websites/ — also strips the extension
+       from /demo/<slug>/index.html and 307s to /demo/<slug>. The browser then
+       treats that as a FILE rather than a directory, so the page's relative
+       `styles.css` resolves to /demo/styles.css instead of
+       /demo/<slug>/styles.css. That path hits the SPA fallback, comes back as
+       text/html with a 200, and `nosniff` correctly refuses to parse it as
+       CSS. The preview renders with no stylesheet at all.
+
+       Following the redirect here instead keeps the document URL exactly as
+       the iframe requested it, which keeps every relative path inside these
+       self-contained copies resolving against their own folder. */
+    if (pathname.startsWith("/demo/")) {
+      let res = await env.ASSETS.fetch(request);
+      const loc = res.status >= 300 && res.status < 400 ? res.headers.get("location") : null;
+      if (loc) res = await env.ASSETS.fetch(new Request(new URL(loc, request.url), request));
+      return res;
+    }
+
+    /* Everything else: the static site.
+     *
+     * HTML is re-fetched every time. Each page references the build's hashed
+     * asset filenames, so a browser holding yesterday's HTML asks for
+     * filenames this deploy no longer has and renders with no CSS and no
+     * JavaScript. In-app browsers (Instagram, Facebook, TikTok) are the ones
+     * that do it: they cache hard and treat `max-age=0, must-revalidate` as
+     * advisory.
+     *
+     * Keyed on content-type rather than on the path. A `_headers` rule cannot
+     * express this: `/*.html` does not match /websites, which is an
+     * extensionless URL served from websites/index.html, so the page routes
+     * kept a cacheable header and only `/` was covered.
+     *
+     * no-store rather than no-cache, because no-cache still allows a stored
+     * copy to be reused after a revalidation the in-app browser may simply
+     * decline to perform. Costs ~6KB a visit; the hashed assets it points at
+     * stay cached for a month. */
+    const res = await env.ASSETS.fetch(request);
+    if ((res.headers.get("content-type") || "").includes("text/html")) {
+      const headers = new Headers(res.headers);
+      headers.set("cache-control", "no-store");
+      return new Response(res.body, { status: res.status, statusText: res.statusText, headers });
+    }
+    return res;
   },
 };
