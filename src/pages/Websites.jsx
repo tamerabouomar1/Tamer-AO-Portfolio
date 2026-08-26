@@ -6,7 +6,6 @@ import LiveThumb from "../components/LiveThumb";
 import { LoadBar, LoadingImage } from "../components/LoadBar";
 import { BuyModalHost } from "../components/BuyModal";
 import { MemberModalHost } from "../components/MemberModal";
-import OfferProgram from "../components/OfferProgram";
 import PriceCard from "../components/PriceCard";
 import MessageForm from "../components/MessageForm";
 import { prefetchTemplate } from "../templates/registry";
@@ -15,10 +14,10 @@ import {
   TEMPLATES,
   TEMPLATE_PACKAGES,
   GALLERY_PREVIEW_COUNT,
-  WEBSITE_PROGRAM,
   SERVICE_PACKAGES,
   WEBSITE_CARE_PLANS,
   WEBSITE_CARE_NOTES,
+  WEBSITE_CHANGE_RATES,
   WEBSITES,
   subscribeUrl,
 } from "../siteData";
@@ -207,17 +206,52 @@ export default function Websites() {
         </motion.div>
       </section>
 
-      {/* The offer, immediately after the proof and before anything with a
-          price table on it. This page used to open with client work and then
-          make a visitor scroll through a free gallery, a membership table, a
-          build table and a care table before reaching the thing worth selling.
-          Nine comparable prices is a menu, and a menu gets compared and
-          deferred. One offer gets decided on. */}
-      <OfferProgram
-        program={WEBSITE_PROGRAM}
-        id="booked-out"
-        phasesTitle="How the 90 days run"
-      />
+      {/* What it costs, straight after the proof. This was a full-page offer
+          block — the free build against $199 a month — which took up most of
+          the page before a visitor reached a number. These are the prices in
+          the FabricAID proposal: one setup fee, then a monthly plan. */}
+      <section className="proj-section" id="pricing">
+        <h2 className="section-title">What a Website Costs</h2>
+        <p className="page-lead" style={{ marginTop: "-4px" }}>
+          One setup fee to design, launch and get the site found on Google. Then a monthly
+          plan, picked by how often you expect to want changes. Every price is here, so you
+          can decide before you speak to me.
+        </p>
+        <motion.div className="price-grid" variants={container} initial="hidden" animate="show">
+          {SERVICE_PACKAGES.map((p) => (
+            <PriceCard
+              key={p.id}
+              name={p.name}
+              tagline={p.tagline}
+              amount={
+                p.from
+                  ? `$${p.from.toLocaleString("en-US")}+`
+                  : `$${p.flat.toLocaleString("en-US")}`
+              }
+              period={p.period}
+              badge={p.badge}
+              featured={p.featured}
+              features={p.features}
+              bonus={p.bonus}
+              guarantee={p.guarantee}
+              action={
+                <a
+                  className="btn-book"
+                  href={CONTACT.calendly}
+                  target="_blank"
+                  rel="noreferrer noopener"
+                >
+                  Talk it through
+                </a>
+              }
+            />
+          ))}
+        </motion.div>
+        <p className="price-note">
+          Prices in USD. Half on signature, half on launch — the second half is due when
+          the site is live, not on a date. Paid by OMT, Whish Money or bank transfer.
+        </p>
+      </section>
 
       {/* ── Ready-made sites ─────────────────────────────────── */}
       <section className="proj-section" id="store">
@@ -324,56 +358,15 @@ export default function Websites() {
           </Link>
         </p>
       </section>
-      {/* Deliberately below the offer and deliberately plain. Somebody who
-          only wants one page, or who already has a site and only wants it
-          kept alive, is a real buyer — but putting these in a big table above
-          the offer is what turned this page into a menu in the first place. */}
-      <section className="proj-section">
-        <h2 className="proj-section__title">If That Isn&apos;t What You Need</h2>
-        <p className="page-lead" style={{ marginTop: "-4px" }}>
-          Not every business needs the whole thing. These are the smaller ways in, and
-          each one carries its own guarantee.
-        </p>
-        <motion.div className="price-grid" variants={container} initial="hidden" animate="show">
-          {SERVICE_PACKAGES.map((p) => (
-            <PriceCard
-              key={p.id}
-              name={p.name}
-              tagline={p.tagline}
-              amount={
-                p.from
-                  ? `$${p.from.toLocaleString("en-US")}+`
-                  : `$${p.flat.toLocaleString("en-US")}`
-              }
-              period={p.period}
-              badge={p.badge}
-              featured={p.featured}
-              features={p.features}
-              bonus={p.bonus}
-              guarantee={p.guarantee}
-              action={
-                <a
-                  className="btn-book"
-                  href={CONTACT.calendly}
-                  target="_blank"
-                  rel="noreferrer noopener"
-                >
-                  Talk it through
-                </a>
-              }
-            />
-          ))}
-        </motion.div>
-      </section>
-
       {/* The monthly half of the same deal. Mirrors §5.1 of the Website Build
           & Hosting Agreement — if a price or an edit allowance moves here, it
           moves in the contract too. */}
       <section className="proj-section">
-        <h2 className="proj-section__title">Already Have a Site?</h2>
+        <h2 className="section-title">Monthly Care</h2>
         <p className="page-lead" style={{ marginTop: "-4px" }}>
-          Then you don&apos;t need me to build one. These keep an existing site up, backed
-          up and current, and nothing more than that.
+          Every plan keeps the site online, secure, backed up and monitored. What separates
+          them is how changes are handled and how fast I answer. Already have a site built
+          elsewhere? These work on that too.
         </p>
         <motion.div className="price-grid" variants={container} initial="hidden" animate="show">
           {WEBSITE_CARE_PLANS.map((p) => (
@@ -391,6 +384,28 @@ export default function Websites() {
             />
           ))}
         </motion.div>
+        {/* The pay-as-you-go rates, printed next to the plans on purpose: they
+            are what make the crossover checkable instead of a claim. Seven
+            small changes on Online costs $100 — the price of Managed, which
+            includes five of them and answers three working days sooner. */}
+        <motion.div className="card rate-card" variants={cardIn} initial="hidden" animate="show">
+          <h3 className="rate-card__title">On Online, every change is billed</h3>
+          <ul className="rate-card__rows">
+            {WEBSITE_CHANGE_RATES.map((r) => (
+              <li key={r.what}>
+                <span>{r.what}</span>
+                <strong>{r.price}</strong>
+              </li>
+            ))}
+          </ul>
+          <p className="rate-card__note">
+            Seven small text changes in a month on Online costs $30 plus $70 — exactly what
+            Managed costs, except Managed includes five of them, answers three working days
+            sooner and sends you a report. A single new page is $120, more than a whole
+            month of Managed.
+          </p>
+        </motion.div>
+
         <ul className="care-notes">
           {WEBSITE_CARE_NOTES.map((n) => (
             <li key={n}>{n}</li>

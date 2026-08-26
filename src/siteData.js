@@ -38,8 +38,9 @@ export const CONTACT = {
 export const SUBSCRIBE_LINKS = {
   member: "",
   "member-year": "",
-  care: "",
-  business: "",
+  online: "",
+  managed: "",
+  complete: "",
 };
 
 /** The hosted checkout URL for a plan id, or "" while it isn't live yet. */
@@ -1751,207 +1752,19 @@ export const TEMPLATE_PACKAGES = [
   },
 ];
 
-// ── The flagship website offer ────────────────────────────────
+// ── What a website costs ──────────────────────────────────────
+// The page used to lead with one flagship offer — a free build against $199 a
+// month on a twelve-month term — and it took up most of the page before a
+// visitor reached a single number they could act on. It is gone. What replaces
+// it is the pricing that has actually been quoted to a client and signed off:
+// the FabricAID Uniforms proposal of 21 August 2026. One setup fee to build,
+// launch and get the site found, then a monthly plan chosen by how often you
+// expect to want changes.
 //
-// Same structure as DEFENSE_PROGRAM above, and for the same reason: this page
-// used to be a menu. Nine priced cards in three tables, all of them nameable,
-// comparable and shoppable against any other freelancer in Beirut. A price
-// table invites a visitor to compare and defer, which is the opposite of what
-// the $100M Offers method is for.
-//
-// So the thing Tamer most wants to sell is no longer a column. It is one
-// offer, to one starving crowd, built on the same four levers:
-//
-//   Value = (Dream Outcome × Perceived Likelihood) ÷ (Time Delay × Effort)
-//
-// `promise` is the dream outcome as a capability, `proof` raises the
-// likelihood with sites that are actually running, `phases` collapses the time
-// delay into a dated plan, and the bonuses plus the guarantee take the effort
-// and the risk off the buyer.
-//
-// NAMING follows MAGIC: Goal ("Booked Out"), Interval (90 days), Container
-// ("Program"), Avatar per track.
-//
-// THE STRUCTURE. The build is free and the money is monthly. That is not a
-// discount — it is the "free installation" shape, and it works here because
-// the agreement ALREADY runs a 12-month first term (see WEBSITE_CARE_NOTES).
-// The build cost is recovered by about month five. `terms` states the early
-// exit condition out loud rather than hiding it in the contract, because a
-// buyer who discovers that later feels tricked and tells people so.
-//
-// TAMER, CONFIRM BEFORE THIS GOES LIVE:
-//   1. The free build. You are fronting ~$850 of work against a 12-month
-//      term. If a client leaves in month two you are out that work unless you
-//      actually enforce `terms`. Only ship this if you will enforce it.
-//   2. RATE_CARD below. Those are the numbers the stack is priced from. They
-//      have to be what you would genuinely charge for each thing on its own,
-//      because the total is only defensible if someone can ask you for the
-//      breakdown and get it.
-//   3. `intake.perMonth` — the site says you cap builds. Only true if you cap.
-//   4. The bonuses are promises. Four reels, the copy written, the logo
-//      animated, the Google profile fixed in week one. All four cost you
-//      hours in month one, on top of the build.
-
-/* What each line of the stack costs bought on its own. The stack total is only
-   worth printing if every line traces back to a price Tamer would actually
-   quote, so they live here in one place rather than as loose numbers. Two are
-   already published elsewhere on the site: the build fee is the Starter+
-   build, and REEL_RATE is the single-reel price on the services page. */
-const RATE_CARD = {
-  build: 850, // a designed multi-page site, one-off
-  hostingMonth: 39, // what Care costs on its own
-  seoPage: 120, // one page researched, written and optimised
-  gmbMonth: 50, // Google Business run and posted to
-  landingPage: 250, // a single-offer landing page
-  trackingSetup: 200, // call, form and WhatsApp tracking wired up
-  reportMonth: 40, // the monthly report
-  logoAnimation: 150, // already quoted at this on the services page
-  copywriting: 300, // a site's worth of copy from one interview
-  gmbFix: 150, // profile claimed, corrected and photographed
-};
-
-export const WEBSITE_PROGRAM = {
-  name: "Booked Out in 90 Days",
-  kicker: "One site, built and run for you · Three tracks, one outcome",
-  promise:
-    "In 90 days, people searching for what you sell find you, land on a site that is actually yours, and contact you directly instead of through an app that keeps a third of it.",
-  // Perceived likelihood: sites that are up and being used, not a claim.
-  proof:
-    "Already running for a burger shop in Aley, a manakish institution in Beirut, a barbershop, a coffee shop, a breathwork studio and a construction company that has been building since 1967. I build and run every one of them myself.",
-  price: 199,
-  period: "per month, 12-month term. The build costs you nothing.",
-  cta: "Claim a build slot",
-
-  // The route to the outcome, so 90 days reads as a plan and not a guess.
-  phases: [
-    {
-      weeks: "Days 1–7",
-      title: "Live",
-      body: "Your Google Business profile is claimed and corrected, and the site goes up on your own domain. Your name, your number and your hours are right everywhere someone might look.",
-    },
-    {
-      weeks: "Days 8–45",
-      title: "Found",
-      body: "Pages written around what people in your area actually type into Google, not what the industry calls it. Every call, form and WhatsApp message starts getting tracked back to where it came from.",
-    },
-    {
-      weeks: "Days 46–90",
-      title: "Enquiring",
-      body: "A landing page built for your strongest offer, reels pointing at it, and the first report: what came in, where from, and what we do next month.",
-    },
-  ],
-
-  tracks: [
-    {
-      id: "food",
-      name: "Own Your Orders",
-      who: "For restaurants, cafés and bakeries",
-      pain: "Every order comes through an app that keeps a third of it, and you don't even get the customer's number.",
-      outcome:
-        "People order from you directly, on your own site, and you keep the whole ticket and the customer with it.",
-      note: "The shape of what is already running for Kitchen Garage and Snack Faysal.",
-    },
-    {
-      id: "booking",
-      name: "Fill the Calendar",
-      who: "For salons, clinics and studios",
-      pain: "Bookings live in your DMs, you lose half of them to no-shows, and there is no record of who came or when.",
-      outcome:
-        "People book themselves in, get reminded, and turn up. You open the calendar in the morning and it is already full.",
-      note: "The shape of what is already running for Salon Nizar."
-    },
-    {
-      id: "trade",
-      name: "Get Found First",
-      who: "For trades, contractors and services",
-      pain: "All your work is word of mouth, and when someone finally searches for what you do, they find a competitor.",
-      outcome:
-        "You come up when someone in your area searches, with the work and the credibility already on the page before they call.",
-      note: "The shape of what is already running for ACC and Sinar.",
-    },
-  ],
-
-  // Trim and stack. Everything included over the first twelve months, priced
-  // at what it costs bought on its own, so the gap against $199 is visible.
-  stack: [
-    { item: "The site itself, designed around your brand, up to 6 pages", value: RATE_CARD.build },
-    {
-      item: "Hosting, domain, SSL, backups and uptime monitoring, all year",
-      value: RATE_CARD.hostingMonth * 12,
-    },
-    {
-      item: "A page written and optimised to rank, every month",
-      value: RATE_CARD.seoPage * 12,
-    },
-    {
-      item: "Your Google Business profile run and posted to, every week",
-      value: RATE_CARD.gmbMonth * 12,
-    },
-    {
-      item: "A landing page built for each season or offer, four a year",
-      value: RATE_CARD.landingPage * 4,
-    },
-    {
-      item: "Every call, form and WhatsApp message tracked to its source",
-      value: RATE_CARD.trackingSetup,
-    },
-    {
-      item: "A report every month: what came in, and what we do next",
-      value: RATE_CARD.reportMonth * 12,
-    },
-  ],
-
-  // Each bonus answers the objection that lands AFTER the decision, in the
-  // order people raise them: "how long until anything happens", "I haven't got
-  // the words", "my logo is a JPEG", "what do I post while I wait".
-  bonuses: [
-    {
-      name: "Your Google profile fixed in week one",
-      value: RATE_CARD.gmbFix,
-      body: "Claimed, corrected and photographed before the site is even live, so the map listing starts working while I am still building.",
-    },
-    {
-      name: "All your copy written for you",
-      value: RATE_CARD.copywriting,
-      body: "One 45-minute call and I write the whole site from it. You do not write a word, and you do not hold the project up trying to.",
-    },
-    {
-      name: "Your logo animated for the hero",
-      value: RATE_CARD.logoAnimation,
-      body: "The same logo motion I charge for on its own, on the first thing anyone sees.",
-    },
-    {
-      name: "Four reels in your first month",
-      value: REEL_RATE * 4,
-      body: "Cut from your footage, captions and hooks written, pointed at the new site. Something to post the week it goes live.",
-    },
-  ],
-
-  // Conditional guarantee, the same shape as SOCIAL_GUARANTEE: measurable
-  // against a baseline recorded on day one, and paid in Tamer's hours rather
-  // than in refunded cash, which is what makes it safe to offer and honest.
-  //
-  // TAMER: this only works if you write down their previous 90 days at
-  // kickoff. Do it on day one or the promise has no baseline.
-  guarantee: {
-    title: "Beat your own 90 days, or the next three are free",
-    body: "On day one we write down what came in over your previous 90 days: calls, messages, walk-ins. If the 90 days after launch have not beaten that number, you do not pay for months four, five or six, and I keep working straight through them.",
-  },
-
-  // Real constraint, not a countdown clock. He designs, writes and builds
-  // every one of these himself, which is a hard ceiling on how many can run.
-  intake: {
-    perMonth: 3,
-    label: "3 builds a month.",
-    cadence: "New builds start on the first Monday of the month.",
-    reason:
-      "Three, because I design it, write it and build it myself. A fourth means all four wait.",
-  },
-
-  // Said out loud rather than buried in the agreement.
-  terms:
-    "The build is free against the 12-month term the agreement already runs. Leave before month twelve and the $850 build fee falls due, which is the only thing the free build is holding.",
-};
+// KEEP THESE IN STEP with the proposal and with the Website Build & Hosting
+// Agreement (§5.1). If a build fee or an edit allowance moves here, it moves
+// in both of those the same day, or a client is reading two different prices
+// for the same thing.
 
 // ── Everything else ───────────────────────────────────────────
 // Deliberately demoted, and deliberately small. These used to be two full
@@ -1980,6 +1793,32 @@ export const SERVICE_PACKAGES = [
     guarantee: "Live within 7 days of getting your content, or you don't pay.",
   },
   {
+    /* The FabricAID number, and the one most businesses actually buy: a whole
+       site designed, launched and findable. Priced against what it is worth
+       rather than against the hours — the same scope is $4,000–$8,000 from a
+       Beirut agency and $12,000+ regionally. */
+    id: "build",
+    name: "The Whole Site, Live and Found",
+    tagline: "Up to six pages, launched and on Google",
+    flat: 850,
+    period: "one-off · about three weeks",
+    featured: true,
+    badge: "Most bought",
+    features: [
+      "Up to six pages, designed around your brand",
+      "All content edits and two rounds of revisions",
+      "Domain, Cloudflare hosting, SSL and CDN set up",
+      "Image compression and speed work on every page",
+      "Full SEO: titles, descriptions, structured data, sitemap, social cards",
+      "Google Search Console and analytics installed and verified",
+      "Booking calendar, contact form and socials wired up",
+      "Handover walkthrough and a first ranking report",
+    ],
+    bonus: "Free logo animation for your hero",
+    guarantee:
+      "Half on signature, half on launch. The second half is due when the site is live, not on a date — if it is not live, it is not payable.",
+  },
+  {
     id: "custom",
     name: "Built From Scratch",
     tagline: "When the site has a job to do",
@@ -1999,52 +1838,88 @@ export const SERVICE_PACKAGES = [
   },
 ];
 
-// ── Keeping an existing site alive ────────────────────────────
-// What is left of the old care table once Growth was promoted out of it and
-// into WEBSITE_PROGRAM. These two are maintenance, and they are sold as
-// maintenance: keeping a site up is not the same product as growing a
-// business, and pricing them in the same table implied it was.
+// ── Keeping a site alive ──────────────────────────────────────
+// The three monthly plans from the FabricAID proposal, unchanged. Every plan
+// keeps the site online, secure, backed up and monitored; what separates them
+// is how changes are handled and how fast I answer.
+//
+// The prices are deliberately arranged so the plans cross over in the client's
+// favour, and the crossover is stated on the page rather than hidden: seven
+// small changes on Online costs exactly what Managed costs, and Managed
+// includes five of them and answers three working days sooner.
 export const WEBSITE_CARE_PLANS = [
   {
-    id: "care",
-    name: "Care",
-    tagline: "Online, backed up, watched",
-    flat: 39,
+    id: "online",
+    name: "Online",
+    tagline: "The site stays up, and that is all",
+    flat: 30,
     period: "per month, per site",
     features: [
-      "Hosting, SSL, CDN and backups",
-      "Domain registered and renewed",
+      "Cloudflare hosting, SSL, CDN and domain renewal",
+      "Nightly backups with 30-day history",
       "Uptime monitoring",
-      "2 content edits a month",
-      "Reply within 5 business days",
+      "Security and dependency updates",
+      "No edits included — every change is quoted and billed",
+      "First reply within five working days",
     ],
     guarantee: "Down for more than a day and that month is free.",
   },
   {
-    id: "business",
-    name: "Business",
-    tagline: "For a site that keeps moving",
-    flat: 89,
+    id: "managed",
+    name: "Managed",
+    tagline: "For a site that changes now and then",
+    flat: 100,
     period: "per month, per site",
-    featured: true,
-    badge: "Most popular",
     features: [
-      "Everything in Care",
-      "6 content edits a month",
-      "Reply within 2 business days",
-      "2 new pages a year",
-      "Monthly traffic report",
-      "Basic SEO maintenance",
+      "Everything in Online",
+      "Five content edits included every month",
+      "First reply within two working days",
+      "Quarterly traffic and Google ranking report",
+      "Basic SEO upkeep",
+      "Extra edits at $8 each, below the pay-as-you-go rate",
     ],
     guarantee: "Down for more than a day and that month is free.",
   },
+  {
+    id: "complete",
+    name: "Complete",
+    tagline: "For a site that keeps working for you",
+    flat: 190,
+    period: "per month, per site",
+    featured: true,
+    badge: "Recommended",
+    features: [
+      "Everything in Managed",
+      "Unlimited content edits — fair use to fifteen a month",
+      "No per-change invoices and no approval delays",
+      "First reply within one working day",
+      "Two new pages included per year",
+      "Monthly report: visitors, sources, enquiries and rankings",
+      "Quarterly SEO refresh as search behaviour shifts",
+      "Priority WhatsApp channel",
+    ],
+    guarantee: "Down for more than a day and that month is free.",
+  },
+];
+
+/** Pay-as-you-go, for anyone on Online. Same rates as the FabricAID proposal.
+ *  Printed next to the plans on purpose: it is what makes the monthly plans
+ *  arithmetic a visitor can check rather than a claim they have to accept. */
+export const WEBSITE_CHANGE_RATES = [
+  { what: "Text, price or contact detail change", price: "$10" },
+  { what: "Photo swap or new gallery item", price: "$15" },
+  { what: "New section on an existing page", price: "$45" },
+  { what: "A whole new page", price: "$120" },
 ];
 
 /** What counts as a content edit, and what the monthly does not cover. */
 export const WEBSITE_CARE_NOTES = [
   "A content edit is a change to existing text, images, prices or opening hours. New pages, new features and redesigns are quoted separately.",
   "Billed monthly in advance from launch day, in USD. Unused edits don't roll over.",
-  "I run the hosting, domain and code while you're on a plan. Full ownership and domain transfer are available any time as a one-time buy-out.",
+  "The plan runs for an initial twelve months from launch, then continues monthly and can be cancelled with thirty days' notice.",
+  "You can move up a plan at any time. Moving down takes effect at the end of the paid month.",
+  "The domain is registered in your name. The content and all the data are yours.",
+  "Third-party costs are minimal and paid by you directly: domain renewal is roughly $20 a year, and Cloudflare hosting, the form service and the booking calendar are all free at normal traffic levels.",
 ];
 
 // ── Service pages ─────────────────────────────────────────────
@@ -2084,7 +1959,7 @@ export const SERVICE_PAGES = [
       {
         title: "What it costs",
         body:
-          "The flagship is Booked Out in 90 Days: the build costs you nothing and you pay $199 a month on a 12-month term, which covers hosting, a page written to rank every month, your Google Business profile, a landing page each season and a monthly report on what came in. If that is more than you need, a single page set up from the free gallery is $350 one-off, and a site built from scratch to your own flows starts at $1,500.",
+          "A full site — up to six pages, designed, launched, optimised and submitted to Google — is $850 as a one-off, and takes about three weeks. Then a monthly plan keeps it online and looked after: $30 for hosting and monitoring alone, $100 with five content edits a month and a quarterly report, $190 for unlimited edits, monthly reporting and a quarterly SEO refresh. If a whole site is more than you need, a single page set up from the free gallery is $350 one-off, and a build with a shop or booking system behind it starts at $1,500.",
       },
     ],
     proof: [
@@ -2097,11 +1972,11 @@ export const SERVICE_PAGES = [
     faqs: [
       {
         q: "How much does a website cost in Lebanon?",
-        a: "On my flagship plan the build is free and you pay $199 a month on a 12-month term. A one-page site set up from the free gallery is $350 as a one-off. A site built from scratch, with a shop or booking system behind it, starts at $1,500. Every price on this site is the price you pay.",
+        a: "A full six-page site, launched and set up to be found on Google, is $850 one-off. Keeping it running afterwards is $30, $100 or $190 a month depending on how often you want changes made. A single page set up from the free gallery is $350 as a one-off, and a site built from scratch with a shop or booking system behind it starts at $1,500. Every price on this site is the price you pay.",
       },
       {
         q: "How long does it take?",
-        a: "A single page from the gallery is live within 7 days of you sending your content, or you do not pay. A full build runs to 90 days, but your Google Business profile is fixed in week one and the site itself is up in the first week, so you are not waiting three months to see anything.",
+        a: "A single page from the gallery is live within 7 days of you sending your content, or you do not pay. A full six-page build runs about three weeks: week one is your content edits and revisions, week two is launch on your own domain, week three is the SEO setup and handover. That timeline holds as long as your changes come back as one list.",
       },
       {
         q: "Do I own the website?",
@@ -2180,7 +2055,7 @@ export const SERVICE_PAGES = [
       {
         title: "The arithmetic",
         body:
-          "On a $20 order an app can keep around $6. Twenty orders a day through the app is roughly $3,600 a month gone. A site that takes your orders directly costs $199 a month, and the customer becomes yours: their number, their order history, and a reason to come back that does not involve somebody else's push notification.",
+          "On a $20 order an app can keep around $6. Twenty orders a day through the app is roughly $3,600 a month gone. A site that takes your orders directly is $850 to build and from $30 a month to run, and the customer becomes yours: their number, their order history, and a reason to come back that does not involve somebody else's push notification.",
       },
       {
         title: "What the site does",
@@ -2209,7 +2084,7 @@ export const SERVICE_PAGES = [
       },
       {
         q: "What does it cost to run?",
-        a: "$199 a month on a 12-month term, with the build included at no cost. That covers hosting, the domain, a page written to rank each month, your Google Business profile, and a monthly report on what came in.",
+        a: "$850 to build it, then a monthly plan from $30. Online at $30 covers hosting, the domain, SSL, backups and monitoring. Managed at $100 adds five content edits a month and a quarterly report. Complete at $190 is unlimited edits, a monthly report and a quarterly SEO refresh.",
       },
       {
         q: "Can you put the menu in Arabic?",
