@@ -47,6 +47,20 @@ export default function App() {
     isPreview ? null : location.pathname
   );
 
+  /* The coaching page is a light page. It is not the portfolio: it sells a
+     different thing to a different person, so the WHOLE shell goes white with
+     it — sidebar, tab bar, backdrop and all — rather than a white column
+     floating inside a black frame. The switch is one attribute on <html>, and
+     every light rule in index.css hangs off :root[data-theme="fit"], so no
+     component knows anything about it. */
+  const isFit = location.pathname === "/fitness";
+  useEffect(() => {
+    const root = document.documentElement;
+    if (isFit) root.setAttribute("data-theme", "fit");
+    else root.removeAttribute("data-theme");
+    return () => root.removeAttribute("data-theme");
+  }, [isFit]);
+
   // Warm only the images THIS route shows, once it is idle. Re-runs on
   // navigation, and each route is warmed at most once. Skipped inside a
   // preview — that route has its own images and shouldn't compete with them.

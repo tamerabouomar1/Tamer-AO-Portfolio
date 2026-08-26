@@ -53,7 +53,7 @@ export const PAGE_META = {
   "/fitness": {
     title: "Self-Defense Classes & Personal Training in Beirut",
     description:
-      "The 90-Day Self-Defense Program in Beirut — tracks for women, teens and adults — plus martial-arts instruction, personal training and the class schedule.",
+      "Your first hour of one-on-one coaching in Beirut is free, and you keep the plan. Strength, personal training and the 90-Day Self-Defense Program — every price in the open.",
   },
   // The search-intent pages. Titles here lead with the query the page is
   // built to answer, because the title is the headline of the search result.

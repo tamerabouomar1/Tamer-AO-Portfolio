@@ -2805,3 +2805,374 @@ ul { margin: 0; padding: 0; list-style: none; }
   }
   .web-card:hover::after, .post-card:hover::after { transform: none; }
 }
+
+/* ============================================================================
+   /fitness — the white page
+
+   The coaching page is the one page on this site that is not the portfolio.
+   It sells a different thing to a different person, so it looks like the
+   fitness site: warm off-white, ember red instead of portfolio blue, and every
+   block arriving as it is scrolled to rather than all at once.
+
+   All of it is scoped to `.fitpage`. The variables are redefined on that one
+   element, so every shared component — cards, stats, price cards, the offer
+   block — turns light without a single component being forked. The rules
+   underneath the palette exist only because a handful of shared selectors
+   hard-code the portfolio blue rather than reading --shiny; those are the ones
+   repainted here, and nothing else on the site is touched.
+   ============================================================================ */
+/* The theme itself lives on <html>, set by App.jsx for this one route, so the
+   sidebar and the phone tab bar turn with the page instead of framing a white
+   column in black. Everything below the palette is the shell repainted. */
+:root[data-theme="fit"] {
+  --bg: #f6f3f1;               /* warm off-white, not a clinical #fff */
+  --card: #ffffff;
+  --card-solid: #ffffff;
+  --card-hover: #ffffff;
+  --text: #1a1412;
+  --muted: rgba(26, 20, 18, 0.74);
+  --faint: rgba(26, 20, 18, 0.56);
+  --line: rgba(26, 20, 18, 0.13);
+
+  /* Two reds, deliberately. --accent is the fill, bright enough to carry white
+     text. --shiny is the same red darkened, because the bright one only
+     reaches about 3.6:1 on white and fails at body sizes — one red for both is
+     how light themes end up with captions nobody can read. */
+  --accent: #d3241a;
+  --shiny: #b31f16;
+  --fit-surface-2: #f4efed;
+  --fit-shadow: rgba(46, 28, 24, 0.1);
+  --fit-shadow-strong: rgba(46, 28, 24, 0.18);
+
+  color-scheme: light;
+}
+:root[data-theme="fit"] body { background: var(--bg); color: var(--text); }
+
+/* ── The backdrop ──────────────────────────────────────────────────────────
+   Same moving field as the rest of the site, inverted: a warm paper wash with
+   two off-frame red pools instead of blue light in the dark. The video, if it
+   is playing, is desaturated and dropped to a whisper so it reads as texture
+   under the type rather than a clip behind it. */
+:root[data-theme="fit"] .video-bg { background: var(--bg); }
+:root[data-theme="fit"] .video-bg__anim {
+  background:
+    radial-gradient(75% 55% at 50% 112%, rgba(211, 36, 26, 0.1), transparent 68%),
+    linear-gradient(148deg, #fbf8f7 0%, #f6f3f1 34%, #f1e9e6 58%, #f7f3f1 82%, #faf7f6 100%);
+}
+:root[data-theme="fit"] .video-bg__anim::before {
+  background:
+    radial-gradient(58% 44% at 18% -10%, rgba(211, 36, 26, 0.16), transparent 72%),
+    radial-gradient(46% 38% at 88% 84%, rgba(150, 101, 10, 0.12), transparent 74%),
+    radial-gradient(90% 60% at 62% 46%, rgba(211, 36, 26, 0.06), transparent 76%);
+}
+:root[data-theme="fit"] .video-bg__anim::after { opacity: 0.06; mix-blend-mode: multiply; }
+:root[data-theme="fit"] .video-bg__media { filter: grayscale(1) contrast(0.9); opacity: 0.16; }
+:root[data-theme="fit"] .video-bg__overlay,
+:root[data-theme="fit"] .video-bg.is-live .video-bg__overlay {
+  background:
+    radial-gradient(circle at 60% 40%, rgba(211, 36, 26, 0.07), transparent 55%),
+    linear-gradient(180deg, rgba(246, 243, 241, 0.86), rgba(246, 243, 241, 0.78) 50%, rgba(246, 243, 241, 0.9));
+}
+
+/* ── Sidebar ───────────────────────────────────────────────────────────────
+   A white panel with a hairline, no blur: over a light backdrop the frosted
+   glass just muddied the paper it was sitting on. */
+:root[data-theme="fit"] .sidebar {
+  background: rgba(255, 255, 255, 0.9);
+  backdrop-filter: saturate(1.05);
+  -webkit-backdrop-filter: saturate(1.05);
+  border-right: 1px solid var(--line);
+  box-shadow: 1px 0 0 rgba(26, 20, 18, 0.02);
+}
+:root[data-theme="fit"] .avatar {
+  background: var(--fit-surface-2);
+  border-color: rgba(26, 20, 18, 0.1);
+  box-shadow: 0 10px 26px -14px var(--fit-shadow-strong);
+}
+/* The name is ShinyText: its gradient is an inline style, so only !important
+   reaches it. Red on red-dark, sweeping the same way it does in blue. */
+:root[data-theme="fit"] .sidebar__name {
+  background-image: linear-gradient(100deg, #d3241a 0%, #d3241a 35%, #7d150f 50%, #d3241a 65%, #d3241a 100%) !important;
+}
+:root[data-theme="fit"] .nav-item,
+:root[data-theme="fit"] .nav-icon { color: rgba(26, 20, 18, 0.8); }
+:root[data-theme="fit"] .nav-item:hover,
+:root[data-theme="fit"] .nav-item:hover .nav-icon { color: var(--text); }
+:root[data-theme="fit"] .nav-item.is-active,
+:root[data-theme="fit"] .nav-item.is-active .nav-icon { color: var(--shiny); }
+:root[data-theme="fit"] .social { color: rgba(26, 20, 18, 0.6); }
+:root[data-theme="fit"] .social:hover { color: var(--accent); }
+
+/* ── Phone tab bar ─────────────────────────────────────────────────────── */
+:root[data-theme="fit"] .tabbar {
+  background: #ffffff;
+  border-top: 1px solid var(--line);
+  box-shadow: 0 -10px 30px -22px var(--fit-shadow-strong);
+}
+:root[data-theme="fit"] .tab { color: rgba(26, 20, 18, 0.6); }
+:root[data-theme="fit"] .tab.is-active { color: var(--shiny); }
+:root[data-theme="fit"] .tabsheet {
+  background: #ffffff;
+  border-top: 1px solid var(--line);
+  box-shadow: 0 -18px 50px -26px var(--fit-shadow-strong);
+}
+:root[data-theme="fit"] .tabsheet__grip { background: rgba(26, 20, 18, 0.18); }
+:root[data-theme="fit"] .tabbar-backdrop { background: rgba(28, 20, 18, 0.34); }
+:root[data-theme="fit"] .tabsheet__icon { color: rgba(26, 20, 18, 0.6); }
+:root[data-theme="fit"] .tabsheet__item.is-active { background: rgba(211, 36, 26, 0.08); }
+:root[data-theme="fit"] .tabsheet__item--primary,
+:root[data-theme="fit"] .tabsheet__item--primary.is-active { background: var(--accent); color: #fff; }
+:root[data-theme="fit"] .tabsheet__item--primary .tabsheet__icon { color: #fff; }
+@media (max-width: 760px) {
+  :root[data-theme="fit"] .sidebar { background: #ffffff; border-bottom: 1px solid var(--line); }
+}
+
+/* ── The page column ──────────────────────────────────────────────────── */
+.main.fitpage {
+  isolation: isolate;          /* keeps the -1 wash inside this column */
+  color: var(--text);
+}
+
+/* A second, softer wash over the page column only, so the reading area sits
+   a shade lighter than the field around it. */
+.main.fitpage::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  z-index: -1;
+  background:
+    radial-gradient(70% 55% at 8% 0%, rgba(211, 36, 26, 0.07), transparent 70%),
+    linear-gradient(180deg, rgba(255, 255, 255, 0.5), rgba(255, 255, 255, 0.18));
+}
+
+/* Cards: paper with a shadow, not glass with a glow. */
+.fitpage .card {
+  background: #ffffff;
+  box-shadow: 0 1px 2px var(--fit-shadow), 0 10px 30px -18px var(--fit-shadow-strong);
+}
+.fitpage .card:hover {
+  background: #ffffff;
+  border-color: rgba(211, 36, 26, 0.34);
+  box-shadow: 0 18px 44px -20px var(--fit-shadow-strong), 0 0 0 1px rgba(211, 36, 26, 0.09);
+}
+
+/* ── Hero ──────────────────────────────────────────────────────────────── */
+.fit-hero {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 10px;
+  margin-bottom: clamp(24px, 3vw, 44px);
+}
+.fit-eyebrow {
+  font-size: clamp(11px, 0.95vw, 13px);
+  font-weight: 700;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--shiny);
+}
+.fit-hero__title {
+  font-size: clamp(34px, 5.2vw, 72px);
+  font-weight: 800;
+  line-height: 1.05;
+  letter-spacing: -0.02em;
+}
+.fit-hero__sub {
+  font-size: clamp(15px, 1.5vw, 22px);
+  font-weight: 300;
+  color: var(--muted);
+}
+.fit-hero__jump { margin-top: 4px; }
+
+/* The free hour. The first clickable thing on the page, and deliberately the
+   loudest: nobody is asked about money before this. */
+.freebox {
+  width: 100%;
+  margin-top: clamp(10px, 1.4vw, 18px);
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 10px;
+  padding: clamp(22px, 2.4vw, 40px);
+  border-color: rgba(211, 36, 26, 0.4) !important;
+  background:
+    linear-gradient(180deg, rgba(211, 36, 26, 0.06), rgba(211, 36, 26, 0)) ,
+    #ffffff !important;
+}
+.freebox__flag {
+  font-size: 11px; font-weight: 700; letter-spacing: 0.08em; text-transform: uppercase;
+  color: var(--on-fit-flag, #ffffff);
+  background: var(--accent);
+  padding: 5px 11px; border-radius: 999px;
+}
+.freebox__title { font-size: clamp(24px, 2.8vw, 40px); font-weight: 800; line-height: 1.12; }
+.freebox__body {
+  font-size: clamp(14px, 1.1vw, 18px); font-weight: 300; line-height: 1.6;
+  color: var(--muted); max-width: 56ch;
+}
+.freebox__go { margin-top: 6px; }
+
+/* ── Coached at ────────────────────────────────────────────────────────── */
+.taught {
+  display: flex; align-items: center; flex-wrap: wrap;
+  gap: 10px clamp(12px, 1.4vw, 20px);
+  margin-top: clamp(14px, 1.8vw, 24px);
+}
+.taught__label {
+  font-size: 11px; font-weight: 700; letter-spacing: 0.1em; text-transform: uppercase;
+  color: var(--faint);
+}
+.taught__row { display: flex; flex-wrap: wrap; gap: 8px; }
+.chip {
+  font-size: clamp(12px, 0.95vw, 14px); font-weight: 500;
+  padding: 7px 13px; border-radius: 999px;
+  border: 1px solid var(--line);
+  background: #ffffff;
+  color: var(--muted);
+}
+
+/* ── Steps ─────────────────────────────────────────────────────────────── */
+.steps {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(min(100%, 220px), 1fr));
+  gap: var(--gap);
+}
+.step {
+  display: flex; flex-direction: column; gap: 7px;
+  padding: clamp(18px, 1.8vw, 28px);
+}
+.step__n {
+  font-size: clamp(13px, 1.1vw, 15px); font-weight: 800;
+  letter-spacing: 0.08em; color: var(--accent);
+}
+.step__title { font-size: clamp(16px, 1.4vw, 20px); font-weight: 700; }
+.step__body { font-size: clamp(13px, 1.02vw, 15.5px); line-height: 1.55; font-weight: 300; color: var(--muted); }
+
+/* ── Guarantee + scarcity ──────────────────────────────────────────────── */
+.promise {
+  display: grid;
+  grid-template-columns: 1.5fr 1fr;
+  gap: var(--gap);
+}
+@media (max-width: 860px) { .promise { grid-template-columns: 1fr; } }
+.promise__main, .promise__side {
+  display: flex; flex-direction: column; align-items: flex-start; gap: 10px;
+  padding: clamp(22px, 2.3vw, 38px);
+}
+.promise__main {
+  border-color: rgba(211, 36, 26, 0.34) !important;
+  background: linear-gradient(180deg, rgba(211, 36, 26, 0.05), rgba(211, 36, 26, 0)), #fff !important;
+}
+.promise__seal {
+  font-size: 11px; font-weight: 800; letter-spacing: 0.1em; text-transform: uppercase;
+  color: #fff; background: var(--accent); padding: 6px 12px; border-radius: 999px;
+}
+.promise__title { font-size: clamp(22px, 2.3vw, 34px); font-weight: 800; line-height: 1.15; }
+.promise__body {
+  font-size: clamp(14px, 1.1vw, 17px); line-height: 1.6; font-weight: 300;
+  color: var(--muted); max-width: 56ch;
+}
+.promise__small { font-size: clamp(12.5px, 1vw, 14.5px); font-weight: 600; color: var(--shiny); }
+.promise__dot {
+  width: 9px; height: 9px; border-radius: 50%;
+  background: var(--accent);
+  box-shadow: 0 0 0 5px rgba(211, 36, 26, 0.16);
+  animation: fit-pulse 2.4s var(--ease) infinite;
+}
+@keyframes fit-pulse {
+  0%, 100% { box-shadow: 0 0 0 5px rgba(211, 36, 26, 0.16); }
+  50%      { box-shadow: 0 0 0 10px rgba(211, 36, 26, 0.04); }
+}
+@media (prefers-reduced-motion: reduce) { .promise__dot { animation: none; } }
+.promise__scarcity { font-size: clamp(16px, 1.5vw, 21px); font-weight: 700; line-height: 1.25; }
+.promise__sub { font-size: clamp(12.5px, 1vw, 14.5px); line-height: 1.55; font-weight: 300; color: var(--muted); }
+.promise__side .btn-book { margin-top: auto; }
+
+/* ── FAQ ───────────────────────────────────────────────────────────────── */
+.faq { display: flex; flex-direction: column; gap: 10px; }
+.qa { padding: clamp(14px, 1.4vw, 22px) clamp(16px, 1.6vw, 26px); }
+.qa summary {
+  display: flex; align-items: center; justify-content: space-between; gap: 16px;
+  cursor: pointer; list-style: none;
+  font-size: clamp(14px, 1.15vw, 17px); font-weight: 600; line-height: 1.4;
+}
+.qa summary::-webkit-details-marker { display: none; }
+.qa__plus { position: relative; flex: none; width: 14px; height: 14px; }
+.qa__plus::before, .qa__plus::after {
+  content: ""; position: absolute; inset: 50% 0 auto 0;
+  height: 2px; background: var(--accent);
+  transition: transform 0.35s var(--ease);
+}
+.qa__plus::after { transform: rotate(90deg); }
+.qa[open] .qa__plus::after { transform: rotate(0deg); }
+.qa p {
+  margin-top: 10px;
+  font-size: clamp(13px, 1.02vw, 15.5px); line-height: 1.6; font-weight: 300; color: var(--muted);
+  max-width: 68ch;
+}
+
+/* ── Close ─────────────────────────────────────────────────────────────── */
+.fit-close {
+  display: flex; flex-direction: column; gap: 14px;
+  padding: clamp(26px, 3vw, 52px) clamp(24px, 2.5vw, 46px);
+  align-items: flex-start;
+  border-color: rgba(211, 36, 26, 0.3) !important;
+}
+.fit-close__row { display: flex; flex-wrap: wrap; gap: 12px; margin-top: 4px; }
+
+/* ── The shared components, repainted ──────────────────────────────────────
+   Everything below only exists because these selectors hard-code the
+   portfolio's blue rather than reading --shiny. */
+.fitpage .btn-book {
+  background: var(--accent);
+  border-color: var(--accent);
+  color: #fff;
+}
+.fitpage .btn-book:hover {
+  background: #b31f16;
+  box-shadow: 0 12px 26px -12px rgba(211, 36, 26, 0.7);
+}
+.fitpage .btn-book--lg { padding: 15px 26px; font-size: clamp(15px, 1.15vw, 17px); }
+.fitpage .btn-book--ghost {
+  background: #fff;
+  color: var(--shiny);
+  border-color: rgba(211, 36, 26, 0.42);
+}
+.fitpage .btn-book--ghost:hover { background: rgba(211, 36, 26, 0.06); box-shadow: none; }
+
+.fitpage .price-card--featured {
+  border-color: rgba(211, 36, 26, 0.45);
+  box-shadow: 0 0 0 1px rgba(211, 36, 26, 0.2), 0 22px 50px -26px var(--fit-shadow-strong);
+}
+.fitpage .price-card__badge { color: var(--shiny); border-color: rgba(211, 36, 26, 0.42); }
+.fitpage .price-card__features .tick { background: var(--accent); }
+.fitpage .price-card__was { text-decoration-color: rgba(26, 20, 18, 0.4); }
+.fitpage .price-card--featured .btn-book { background: var(--accent); border-color: var(--accent); color: #fff; }
+.fitpage .price-card__guarantee {
+  border-color: rgba(211, 36, 26, 0.24);
+  background: rgba(211, 36, 26, 0.06);
+}
+
+.fitpage .sched-day__name { color: var(--shiny); }
+.fitpage .sched-slot { background: var(--fit-surface-2); border-color: var(--line); }
+
+.fitpage .offer-phase { border-left-color: rgba(211, 36, 26, 0.45); }
+.fitpage .offer-phase__weeks,
+.fitpage .offer-close__seats strong { color: var(--shiny); }
+.fitpage .offer-close__btn {
+  background: var(--accent);
+  border-color: var(--accent);
+  color: #fff;
+}
+.fitpage .offer-close__btn:hover { box-shadow: 0 14px 30px -14px rgba(211, 36, 26, 0.7); }
+.fitpage .offer-guarantee {
+  border-color: rgba(211, 36, 26, 0.26);
+  background: rgba(211, 36, 26, 0.06);
+}
+.fitpage .offer-track { background: var(--fit-surface-2); border-color: var(--line); }
+.fitpage .link { color: var(--shiny); }
+.fitpage .link:hover { filter: none; color: var(--accent); }
+.fitpage .offer { border-color: rgba(211, 36, 26, 0.4); }
+/* The "Bonus" tag inks itself #07121f for the blue chip it normally sits on;
+   on the red one it needs white. */
+:root[data-theme="fit"] .offer-stack__tag { background: var(--accent); color: #fff; }

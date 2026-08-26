@@ -114,6 +114,11 @@ function render(route) {
   let h = shell;
   const set = (re, out) => { h = h.replace(re, out); };
 
+  /* /fitness is the site's one light page (see :root[data-theme="fit"] in
+     index.css). Stamping the attribute here means a cold load paints white
+     immediately instead of flashing the dark shell before React mounts. */
+  if (route.path === "/fitness") set(/<html lang="en">/, '<html lang="en" data-theme="fit">');
+
   set(/<title>[\s\S]*?<\/title>/, `<title>${esc(route.title)}</title>`);
   set(/(<meta\s+name="description"\s+content=")[\s\S]*?(")/, `$1${esc(route.description)}$2`);
   set(/(<link\s+rel="canonical"\s+href=")[^"]*(")/, `$1${url}$2`);

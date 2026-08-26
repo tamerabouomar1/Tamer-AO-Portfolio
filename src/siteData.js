@@ -2250,3 +2250,82 @@ export const SCHEDULE = [
   { day: "SAT", classes: ["JIU-JITSU Yarz", "JIU-JITSU CSA"] },
   { day: "SUN", classes: ["REST"] },
 ];
+
+// ── Fitness page copy ─────────────────────────────────────────
+// The /fitness page is the coaching funnel, in the same order and the same
+// voice as the standalone fitness site (fitness-site/src/data.js): the free
+// hour above the prices, the prices in the open, the risk moved onto me.
+// Everything a visitor reads on that page that is not a price, a class time
+// or the 90-day program lives here.
+export const FITNESS = {
+  eyebrow: "Beirut · one-on-one coaching",
+  title: "Strength & Self-Defense",
+  sub: "Martial arts, strength & personal training",
+
+  freeFlag: "Free · no card · no obligation",
+  freeTitle: "Your First Session Is Free.",
+  freeBody:
+    "One hour, one-on-one. I check how you move, we train, and you leave with a written plan. The plan is yours even if you never come back.",
+  freeCta: "Book the free hour",
+  secondaryCta: "See the prices",
+
+  taughtAt: [
+    "International College (IC)",
+    "Combat Sports Academy",
+    "Yarzeh Leisure Club",
+  ],
+
+  steps: [
+    { n: "01", title: "Book the Free Hour", body: "Pick any open slot. No card, no forms." },
+    { n: "02", title: "We Train", body: "A real session. I check how you move and find what is holding you back." },
+    { n: "03", title: "You Keep the Plan", body: "Written down and yours. It works even if you train alone after this." },
+    { n: "04", title: "Then You Decide", body: "Want me every week? Pick a package. If not, I won't chase you." },
+  ],
+
+  guarantee: {
+    days: "90 days",
+    title: "The 90-Day Promise",
+    body: "Come to your sessions and follow the plan for 90 days. If you are not stronger, fitter or leaner, I keep coaching you for free until you are.",
+    small: "You do the work. The result is my problem.",
+  },
+
+  // ⚠ CHECK the number, and change it when it changes. A limit nobody
+  // enforces reads as a lie the first time somebody asks twice.
+  scarcity: {
+    line: "I coach 6 people one-on-one at a time.",
+    sub: "When the slots are full, the free hour becomes a waitlist.",
+  },
+
+  faq: [
+    {
+      q: "I have never trained before. Is that a problem?",
+      a: "No. That is most first sessions. We start where your body is, and nothing gets loaded until the movement is right.",
+    },
+    {
+      q: "Where do we train?",
+      a: "In Beirut, at whichever gym or academy suits you. Your building's gym works too if it has the basics. Tell me where you are and I will tell you.",
+    },
+    {
+      q: "Is the first session really free?",
+      a: "Yes. No card, and no obligation. You keep the plan either way.",
+    },
+    {
+      q: "I already train a combat sport.",
+      a: "Then your strength work is built around your mat schedule, so it adds to your training instead of stealing your recovery.",
+    },
+    {
+      q: "Do you write nutrition plans?",
+      a: "Yes, and they come with monthly coaching. I studied nutrition and exercise science at AUB, so your plan is built on how your body uses food.",
+    },
+    {
+      q: "Can I pause a monthly package?",
+      a: "Message me. Travel, exams and injuries happen.",
+    },
+  ],
+
+  close: {
+    title: "The Free Hour Costs You an Hour.",
+    body: "Worst case, you get a session and a plan to keep, and you never hear from me again. Best case, you stop starting over.",
+    cta: "Book the free hour",
+  },
+};
