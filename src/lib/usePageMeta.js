@@ -35,10 +35,16 @@ export const PAGE_META = {
     description:
       "Design work across brand identity, clothing, packaging and print: athlete profiles, rashguards and fight kits, retail packaging and university projects.",
   },
+  /* The store, and deliberately NOT titled "Website Design in Lebanon" any
+     more. It used to carry that title and that h1, which are the title and h1
+     of /website-design-lebanon, so the site's two strongest pages were
+     competing for one query and Google was left to pick. This page's real job
+     is the gallery: free templates, the membership, and the prices. That is a
+     different search, with an audience far larger than Lebanon. */
   "/websites": {
-    title: "Website Design in Lebanon",
+    title: "Free Website Templates & Website Pricing",
     description:
-      "Websites designed, built and run for restaurants, salons, clinics and trades in Lebanon. See client sites, take a free template, or get booked out in 90 days.",
+      "A gallery of finished website templates, free in full React source. Plus what a built site costs: $350 for one page, $850 for a six-page build, care from $30 a month.",
   },
   "/media": {
     title: "Logo Motion & Video Editing",
@@ -60,7 +66,7 @@ export const PAGE_META = {
   "/website-design-lebanon": {
     title: "Website Design in Lebanon",
     description:
-      "Websites designed, built and run for businesses in Lebanon. The build is free, $199/month covers hosting, SEO and your Google profile. Real client sites, real prices.",
+      "Websites designed, built and run for businesses in Lebanon. $850 for a six-page site, launched and found on Google, then care from $30 a month. Real client sites, real prices.",
   },
   "/logo-design-beirut": {
     title: "Logo Design & Brand Identity in Beirut",
@@ -70,7 +76,17 @@ export const PAGE_META = {
   "/restaurant-website-lebanon": {
     title: "Restaurant Websites in Lebanon",
     description:
-      "Take orders on your own site instead of paying a delivery app a third of every one. Built already for Kitchen Garage, Snack Faysal and Rasif Aley. $199/month, build included.",
+      "Take orders on your own site instead of paying a delivery app a third of every one. Built already for Kitchen Garage, Snack Faysal and Rasif Aley. $850, then from $30 a month.",
+  },
+  "/social-media-management-lebanon": {
+    title: "Social Media Management in Lebanon",
+    description:
+      "Reels-first social media management from $199 a month: 8, 16 or 28 pieces, hooks and captions written for you. Your first reel is cut free. 855K+ views on my own.",
+  },
+  "/salon-website-lebanon": {
+    title: "Salon & Barbershop Websites in Lebanon",
+    description:
+      "Stop losing bookings in your DMs. A site where every screen books into your calendar, live already for Salon Nizar. $850 to build, care from $30 a month.",
   },
   "/work-with-me": {
     title: "Design & Social Media Services",

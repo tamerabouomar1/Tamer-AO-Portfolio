@@ -2097,6 +2097,138 @@ export const SERVICE_PAGES = [
     ],
     cta: { label: "See the offer", to: "/websites" },
   },
+
+  /* Social media. The one thing on this list that is sold every month rather
+     than once, and the one the site had no search page for at all: everything
+     about the packages lived on /work-with-me, which nobody types into Google.
+     Prices mirror SOCIAL_PACKAGES and REEL_RATE above. If a tier moves there,
+     it moves here the same day. */
+  {
+    slug: "social-media-management-lebanon",
+    h1: "Social Media Management in Lebanon",
+    kicker: "Post every week without touching it",
+    lede:
+      "Posting stops for three weeks, the account goes quiet, and starting again feels like starting from zero. The fix is not more effort. It is somebody whose job it is, every week, whether or not you feel like it.",
+    sections: [
+      {
+        title: "Reels first, because reach is",
+        body:
+          "Carousels talk to the people who already follow you. Reels are what put you in front of people who have never heard of you, so every package leads with them and the mix is decided with you on the kickoff call. A brand that only wants reels gets only reels. You get the hooks and the captions written for you as well, because a good cut with a dead first line still dies.",
+      },
+      {
+        title: "What it costs, in the open",
+        body:
+          "Starter is $199 a month for 8 pieces on one platform. Growth is $449 for 16, with trend and hook research and a content calendar. Premium is $899 for 28 pieces across up to three platforms, with a monthly strategy meeting and priority turnaround. Bought one reel at a time the same volume is $65 each, which is the rate on the card, so the arithmetic is one you can check rather than a claim you have to take.",
+      },
+      {
+        title: "The numbers behind the work",
+        body:
+          "My own reels have done over 855,000 views, with the best single one at 219,000. The posts on the media page carry their real view, like and comment counts, unedited, because a screenshot of a number is worth more than an adjective. That is the same editing, the same hooks and the same pacing your account gets.",
+      },
+      {
+        title: "You go first, for free",
+        body:
+          "Send your footage and I cut one reel: hook, captions, the lot, back within 5 days. Post it, watch what it does, and decide about the rest afterwards. No card and no obligation. If it does nothing, you have lost nothing and you keep the reel.",
+      },
+    ],
+    proof: [
+      { name: "OKIRO", what: "Brand identity and apparel, carried through to social." },
+      { name: "10th Planet Jiu Jitsu", what: "Combat sports content, where the cut has to match the pace of the sport." },
+      { name: "KARV Pilates Studio", what: "Studio branding and the social design around it." },
+      { name: "Playwear Club", what: "Apparel brand, identity and content." },
+      { name: "Tamer AO", what: "855K+ views on my own reels, best single reel at 219K." },
+    ],
+    faqs: [
+      {
+        q: "How much does social media management cost in Lebanon?",
+        a: "$199 a month for 8 pieces of content on one platform, $449 for 16 with trend research and a content calendar, or $899 for 28 across up to three platforms with a monthly strategy meeting. Buying the same content one reel at a time is $65 a piece. Every price on this site is the price you pay.",
+      },
+      {
+        q: "Do I have to send you the footage?",
+        a: "For most brands yes, and it is less work than it sounds: phone footage shot through your normal week is usually enough, and I tell you what to shoot. Where a brand needs it filmed properly that is quoted on top rather than assumed.",
+      },
+      {
+        q: "Is the first reel really free?",
+        a: "Yes. Send your footage and you get one reel cut, captioned and back within 5 days. No card, no trial and no email course. Post it and judge the work by what it does.",
+      },
+      {
+        q: "What if my views do not go up?",
+        a: "On day one we screenshot your average reel views over the last 90 days. If what I make for you has not beaten that average within 60 days, you do not pay for the third month and I keep working through it.",
+      },
+      {
+        q: "Which platforms do you handle?",
+        a: "Instagram and TikTok. Starter and Growth run one platform properly rather than two badly. Premium goes up to three.",
+      },
+      {
+        q: "Can I stop whenever I want?",
+        a: "Yes. The packages are monthly. There is no twelve month term on social the way there is on a website care plan.",
+      },
+    ],
+    cta: { label: "See the packages", to: "/work-with-me" },
+  },
+
+  /* Salons, barbershops and clinics. The whole category buys the same thing
+     for the same reason: bookings currently arrive as DMs at eleven at night
+     and half of them are never answered. Salon Nizar is live and is the
+     proof. */
+  {
+    slug: "salon-website-lebanon",
+    h1: "Salon & Barbershop Websites in Lebanon",
+    kicker: "Stop losing bookings in your DMs",
+    lede:
+      "Bookings arrive as messages at eleven at night, get read in the morning, and half of them are gone by then. A booking page does not sleep, does not forget, and does not need you to answer it.",
+    sections: [
+      {
+        title: "Booking is the whole point",
+        body:
+          "Every screen books. Your calendar, whether that is Fresha, Calendly or something else, is wired in so a client picks a time and it lands in the book without a message being sent. Your services and your prices are listed the way you would say them out loud, so nobody has to ask what a cut costs before they can commit to one.",
+      },
+      {
+        title: "Found by the people standing nearby",
+        body:
+          "Most of your business is people within a few streets who searched instead of asking a friend. The site is written for those searches, and your Google Business profile is fixed in the first week so the map listing, the hours and the photographs are right before the site is even finished. That listing is often what actually gets the walk-in.",
+      },
+      {
+        title: "Already live",
+        body:
+          "Salon Nizar is a men's barbershop in Abadiyeh. The $10 haircut leads, the hot towel and the face massage are stated as free with it rather than buried, and every screen books straight through to their Fresha calendar. That is the same build, and it is running now.",
+      },
+      {
+        title: "What it costs",
+        body:
+          "A full site, up to six pages, designed, launched and set up to be found, is $850 one off and takes about three weeks. Keeping it alive afterwards is $30 a month for hosting and monitoring, $100 with five content edits a month, or $190 for unlimited edits and a quarterly SEO refresh. If a single page is all you need, one set up from the free gallery is $350 with no monthly at all.",
+      },
+    ],
+    proof: [
+      { name: "Salon Nizar", what: "Men's barbershop in Abadiyeh, booking straight into their Fresha calendar." },
+      { name: "KARV Pilates Studio", what: "Studio branding for a booking-led business." },
+      { name: "Rasif Aley", what: "A local shop built on its real menu, photographs and reviews." },
+      { name: "Kitchen Garage", what: "Full accounts and checkout, in Aley." },
+    ],
+    faqs: [
+      {
+        q: "How much does a salon website cost in Lebanon?",
+        a: "$850 one off for a full six page site, launched and set up to be found on Google, then $30, $100 or $190 a month depending on how often you want changes made. A single page from the free gallery is $350 one off with no monthly.",
+      },
+      {
+        q: "Can clients book directly on the site?",
+        a: "Yes, and they should. Salon Nizar books straight into Fresha from every screen. If you already run a calendar I wire that one in rather than moving you onto something new.",
+      },
+      {
+        q: "I already take bookings on Instagram. Why do I need a site?",
+        a: "Because Instagram only reaches people who already follow you, and a DM only becomes a booking if somebody answers it. A site is found by the person who searched for a barber near them ten minutes ago and has never heard of you.",
+      },
+      {
+        q: "Do you fix my Google listing too?",
+        a: "Yes, in the first week, before the site is finished. Hours, address, photographs and services. For a local shop that listing is often worth more than the site on its own.",
+      },
+      {
+        q: "How long does it take?",
+        a: "About three weeks for a full build: your edits and revisions in week one, launch on your own domain in week two, the SEO setup and handover in week three. A single page from the gallery is live within 7 days of your content arriving, or you do not pay.",
+      },
+    ],
+    cta: { label: "See the offer", to: "/websites" },
+  },
 ];
 
 /** How many templates sit on the open shelf, free and downloadable one at a

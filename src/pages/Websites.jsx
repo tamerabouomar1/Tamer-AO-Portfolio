@@ -165,8 +165,13 @@ export default function Websites() {
     <Page>
       <header className="topbar">
         <div>
-          <h1 className="topbar__title">Website Design in Lebanon</h1>
-          <p className="topbar__sub">Designed &amp; built, end to end</p>
+          {/* NOT "Website Design in Lebanon". That is the h1 of the
+              /website-design-lebanon service page, and two pages on one site
+              claiming one query is a fight this site was having with itself.
+              This page is the shelf: the free gallery, the membership and the
+              prices. It targets the template search, which is not local. */}
+          <h1 className="topbar__title">Free Website Templates &amp; What a Site Costs</h1>
+          <p className="topbar__sub">Take one free, or have it built for you</p>
         </div>
         <Link className="link" to="/work-with-me">
           Work with me <span className="plus">+</span>
@@ -351,6 +356,10 @@ export default function Websites() {
           and{" "}
           <Link className="link" to="/restaurant-website-lebanon">
             restaurant websites
+          </Link>{" "}
+          and{" "}
+          <Link className="link" to="/salon-website-lebanon">
+            salon &amp; barbershop websites
           </Link>
           . Want something that isn&apos;t here? I build custom sites from scratch too.{" "}
           <Link className="link" to="/work-with-me">

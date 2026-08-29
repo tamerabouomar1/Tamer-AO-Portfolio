@@ -132,6 +132,33 @@ export default function ServicePage({ slug }) {
         </motion.div>
       </section>
 
+      {/* Cross-links between the service pages.
+          Until this existed each one was an island: reachable from /websites
+          or /work-with-me, linking to nothing but the store. A crawler reads
+          links to decide what a cluster of pages is about and which of them
+          matters, and a visitor who lands on the salon page from Google is
+          often the same person who needs the social one. Generated from
+          SERVICE_PAGES so a sixth page joins the block with no edit here. */}
+      <section className="proj-section">
+        <h2 className="proj-section__title">Also Worth Reading</h2>
+        <motion.div
+          className="svc-proof"
+          variants={container}
+          initial="hidden"
+          whileInView="show"
+          viewport={{ once: true, margin: "-40px" }}
+        >
+          {SERVICE_PAGES.filter((x) => x.slug !== p.slug).map((x) => (
+            <motion.div className="card svc-proof__item" key={x.slug} variants={cardIn}>
+              <Link className="svc-proof__name link" to={`/${x.slug}`}>
+                {x.h1} <span className="plus">+</span>
+              </Link>
+              <span className="svc-proof__what">{x.kicker}</span>
+            </motion.div>
+          ))}
+        </motion.div>
+      </section>
+
       <section className="proj-section">
         <h2 className="proj-section__title">Send a Message</h2>
         <motion.div className="card work-message" variants={cardIn} initial="hidden" animate="show">

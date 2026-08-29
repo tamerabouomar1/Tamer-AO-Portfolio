@@ -189,6 +189,10 @@ export default function WorkWithMe() {
           <Link className="link" to="/website-design-lebanon">
             website design in Lebanon
           </Link>
+          , and{" "}
+          <Link className="link" to="/social-media-management-lebanon">
+            social media management in Lebanon
+          </Link>
           .
         </p>
       </section>
