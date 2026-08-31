@@ -23,7 +23,7 @@ export const PAGE_META = {
   "/": {
     title: "Graphic Designer in Beirut, Lebanon",
     description:
-      "Brand identity, logos, logo motion and apparel design in Beirut. Work for OKIRO, 10th Planet Jiu Jitsu, FabricAID and Kitchen Garage, by Tamer Abou Omar.",
+      "Brand identity, logos, logo motion and apparel design in Beirut. Work for OKIRO, 10th Planet Jiu Jitsu, FabricAID and Combat Sports Academy, by Tamer Abou Omar.",
   },
   "/free": {
     title: "Free Website Templates, Brand Teardown & Reel",
@@ -76,7 +76,7 @@ export const PAGE_META = {
   "/restaurant-website-lebanon": {
     title: "Restaurant Websites in Lebanon",
     description:
-      "Take orders on your own site instead of paying a delivery app a third of every one. Built already for Kitchen Garage, Snack Faysal and Rasif Aley. $850, then from $30 a month.",
+      "Take orders on your own site instead of paying a delivery app a third of every one. Built already for Snack Faysal in Beirut. $850 to build, then from $30 a month.",
   },
   "/social-media-management-lebanon": {
     title: "Social Media Management in Lebanon",

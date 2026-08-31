@@ -274,10 +274,10 @@ export const CLIENTS = [
   "KARV Pilates Studio",
   "Contracts Design",
   "Charbel Farah",
-  "Kitchen Garage",
   "Snack Faysal",
   "Salon Nizar",
   "Combat Sports Academy",
+  "Majd Abou Omar",
   "Sinar",
   "MoCars",
   "Playwear Club",
@@ -934,14 +934,6 @@ export const WEBSITES = [
     desc: "A seven-page site for FabricAID's uniform arm: workwear made in their own facility, with the social impact woven through rather than bolted on. Browse the range, the facility and the partner logos.",
   },
   {
-    name: "Kitchen Garage",
-    demo: "/demo/kitchen-garage/index.html",
-    tag: "Website design",
-    image: "/assets/projects/web-kg.webp",
-    full: "/assets/projects/web-kg-full.webp",
-    desc: "A full ordering site for Kitchen Garage in Aley: smash burgers, wings and loaded fries, with a menu, cart, accounts and every payment method.",
-  },
-  {
     name: "Snack Faysal",
     demo: "/demo/snack-faysal/index.html",
     tag: "Website design",
@@ -963,22 +955,6 @@ export const WEBSITES = [
     desc: "A men's barbershop in Abadiyeh. The $10 haircut leads, the hot towel and face massage are free with it, and every screen books straight through to their Fresha calendar.",
   },
   {
-    name: "Rasif Aley",
-    demo: "/demo/rasif-aley/index.html",
-    tag: "Website design",
-    image: "/assets/projects/web-rasif.webp",
-    full: "/assets/projects/web-rasif.webp",
-    desc: "A coffee shop in Aley, built on their real menu, their real photographs and their real reviews. Warm and unhurried, the way the place is.",
-  },
-  {
-    name: "ACC",
-    demo: "/demo/acc/index.html",
-    tag: "Website design",
-    image: "/assets/projects/web-acc.webp",
-    full: "/assets/projects/web-acc.webp",
-    desc: "Arabian Construction Company, building since 1967. Architectural graphite and red, with the history carrying the credibility rather than a claim about it.",
-  },
-  {
     name: "Sinar",
     demo: "/demo/sinar/index.html",
     tag: "Website design",
@@ -993,6 +969,18 @@ export const WEBSITES = [
     image: "/assets/projects/web-csa.webp",
     full: "/assets/projects/web-csa.webp",
     desc: "The martial arts academy in Ebadieh where I coach. Taekwondo, no-gi jiu-jitsu, and the kids anti-bullying and women empowerment programs, with the real coaches and the real class times.",
+  },
+  {
+    name: "Majd Abou Omar",
+    /* A local snapshot, like every other demo here, and it HAS to be one: the
+       live site at majd.abouomar.workers.dev sends frame-ancestors 'none' and
+       X-Frame-Options: DENY, so pointing this at the real URL would render an
+       empty card. Re-pull the five files if the live site changes. */
+    demo: "/demo/majd/index.html",
+    tag: "Website design",
+    image: "/assets/projects/web-majd.webp",
+    full: "/assets/projects/web-majd.webp",
+    desc: "Private one-on-one calisthenics and functional training with Majd Abou Omar. Thirteen years in motion, four pillars trained together, and every session booked straight through WhatsApp.",
   },
 ];
 
@@ -1972,11 +1960,11 @@ export const SERVICE_PAGES = [
       },
     ],
     proof: [
-      { name: "Kitchen Garage", what: "Full ordering site in Aley: menu, cart, accounts and every payment method." },
-      { name: "Rasif Aley", what: "A coffee shop, built on their real menu, real photographs and real reviews." },
+      { name: "FabricAID Uniforms", what: "A seven-page site for their uniform arm, with the social impact woven through." },
       { name: "Snack Faysal", what: "A Beirut manakish institution, appetite-led and built around the menu." },
       { name: "Sophia's Forum", what: "Bilingual English and Arabic, mirroring cleanly into right-to-left." },
-      { name: "ACC", what: "Arabian Construction Company, building since 1967." },
+      { name: "Sinar", what: "Construction and interior fit-out, clean and architectural." },
+      { name: "Combat Sports Academy", what: "The academy in Ebadieh: programs, coaches and real class times." },
     ],
     faqs: [
       {
@@ -2074,18 +2062,18 @@ export const SERVICE_PAGES = [
       {
         title: "Already built and running",
         body:
-          "This is not a plan, it is the thing I have already built more than once. Kitchen Garage in Aley takes smash burger orders through a full cart and accounts system. Snack Faysal is built around a manakish menu and the brand's heritage. Rasif Aley runs on their real menu, real photographs and real reviews.",
+          "This is not a plan, it is the thing I have already built more than once. Snack Faysal is a Beirut manakish and fatayer institution, and the site is built around its menu and its heritage rather than around a template. The cart, the accounts and the payment methods are a system I have already built and run for a working kitchen, and it gets written to your menu rather than bolted onto it.",
       },
     ],
     proof: [
-      { name: "Kitchen Garage", what: "Menu, cart, accounts and every payment method, in Aley." },
       { name: "Snack Faysal", what: "Beirut manakish and fatayer, appetite-led and menu-first." },
-      { name: "Rasif Aley", what: "Coffee shop, warm and unhurried, the way the place is." },
+      { name: "FabricAID Uniforms", what: "Seven pages, the full range and the facility behind it." },
+      { name: "Sophia's Forum", what: "Bilingual English and Arabic, mirroring cleanly into right-to-left." },
     ],
     faqs: [
       {
         q: "Can people order directly from the site?",
-        a: "Yes. Kitchen Garage runs a full cart with accounts and every payment method, and that is the same system I would build for you. The order comes to you, and so does the customer.",
+        a: "Yes. A full cart with accounts and every payment method that actually works here is something I have already built and run for a working kitchen, and it is the same system I would build for you. The order comes to you, and so does the customer.",
       },
       {
         q: "Do I have to leave the delivery apps?",
@@ -2211,8 +2199,7 @@ export const SERVICE_PAGES = [
     proof: [
       { name: "Salon Nizar", what: "Men's barbershop in Abadiyeh, booking straight into their Fresha calendar." },
       { name: "KARV Pilates Studio", what: "Studio branding for a booking-led business." },
-      { name: "Rasif Aley", what: "A local shop built on its real menu, photographs and reviews." },
-      { name: "Kitchen Garage", what: "Full accounts and checkout, in Aley." },
+      { name: "Combat Sports Academy", what: "The academy in Ebadieh, with class times people plan around." },
     ],
     faqs: [
       {
