@@ -277,6 +277,7 @@ export const CLIENTS = [
   "Kitchen Garage",
   "Snack Faysal",
   "Salon Nizar",
+  "Combat Sports Academy",
   "Sinar",
   "MoCars",
   "Playwear Club",
@@ -984,6 +985,14 @@ export const WEBSITES = [
     image: "/assets/projects/web-sinar.webp",
     full: "/assets/projects/web-sinar-full.webp",
     desc: "A construction and interior fit-out company. The site is clean and architectural, positioning Sinar as a full solution partner.",
+  },
+  {
+    name: "Combat Sports Academy",
+    demo: "/demo/csa/index.html",
+    tag: "Website design",
+    image: "/assets/projects/web-csa.webp",
+    full: "/assets/projects/web-csa.webp",
+    desc: "The martial arts academy in Ebadieh where I coach. Taekwondo, no-gi jiu-jitsu, and the kids anti-bullying and women empowerment programs, with the real coaches and the real class times.",
   },
 ];
 

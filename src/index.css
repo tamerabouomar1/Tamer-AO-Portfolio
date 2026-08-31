@@ -3023,7 +3023,15 @@ ul { margin: 0; padding: 0; list-style: none; }
   color: var(--faint);
 }
 .taught__row { display: flex; flex-wrap: wrap; gap: 8px; }
-.chip {
+/* SCOPED to .taught__row on purpose.
+   This was a bare `.chip`, which is not a fitness-only class: /work-with-me
+   uses .chip too, in .chip-row. Being later in the file this rule won there
+   as well, painting those chips #ffffff while leaving the text at
+   var(--muted) — light grey on white, so the "One-off Work" cards showed
+   four blank white pills. The white background is only correct on /fitness,
+   which is the site's one light page (:root[data-theme="fit"]), so the rule
+   now says so rather than applying everywhere and being fixed by accident. */
+.taught__row .chip {
   font-size: clamp(12px, 0.95vw, 14px); font-weight: 500;
   padding: 7px 13px; border-radius: 999px;
   border: 1px solid var(--line);
