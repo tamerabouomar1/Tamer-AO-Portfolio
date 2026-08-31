@@ -945,13 +945,15 @@ export const WEBSITES = [
     name: "Salon Nizar",
     demo: "/demo/salon-nizar/index.html",
     tag: "Website design",
-    // NO `image` yet, deliberately. The card's poster is the still shown
-    // before someone hovers and the live site loads in its place, and the
-    // only screenshots on hand were Saifi's — a different client's site under
-    // this one's name is worse than no still at all. Without it the card
-    // shows its dark ground and the "Open the real site" badge, then the real
-    // thing on hover. Drop a 16:10 screenshot in /assets/projects and set
-    // `image` (and `full`) to finish it.
+    /* Shot from the deployed demo itself (headless Chrome at 1440x900, the
+       same 16:10 as the other cards), so the still matches exactly what loads
+       on hover. It replaces the deliberate blank left here while the only
+       screenshots on hand were Saifi's. The hero background is soft because
+       the site's hero is a shallow-focus video of the tools, not because the
+       capture caught it loading: two runs, one with autoplay forced and a
+       20s budget, came out identical, and no CSS blur touches the hero. */
+    image: "/assets/projects/web-salon-nizar.webp",
+    full: "/assets/projects/web-salon-nizar.webp",
     desc: "A men's barbershop in Abadiyeh. The $10 haircut leads, the hot towel and face massage are free with it, and every screen books straight through to their Fresha calendar.",
   },
   {
