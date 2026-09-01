@@ -1,0 +1,75 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
+    <title>Page Not Found | Tamer AO</title>
+
+    <!-- No canonical tag here, deliberately: a 404 is not a version of
+         another page, and pointing one at the home page is what made every
+         dead URL look like an indexable duplicate of it. The reasoning, and
+         the asset-handler setting that made this file necessary, are in
+         wrangler.jsonc next to "not_found_handling". Note this file must not
+         contain the literal tag name in markup form even inside a comment,
+         because crawlers that scrape for it by pattern will read it as real. -->
+    <meta name="robots" content="noindex, follow" />
+
+    <style>
+      :root { color-scheme: dark; }
+      * { box-sizing: border-box; }
+      body {
+        margin: 0;
+        min-height: 100vh;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        padding: 24px;
+        background: #000;
+        color: #fff;
+        font-family: Inter, -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, Arial, sans-serif;
+        -webkit-font-smoothing: antialiased;
+      }
+      main { max-width: 560px; width: 100%; }
+      .code {
+        font-size: 12px; font-weight: 700; letter-spacing: 0.14em;
+        text-transform: uppercase; color: #64CEFB; margin: 0 0 14px;
+      }
+      h1 {
+        font-size: clamp(28px, 6vw, 44px); font-weight: 800;
+        line-height: 1.1; margin: 0 0 14px;
+      }
+      p {
+        font-size: clamp(15px, 2vw, 17px); font-weight: 300; line-height: 1.65;
+        color: rgba(255, 255, 255, 0.62); margin: 0 0 26px; max-width: 46ch;
+      }
+      nav { display: flex; flex-wrap: wrap; gap: 10px; }
+      a {
+        display: inline-block; padding: 10px 16px; border-radius: 10px;
+        border: 1px solid rgba(255, 255, 255, 0.14);
+        background: rgba(255, 255, 255, 0.04);
+        color: #fff; text-decoration: none;
+        font-size: 14px; font-weight: 500;
+      }
+      a.primary { background: #4a8bee; border-color: #4a8bee; }
+      a:hover { border-color: rgba(255, 255, 255, 0.4); }
+      a:focus-visible { outline: 2px solid #64CEFB; outline-offset: 2px; }
+    </style>
+  </head>
+  <body>
+    <main>
+      <p class="code">Error 404</p>
+      <h1>That page isn't here.</h1>
+      <p>
+        It either moved, or it never existed. Nothing is broken on your end.
+        Here is where most people are going.
+      </p>
+      <nav>
+        <a class="primary" href="/">Home</a>
+        <a href="/websites">Free website templates</a>
+        <a href="/projects">Projects</a>
+        <a href="/work-with-me">Services &amp; pricing</a>
+        <a href="/free">Start free</a>
+      </nav>
+    </main>
+  </body>
+</html>

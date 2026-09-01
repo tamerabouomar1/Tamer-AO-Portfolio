@@ -44,7 +44,7 @@ export const PAGE_META = {
   "/websites": {
     title: "Free Website Templates & Website Pricing",
     description:
-      "A gallery of finished website templates, free in full React source. Plus what a built site costs: $350 for one page, $850 for a six-page build, care from $30 a month.",
+      "A gallery of finished website templates, free in full React source. Plus what a built site costs: $350 for one page, $850 for a six-page build.",
   },
   "/media": {
     title: "Logo Motion & Video Editing",
@@ -59,29 +59,29 @@ export const PAGE_META = {
   "/fitness": {
     title: "Self-Defense Classes & Personal Training in Beirut",
     description:
-      "Your first hour of one-on-one coaching in Beirut is free, and you keep the plan. Strength, personal training and the 90-Day Self-Defense Program — every price in the open.",
+      "Your first hour of one-on-one coaching in Beirut is free, and you keep the plan. Strength, personal training and the 90-Day Self-Defense Program.",
   },
   // The search-intent pages. Titles here lead with the query the page is
   // built to answer, because the title is the headline of the search result.
   "/website-design-lebanon": {
     title: "Website Design in Lebanon",
     description:
-      "Websites designed, built and run for businesses in Lebanon. $850 for a six-page site, launched and found on Google, then care from $30 a month. Real client sites, real prices.",
+      "Websites designed, built and run for businesses in Lebanon. $850 for a six-page site, launched and found on Google, then care from $30 a month.",
   },
   "/logo-design-beirut": {
     title: "Logo Design & Brand Identity in Beirut",
     description:
-      "Logo design, brand identity, logo motion and apparel in Beirut. Start with a free recorded brand teardown: what is working, what is costing you, what to change first.",
+      "Logo design, brand identity, logo motion and apparel in Beirut. Start with a free recorded brand teardown: what to change first, and why.",
   },
   "/restaurant-website-lebanon": {
     title: "Restaurant Websites in Lebanon",
     description:
-      "Take orders on your own site instead of paying a delivery app a third of every one. Built already for Snack Faysal in Beirut. $850 to build, then from $30 a month.",
+      "Take orders on your own site instead of paying a delivery app a third of every one. Built already for Snack Faysal. $850, then from $30 a month.",
   },
   "/social-media-management-lebanon": {
     title: "Social Media Management in Lebanon",
     description:
-      "Reels-first social media management from $199 a month: 8, 16 or 28 pieces, hooks and captions written for you. Your first reel is cut free. 855K+ views on my own.",
+      "Reels-first social media management from $199 a month: 8, 16 or 28 pieces, with hooks and captions written for you. Your first reel is cut free.",
   },
   "/salon-website-lebanon": {
     title: "Salon & Barbershop Websites in Lebanon",

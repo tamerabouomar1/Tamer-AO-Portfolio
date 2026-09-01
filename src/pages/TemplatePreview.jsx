@@ -35,6 +35,12 @@ export default function TemplatePreview() {
   const tpl = TEMPLATES.find((t) => t.slug === slug);
   const View = TEMPLATE_VIEWS[slug];
 
+  // Neighbours for the prev/next links in the bar. Wraps, so the first and
+  // last template are as reachable as the ones in the middle.
+  const at = TEMPLATES.findIndex((t) => t.slug === slug);
+  const prev = TEMPLATES[(at - 1 + TEMPLATES.length) % TEMPLATES.length] || tpl;
+  const next = TEMPLATES[(at + 1) % TEMPLATES.length] || tpl;
+
   /* Every one of these pages used to inherit index.html's canonical, which
      points at the home page — so all 36 of them told Google "I am a duplicate
      of the site root" and none could ever be indexed. They are the site's
@@ -59,7 +65,7 @@ export default function TemplatePreview() {
     };
   }, [tpl]);
 
-  if (!tpl || !View) return <Navigate to="/templates" replace />;
+  if (!tpl || !View) return <Navigate to="/websites" replace />;
 
   return (
     <div className="tplview">
@@ -69,13 +75,27 @@ export default function TemplatePreview() {
 
       {!embedded && (
       <div className={`tplview__bar${hidden ? " is-hidden" : ""}`}>
-        <Link className="tplview__back" to="/templates">
+        <Link className="tplview__back" to="/websites">
           ‹ Store
+        </Link>
+        {/* Neighbour links, in TEMPLATES order and wrapping at both ends.
+            They are the natural way to browse a gallery one design at a time,
+            and they also fix the audit's "page has only one dofollow incoming
+            internal link" on all 42 of these: each template was reachable
+            from the store grid and nowhere else. Now every one is reachable
+            from its two neighbours as well. Rendered here AND in the
+            prerendered stub in prerender-head.mjs, so a crawler and a visitor
+            follow exactly the same links. */}
+        <Link className="tplview__step" to={`/templates/${prev.slug}`} title={`Previous: ${prev.name}`}>
+          ‹
         </Link>
         <span className="tplview__name">
           {tpl.name}
           <em>Live preview</em>
         </span>
+        <Link className="tplview__step" to={`/templates/${next.slug}`} title={`Next: ${next.name}`}>
+          ›
+        </Link>
         <button className="tplview__buy" onClick={() => setBuying(tpl)}>
           Get it free
         </button>

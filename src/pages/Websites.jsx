@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { Fragment, useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import { motion, AnimatePresence } from "framer-motion";
 import Page, { container, cardIn } from "../components/Page";
@@ -282,6 +282,35 @@ export default function Websites() {
           ))}
           <MemberCard onOpen={() => setJoining(true)} />
         </motion.div>
+
+        {/* The rest of the shelf, named and linked.
+            
+            These 12 pages were prerendered and listed in sitemap.xml but had
+            no incoming internal link from anywhere on the site, which is the
+            one thing a site audit calls an error rather than a warning: a
+            crawler reaches them only through the sitemap, so they get almost
+            no weight, and a visitor cannot reach them at all.
+            
+            Deliberately a sentence, not a grid and not a button. The "view
+            more" button was removed from this page on purpose, because a
+            second button competed with the download for the same decision.
+            A line of text does not: the previews were always public, it is
+            the SOURCE that the membership gates, so nothing here is given
+            away that was not already open. */}
+        {TEMPLATES.length > GALLERY_PREVIEW_COUNT && (
+          <p className="price-note">
+            Also in the membership:{" "}
+            {TEMPLATES.slice(GALLERY_PREVIEW_COUNT).map((t, i, arr) => (
+              <Fragment key={t.slug}>
+                <Link className="link" to={`/templates/${t.slug}`}>
+                  {t.name}
+                </Link>
+                {i < arr.length - 1 ? ", " : ". "}
+              </Fragment>
+            ))}
+            Every one opens live, the same as the cards above.
+          </p>
+        )}
       </section>
 
       <section className="proj-section">

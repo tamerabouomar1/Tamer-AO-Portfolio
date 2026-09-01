@@ -50,7 +50,22 @@ const CANONICAL_HOST = "tamerabouomar.com";
 
 function canonicalRedirect(request) {
   const url = new URL(request.url);
-  if (url.hostname === CANONICAL_HOST) return null;
+
+  /* The scheme counts as part of the canonical address, not just the host.
+   *
+   * This used to return early whenever the hostname already matched, which
+   * meant http://tamerabouomar.com/... was served at 200 over plain HTTP
+   * instead of being redirected. Every page therefore existed at two URLs, and
+   * a crawler that starts on http (Ahrefs does, its default scope is
+   * "http + https") reports the whole site twice: 43 "canonical from HTTP to
+   * HTTPS", 30 "HTTP page has internal links to HTTPS", and every sitemap URL
+   * as "page in multiple sitemaps". The canonical tags meant Google was
+   * unlikely to index the HTTP copies, but a 301 is the direct signal and
+   * costs nothing.
+   *
+   * HSTS is already set, so browsers upgrade on their own after one visit.
+   * This is for the first visit, and for crawlers, which do not honour it. */
+  if (url.hostname === CANONICAL_HOST && url.protocol === "https:") return null;
 
   // Only GET and HEAD. 301-ing a POST would drop the body, so a form still
   // open on the old host would silently lose the message it was sending.
@@ -582,6 +597,22 @@ export default {
        Following the redirect here instead keeps the document URL exactly as
        the iframe requested it, which keeps every relative path inside these
        self-contained copies resolving against their own folder. */
+    /* /templates is a redirect, so make it an actual redirect.
+     *
+     * It exists only to catch old links: App.jsx answers it with a
+     * client-side <Navigate to="/websites">. But it was also being
+     * prerendered as a normal page — "index, follow", its own canonical, and
+     * a description — so a crawler saw an indexable page while a visitor got
+     * bounced. It is deliberately kept out of sitemap.xml for that reason,
+     * which left it in the incoherent middle: indexable, but disowned.
+     *
+     * A 301 states the same thing unambiguously and passes the signal to
+     * /websites instead of stranding it. Exact path only: /templates/<slug>
+     * is a real page and the store's card thumbnails embed those URLs. */
+    if (pathname === "/templates" || pathname === "/templates/") {
+      return Response.redirect(new URL("/websites", request.url).toString(), 301);
+    }
+
     if (pathname.startsWith("/demo/")) {
       let res = await env.ASSETS.fetch(request);
       const loc = res.status >= 300 && res.status < 400 ? res.headers.get("location") : null;

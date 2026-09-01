@@ -2157,6 +2157,20 @@ ul { margin: 0; padding: 0; list-style: none; }
 
 .tplview__back { font-size: 14px; font-weight: 600; color: #fff; white-space: nowrap; }
 .tplview__back:hover { color: var(--shiny); }
+
+/* Prev/next neighbour links in the preview bar. Deliberately quiet: they are
+   navigation, not a call to action, so they must not compete with "Get it
+   free" sitting beside them. */
+.tplview__step {
+  display: inline-flex; align-items: center; justify-content: center;
+  width: 26px; height: 26px; flex: none;
+  border-radius: 6px;
+  border: 1px solid rgba(255, 255, 255, 0.16);
+  color: rgba(255, 255, 255, 0.72);
+  font-size: 15px; line-height: 1; text-decoration: none;
+}
+.tplview__step:hover { color: #fff; border-color: rgba(255, 255, 255, 0.4); }
+.tplview__step:focus-visible { outline: 2px solid var(--shiny); outline-offset: 2px; }
 .tplview__name {
   display: none;
   flex-direction: column;

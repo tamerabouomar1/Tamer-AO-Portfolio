@@ -83,6 +83,35 @@ const templates = dataSrc
   })
   .filter((t) => t && t.desc);   // service pages have a slug but no desc
 
+/* Meta descriptions have a hard budget: Google truncates around 160
+   characters and Ahrefs reports anything longer as an issue. */
+const DESC_MAX = 160;
+const DESC_MIN = 110;
+
+/* The window is 110 to 160: shorter wastes the snippet, longer gets truncated,
+   and Ahrefs reports both. Template descriptions in siteData run from about 45
+   to 85 characters, so a single fixed suffix cannot serve all of them — one
+   long enough for the short entries pushed the long ones over the limit, and
+   one safe for the long entries left 38 pages under-length. Longest first, so
+   each page gets the fullest sentence that still fits. */
+const DESC_SUFFIXES = [
+  " A free, production-ready React template by Tamer Abou Omar. Preview it live, then take the full source.",
+  " A free React template by Tamer Abou Omar. Preview it live, then take the source.",
+  " A free React template by Tamer Abou Omar, yours to keep.",
+  " Free React source, yours to keep.",
+];
+
+function templateDescription(t) {
+  if (t.desc.length > DESC_MAX) {
+    // Trim on a word boundary and close with a full stop rather than an
+    // ellipsis, so the snippet reads as a sentence, not a truncation.
+    const cut = t.desc.slice(0, DESC_MAX - 1);
+    return cut.slice(0, cut.lastIndexOf(" ")).replace(/[,;:]$/, "") + ".";
+  }
+  const fit = DESC_SUFFIXES.find((x) => t.desc.length + x.length <= DESC_MAX);
+  return fit ? t.desc + fit : t.desc;
+}
+
 const routes = [];
 for (const [p, m] of Object.entries(PAGE_META)) {
   if (p === "/") continue;                       // the shell already is the home page
@@ -95,13 +124,25 @@ routes.push({
   // dates the moment it is written and has to be kept in step with a page
   // that no longer states one.
   description:
-    "A gallery of finished website templates — portfolios, landing pages, product showcases and storefronts. Open any of them live, then take the full React source free.",
+    "A gallery of finished website templates: portfolios, landing pages, product showcases and storefronts. Open any live, then take the React source.",
 });
-for (const t of templates) {
+for (const [i, t] of templates.entries()) {
   routes.push({
+    // Same neighbours, same order and same wrap as the bar in
+    // TemplatePreview.jsx, so the prerendered HTML links exactly where the
+    // rendered page does.
+    prev: templates[(i - 1 + templates.length) % templates.length],
+    next: templates[(i + 1) % templates.length],
     path: `/templates/${t.slug}`,
     title: `${t.name} — ${t.kicker} Website Template | ${SUFFIX}`,
-    description: `${t.desc} A free, production-ready ${t.kicker.toLowerCase()} template by Tamer Abou Omar — preview it live, then take the source.`,
+    /* Built to stay under 160 characters.
+     *
+     * This used to be the template's own description PLUS a fixed 90-character
+     * sentence, which put 38 of the 42 template pages over the limit — Google
+     * truncates around 160 and Ahrefs flags it. The suffix is the part worth
+     * losing, so it is added only when it fits, and a long `desc` is trimmed
+     * at a word boundary rather than mid-word. */
+    description: templateDescription(t),
     template: t,
   });
 }
@@ -112,21 +153,36 @@ const esc = (s) => s.replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, 
 function render(route) {
   const url = SITE + route.path;
   let h = shell;
-  const set = (re, out) => { h = h.replace(re, out); };
+  /* Both helpers build the replacement with a FUNCTION, never a string.
+   *
+   * String.replace expands $1, $2, $&, $` and $' inside a replacement STRING.
+   * The descriptions on this site quote prices, and "$199 a month" contains
+   * "$1" — a valid reference to capture group 1, which in these patterns is
+   * the opening `<meta name="description" content="`. So the tag wrote itself
+   * into its own content, and /work-with-me and
+   * /social-media-management-lebanon both shipped, to Google, a description
+   * reading `Reels-first social media management from <meta\n      name=`.
+   * og:description and twitter:description were corrupted the same way.
+   *
+   * It failed silently: the build passed, the HTML stayed valid, and the only
+   * symptom was a description that looked oddly short. A replacer function's
+   * return value is inserted literally, so no future price can do this. */
+  const wrap = (re, value) => { h = h.replace(re, (_m, open, close) => open + value + close); };
+  const whole = (re, value) => { h = h.replace(re, () => value); };
 
   /* /fitness is the site's one light page (see :root[data-theme="fit"] in
      index.css). Stamping the attribute here means a cold load paints white
      immediately instead of flashing the dark shell before React mounts. */
-  if (route.path === "/fitness") set(/<html lang="en">/, '<html lang="en" data-theme="fit">');
+  if (route.path === "/fitness") whole(/<html lang="en">/, '<html lang="en" data-theme="fit">');
 
-  set(/<title>[\s\S]*?<\/title>/, `<title>${esc(route.title)}</title>`);
-  set(/(<meta\s+name="description"\s+content=")[\s\S]*?(")/, `$1${esc(route.description)}$2`);
-  set(/(<link\s+rel="canonical"\s+href=")[^"]*(")/, `$1${url}$2`);
-  set(/(<meta\s+property="og:url"\s+content=")[^"]*(")/, `$1${url}$2`);
-  set(/(<meta\s+property="og:title"\s+content=")[^"]*(")/, `$1${esc(route.title)}$2`);
-  set(/(<meta\s+property="og:description"\s+content=")[\s\S]*?(")/, `$1${esc(route.description)}$2`);
-  set(/(<meta\s+name="twitter:title"\s+content=")[^"]*(")/, `$1${esc(route.title)}$2`);
-  set(/(<meta\s+name="twitter:description"\s+content=")[\s\S]*?(")/, `$1${esc(route.description)}$2`);
+  whole(/<title>[\s\S]*?<\/title>/, `<title>${esc(route.title)}</title>`);
+  wrap(/(<meta\s+name="description"\s+content=")[\s\S]*?(")/, esc(route.description));
+  wrap(/(<link\s+rel="canonical"\s+href=")[^"]*(")/, url);
+  wrap(/(<meta\s+property="og:url"\s+content=")[^"]*(")/, url);
+  wrap(/(<meta\s+property="og:title"\s+content=")[^"]*(")/, esc(route.title));
+  wrap(/(<meta\s+property="og:description"\s+content=")[\s\S]*?(")/, esc(route.description));
+  wrap(/(<meta\s+name="twitter:title"\s+content=")[^"]*(")/, esc(route.title));
+  wrap(/(<meta\s+name="twitter:description"\s+content=")[\s\S]*?(")/, esc(route.description));
 
   // Breadcrumbs. Cheap, and it is what puts a readable path under the result
   // instead of the bare URL. The home page is its own root, so it gets none.
@@ -177,6 +233,14 @@ function render(route) {
       `and web designer in Beirut, Lebanon. ` +
       `<a href="${SITE}/websites">See the whole gallery</a> · ` +
       `<a href="${SITE}/website-design-lebanon">Website design in Lebanon</a></p>` +
+      /* The neighbour links the bar shows. Without them each template page had
+         exactly one incoming internal link, from the store grid, which is what
+         the audit flagged across all 42. */
+      (route.prev && route.next
+        ? `<p>More templates: ` +
+          `<a href="${SITE}/templates/${route.prev.slug}">${esc(route.prev.name)}</a> · ` +
+          `<a href="${SITE}/templates/${route.next.slug}">${esc(route.next.name)}</a></p>`
+        : "") +
       `</article>`;
     return h.replace('<div id="root"></div>', `<div id="root">${block}</div>`);
   }

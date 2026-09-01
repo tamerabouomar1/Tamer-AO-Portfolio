@@ -42,11 +42,26 @@
     "directory": "./dist",
     "binding": "ASSETS",
 
-    // Serves index.html (200) for any path that isn't a real file, which is
-    // what makes React Router's routes survive a direct load or refresh —
-    // /templates and /templates/jack would otherwise 404. This is the Workers
-    // equivalent of the SPA rule in netlify.toml and public/_redirects.
-    "not_found_handling": "single-page-application",
+    // Was "single-page-application", which answered EVERY unknown URL with
+    // index.html at status 200. That is a soft 404: the shell carries
+    // <link rel="canonical" href="https://tamerabouomar.com/">, so each dead
+    // URL came back as a 200 page canonicalising to the home page. Ahrefs
+    // reports that as "indexable page became non-indexable", and it fired the
+    // moment three client demos were retired, because their URLs stopped being
+    // real files and started being soft 404s instead of going away.
+    //
+    // Safe to switch because the SPA fallback is no longer doing any work:
+    // prerender-head.mjs writes dist/<route>/index.html for all 57 real routes
+    // (10 literal + 5 service pages + 42 templates), so every route a visitor
+    // can reach is a real file that the asset handler serves directly. The
+    // fallback only ever caught URLs that genuinely do not exist.
+    //
+    // THE TRADE, and it is the reason this comment is long: a new route now
+    // has to be prerendered or it 404s in production. Adding one to App.jsx is
+    // no longer enough on its own — it needs a PAGE_META entry too, which is
+    // what makes prerender-head.mjs emit its file. That fails loudly on the
+    // first click rather than quietly ranking as a duplicate of the home page.
+    "not_found_handling": "404-page",
 
     // Serve /websites directly instead of 307-redirecting it to /websites/.
     //
