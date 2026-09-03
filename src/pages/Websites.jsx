@@ -390,6 +390,10 @@ export default function Websites() {
           <Link className="link" to="/salon-website-lebanon">
             salon &amp; barbershop websites
           </Link>
+          , and{" "}
+          <Link className="link" to="/google-business-profile-lebanon">
+            getting found on Google
+          </Link>
           . Want something that isn&apos;t here? I build custom sites from scratch too.{" "}
           <Link className="link" to="/work-with-me">
             see how we&apos;d work together <span className="plus">+</span>

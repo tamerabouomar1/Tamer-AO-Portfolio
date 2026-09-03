@@ -4,9 +4,12 @@ import Page, { container, cardIn } from "../components/Page";
 import PriceCard from "../components/PriceCard";
 import FreeOffers from "../components/FreeOffers";
 import MessageForm from "../components/MessageForm";
+import OfferProgram from "../components/OfferProgram";
 import { TrustedBy, Testimonials } from "../components/SocialProof";
 import {
   CONTACT,
+  PRESENCE,
+  GOOGLE_PROFILE,
   SOCIAL_PACKAGES,
   SOCIAL_GUARANTEE,
   SERVICE_CATEGORIES,
@@ -24,8 +27,13 @@ export default function WorkWithMe() {
     <Page>
       <header className="topbar">
         <div>
-          <h1 className="topbar__title">Design &amp; Social Media Services</h1>
-          <p className="topbar__sub">Social media, branding, websites &amp; design</p>
+          {/* The page used to be titled for the components it sells. It leads
+              with the whole online presence now, because that is the outcome
+              people are actually buying and the only framing in which the
+              Google profile, the site and the content stop looking like three
+              separate invoices. */}
+          <h1 className="topbar__title">Your Whole Online Presence</h1>
+          <p className="topbar__sub">Website, Google profile, content &amp; brand</p>
         </div>
       </header>
 
@@ -84,6 +92,54 @@ export default function WorkWithMe() {
         accent="free"
         lede="Nothing on this page is the first step. These are. Real work, delivered at no cost, so you can judge it before you pay for any of it."
       />
+
+      {/* The flagship, and the only thing on this page sold as an outcome
+          rather than a deliverable. It sits after the free offers and before
+          the component pricing on purpose: a visitor who wants the whole thing
+          handled sees it first, and a visitor who only wants one piece scrolls
+          two seconds to reach the piece they want. It does NOT bury the
+          numbers the way the old website flagship did, because it carries its
+          own price and its own monthly in the close. */}
+      <OfferProgram program={PRESENCE} id="online-presence" phasesTitle="How the first month runs" />
+
+      {/* Google Business Profile on its own. It belongs beside the bundle
+          rather than buried in it, because it is the cheapest, fastest thing
+          Tamer sells: the map listing sits above the organic results for a
+          nearby search, and it can be fixed in a week without touching the
+          website. It is also the natural first sale to someone not ready to
+          commit to a build. */}
+      <section className="proj-section">
+        <h2 className="proj-section__title">Just the Google Profile</h2>
+        <p className="page-lead" style={{ marginTop: "-4px" }}>
+          Not ready for the whole thing? Start where the searching actually happens. When
+          somebody nearby looks for what you sell, the map listing is what they see first,
+          above every website on the page. Most are wrong, empty, or still unclaimed.
+        </p>
+        <motion.div className="price-grid" variants={container} initial="hidden" whileInView="show" viewport={{ once: true, margin: "-40px" }}>
+          <PriceCard
+            name={GOOGLE_PROFILE.name}
+            tagline={GOOGLE_PROFILE.tagline}
+            amount={`$${GOOGLE_PROFILE.price}`}
+            period={GOOGLE_PROFILE.period}
+            features={GOOGLE_PROFILE.features}
+            bonus={GOOGLE_PROFILE.bonus}
+            guarantee={GOOGLE_PROFILE.guarantee}
+            featured
+            badge="Fastest win"
+            action={
+              <a className="btn-book" href={CONTACT.calendly} target="_blank" rel="noreferrer noopener">
+                Book a free call
+              </a>
+            }
+          />
+        </motion.div>
+        <p className="price-note">
+          More on{" "}
+          <Link className="link" to="/google-business-profile-lebanon">
+            getting found on Google in Lebanon <span className="plus">+</span>
+          </Link>
+        </p>
+      </section>
 
       {/* Social media */}
       <section className="proj-section">

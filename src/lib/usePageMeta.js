@@ -88,10 +88,18 @@ export const PAGE_META = {
     description:
       "Stop losing bookings in your DMs. A site where every screen books into your calendar, live already for Salon Nizar. $850 to build, care from $30 a month.",
   },
-  "/work-with-me": {
-    title: "Design & Social Media Services",
+  "/google-business-profile-lebanon": {
+    title: "Google Business Profile Setup in Lebanon",
     description:
-      "Social-media management from $199/month, logo and brand identity design, and websites. Beirut-based, with a free 30-minute call and the first reel free.",
+      "The map listing sits above every website when someone nearby searches. Claimed, verified and set up properly for $250, live within 7 days or you don't pay.",
+  },
+  /* Retitled away from "Design & Social Media Services", which named the
+     components rather than the outcome. The page now leads with the whole
+     online presence, and the title has to agree with the h1. */
+  "/work-with-me": {
+    title: "Your Whole Online Presence",
+    description:
+      "Website, Google profile and content run as one thing: $950 to set up, $349 a month. Or buy the pieces on their own. Every price in the open, Beirut-based.",
   },
 };
 

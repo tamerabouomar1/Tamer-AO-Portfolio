@@ -1,7 +1,7 @@
 // Central place for content reused across pages.
 
 // Shown under the name in the sidebar. One line: what he makes, and where.
-export const PROFILE_TAGLINE = "Brand identity, logos and apparel. Beirut, Lebanon.";
+export const PROFILE_TAGLINE = "Websites, branding and your whole online presence. Beirut, Lebanon.";
 
 // MERGE NOTE (2026-08-09): this file briefly carried TWO `export const
 // FREE_OFFERS` arrays after a stash-pop — PR #27's and the local one landed
@@ -1921,6 +1921,210 @@ export const WEBSITE_CARE_NOTES = [
   "Third-party costs are minimal and paid by you directly: domain renewal is roughly $20 a year, and Cloudflare hosting, the form service and the booking calendar are all free at normal traffic levels.",
 ];
 
+
+// ── The Whole Online Presence ──────────────────────────────────
+// The bundle, and the reason it exists.
+//
+// Everything above this line is sold as a COMPONENT: a site, a logo, some
+// posts. Components compete on price, because a buyer comparing "$850 for a
+// website" against the next freelancer's $600 has been handed a spreadsheet
+// and no reason to choose. Nobody wakes up wanting a website. They want the
+// phone to ring.
+//
+// So this is the same work sold as the outcome it produces, with the pieces
+// kept visible as the anchor. Built on the $100M Offers value equation, the
+// same as DEFENSE_PROGRAM above:
+//
+//   Value = (Dream Outcome × Perceived Likelihood) ÷ (Time Delay × Effort)
+//
+// `promise` is the dream outcome stated as something they can picture,
+// `proof` raises the likelihood with work already live, `weeks` collapses the
+// time delay by showing the first win inside seven days, `effort` removes the
+// sacrifice, and the guarantee removes the risk of trying.
+//
+// WHY IT IS A RETAINER, not another one-off. A website is a thing you buy
+// once and a presence is a thing you keep. Google profiles rot: hours go
+// stale, reviews go unanswered, competitors post and you do not. The monthly
+// is what makes the outcome hold, and it is the difference between selling
+// $850 once and $349 every month.
+//
+// ON THE NUMBERS. Every anchor line is Tamer's OWN published price, not an
+// invented one, which is what makes the total defensible if a client asks how
+// it was reached. Setup: $850 (the six-page build) + $250 (Google profile
+// setup) = $1,100. Monthly: $190 (Complete care) + $199 (Starter content) =
+// $389. Both are summed from the lines at render time rather than stored, so
+// editing a line can never leave the headline quietly wrong.
+//
+// ⚠ TAMER, CONFIRM BEFORE THIS GOES LIVE:
+//   1. GOOGLE_PROFILE.price ($250) is the one number here that is not already
+//      published somewhere on this site. Every other figure is yours. Change
+//      it or tell me and I will.
+//   2. The guarantee promises you keep working free through months four to
+//      six if the 90 days do not beat the baseline. It costs hours, not cash,
+//      and it is the same promise already made on /website-design-lebanon and
+//      /restaurant-website-lebanon. It only works if you write the baseline
+//      down on day one.
+//   3. `seats` says you take three of these at a time. A cap nobody enforces
+//      reads as a lie the first time somebody asks twice.
+
+/** Google Business Profile, sold on its own as well as inside the bundle.
+ *  It is the fastest win Tamer has: the map listing is what a nearby search
+ *  actually returns, it sits above the organic results, and it can be fixed
+ *  in a week without touching the website. */
+export const GOOGLE_PROFILE = {
+  price: 250,
+  period: "one-off, live within 7 days",
+  name: "Google Business Profile, Done Properly",
+  tagline: "The listing people actually see before your site",
+  features: [
+    "Profile claimed, verified and locked to you",
+    "Categories, services and service areas set the way people search",
+    "Hours, phone and booking link wired to the right places",
+    "Photos uploaded, named and ordered so the good ones lead",
+    "Description written for what people type, not what you call it",
+    "Review link set up, plus the message to send asking for them",
+    "Posts and offers scheduled for the first month",
+  ],
+  bonus: "Free walkthrough so you can post to it yourself afterwards",
+  guarantee: "Live and verified within 7 days of getting your details, or you don't pay.",
+};
+
+export const PRESENCE = {
+  name: "The Whole Online Presence",
+  kicker: "Website · Google profile · content, run as one thing",
+
+  // Dream outcome. Not "a professional online presence", which is a category
+  // nobody wants. The picture of the moment the money is actually made.
+  promise:
+    "Somebody three streets away pulls out their phone and searches for what you sell. You are what comes up. You are the one with the photos, the reviews and the hours that are right. You are the one they call.",
+
+  // Perceived likelihood. Work that is live, named and checkable.
+  proof:
+    "Seven client sites running now, including a full ordering system with accounts and payments for Kitchen Garage in Aley, a bilingual English and Arabic build that mirrors properly into right-to-left, and a barbershop that books straight into its own Fresha calendar. My own reels have done over 855,000 views.",
+
+  /* Three doors, because the person paying a delivery app a third of every
+     order and the contractor nobody can find are not the same buyer and must
+     not be sold with the same sentence. Every one of these is a client type
+     already on this site. */
+  tracks: [
+    {
+      id: "food",
+      who: "Restaurants & cafés",
+      name: "Own the order",
+      pain: "The app keeps about a third of every order and won't tell me who ate my food.",
+      outcome:
+        "Your own menu, your own cart, your own customers. The map listing brings them in and the site takes the order, so the margin stays with you.",
+      note: "Built already for Kitchen Garage, Snack Faysal and Rasif Aley.",
+    },
+    {
+      id: "booking",
+      who: "Salons, barbers & clinics",
+      name: "Fill the calendar",
+      pain: "Bookings sit in my DMs until morning and half of them are gone by then.",
+      outcome:
+        "Every screen books into your calendar, and the profile that shows up on the map has your real hours, real prices and real photos on it.",
+      note: "Built already for Salon Nizar, booking into their Fresha calendar.",
+    },
+    {
+      id: "trade",
+      who: "Trades, studios & firms",
+      name: "Be findable at all",
+      pain: "I only get work when somebody happens to mention me.",
+      outcome:
+        "A site that says what you do and proves it, and a profile that puts you in front of the person searching right now instead of the one asking a friend.",
+      note: "Built already for Sinar, ACC and FabricAID Uniforms.",
+    },
+  ],
+
+  /* Time delay collapsed. The first win lands inside a week, before a single
+     page of the site exists, which is the whole reason the Google profile is
+     done first rather than last. */
+  phases: [
+    {
+      weeks: "Week 1",
+      title: "You are on the map",
+      body:
+        "Your Google profile claimed, corrected and live: categories, service areas, hours, photos, the booking link and the review link. This starts producing calls before the site is built.",
+    },
+    {
+      weeks: "Week 2",
+      title: "The site takes shape",
+      body:
+        "Your pages, written and designed around what you actually sell. You review it once, as a single list of changes, and I make them.",
+    },
+    {
+      weeks: "Week 3",
+      title: "It goes live",
+      body:
+        "Launched on your own domain: fast, secure, and submitted to Google with the search setup done properly rather than left as a checkbox.",
+    },
+    {
+      weeks: "Every month after",
+      title: "It keeps working",
+      body:
+        "Content going out, the profile kept current, the site kept fast, and a report each month showing what came in and where it came from.",
+    },
+  ],
+
+  /* Every line is a price already published on this site, which is what makes
+     the total defensible if a client asks how it was reached. */
+  stack: [
+    { item: "Your website, up to six pages, launched and found on Google", value: 850 },
+    { item: "Your Google Business Profile, claimed and set up properly", value: 250 },
+  ],
+  bonuses: [
+    {
+      name: "Logo animation for your hero",
+      body: "The same one that ships with the Premium content package.",
+      value: 150,
+    },
+  ],
+
+  price: 950,
+  period: "to set the whole thing up, about three weeks",
+
+  /* The retainer. A website is bought once; a presence is kept. Profiles rot:
+     hours go stale, reviews go unanswered, competitors post and you do not.
+     This is also the difference between selling $850 once and $349 monthly. */
+  monthly: {
+    price: 349,
+    period: "per month after that, cancel with 30 days' notice",
+    stack: [
+      { item: "Hosting, SSL, backups, monitoring and unlimited content edits", value: 190 },
+      { item: "Eight pieces of content a month, hooks and captions written", value: 199 },
+    ],
+    note: "Posted to your socials and your Google listing, so both stay alive instead of one going quiet.",
+  },
+
+  /* The denominator nobody prices. "It's easy" is not a claim. "One folder of
+     photos and one phone call" is. */
+  effort: [
+    "One 30-minute call at the start, and one folder of photos.",
+    "One round of changes, sent as a single list.",
+    "After that, nothing. Approve the content if you want to, or don't.",
+  ],
+
+  guarantee: {
+    title: "Beat your own 90 days, or I work the next three free",
+    body:
+      "Before anything is built we write down what came in over your previous 90 days: calls, messages, walk-ins. If the 90 days after launch have not beaten that number, you do not pay for months four, five or six, and I keep working straight through them. You keep the site, the domain and the profile either way.",
+  },
+
+  // ⚠ Only true if Tamer enforces it. See the confirm block above.
+  intake: {
+    label: "I take three of these at a time.",
+    cadence: "It is a month of my week, every month,",
+    reason: "so it is not a thing I can run ten of.",
+  },
+
+  cta: "Book a free 30-minute call",
+
+  /* Said out loud, on purpose. A buyer who rules himself out on his own terms
+     is worth more than one who discovers it in month two. */
+  terms:
+    "If you only need a logo, or only a website with nothing after it, buy that instead. It is cheaper and it is further down this page. This is for a business that wants the whole thing handled and wants it to keep working.",
+};
+
 // ── Service pages ─────────────────────────────────────────────
 // Three pages that exist because of what people type into Google, which is
 // not what the rest of this site is organised around. Nobody searches "Start
@@ -2226,6 +2430,74 @@ export const SERVICE_PAGES = [
       },
     ],
     cta: { label: "See the offer", to: "/websites" },
+  },
+
+  /* Google Business Profile. The highest-intent local search Tamer can answer
+     and the one the site had no page for, even though two other service pages
+     already promise the work ("your Google Business profile gets fixed in the
+     first week"). It is also the cheapest first sale on the site, which makes
+     it the natural front door to the presence bundle. */
+  {
+    slug: "google-business-profile-lebanon",
+    h1: "Google Business Profile Setup in Lebanon",
+    kicker: "The listing people see before they see your website",
+    lede:
+      "When somebody nearby searches for what you sell, the map results sit above every website on the page. That listing is what they judge you on, and most of them in Lebanon are wrong, half empty, or still unclaimed by the person who owns the business.",
+    sections: [
+      {
+        title: "Why this beats a website to the punch",
+        body:
+          "A site takes three weeks. A profile takes one, and it is the thing standing between you and the person searching right now. Hours, photos, services, the booking link and the reviews all live there, and Google shows it to people within a few streets of you without anybody clicking through to anything. If you only ever fix one thing online, fix this one first.",
+      },
+      {
+        title: "What actually gets done",
+        body:
+          "The profile claimed and verified in your name, so it is yours and not an agency's. Categories and services set the way people search rather than the way you describe yourself internally. Service areas, hours and the phone number wired to the right places. Photos uploaded, named and ordered so the good ones lead. A description written for what people type. The review link set up, with the message to send asking for them. Then the first month of posts scheduled so it does not look abandoned.",
+      },
+      {
+        title: "The part most people get wrong",
+        body:
+          "A profile is not a form you fill in once. It rots. Hours go stale over a holiday, a competitor posts every week and you have not posted since you opened, reviews go unanswered, and Google quietly stops showing a listing nobody maintains. Keeping it alive is worth more than setting it up, which is why it is part of the monthly rather than a one-off I hand over and forget.",
+      },
+      {
+        title: "What it costs",
+        body:
+          "$250 one-off, live and verified within 7 days of you sending your details, or you do not pay. If you want the site, the profile and the content run as one thing instead of three, that is The Whole Online Presence: $950 to set up and $349 a month, against $1,250 and $389 buying the same pieces separately.",
+      },
+    ],
+    proof: [
+      { name: "Salon Nizar", what: "Barbershop in Abadiyeh, where the map listing is most of the walk-in traffic." },
+      { name: "Kitchen Garage", what: "Aley, where a nearby search is the whole game for a food order." },
+      { name: "Rasif Aley", what: "Coffee shop running on its real menu, photographs and reviews." },
+      { name: "Tamer AO", what: "My own profile, set up the same way this one would be." },
+    ],
+    faqs: [
+      {
+        q: "How much does Google Business Profile setup cost in Lebanon?",
+        a: "$250 as a one-off, live and verified within 7 days of getting your details or you do not pay. It is also included in The Whole Online Presence, which is $950 to set up the site and the profile together and $349 a month to keep both running.",
+      },
+      {
+        q: "I already have a listing. Do I still need this?",
+        a: "Probably, and it is worth two minutes to check. Search your own business on your phone. If the hours are wrong, the photos are other people's, the categories are vague, there are no posts, or the reviews have no replies, then the listing is working against you rather than for you.",
+      },
+      {
+        q: "Do I have to show my address?",
+        a: "No. If customers do not come to you, Google's own guidelines say to hide it and set service areas instead. My own profile is set up exactly that way. You get the reach without publishing where you live.",
+      },
+      {
+        q: "Who owns the profile afterwards?",
+        a: "You do. It is claimed and verified in your name and I am added as a manager, which is the right way round. If we stop working together you keep the profile, the reviews and the photos.",
+      },
+      {
+        q: "How long before it makes a difference?",
+        a: "The listing itself is live within 7 days. Movement in the map results is usually a few weeks, and it depends on how many businesses near you are competing for the same search. Reviews are the fastest lever after setup, which is why you get the link and the message to ask with.",
+      },
+      {
+        q: "Can you do it for more than one location?",
+        a: "Yes, and they should not be duplicates of each other. Each location gets its own categories, photos and description, because two identical listings compete with each other instead of covering two areas.",
+      },
+    ],
+    cta: { label: "See the whole presence offer", to: "/work-with-me" },
   },
 ];
 

@@ -25,6 +25,14 @@ export default function OfferProgram({ program, id, phasesTitle = "How the 90 da
     p.stack.reduce((sum, s) => sum + s.value, 0) +
     p.bonuses.reduce((sum, b) => sum + b.value, 0);
 
+  /* An offer may be a one-off (the 90-day program) or a setup fee plus a
+     retainer (the online presence). `monthly` is optional, and its own stack
+     is totalled the same way as the setup stack: summed from the lines rather
+     than stored, so editing a line can never leave the headline wrong. */
+  const monthlyTotal = p.monthly
+    ? p.monthly.stack.reduce((sum, s) => sum + s.value, 0)
+    : 0;
+
   return (
     /* An id starting with a digit is legal HTML but is not a valid CSS
        selector, so #90-day-program throws rather than matching. */
@@ -38,6 +46,7 @@ export default function OfferProgram({ program, id, phasesTitle = "How the 90 da
         </header>
 
         {/* Three tracks. Same program, three different people walking in. */}
+        {p.tracks && (
         <div className="offer__tracks">
           {p.tracks.map((t) => (
             <div className="offer-track" key={t.id}>
@@ -49,8 +58,9 @@ export default function OfferProgram({ program, id, phasesTitle = "How the 90 da
             </div>
           ))}
         </div>
+        )}
 
-        {/* The route to the outcome, so 90 days reads as a plan not a guess. */}
+        {/* The route to the outcome, so the interval reads as a plan not a guess. */}
         <div>
           <h3 className="section-title" style={{ fontSize: "clamp(18px,1.7vw,24px)" }}>
             {phasesTitle}
@@ -94,6 +104,46 @@ export default function OfferProgram({ program, id, phasesTitle = "How the 90 da
                 <s>{money(stackTotal)}</s>
               </div>
             </div>
+
+            {/* The retainer, priced the same way and kept visibly separate from
+                the setup so a buyer is never unsure which number is one-off. */}
+            {p.monthly && (
+              <div className="offer-monthly">
+                <h3 className="section-title" style={{ fontSize: "clamp(18px,1.7vw,24px)" }}>
+                  Then, every month
+                </h3>
+                <div className="offer-stack">
+                  {p.monthly.stack.map((s) => (
+                    <div className="offer-stack__row" key={s.item}>
+                      <span className="offer-stack__item">{s.item}</span>
+                      <span className="offer-stack__value">{money(s.value)}</span>
+                    </div>
+                  ))}
+                  <div className="offer-stack__total">
+                    <span>Bought separately</span>
+                    <s>{money(monthlyTotal)}</s>
+                  </div>
+                </div>
+                <p className="offer-monthly__price">
+                  <strong>{money(p.monthly.price)}</strong> {p.monthly.period}
+                </p>
+                {p.monthly.note && <p className="offer-monthly__note">{p.monthly.note}</p>}
+              </div>
+            )}
+
+            {/* What the client actually has to do. The effort term in the value
+                equation is the one nobody prices, and stating it plainly is
+                worth more than another feature. */}
+            {p.effort && (
+              <div className="offer-effort">
+                <h3 className="offer-effort__title">What you have to do</h3>
+                <ul className="offer-effort__list">
+                  {p.effort.map((e) => (
+                    <li key={e}>{e}</li>
+                  ))}
+                </ul>
+              </div>
+            )}
           </div>
 
           {/* The close. */}

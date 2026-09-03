@@ -1081,6 +1081,35 @@ ul { margin: 0; padding: 0; list-style: none; }
 .offer-stack__total s { color: var(--faint); text-decoration-thickness: 1.5px; font-variant-numeric: tabular-nums; }
 .offer-bonus__body { display: block; font-size: clamp(11.5px, 0.9vw, 13px); line-height: 1.5; color: var(--faint); font-weight: 300; margin-top: 4px; max-width: 52ch; }
 
+/* The retainer block, under the setup stack.
+   Separated by a rule and its own heading so the one-off number and the
+   monthly number can never be mistaken for each other, which is the single
+   most expensive ambiguity a pricing block can carry. */
+.offer-monthly { margin-top: clamp(20px, 2.2vw, 30px); padding-top: clamp(16px, 1.8vw, 24px); border-top: 1px solid var(--line); }
+.offer-monthly__price {
+  margin-top: 12px; font-size: clamp(13px, 1.05vw, 15px); color: var(--ink);
+}
+.offer-monthly__price strong { font-size: clamp(20px, 1.9vw, 26px); font-weight: 700; letter-spacing: -0.02em; }
+.offer-monthly__note {
+  margin-top: 6px; font-size: clamp(11.5px, 0.9vw, 13px); line-height: 1.5;
+  color: var(--faint); max-width: 56ch;
+}
+
+/* What the buyer has to do. The effort term in the value equation, which is
+   the one nobody writes down. Quiet on purpose: it is reassurance, not a
+   feature list, so it must not read as another block of selling. */
+.offer-effort { margin-top: clamp(20px, 2.2vw, 30px); padding-top: clamp(16px, 1.8vw, 24px); border-top: 1px solid var(--line); }
+.offer-effort__title { font-size: clamp(14px, 1.15vw, 16px); font-weight: 600; margin-bottom: 10px; }
+.offer-effort__list { list-style: none; display: flex; flex-direction: column; gap: 7px; }
+.offer-effort__list li {
+  position: relative; padding-left: 20px;
+  font-size: clamp(12.5px, 1vw, 14px); line-height: 1.55; color: var(--faint);
+}
+.offer-effort__list li::before {
+  content: ""; position: absolute; left: 4px; top: 0.62em;
+  width: 5px; height: 5px; border-radius: 50%; background: var(--shiny);
+}
+
 /* the close: price, guarantee, seats, button.
    The stack beside it is a long read, so on wide screens the price and the
    button ride along with it rather than scrolling away — the decision stays
