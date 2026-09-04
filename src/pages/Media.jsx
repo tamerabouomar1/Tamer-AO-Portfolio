@@ -4,13 +4,16 @@ import { motion, AnimatePresence } from "framer-motion";
 import Page, { container, cardIn } from "../components/Page";
 import useSwipe from "../components/useSwipe";
 import InstagramEmbed from "../components/InstagramEmbed";
-import { CONTACT, INSTAGRAM_POSTS, INSTAGRAM_REELS, SOCIAL_POSTS, VIDEO_EDITS } from "../siteData";
+import {
+  CONTACT,
+  INSTAGRAM_POSTS,
+  INSTAGRAM_REELS,
+  LOGO_MOTIONS,
+  SOCIAL_POSTS,
+  VIDEO_EDITS,
+  posterFor,
+} from "../siteData";
 
-const LOGOMOTIONS = [
-  { title: "Combat Sports Academy", src: "/assets/motion/logomotion-csa.mp4" },
-  { title: "MoCars / MoTrouble", src: "/assets/motion/logomotion-mocars.mp4" },
-  { title: "BIAF", src: "/assets/motion/logomotion-biaf.mp4", fit: "cover", scale: 1.18 },
-];
 
 // 2346 → "2.3K", 123694 → "124K" — the way Instagram itself shortens them.
 // One decimal below 100K, none above, and never a dangling ".0".
@@ -82,10 +85,11 @@ export default function Media() {
       <section className="proj-section" style={{ marginTop: 0 }}>
         <h2 className="section-title">Logo Motion</h2>
         <motion.div className="motion-grid" variants={container} initial="hidden" animate="show">
-          {LOGOMOTIONS.map((m) => (
+          {LOGO_MOTIONS.map((m) => (
             <motion.article className="card motion-card" key={m.src} variants={cardIn}>
               <video
                 src={m.src}
+                poster={posterFor(m.src)}
                 autoPlay
                 loop
                 muted
@@ -104,7 +108,7 @@ export default function Media() {
         <motion.div className="video-grid" variants={container} initial="hidden" animate="show">
           {VIDEO_EDITS.map((v) => (
             <motion.article className="card video-card" key={v.src} variants={cardIn}>
-              <video src={v.src} controls preload="metadata" playsInline />
+              <video src={v.src} poster={posterFor(v.src)} controls preload="metadata" playsInline />
               <div className="web-card__body">
                 <h3 className="web-card__title">{v.title}</h3>
                 <p className="card-body">{v.desc}</p>
@@ -125,7 +129,7 @@ export default function Media() {
           {INSTAGRAM_REELS.map((r) => (
             <motion.article className="card reel-card" key={r.src} variants={cardIn}>
               <a className="reel-card__frame" href={r.url} target="_blank" rel="noreferrer" aria-label={`${r.title} on Instagram`}>
-                <video src={r.src} autoPlay loop muted playsInline preload="metadata" />
+                <video src={r.src} poster={posterFor(r.src)} autoPlay loop muted playsInline preload="metadata" />
               </a>
               <div className="reel-card__body">
                 <div className="reel-card__head">

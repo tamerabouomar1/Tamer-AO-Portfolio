@@ -17,6 +17,23 @@
 /assets/*
   Cache-Control: public, max-age=2592000, stale-while-revalidate=86400
 
+# The client-site copies under /demo are snapshots of sites that live on their
+# own domains — majd.abouomar.workers.dev is the explicit case, and every other
+# one either is live somewhere else or will be. Indexed here, a snapshot is a
+# second copy of a client's site on someone else's domain: it competes with the
+# real one for the client's own name, and it can never be as current.
+#
+# noindex keeps them out of search; `follow` keeps the links inside them
+# working as crawl paths. They stay fully reachable — the store cards frame
+# them live, and the card now carries a real link to each — so nothing a
+# visitor can do changes.
+#
+# Set as a header rather than a <meta> tag in each file because these folders
+# are re-pulled wholesale when a client's site changes: a meta tag would be
+# overwritten and silently lost, a rule here cannot be.
+/demo/*
+  X-Robots-Tag: noindex, follow
+
 # NOTE: the no-store rule for HTML is NOT here. A path rule like `/*.html`
 # never matches /websites, which is a URL without an extension served from
 # websites/index.html, so page routes kept their cacheable header while only

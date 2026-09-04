@@ -1,0 +1,122 @@
+{
+  "edit-athletes-night.mp4": {
+    "poster": "/assets/motion/posters/edit-athletes-night.webp",
+    "posterWidth": 960,
+    "posterHeight": 540,
+    "width": 960,
+    "height": 540,
+    "duration": "PT40S"
+  },
+  "edit-instagram-1.mp4": {
+    "poster": "/assets/motion/posters/edit-instagram-1.webp",
+    "posterWidth": 608,
+    "posterHeight": 1080,
+    "width": 720,
+    "height": 1280,
+    "duration": "PT44S"
+  },
+  "edit-instagram-2.mp4": {
+    "poster": "/assets/motion/posters/edit-instagram-2.webp",
+    "posterWidth": 608,
+    "posterHeight": 1080,
+    "width": 1080,
+    "height": 1920,
+    "duration": "PT6S"
+  },
+  "edit-instagram-3.mp4": {
+    "poster": "/assets/motion/posters/edit-instagram-3.webp",
+    "posterWidth": 608,
+    "posterHeight": 1080,
+    "width": 1080,
+    "height": 1920,
+    "duration": "PT4S"
+  },
+  "edit-tamer-fight.mp4": {
+    "poster": "/assets/motion/posters/edit-tamer-fight.webp",
+    "posterWidth": 960,
+    "posterHeight": 540,
+    "width": 960,
+    "height": 540,
+    "duration": "PT12S"
+  },
+  "ig-always-healthy.mp4": {
+    "poster": "/assets/motion/posters/ig-always-healthy.webp",
+    "posterWidth": 608,
+    "posterHeight": 1080,
+    "width": 720,
+    "height": 1280,
+    "duration": "PT10S"
+  },
+  "ig-aura.mp4": {
+    "poster": "/assets/motion/posters/ig-aura.webp",
+    "posterWidth": 608,
+    "posterHeight": 1080,
+    "width": 720,
+    "height": 1280,
+    "duration": "PT7S"
+  },
+  "ig-oppa.mp4": {
+    "poster": "/assets/motion/posters/ig-oppa.webp",
+    "posterWidth": 536,
+    "posterHeight": 954,
+    "width": 536,
+    "height": 954,
+    "duration": "PT24S"
+  },
+  "ig-rests.mp4": {
+    "poster": "/assets/motion/posters/ig-rests.webp",
+    "posterWidth": 608,
+    "posterHeight": 1080,
+    "width": 720,
+    "height": 1280,
+    "duration": "PT8S"
+  },
+  "ig-revenge.mp4": {
+    "poster": "/assets/motion/posters/ig-revenge.webp",
+    "posterWidth": 608,
+    "posterHeight": 1080,
+    "width": 720,
+    "height": 1280,
+    "duration": "PT7S"
+  },
+  "ig-side-effects.mp4": {
+    "poster": "/assets/motion/posters/ig-side-effects.webp",
+    "posterWidth": 608,
+    "posterHeight": 1080,
+    "width": 720,
+    "height": 1280,
+    "duration": "PT7S"
+  },
+  "ig-tag-them.mp4": {
+    "poster": "/assets/motion/posters/ig-tag-them.webp",
+    "posterWidth": 608,
+    "posterHeight": 1080,
+    "width": 720,
+    "height": 1280,
+    "duration": "PT13S"
+  },
+  "logomotion-biaf.mp4": {
+    "poster": "/assets/motion/posters/logomotion-biaf.webp",
+    "posterWidth": 608,
+    "posterHeight": 1080,
+    "width": 1080,
+    "height": 1920,
+    "duration": "PT10S"
+  },
+  "logomotion-csa.mp4": {
+    "poster": "/assets/motion/posters/logomotion-csa.webp",
+    "posterWidth": 1080,
+    "posterHeight": 608,
+    "width": 1920,
+    "height": 1080,
+    "duration": "PT5S"
+  },
+  "logomotion-mocars.mp4": {
+    "poster": "/assets/motion/posters/logomotion-mocars.webp",
+    "posterWidth": 608,
+    "posterHeight": 1080,
+    "width": 1080,
+    "height": 1920,
+    "duration": "PT2S"
+  }
+}

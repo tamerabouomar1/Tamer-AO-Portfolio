@@ -83,6 +83,104 @@ const templates = dataSrc
   })
   .filter((t) => t && t.desc);   // service pages have a slug but no desc
 
+/* The videos on /media, for the VideoObject markup below.
+ *
+ * Search Console listed all eleven as unindexed with one reason each — "No
+ * thumbnail URL provided". A <video> without a `poster` gives Google nothing
+ * to put in a video result, so it indexes none of them; and even with a
+ * poster, an unlabelled clip is a file rather than a piece of work. The
+ * markup names each one, describes it, points at the poster and states the
+ * duration, which is the whole of what Google asks for.
+ *
+ * Titles and descriptions come from siteData, the thumbnail and duration from
+ * the manifest scripts/build-video-posters.mjs writes beside the posters. If
+ * the manifest is missing (posters never generated) this emits nothing rather
+ * than claiming a thumbnail that is not there.
+ */
+function arrayOf(name) {
+  const start = ["export const", "const"]
+    .map((kw) => dataSrc.indexOf(`${kw} ${name} = [`))
+    .filter((i) => i !== -1)
+    .sort((a, b) => a - b)[0];
+  if (start === undefined) return [];
+  const end = dataSrc.indexOf("\n];", start);
+  const body = end === -1 ? "" : dataSrc.slice(start, end);
+  return body.split(/\n\s{2}\{\n/).slice(1).map((chunk) => {
+    const one = (re) => (chunk.match(re) || [, ""])[1];
+    return {
+      title: one(/\btitle:\s*"([^"]+)"/),
+      src: one(/\bsrc:\s*"([^"]+)"/),
+      desc: one(/\bdesc:\s*"([^"]+)"/),
+      caption: one(/\bcaption:\s*"([^"]+)"/),
+      url: one(/\burl:\s*"([^"]+)"/),
+      posted: one(/\bposted:\s*"([^"]+)"/),
+    };
+  }).filter((v) => v.src);
+}
+
+const POSTERS = (() => {
+  const file = path.join(ROOT, "public/assets/motion/posters/manifest.json");
+  if (!fs.existsSync(file)) {
+    console.warn("prerender-head: no poster manifest — /media ships without VideoObject markup");
+    return {};
+  }
+  return JSON.parse(fs.readFileSync(file, "utf8"));
+})();
+
+/* uploadDate is required, and the honest date for a clip published on this
+   site is the day the file landed in it. `posted` carries the real one where
+   siteData records it (the reels); everything else falls back to the file's
+   own modified time, which is when it was added. */
+function uploadDate(v) {
+  if (v.posted) return v.posted;
+  const file = path.join(ROOT, "public", v.src.replace(/^\//, ""));
+  try {
+    return fs.statSync(file).mtime.toISOString().slice(0, 10);
+  } catch {
+    return null;
+  }
+}
+
+function videoObjects() {
+  const media = [
+    ...arrayOf("LOGO_MOTIONS").map((v) => ({
+      ...v,
+      name: `${v.title} — logo motion`,
+      description: v.desc,
+    })),
+    ...arrayOf("VIDEO_EDITS").map((v) => ({ ...v, name: v.title, description: v.desc })),
+    ...arrayOf("INSTAGRAM_REELS").map((v) => ({
+      ...v,
+      name: v.title,
+      // The reels have a caption rather than a description, and it is written
+      // for Instagram — hashtags and all. Enough to identify the clip.
+      description: v.caption,
+    })),
+  ];
+
+  return media
+    .map((v) => {
+      const meta = POSTERS[v.src.split("/").pop()];
+      const date = uploadDate(v);
+      if (!meta || !date || !v.name || !v.description) return null;
+      return {
+        "@type": "VideoObject",
+        name: v.name,
+        description: v.description,
+        thumbnailUrl: SITE + meta.poster,
+        uploadDate: date,
+        duration: meta.duration,
+        contentUrl: SITE + v.src,
+        width: meta.width,
+        height: meta.height,
+        isFamilyFriendly: true,
+        creator: { "@type": "Person", name: "Tamer Abou Omar", url: SITE + "/" },
+        ...(v.url ? { sameAs: v.url } : {}),
+      };
+    })
+    .filter(Boolean);
+}
+
 /* Meta descriptions have a hard budget: Google truncates around 160
    characters and Ahrefs reports anything longer as an issue. */
 const DESC_MAX = 160;
@@ -197,6 +295,22 @@ function render(route) {
     };
     h = h.replace("</head>",
       `  <script type="application/ld+json">${JSON.stringify(crumbs)}</script>\n  </head>`);
+  }
+
+  /* /media is the one page whose content IS video, so it is the one page that
+     carries VideoObject markup. The clips on the template previews are
+     backgrounds — decoration with nothing to say in a video result — and
+     describing them as works would be noise in the index and a claim that is
+     not quite true. */
+  if (route.path === "/media") {
+    const videos = videoObjects();
+    if (videos.length) {
+      h = h.replace("</head>",
+        `  <script type="application/ld+json">${JSON.stringify({
+          "@context": "https://schema.org",
+          "@graph": videos,
+        })}</script>\n  </head>`);
+    }
   }
 
   // The body. Where a real render is available the page ships its actual

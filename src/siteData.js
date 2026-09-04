@@ -844,6 +844,47 @@ export const INSTAGRAM_POSTS = [];
 // for exactly that reason; its file is still in public/assets/motion/ if it is
 // ever wanted back. Sixth by reach is "+aura no training partner" (12,483),
 // which is where the drop-off starts and where this list should stop.
+/* Every clip on /media has a poster frame beside it, cut from the video
+   itself by scripts/build-video-posters.mjs.
+ *
+ * Search Console had all eleven videos on that page listed as unindexed for
+ * one reason — "No thumbnail URL provided" — because a <video> with no
+ * `poster` gives Google nothing to show in a video result. The same file is
+ * the VideoObject thumbnailUrl in the prerendered head, so the answer is the
+ * same picture whether it is asked for by a crawler or a browser. It is also
+ * what a visitor sees while the clip buffers, instead of a black rectangle.
+
+   Derived rather than stored: the poster for x.mp4 is always posters/x.webp,
+   so a new clip cannot ship with the field forgotten. */
+export const posterFor = (src) =>
+  src.replace("/assets/motion/", "/assets/motion/posters/").replace(/\.mp4$/, ".webp");
+
+/* Logo motions, shown at the top of /media. These lived inside Media.jsx,
+   which was fine until the prerendered VideoObject markup needed them too —
+   scripts/prerender-head.mjs reads this file, not the components. `title` is
+   the card label, so it stays short; the VideoObject name adds "— logo
+   motion" itself. `desc` is written for the search result, where it is all
+   there is to go on. */
+export const LOGO_MOTIONS = [
+  {
+    title: "Combat Sports Academy",
+    src: "/assets/motion/logomotion-csa.mp4",
+    desc: "The Combat Sports Academy mark animated: the red tri-blade builds on white and settles above the wordmark.",
+  },
+  {
+    title: "MoCars / MoTrouble",
+    src: "/assets/motion/logomotion-mocars.mp4",
+    desc: "The MoCars monogram drawn in electric blue light on black, then dissolved.",
+  },
+  {
+    title: "BIAF",
+    src: "/assets/motion/logomotion-biaf.mp4",
+    desc: "The BIAF wordmark lit in gold on black.",
+    fit: "cover",
+    scale: 1.18,
+  },
+];
+
 export const INSTAGRAM_REELS = [
   {
     title: "Side effects of jiu jitsu",

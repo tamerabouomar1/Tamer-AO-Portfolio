@@ -24,3 +24,12 @@
   for = "/assets/index-*"
   [headers.values]
     Cache-Control = "public, max-age=31536000, immutable"
+
+# The client-site snapshots under /demo are copies of sites that live on their
+# own domains, so they must not be indexed here — a second copy of a client's
+# site competes with the real one for the client's own name. Mirrors the
+# /demo/* rule in public/_headers, which is what Cloudflare actually serves.
+[[headers]]
+  for = "/demo/*"
+  [headers.values]
+    X-Robots-Tag = "noindex, follow"

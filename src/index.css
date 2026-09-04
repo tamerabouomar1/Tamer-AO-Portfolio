@@ -291,6 +291,9 @@ ul { margin: 0; padding: 0; list-style: none; }
      every label still starts on the same vertical line. */
   grid-template-columns: 24px 1fr auto;
   align-items: center;
+  /* The row was 24px tall; 28px is the recommended pointer target. The icon
+     and label are unchanged, only the hit area grows. */
+  min-height: 28px;
   column-gap: 14px;
   width: 100%;
   min-width: 0;
@@ -360,6 +363,11 @@ ul { margin: 0; padding: 0; list-style: none; }
   transition: transform 0.3s var(--ease), color 0.3s var(--ease);
 }
 /* 24, matching the viewBox 1:1 — 20px meant scaling 24 units by 0.833. */
+/* The 24px box is the ICON. The tappable area is grown to 28px by a
+   pseudo-element rather than by resizing the box, so the icon row keeps its
+   exact spacing while clearing the recommended target size. */
+.social { position: relative; }
+.social::after { content: ""; position: absolute; inset: -2px; }
 .social svg { width: 24px; height: 24px; display: block; }
 .social:hover { transform: translateY(-3px) scale(1.12); color: #fff; }
 
@@ -388,6 +396,10 @@ ul { margin: 0; padding: 0; list-style: none; }
 .link {
   display: inline-flex;
   align-items: center;
+  /* The hit area is grown vertically by ::after below, not by padding or
+     min-height: this is inline-flex, so either of those would change the line
+     box wherever a .link sits inside a sentence. */
+  position: relative;
   gap: 6px;
   color: var(--accent);
   font-size: clamp(14px, 1.05vw, 18px);
@@ -395,6 +407,12 @@ ul { margin: 0; padding: 0; list-style: none; }
   width: fit-content;
   transition: gap 0.3s var(--ease), filter 0.3s var(--ease);
 }
+/* Standalone link-styled CTAs measured 17-21px tall, under the 28px minimum
+   pointer target. This lifts every .link to a ~29px tappable band without
+   moving a single pixel of layout. Inline links inside prose get it too, which
+   is harmless: the band is invisible and overlaps only its own line. */
+.link::after { content: ""; position: absolute; inset: -6px 0; }
+
 .link .plus { display: inline-block; transition: transform 0.35s var(--ease); }
 .link:hover { gap: 10px; filter: brightness(1.25); }
 .link:hover .plus { transform: rotate(90deg); }
@@ -791,6 +809,19 @@ ul { margin: 0; padding: 0; list-style: none; }
   color: var(--shiny);
 }
 .web-card__title { font-size: clamp(17px, 1.5vw, 21px); font-weight: 700; margin: 6px 0 8px; }
+/* The card's crawlable way out to the live copy. Quiet by default — the
+   whole card is already clickable — and only underlined on hover, so it reads
+   as a footnote to the description rather than a second call to action. */
+.web-card__open {
+  display: inline-block;
+  margin-top: 10px;
+  font-size: 13px;
+  font-weight: 600;
+  color: var(--shiny);
+  text-decoration: none;
+}
+.web-card__open:hover,
+.web-card__open:focus-visible { text-decoration: underline; }
 
 /* Video edits (Media page) */
 .video-grid {
@@ -1069,7 +1100,7 @@ ul { margin: 0; padding: 0; list-style: none; }
 .offer-stack__item { font-weight: 300; color: var(--muted); }
 .offer-stack__tag {
   display: inline-block; margin-right: 7px;
-  font-size: 10px; font-weight: 700; letter-spacing: 0.07em; text-transform: uppercase;
+  font-size: 11px; font-weight: 700; letter-spacing: 0.07em; text-transform: uppercase;
   color: #07121f; background: var(--shiny);
   padding: 2px 6px; border-radius: 4px; vertical-align: 1px;
 }
@@ -1259,6 +1290,9 @@ ul { margin: 0; padding: 0; list-style: none; }
 .btn-book {
   display: inline-flex; align-items: center; justify-content: center;
   text-align: center;
+  /* 44px floor: these measured 42-43px, a hair under the recommended
+     touch target, which costs nothing to clear. */
+  min-height: 44px;
   padding: 12px 20px; border-radius: 8px;
   font-size: clamp(14px, 1.05vw, 16px); font-weight: 600;
   background: rgba(255, 255, 255, 0.05);
@@ -1271,7 +1305,9 @@ ul { margin: 0; padding: 0; list-style: none; }
 .price-card--featured .btn-book:hover { box-shadow: 0 12px 30px rgba(0, 0, 0, 0.45); }
 .price-note {
   margin-top: clamp(12px, 1.4vw, 18px);
-  font-size: clamp(12px, 0.95vw, 14px); color: var(--faint); font-weight: 300; line-height: 1.5;
+  /* 400, not 300. Light weights are hard to read at small sizes, and this
+     rule renders at 12-14px. */
+  font-size: clamp(12px, 0.95vw, 14px); color: var(--faint); font-weight: 400; line-height: 1.5;
   max-width: 74ch;
 }
 
@@ -1569,7 +1605,7 @@ ul { margin: 0; padding: 0; list-style: none; }
 .tab__icon { width: 24px; height: 24px; display: grid; place-items: center; }
 .tab__icon svg { width: 100%; height: 100%; }
 .tab__label {
-  font-size: 10.5px; font-weight: 500; letter-spacing: 0.01em;
+  font-size: 11px; font-weight: 500; letter-spacing: 0.01em;
   line-height: 1;
   max-width: 100%;
   overflow: hidden; text-overflow: ellipsis; white-space: nowrap;
@@ -2304,7 +2340,10 @@ ul { margin: 0; padding: 0; list-style: none; }
 }
 .storehead__flag {
   display: inline-block;
-  font-size: 10px; font-weight: 700; letter-spacing: 0.1em; text-transform: uppercase;
+/* 11px, not 10. 11 is the minimum text size for the small platform, and
+   uppercase letterspaced micro-labels are the hardest text on this site to
+   read already. The sibling kicker, tag and tab labels moved with it. */
+  font-size: 11px; font-weight: 700; letter-spacing: 0.1em; text-transform: uppercase;
   padding: 5px 11px; border-radius: 8px;
   background: transparent;
   color: var(--shiny);
@@ -2509,7 +2548,7 @@ ul { margin: 0; padding: 0; list-style: none; }
   border-color: rgba(100, 206, 251, 0.62);
 }
 .homefree__flag {
-  font-size: 10px; font-weight: 700; letter-spacing: 0.1em; text-transform: uppercase;
+  font-size: 11px; font-weight: 700; letter-spacing: 0.1em; text-transform: uppercase;
   padding: 5px 11px; border-radius: 8px;
   background: transparent;
   color: var(--shiny);
@@ -2561,7 +2600,7 @@ ul { margin: 0; padding: 0; list-style: none; }
   display: flex; align-items: center; justify-content: space-between; gap: 10px;
 }
 .freecard__kicker {
-  font-size: 10px; font-weight: 700; letter-spacing: 0.09em; text-transform: uppercase;
+  font-size: 11px; font-weight: 700; letter-spacing: 0.09em; text-transform: uppercase;
   color: var(--faint);
 }
 .freecard__free {
@@ -2874,7 +2913,13 @@ ul { margin: 0; padding: 0; list-style: none; }
   --card-hover: #ffffff;
   --text: #1a1412;
   --muted: rgba(26, 20, 18, 0.74);
-  --faint: rgba(26, 20, 18, 0.56);
+  /* 0.66, not 0.56. At 0.56 this token measured 4.05:1 on the page ground and
+     4.17:1 on white, against the 4.5:1 required below 18px — it failed on 26
+     elements across this theme (price notes, card periods, anchor notes, the
+     sidebar tagline). The same reasoning already applied to --shiny two lines
+     down was simply never applied here. 0.66 measures 5.55:1 on the worst
+     background and still reads as the quiet tier. */
+  --faint: rgba(26, 20, 18, 0.66);
   --line: rgba(26, 20, 18, 0.13);
 
   /* Two reds, deliberately. --accent is the fill, bright enough to carry white

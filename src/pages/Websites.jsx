@@ -205,6 +205,23 @@ export default function Websites() {
                 <span className="web-card__tag">{w.tag}</span>
                 <h3 className="web-card__title">{w.name}</h3>
                 <p className="card-body">{w.desc}</p>
+                {/* A real link, not just the card's click handler.
+                    The lightbox is the nicer way in and stays the default, but
+                    an onClick on a <div> is invisible to a crawler and
+                    unreachable by anyone reading the page without a mouse: the
+                    audit found all six copies under /demo with no incoming
+                    internal link at all. stopPropagation so clicking the link
+                    opens the site instead of also opening the lightbox behind
+                    it. */}
+                <a
+                  className="web-card__open"
+                  href={w.demo}
+                  target="_blank"
+                  rel="noreferrer"
+                  onClick={(e) => e.stopPropagation()}
+                >
+                  Open {w.name} <span aria-hidden="true">↗</span>
+                </a>
               </div>
             </motion.article>
           ))}
