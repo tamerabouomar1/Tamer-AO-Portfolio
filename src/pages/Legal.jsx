@@ -1,6 +1,7 @@
 import { Link } from "react-router-dom";
 import Page from "../components/Page";
 import { LEGAL_PAGES, legalBySlug, LEGAL_UPDATED } from "../legalData";
+import SplitHeading from "../components/SplitHeading";
 
 /* One component for all four policy pages.
  *
@@ -29,7 +30,7 @@ export default function Legal({ slug }) {
     <Page className="legal">
       <header className="topbar">
         <div>
-          <h1 className="topbar__title">{doc.title}</h1>
+          <SplitHeading>{doc.title}</SplitHeading>
           <p className="topbar__sub">Last updated {LEGAL_UPDATED}</p>
         </div>
         <Link className="link" to="/">

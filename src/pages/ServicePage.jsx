@@ -4,6 +4,7 @@ import Page, { container, cardIn } from "../components/Page";
 import MessageForm from "../components/MessageForm";
 import { TrustedBy } from "../components/SocialProof";
 import { CONTACT, SERVICE_PAGES } from "../siteData";
+import SplitHeading from "../components/SplitHeading";
 
 /* One page per thing people actually search for.
  *
@@ -43,7 +44,7 @@ export default function ServicePage({ slug }) {
     <Page>
       <header className="topbar">
         <div>
-          <h1 className="topbar__title">{p.h1}</h1>
+          <SplitHeading>{p.h1}</SplitHeading>
           <p className="topbar__sub">{p.kicker}</p>
         </div>
         <a className="link" href={CONTACT.calendly} target="_blank" rel="noreferrer noopener">

@@ -2,6 +2,7 @@ import { motion } from "framer-motion";
 import { Link } from "react-router-dom";
 import ConsentEmbed from "../components/ConsentEmbed";
 import Page, { container, cardIn } from "../components/Page";
+import SplitHeading from "../components/SplitHeading";
 import PriceCard from "../components/PriceCard";
 import FreeOffers from "../components/FreeOffers";
 import MessageForm from "../components/MessageForm";
@@ -33,7 +34,7 @@ export default function WorkWithMe() {
               people are actually buying and the only framing in which the
               Google profile, the site and the content stop looking like three
               separate invoices. */}
-          <h1 className="topbar__title">Your Whole Online Presence</h1>
+          <SplitHeading>Your Whole Online Presence</SplitHeading>
           <p className="topbar__sub">Website, Google profile, content &amp; brand</p>
         </div>
       </header>

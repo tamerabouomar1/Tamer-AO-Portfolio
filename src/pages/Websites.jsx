@@ -2,6 +2,7 @@ import { Fragment, useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import { motion, AnimatePresence } from "framer-motion";
 import Page, { container, cardIn } from "../components/Page";
+import SplitHeading from "../components/SplitHeading";
 import LiveThumb from "../components/LiveThumb";
 import { LoadBar, LoadingImage } from "../components/LoadBar";
 import { BuyModalHost } from "../components/BuyModal";
@@ -170,7 +171,7 @@ export default function Websites() {
               claiming one query is a fight this site was having with itself.
               This page is the shelf: the free gallery, the membership and the
               prices. It targets the template search, which is not local. */}
-          <h1 className="topbar__title">Free Website Templates &amp; What a Site Costs</h1>
+          <SplitHeading>Free Website Templates &amp; What a Site Costs</SplitHeading>
           <p className="topbar__sub">Take one free, or have it built for you</p>
         </div>
         <Link className="link" to="/work-with-me">

@@ -3,6 +3,7 @@ import { Link } from "react-router-dom";
 import Page, { container, cardIn } from "../components/Page";
 import FreeOffers from "../components/FreeOffers";
 import { TrustedBy, Testimonials } from "../components/SocialProof";
+import SplitHeading from "../components/SplitHeading";
 
 const MotionLink = motion.create(Link);
 
@@ -11,7 +12,7 @@ export default function Home() {
     <Page>
       <header className="topbar">
         <div>
-          <h1 className="topbar__title">Graphic Designer in Beirut</h1>
+          <SplitHeading>Graphic Designer in Beirut</SplitHeading>
           <p className="topbar__sub">Student Athlete</p>
         </div>
         <Link className="link" to="/free">

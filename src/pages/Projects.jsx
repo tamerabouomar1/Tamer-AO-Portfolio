@@ -6,6 +6,7 @@ import { LoadBar } from "../components/LoadBar";
 import CardPreview from "../components/CardPreview";
 import useSwipe from "../components/useSwipe";
 import { PROJECT_GROUPS } from "../siteData";
+import SplitHeading from "../components/SplitHeading";
 
 export default function Projects() {
   const [active, setActive] = useState(null);
@@ -79,7 +80,7 @@ export default function Projects() {
     <Page>
       <header className="topbar">
         <div>
-          <h1 className="topbar__title">Design &amp; Branding Projects</h1>
+          <SplitHeading>Design &amp; Branding Projects</SplitHeading>
           <p className="topbar__sub">Logos, identities, packaging &amp; apparel</p>
         </div>
         <Link className="link" to="/work-with-me">

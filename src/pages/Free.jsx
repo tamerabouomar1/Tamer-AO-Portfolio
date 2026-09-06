@@ -5,6 +5,7 @@ import FreeOffers from "../components/FreeOffers";
 import MessageForm from "../components/MessageForm";
 import { TrustedBy, Testimonials } from "../components/SocialProof";
 import { CONTACT } from "../siteData";
+import SplitHeading from "../components/SplitHeading";
 
 /* The free page — the front door of the site.
  *
@@ -18,7 +19,7 @@ export default function Free() {
     <Page>
       <header className="topbar">
         <div>
-          <h1 className="topbar__title">Free Websites, Branding &amp; Coaching</h1>
+          <SplitHeading>Free Websites, Branding &amp; Coaching</SplitHeading>
           <p className="topbar__sub">Take the work first, decide afterwards</p>
         </div>
         <Link className="link" to="/work-with-me">

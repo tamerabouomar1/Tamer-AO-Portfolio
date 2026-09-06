@@ -3609,3 +3609,9 @@ select:focus-visible,
 /* The Calendly slot is tall on desktop, so its placeholder is too — a 260px
    box inside a 700px frame looks broken rather than deliberate. */
 .consent-embed--calendly { min-height: min(680px, 70vh); }
+
+/* SplitHeading wraps each page h1 in a span so GSAP can own its innards
+   without React and SplitText fighting over the same text node. Inline by
+   default would leave the span shrink-wrapped mid-line; block keeps the
+   heading laying out exactly as it did when the text sat in the h1. */
+.splitline { display: block; }

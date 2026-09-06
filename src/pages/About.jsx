@@ -2,6 +2,7 @@ import { motion } from "framer-motion";
 import { Link } from "react-router-dom";
 import Page, { container, cardIn } from "../components/Page";
 import { CONTACT } from "../siteData";
+import SplitHeading from "../components/SplitHeading";
 
 const BADGES = [
   { big: "Gold", label: "Martial arts Medalist", gold: true },
@@ -15,7 +16,7 @@ export default function About() {
     <Page>
       <header className="topbar">
         <div>
-          <h1 className="topbar__title">About Tamer Abou Omar</h1>
+          <SplitHeading>About Tamer Abou Omar</SplitHeading>
           <p className="topbar__sub">What do I do</p>
         </div>
         <Link className="link" to="/work-with-me">

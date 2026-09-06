@@ -2,6 +2,7 @@ import { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import { motion, AnimatePresence } from "framer-motion";
 import Page, { container, cardIn } from "../components/Page";
+import SplitHeading from "../components/SplitHeading";
 import useSwipe from "../components/useSwipe";
 import InstagramEmbed from "../components/InstagramEmbed";
 import {
@@ -74,7 +75,7 @@ export default function Media() {
     <Page>
       <header className="topbar">
         <div>
-          <h1 className="topbar__title">Logo Motion &amp; Video Editing</h1>
+          <SplitHeading>Logo Motion &amp; Video Editing</SplitHeading>
           <p className="topbar__sub">Motion, edits &amp; social</p>
         </div>
         <Link className="link" to="/work-with-me">
