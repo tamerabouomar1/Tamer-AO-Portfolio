@@ -122,6 +122,7 @@ export default function Projects() {
                         <CardPreview
                           images={cover}
                           name={item.name}
+                          tag={item.tag}
                           playing={hovered === item.name && !active}
                         />
                       </div>
@@ -177,7 +178,13 @@ export default function Projects() {
                   <motion.img
                     key={idx}
                     src={images[idx]}
-                    alt={`${active.name} ${idx + 1}`}
+                    alt={
+                      active.tag
+                        ? `${active.name}, ${active.tag
+                            .replace(/^(?:GD|Type)\s*\d+\s*·\s*/i, "")
+                            .toLowerCase()}, image ${idx + 1}`
+                        : `${active.name} ${idx + 1}`
+                    }
                     onLoad={() => setShotReady(true)}
                     onError={() => setShotReady(true)}
                     initial={{ opacity: 0, x: 44 * dir }}

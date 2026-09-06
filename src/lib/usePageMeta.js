@@ -101,6 +101,35 @@ export const PAGE_META = {
     description:
       "Website, Google profile and content run as one thing: $950 to set up, $349 a month. Or buy the pieces on their own. Every price in the open, Beirut-based.",
   },
+
+  /* The policy pages.
+     Indexed rather than noindexed, deliberately. They are thin pages that will
+     never rank for anything and add nothing to the site's authority, but a
+     business whose privacy policy and terms are publicly readable is a
+     business that looks like it exists, and both Google's own quality
+     guidance and every payment provider's onboarding check look for exactly
+     these URLs. The sitemap gives them the lowest priority on the site so
+     they never compete with a page written to be found. */
+  "/privacy": {
+    title: "Privacy Policy",
+    description:
+      "What this site collects, why, how long it is kept and how to have it deleted. No cookies, no advertising trackers, no data sold.",
+  },
+  "/cookies": {
+    title: "Cookie Policy",
+    description:
+      "This site sets no cookies of its own and shows no cookie banner. Instagram and Calendly embeds load only when you click to load them.",
+  },
+  "/terms": {
+    title: "Terms and Conditions",
+    description:
+      "The rules for using this site, taking the free website templates, and buying design and web services. Including what the guarantees actually cover.",
+  },
+  "/refunds": {
+    title: "Refund and Cancellation Policy",
+    description:
+      "When money comes back, when it does not, and how to cancel a monthly plan. 30-day refund on memberships, no retention script.",
+  },
 };
 
 function setMeta(selector, attr, value) {

@@ -82,7 +82,11 @@ export default function LiveThumb({ src, bg, label, poster, mode = "eager" }) {
         <img
           className={`livethumb__poster${loaded ? " is-hidden" : ""}`}
           src={poster}
-          alt={label}
+          /* The poster is a screenshot of that site's homepage, so the alt
+             says so. `label` alone gave "Salon Nizar" and "Sinar" — the two
+             thinnest alt values on the site, and both read as a caption for
+             the client rather than a description of the picture. */
+          alt={`${label} website, homepage screenshot`}
           loading="lazy"
           decoding="async"
         />

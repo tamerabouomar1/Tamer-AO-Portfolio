@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
-import { NavLink, useLocation } from "react-router-dom";
+import { NavLink, Link, useLocation } from "react-router-dom";
 import { motion, AnimatePresence } from "framer-motion";
-import { Icon, TAB_ITEMS, MORE_ITEMS } from "./navItems";
+import { Icon, TAB_ITEMS, MORE_ITEMS, SOCIALS } from "./navItems";
 import useSwipe from "./useSwipe";
 
 /**
@@ -71,6 +71,41 @@ export default function MobileTabBar() {
                   {item.label}
                 </NavLink>
               ))}
+
+              {/* Instagram, phone and email. The stylesheet hides the
+                  sidebar's own `.socials` row below 760px along with `.nav`,
+                  so before this the site gave a phone visitor no way to reach
+                  Tamer from the chrome at all — only whatever call to action
+                  the page they landed on happened to carry. The Instagram bio
+                  link opens in an in-app browser on a phone, so that visitor
+                  is the most common one there is. */}
+              <div className="tabsheet__socials">
+                {SOCIALS.map((s) => (
+                  <a
+                    key={s.label}
+                    className="tabsheet__social"
+                    href={s.href}
+                    aria-label={s.label}
+                    target={s.href.startsWith("http") ? "_blank" : undefined}
+                    rel={s.href.startsWith("http") ? "noreferrer" : undefined}
+                    onClick={() => setMoreOpen(false)}
+                  >
+                    {s.icon}
+                  </a>
+                ))}
+              </div>
+
+              {/* The policy links, for the same reason the socials are here:
+                  the stylesheet hides the sidebar below 760px, and the sidebar
+                  is where these live on desktop. Without this a phone visitor,
+                  which on this site is most of them, has no route to the
+                  privacy policy at all. */}
+              <nav className="tabsheet__legal" aria-label="Policies">
+                <Link to="/privacy" onClick={() => setMoreOpen(false)}>Privacy</Link>
+                <Link to="/cookies" onClick={() => setMoreOpen(false)}>Cookies</Link>
+                <Link to="/terms" onClick={() => setMoreOpen(false)}>Terms</Link>
+                <Link to="/refunds" onClick={() => setMoreOpen(false)}>Refunds</Link>
+              </nav>
             </motion.div>
           </>
         )}

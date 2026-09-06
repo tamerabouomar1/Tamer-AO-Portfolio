@@ -2203,7 +2203,14 @@ export const SERVICE_PAGES = [
       {
         title: "What it costs",
         body:
-          "A full site — up to six pages, designed, launched, optimised and submitted to Google — is $850 as a one-off, and takes about three weeks. Then a monthly plan keeps it online and looked after: $30 for hosting and monitoring alone, $100 with five content edits a month and a quarterly report, $190 for unlimited edits, monthly reporting and a quarterly SEO refresh. If a whole site is more than you need, a single page set up from the free gallery is $350 one-off, and a build with a shop or booking system behind it starts at $1,500.",
+          "A full site, up to six pages, designed, launched, optimised and submitted to Google, is $850 as a one-off and takes about three weeks. Then a monthly plan keeps it online and looked after:",
+        bullets: [
+          "$30 a month for hosting and monitoring alone",
+          "$100 a month with five content edits and a quarterly report",
+          "$190 a month for unlimited edits, monthly reporting and a quarterly SEO refresh",
+          "$350 one-off for a single page set up from the free gallery, if a whole site is more than you need",
+          "From $1,500 for a build with a shop or booking system behind it",
+        ],
       },
     ],
     proof: [
@@ -2362,7 +2369,13 @@ export const SERVICE_PAGES = [
       {
         title: "What it costs, in the open",
         body:
-          "Starter is $199 a month for 8 pieces on one platform. Growth is $449 for 16, with trend and hook research and a content calendar. Premium is $899 for 28 pieces across up to three platforms, with a monthly strategy meeting and priority turnaround. Bought one reel at a time the same volume is $65 each, which is the rate on the card, so the arithmetic is one you can check rather than a claim you have to take.",
+          "Every tier priced in the open, so the arithmetic is one you can check rather than a claim you have to take:",
+        bullets: [
+          "Starter, $199 a month for 8 pieces on one platform",
+          "Growth, $449 for 16, with trend and hook research and a content calendar",
+          "Premium, $899 for 28 pieces across up to three platforms, with a monthly strategy meeting and priority turnaround",
+          "Bought one reel at a time the same volume is $65 each, which is the rate on the card",
+        ],
       },
       {
         title: "The numbers behind the work",
@@ -2440,7 +2453,13 @@ export const SERVICE_PAGES = [
       {
         title: "What it costs",
         body:
-          "A full site, up to six pages, designed, launched and set up to be found, is $850 one off and takes about three weeks. Keeping it alive afterwards is $30 a month for hosting and monitoring, $100 with five content edits a month, or $190 for unlimited edits and a quarterly SEO refresh. If a single page is all you need, one set up from the free gallery is $350 with no monthly at all.",
+          "A full site, up to six pages, designed, launched and set up to be found, is $850 one off and takes about three weeks. Keeping it alive afterwards:",
+        bullets: [
+          "$30 a month for hosting and monitoring",
+          "$100 a month with five content edits",
+          "$190 a month for unlimited edits and a quarterly SEO refresh",
+          "$350 for a single page set up from the free gallery, with no monthly at all",
+        ],
       },
     ],
     proof: [
@@ -2493,7 +2512,16 @@ export const SERVICE_PAGES = [
       {
         title: "What actually gets done",
         body:
-          "The profile claimed and verified in your name, so it is yours and not an agency's. Categories and services set the way people search rather than the way you describe yourself internally. Service areas, hours and the phone number wired to the right places. Photos uploaded, named and ordered so the good ones lead. A description written for what people type. The review link set up, with the message to send asking for them. Then the first month of posts scheduled so it does not look abandoned.",
+          "Everything below, in the order it happens:",
+        bullets: [
+          "The profile claimed and verified in your name, so it is yours and not an agency's",
+          "Categories and services set the way people search rather than the way you describe yourself internally",
+          "Service areas, hours and the phone number wired to the right places",
+          "Photos uploaded, named and ordered so the good ones lead",
+          "A description written for what people type",
+          "The review link set up, with the message to send asking for them",
+          "The first month of posts scheduled so it does not look abandoned",
+        ],
       },
       {
         title: "The part most people get wrong",

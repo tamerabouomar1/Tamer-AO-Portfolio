@@ -1,5 +1,10 @@
 #!/usr/bin/env node
-/* Write public/sitemap.xml from the routes the app actually serves.
+/* Write dist/sitemap.xml from the routes the app actually serves.
+ *
+ * dist/, not public/: <lastmod> is a content hash of the BUILT page, so this
+ * has to run after the prerender. scripts/sitemap-lastmod.json carries the
+ * hashes between builds and is why a clean `rm -rf dist` does not reset every
+ * date to today.
  *
  * The file used to be maintained by hand, and it drifted: /free was missing
  * and so was every /templates/:slug page — 37 URLs, and the template pages are
@@ -13,7 +18,8 @@
  * Run with `npm run build:sitemap`; `npm run build` does it automatically.
  */
 
-import { readFileSync, writeFileSync } from "node:fs";
+import { readFileSync, writeFileSync, existsSync } from "node:fs";
+import { createHash } from "node:crypto";
 import { dirname, join, resolve } from "node:path";
 import { fileURLToPath } from "node:url";
 
@@ -47,6 +53,14 @@ const PAGES = [
   ["/fitness", "monthly", "0.8"],
   ["/media", "monthly", "0.7"],
   ["/about", "monthly", "0.7"],
+  /* The policy pages, at the bottom of the priority range on purpose.
+     They belong in the sitemap: a crawler finding them is part of how a site
+     reads as a real business, and payment providers look for them by URL. But
+     they are not written to be found, so they sit below every page that is. */
+  ["/privacy", "yearly", "0.3"],
+  ["/cookies", "yearly", "0.3"],
+  ["/terms", "yearly", "0.3"],
+  ["/refunds", "yearly", "0.3"],
 ];
 
 // Every slug in TEMPLATES, including the ones pushed on from SIGNATURE.
@@ -84,31 +98,70 @@ function templateSlugs() {
 }
 
 const slugs = templateSlugs();
-const today = new Date().toISOString().slice(0, 10);
 
-const urls = [
-  ...PAGES.map(([path, freq, pri]) => ({ path, freq, pri })),
-  // A template page changes only when that template is rebuilt, which is rare
-  // once it ships — monthly rather than the weekly the store index gets.
-  ...slugs.map((s) => ({ path: `/templates/${s}`, freq: "monthly", pri: "0.6" })),
-];
+/* ── lastmod, derived from content rather than from the clock ──────────────
+ *
+ * Every URL used to carry today's date, rewritten on every build. That is the
+ * "lazy generation" pattern: it tells Google all 56 pages changed today, every
+ * time anything ships, and a lastmod that is always today is a lastmod Google
+ * learns to ignore — which costs the one optional sitemap field it still reads.
+ * (It ignores <priority> and <changefreq> outright, which is why neither is
+ * emitted any more.)
+ *
+ * So each page's PRERENDERED CONTENT is hashed: the title, the description and
+ * the body a crawler actually reads, with the hashed asset filenames stripped
+ * out so a CSS-only rebuild does not mark all 56 pages as changed. The date
+ * moves only when the hash does, and is remembered in sitemap-lastmod.json
+ * between builds.
+ *
+ * This runs AFTER the prerender (see the "build" script) because dist/ has to
+ * exist to be hashed, and writes straight to dist/sitemap.xml. */
+const MANIFEST = join(here, "sitemap-lastmod.json");
+const prev = existsSync(MANIFEST) ? JSON.parse(readFileSync(MANIFEST, "utf8")) : {};
+let changed = 0;   // pages whose CONTENT hash moved, which is the real signal
+const today = new Date().toISOString().slice(0, 10);
+const next = {};
+
+function lastmodFor(path) {
+  const file = join(root, "dist", path === "/" ? "index.html" : path.slice(1) + "/index.html");
+  if (!existsSync(file)) return prev[path]?.date || today;
+  const html = readFileSync(file, "utf8")
+    // asset URLs carry a content hash that changes on any CSS/JS edit; a
+    // stylesheet tweak is not a change to this page's content.
+    .replace(/\/assets\/[A-Za-z0-9._-]+/g, "")
+    // the sitemap's own date must not feed back into the hash
+    .replace(/\d{4}-\d{2}-\d{2}/g, "");
+  const hash = createHash("sha256").update(html).digest("hex").slice(0, 16);
+  const unchanged = prev[path]?.hash === hash;
+  if (!unchanged) changed++;
+  const date = unchanged ? prev[path].date : today;
+  next[path] = { hash, date };
+  return date;
+}
+
+const urls = [...PAGES.map(([path]) => path), ...slugs.map((s) => `/templates/${s}`)];
 
 const xml = `<?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
 ${urls
   .map(
-    ({ path, freq, pri }) => `  <url>
+    (path) => `  <url>
     <loc>${SITE}${path}</loc>
-    <lastmod>${today}</lastmod>
-    <changefreq>${freq}</changefreq>
-    <priority>${pri}</priority>
+    <lastmod>${lastmodFor(path)}</lastmod>
   </url>`
   )
   .join("\n")}
 </urlset>
 `;
 
-writeFileSync(join(root, "public/sitemap.xml"), xml);
+writeFileSync(join(root, "dist/sitemap.xml"), xml);
+writeFileSync(MANIFEST, JSON.stringify(next, null, 2) + "\n");
+
+/* Count pages whose HASH moved, not pages whose date happens to equal today.
+   The first version counted the latter and reported "56 changed" on a rebuild
+   of untouched content, purely because the baseline had been written the same
+   day — the mechanism was right and the number was lying about it. */
 console.log(
-  `sitemap.xml: ${urls.length} URLs (${PAGES.length} pages + ${slugs.length} templates)`
+  `sitemap.xml: ${urls.length} URLs (${PAGES.length} pages + ${slugs.length} templates), ` +
+  `${changed} changed, ${urls.length - changed} kept their previous lastmod`
 );

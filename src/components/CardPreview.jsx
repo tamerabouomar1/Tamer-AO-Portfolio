@@ -32,7 +32,14 @@ function prefersReducedMotion() {
   );
 }
 
-export default function CardPreview({ images, name, playing = false }) {
+/* Alt text describes the picture, so it takes the category WITHOUT the course
+   code the visible tag carries. "GD2 · Arabic logotype" and "Type 2 · print" are useful provenance
+   on the card and meaningless to image search, which reads alt as the whole
+   description of the image. */
+const altTag = (tag) =>
+  tag ? tag.replace(/^(?:GD|Type)\s*\d+\s*·\s*/i, "").toLowerCase() : "";
+
+export default function CardPreview({ images, name, tag, playing = false }) {
   const [idx, setIdx] = useState(0);
   // Sticky: once a card has been hovered its reel stays mounted, so coming
   // back to it does not re-download anything.
@@ -61,10 +68,13 @@ export default function CardPreview({ images, name, playing = false }) {
             key={src}
             className={"cardpreview__slide" + (n === idx ? " is-on" : "")}
             src={src}
-            /* The cover carries the name; the rest are the same project seen
-               again, so naming each one just makes a screen reader repeat
-               itself. */
-            alt={n === 0 ? name : ""}
+            /* The cover carries the name AND its category; the rest are the
+               same project seen again, so naming each one just makes a screen
+               reader repeat itself.
+               The category matters: image search reads alt text as the whole
+               description of the picture, and "BioGarden" alone says nothing
+               about what the picture shows. "BioGarden, brand identity" does. */
+            alt={n === 0 ? (altTag(tag) ? `${name}, ${altTag(tag)}` : name) : ""}
             aria-hidden={n > 0 ? "true" : undefined}
             loading="lazy"
             decoding="async"

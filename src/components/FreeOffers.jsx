@@ -1,4 +1,5 @@
 import { useEffect, useState } from "react";
+import useFocusTrap from "../lib/useFocusTrap";
 import { Link } from "react-router-dom";
 import { motion, AnimatePresence } from "framer-motion";
 import { container, cardIn } from "./Page";
@@ -71,6 +72,7 @@ function OfferCard({ offer, onClaim, compact }) {
 
 /** The claim form, for the offers that need something sent in. */
 function ClaimModal({ offer, onClose }) {
+  const trapRef = useFocusTrap(!!offer);
   const [who, setWho] = useState({ name: "", reach: "", about: "" });
   const [status, setStatus] = useState("idle");
   const [token, setToken] = useState("");
@@ -112,6 +114,10 @@ function ClaimModal({ offer, onClose }) {
           reach: who.reach,
           about: who.about,
           offer: offer.name,
+          // Recorded server-side as proof the box was ticked. The input is
+          // `required`, so the browser will not submit without it; this is
+          // what makes that fact provable afterwards.
+          consent: "yes",
           "cf-turnstile-response": token,
         }),
         keepalive: true,
@@ -145,6 +151,12 @@ function ClaimModal({ offer, onClose }) {
         role="dialog"
         aria-modal="true"
         aria-label={`Claim the free ${offer.name}`}
+        /* Focus moves in on open, Tab cycles inside, and focus goes
+           back where it came from on close. tabIndex={-1} makes this
+           element itself a valid focus target for the fallback case
+           where the dialog has nothing focusable in it yet. */
+        ref={trapRef}
+        tabIndex={-1}
       >
         <div className="buy__head">
           <div>
@@ -210,6 +222,17 @@ function ClaimModal({ offer, onClose }) {
               />
             </label>
             <Turnstile onToken={setToken} />
+
+            {/* Unticked by default and `required`. See MessageForm.jsx for why
+                consent is the lawful basis here and why a pre-ticked box is
+                not consent at all. */}
+            <div className="msg-form__consent">
+              <input id="claim-consent" type="checkbox" required />
+              <label htmlFor="claim-consent">
+                I&apos;m happy for Tamer to store my details in order to send this and
+                reply. See the <Link to="/privacy">Privacy Policy</Link>.
+              </label>
+            </div>
 
             <button className="btn-book buy-go" type="submit" disabled={status === "sending"}>
               {status === "sending" ? "Sending…" : offer.cta}

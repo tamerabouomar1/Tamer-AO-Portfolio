@@ -8,6 +8,7 @@ import MobileTabBar from "./components/MobileTabBar";
 import { preloadRouteImages } from "./lib/preloadImages";
 import usePageMeta, { PAGE_META } from "./lib/usePageMeta";
 import { SERVICE_PAGES } from "./siteData";
+import { LEGAL_PAGES } from "./legalData";
 
 import Home from "./pages/Home";
 import Free from "./pages/Free";
@@ -19,6 +20,7 @@ import About from "./pages/About";
 import Fitness from "./pages/Fitness";
 import WorkWithMe from "./pages/WorkWithMe";
 import ServicePage from "./pages/ServicePage";
+import Legal from "./pages/Legal";
 
 function ScrollToTop() {
   const { pathname } = useLocation();
@@ -81,6 +83,11 @@ export default function App() {
 
   return (
     <>
+      {/* First thing in the tab order, before the sidebar's twelve links.
+          See .skip-link in index.css for why. */}
+      <a className="skip-link" href="#main">
+        Skip to content
+      </a>
       <VideoBackground />
       <ScrollToTop />
       <div className="app">
@@ -102,6 +109,14 @@ export default function App() {
                 catch-all below instead of rendering an empty service page. */}
             {SERVICE_PAGES.map((s) => (
               <Route key={s.slug} path={`/${s.slug}`} element={<ServicePage slug={s.slug} />} />
+            ))}
+            {/* Privacy, cookies, terms, refunds. Same one-route-per-slug shape
+                as the service pages above, and for the same reason: an unknown
+                path must fall through to the catch-all rather than render an
+                empty policy, which is the one page on the site where showing
+                nothing would actually be a problem. */}
+            {LEGAL_PAGES.map((d) => (
+              <Route key={d.slug} path={`/${d.slug}`} element={<Legal slug={d.slug} />} />
             ))}
             <Route path="*" element={<Home />} />
           </Routes>

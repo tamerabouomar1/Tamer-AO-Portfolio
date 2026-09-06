@@ -199,7 +199,11 @@ export default function MuseSite() {
             animate={{ opacity: 1, y: 0 }}
             transition={{ delay: 0.1 }}
           >
-            Build a no-code AI app in minutes
+            {/* Muse's own eyebrow. It was running Signal's line ("Build a
+                no-code AI app in minutes") even though this template's whole
+                pitch is the early-access screen, and its CTA below says "Get
+                early access". */}
+            Early access is open
           </motion.p>
 
           <motion.h1

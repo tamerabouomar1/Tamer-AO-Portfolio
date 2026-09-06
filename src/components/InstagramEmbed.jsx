@@ -1,4 +1,5 @@
-import { useEffect, useRef, useState } from "react";
+import { useState } from "react";
+import ConsentEmbed from "./ConsentEmbed";
 
 /* A real Instagram post, embedded live.
 
@@ -9,49 +10,45 @@ import { useEffect, useRef, useState } from "react";
    likes, video with sound control — always reflecting the live post rather
    than a copy that goes stale.
 
-   Like the site previews, nothing loads until the post is near the viewport,
-   so a page of reels costs nothing until it is actually looked at. */
+   ── Why this no longer lazy-loads on scroll ──────────────────────────────
+   It used to mount the iframe from an IntersectionObserver, 400px before the
+   card reached the viewport. That was the right call for performance and the
+   wrong one for privacy: scrolling past a post is not a decision to be
+   announced to Meta, and by the time the observer fired, the visitor's IP had
+   already reached Instagram and Instagram's cookies had already been set. The
+   observer made it automatic; it did not make it consented.
+
+   ConsentEmbed replaces it. Nothing is requested from Instagram until the
+   visitor presses the button, which keeps every byte of the old lazy-load
+   saving AND removes the site's only unconsented third-party call. See
+   ConsentEmbed.jsx for why this is a facade rather than a cookie banner. */
 
 export default function InstagramEmbed({ url, caption }) {
-  const box = useRef(null);
-  const [visible, setVisible] = useState(false);
   const [loaded, setLoaded] = useState(false);
-
-  useEffect(() => {
-    const el = box.current;
-    if (!el) return;
-    const io = new IntersectionObserver(
-      ([e]) => {
-        if (e.isIntersecting) {
-          setVisible(true);
-          io.disconnect();
-        }
-      },
-      { rootMargin: "400px" }
-    );
-    io.observe(el);
-    return () => io.disconnect();
-  }, []);
 
   // Accepts a plain post/reel link and normalises it to the embed form.
   const embedSrc = `${url.replace(/\/+$/, "")}/embed/captioned/`;
 
   return (
-    <article className="card ig-card" ref={box}>
+    <article className="card ig-card">
       <div className="ig-card__frame">
-        {visible && (
-          <iframe
-            src={embedSrc}
-            title={caption || "Instagram post"}
-            loading="lazy"
-            scrolling="no"
-            allow="encrypted-media; picture-in-picture; clipboard-write"
-            allowFullScreen
-            onLoad={() => setLoaded(true)}
-            className={loaded ? "is-loaded" : ""}
-          />
-        )}
-        {!loaded && <span className="livethumb__spinner" aria-hidden="true" />}
+        <ConsentEmbed provider="Instagram" label="Instagram post" className="consent-embed--ig">
+          {() => (
+            <>
+              <iframe
+                src={embedSrc}
+                title={caption || "Instagram post"}
+                loading="lazy"
+                scrolling="no"
+                allow="encrypted-media; picture-in-picture; clipboard-write"
+                allowFullScreen
+                onLoad={() => setLoaded(true)}
+                className={loaded ? "is-loaded" : ""}
+              />
+              {!loaded && <span className="livethumb__spinner" aria-hidden="true" />}
+            </>
+          )}
+        </ConsentEmbed>
       </div>
       {caption && <p className="ig-card__caption">{caption}</p>}
     </article>

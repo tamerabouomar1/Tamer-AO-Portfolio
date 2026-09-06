@@ -1,62 +1,7 @@
-import { NavLink } from "react-router-dom";
-import { NAV } from "./navItems";
+import { NavLink, Link } from "react-router-dom";
+import { NAV, SOCIALS } from "./navItems";
 import ShinyText from "./ShinyText";
-import { CONTACT, PROFILE_TAGLINE } from "../siteData";
-
-/* strokeWidth 2, not 1.9, and rendered at 24px — same rule as the nav icons in
-   navItems.jsx: an even stroke on whole coordinates puts both edges on the
-   device pixel grid, where 1.9 scaled into a 20px box landed everything on
-   thirds of a pixel and softened every line. */
-const svgProps = {
-  viewBox: "0 0 24 24",
-  fill: "none",
-  stroke: "currentColor",
-  strokeWidth: 2,
-  strokeLinecap: "round",
-  strokeLinejoin: "round",
-};
-
-const SocialIcon = {
-  instagram: (
-    <svg {...svgProps}>
-      <rect x="2" y="2" width="20" height="20" rx="5" />
-      <circle cx="12" cy="12" r="4.2" />
-      <circle cx="17.5" cy="6.5" r="1.1" fill="currentColor" stroke="none" />
-    </svg>
-  ),
-  linkedin: (
-    <svg {...svgProps}>
-      <path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-2-2 2 2 0 0 0-2 2v7h-4v-7a6 6 0 0 1 6-6z" />
-      <rect width="4" height="12" x="2" y="9" />
-      <circle cx="4" cy="4" r="2" />
-    </svg>
-  ),
-  phone: (
-    <svg {...svgProps}>
-      <path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.8 19.8 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6A19.8 19.8 0 0 1 2.12 4.18 2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72c.13.96.36 1.9.7 2.81a2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45c.91.34 1.85.57 2.81.7A2 2 0 0 1 22 16.92z" />
-    </svg>
-  ),
-  email: (
-    <svg {...svgProps}>
-      <rect width="20" height="16" x="2" y="4" rx="2" />
-      <path d="m22 7-8.97 5.7a1.94 1.94 0 0 1-2.06 0L2 7" />
-    </svg>
-  ),
-};
-
-/* Built from CONTACT so a link only ever appears once it points somewhere.
-   LinkedIn is filtered out on purpose while CONTACT.linkedin is the generic
-   /feed/ URL: that sends a visitor to their own LinkedIn homepage instead of
-   to Tamer, which is worse than having no icon at all. Set a real profile URL
-   in siteData.js and the icon comes back by itself. */
-const SOCIALS = [
-  { href: CONTACT.instagram, label: "Instagram", icon: SocialIcon.instagram },
-  CONTACT.linkedin && !CONTACT.linkedin.includes("/feed")
-    ? { href: CONTACT.linkedin, label: "LinkedIn", icon: SocialIcon.linkedin }
-    : null,
-  { href: CONTACT.phoneHref, label: "Phone", icon: SocialIcon.phone },
-  { href: `mailto:${CONTACT.email}`, label: "Email", icon: SocialIcon.email },
-].filter(Boolean);
+import { PROFILE_TAGLINE } from "../siteData";
 
 /* Desktop sidebar. On phones this collapses to just the profile header —
    navigation there is handled by MobileTabBar (a bottom tab bar), so every
@@ -117,6 +62,23 @@ export default function Sidebar() {
           </a>
         ))}
       </div>
+
+      {/* The policy links.
+          They live in the sidebar because this site has no footer: the layout
+          is a fixed rail beside a scrolling column, so there is no bottom of
+          the page for them to sit at. Putting them anywhere else would mean
+          adding a footer to every route purely to hold four links.
+
+          They have to be reachable from every page rather than from one. A
+          privacy policy nobody can find is treated as a privacy policy that
+          does not exist, and "linked from the homepage only" has failed that
+          test before. */}
+      <nav className="sidebar__legal" aria-label="Policies">
+        <Link to="/privacy">Privacy</Link>
+        <Link to="/cookies">Cookies</Link>
+        <Link to="/terms">Terms</Link>
+        <Link to="/refunds">Refunds</Link>
+      </nav>
     </aside>
   );
 }

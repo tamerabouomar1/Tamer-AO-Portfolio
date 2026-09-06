@@ -162,8 +162,15 @@ export default function SignalSite() {
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 1, ease: EASE_OUT }}
           >
-            A new way to think and create
-            <br className="sig-br" /> with computers
+            {/* Signal's own line. It used to run Muse's headline verbatim
+                ("A new way to think and create with computers"), which — with
+                the same Mux film and the same black/white palette behind it —
+                made two of the 42 gallery templates render as the same site.
+                The mechanics were always different (Muse locks a gradient-
+                clipped serif screen; this one swaps the button for a
+                typewriting email field), but nothing on screen said so. */}
+            From a sentence
+            <br className="sig-br" /> to a working app
           </motion.h1>
 
           <motion.div

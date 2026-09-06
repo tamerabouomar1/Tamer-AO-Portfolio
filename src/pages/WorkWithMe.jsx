@@ -1,5 +1,6 @@
 import { motion } from "framer-motion";
 import { Link } from "react-router-dom";
+import ConsentEmbed from "../components/ConsentEmbed";
 import Page, { container, cardIn } from "../components/Page";
 import PriceCard from "../components/PriceCard";
 import FreeOffers from "../components/FreeOffers";
@@ -60,11 +61,24 @@ export default function WorkWithMe() {
               Open in Calendly
             </a>
           </div>
-          <iframe
-            className="calendly-frame"
-            src={CALENDLY_EMBED}
-            title="Book a free 30-minute meeting with Tamer"
-          />
+          {/* Gated. The Calendly iframe used to load with the page, which
+              handed every visitor to /work-with-me to Calendly whether or not
+              they ever intended to book. The "Open in Calendly" link above and
+              the fallback link below both still work without loading anything
+              here, so nobody is forced through this to book. */}
+          <ConsentEmbed
+            provider="Calendly"
+            label="Booking calendar"
+            className="consent-embed--calendly"
+          >
+            {() => (
+              <iframe
+                className="calendly-frame"
+                src={CALENDLY_EMBED}
+                title="Book a free 30-minute meeting with Tamer"
+              />
+            )}
+          </ConsentEmbed>
         </div>
         <p className="price-note">
           Calendar not loading?{" "}

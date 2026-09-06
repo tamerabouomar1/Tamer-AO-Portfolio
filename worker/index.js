@@ -20,6 +20,29 @@ const MAX_MESSAGE = 4000; // a contact message needs far more room than a name
 // body is never parsed or held in memory at all.
 const MAX_BODY = 16 * 1024;
 
+/* How long a submission is kept before it deletes itself.
+ *
+ * This is the storage-limitation principle (GDPR Art. 5(1)(e)) written as
+ * code: personal data may not be kept longer than it is needed for. Records
+ * had no expiry before this, which meant "kept indefinitely" — the one
+ * retention answer that is never defensible, and one the privacy policy could
+ * not have stated honestly.
+ *
+ * 24 months, because an enquiry that went nowhere is genuinely still useful
+ * for a year or two (people come back, and a quote from last year is context
+ * for this year's job) and is useful for nothing after that.
+ *
+ * It is set as a TTL on the record rather than run as a cleanup job on a
+ * schedule, deliberately. A promise kept by Cloudflare expiring the key
+ * cannot be forgotten, cannot silently stop running, and holds even if nobody
+ * touches this site again for three years. A cron job is a promise that
+ * depends on the cron job.
+ *
+ * ⚠ KEEP IN STEP with the retention section of src/legalData.js. If this
+ * number changes, that page is wrong the moment it deploys.
+ */
+const RETENTION_TTL = 60 * 60 * 24 * 730; // 730 days ≈ 24 months
+
 // Rate limit, per IP per endpoint. The forms are unauthenticated by design —
 // anyone can post — so the only thing standing between a script and an
 // unbounded number of KV writes is this. Generous enough that a real person
@@ -268,7 +291,7 @@ async function saveLead(body, request, env, ctx) {
   // Sorts chronologically when listed, and the suffix keeps two people who
   // download in the same millisecond from overwriting each other.
   const key = `lead:${at}:${crypto.randomUUID().slice(0, 8)}`;
-  await env.LEADS.put(key, JSON.stringify(lead));
+  await env.LEADS.put(key, JSON.stringify(lead), { expirationTtl: RETENTION_TTL });
 
   ctx.waitUntil(
     notify(env, "📥 Template downloaded", [
@@ -316,7 +339,17 @@ async function saveMessage(body, request, env, ctx) {
       at,
       country: request.headers.get("cf-ipcountry") || "",
       referer: clean(request.headers.get("referer") || ""),
-    })
+      // Proof of consent. GDPR Art. 7(1) puts the burden on the controller to
+      // DEMONSTRATE that consent was given, which a tick box the visitor saw
+      // and a server that never recorded the answer cannot do. Stored as the
+      // literal value posted alongside the wording it was given under, so a
+      // record can still be read years later by someone who does not have the
+      // form in front of them.
+      consent: clean(body.consent) === "yes",
+      consentText:
+        "Happy for Tamer to store this message and my contact details in order to reply.",
+    }),
+    { expirationTtl: RETENTION_TTL }
   );
 
   ctx.waitUntil(
@@ -359,7 +392,9 @@ async function saveClaim(body, request, env, ctx) {
       at,
       country: request.headers.get("cf-ipcountry") || "",
       referer: clean(request.headers.get("referer") || ""),
-    })
+      consent: clean(body.consent) === "yes",
+    }),
+    { expirationTtl: RETENTION_TTL }
   );
 
   ctx.waitUntil(
@@ -407,7 +442,8 @@ async function saveFeedback(body, request, env, ctx) {
       at,
       country: request.headers.get("cf-ipcountry") || "",
       referer: clean(request.headers.get("referer") || ""),
-    })
+    }),
+    { expirationTtl: RETENTION_TTL }
   );
 
   ctx.waitUntil(

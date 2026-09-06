@@ -1,4 +1,5 @@
 import { useEffect, useState } from "react";
+import useFocusTrap from "../lib/useFocusTrap";
 import { motion, AnimatePresence } from "framer-motion";
 import { CONTACT, PAYMENT_METHODS, TEMPLATE_PACKAGES, subscribeUrl } from "../siteData";
 
@@ -26,6 +27,12 @@ const waNumber = CONTACT.phoneHref.replace(/[^0-9]/g, "");
 const PLANS = TEMPLATE_PACKAGES.filter((p) => p.subscription);
 
 export default function MemberModal({ onClose }) {
+  /* `true`, not a prop: this component takes no `open` prop and is only ever
+     mounted while the modal is showing, so the trap is active for its whole
+     life. (An earlier version passed a bare `open`, which silently resolved to
+     the global window.open — truthy, so it happened to behave correctly, for
+     entirely the wrong reason.) */
+  const trapRef = useFocusTrap(true);
   const [planId, setPlanId] = useState(PLANS.find((p) => p.featured)?.id ?? PLANS[0]?.id);
   const [methodId, setMethodId] = useState(null);
 
@@ -71,6 +78,12 @@ export default function MemberModal({ onClose }) {
         role="dialog"
         aria-modal="true"
         aria-label="Become a member"
+        /* Focus moves in on open, Tab cycles inside, and focus goes
+           back where it came from on close. tabIndex={-1} makes this
+           element itself a valid focus target for the fallback case
+           where the dialog has nothing focusable in it yet. */
+        ref={trapRef}
+        tabIndex={-1}
       >
         <div className="buy__head">
           <div>

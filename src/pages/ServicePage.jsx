@@ -80,6 +80,22 @@ export default function ServicePage({ slug }) {
             <motion.article className="card svc-block" key={s.title} variants={cardIn}>
               <h2 className="svc-block__title">{s.title}</h2>
               <p className="card-body">{s.body}</p>
+              {/* A section could only ever be one paragraph, because `body`
+                  was a plain string. That is fine for an argument and wrong
+                  for a list: the price sections were reading out five or six
+                  separate figures in running prose, and the Google Profile
+                  page listed seven deliverables as sentences — the hardest
+                  thing on the site to scan, while the same numbers already
+                  appear as bulleted PriceCards on /websites. `bullets` is
+                  optional, so every section that is genuinely prose is
+                  untouched. */}
+              {s.bullets && (
+                <ul className="svc-block__list">
+                  {s.bullets.map((b) => (
+                    <li key={b}>{b}</li>
+                  ))}
+                </ul>
+              )}
             </motion.article>
           ))}
         </motion.div>

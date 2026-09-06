@@ -1656,6 +1656,25 @@ ul { margin: 0; padding: 0; list-style: none; }
   background: var(--shiny); color: #07121f; font-weight: 700;
 }
 .tabsheet__item--primary .tabsheet__icon { color: #07121f; }
+/* The contact row at the foot of the More sheet. Separated by a rule rather
+   than a heading: these are not pages, and the icons say what they are. */
+.tabsheet__socials {
+  display: flex;
+  justify-content: center;
+  gap: 26px;
+  margin-top: 6px;
+  padding-top: 14px;
+  border-top: 1px solid var(--line);
+}
+.tabsheet__social {
+  width: 26px;
+  height: 26px;
+  color: #8f959d;
+  display: grid;
+  place-items: center;
+}
+.tabsheet__social svg { width: 100%; height: 100%; }
+.tabsheet__social:active { color: var(--shiny); }
 .tabsheet__item--primary.is-active { background: var(--shiny); color: #07121f; }
 
 /* ---------------------------------------------------------- */
@@ -1672,6 +1691,21 @@ ul { margin: 0; padding: 0; list-style: none; }
 .svc-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(min(100%, 280px), 1fr)); gap: var(--gap); align-items: stretch; }
 .svc-block { display: flex; flex-direction: column; gap: 10px; padding: clamp(20px, 2vw, 30px); }
 .svc-block__title { font-size: clamp(17px, 1.5vw, 21px); font-weight: 700; line-height: 1.25; }
+/* The bulleted half of a service section. Same body size and colour as the
+   paragraph above it, so a list reads as the continuation of the sentence
+   that introduces it rather than as a different kind of content. */
+.svc-block__list {
+  margin: 10px 0 0;
+  padding-left: 18px;
+  display: grid;
+  gap: 7px;
+  font-size: clamp(14px, 1.05vw, 18px);
+  font-weight: 200;
+  line-height: 1.55;
+  color: var(--muted);
+  max-width: 52ch;
+}
+.svc-block__list li::marker { color: var(--shiny); }
 
 .svc-proof { display: grid; grid-template-columns: repeat(auto-fit, minmax(min(100%, 230px), 1fr)); gap: clamp(10px, 1.1vw, 16px); }
 .svc-proof__item { display: flex; flex-direction: column; gap: 5px; padding: clamp(14px, 1.4vw, 20px); }
@@ -3294,3 +3328,284 @@ ul { margin: 0; padding: 0; list-style: none; }
   font-size: clamp(12px, 0.95vw, 14px); line-height: 1.55; font-weight: 300; color: var(--faint);
   max-width: 72ch;
 }
+
+/* ═══════════════════════════════════════════════════════════════════════════
+   POLICY PAGES  (/privacy, /cookies, /terms, /refunds)
+
+   Everything here is built on the existing tokens, so the light `fit` theme
+   picks these up with no extra rules: --text, --muted and --line already
+   invert with the theme, and a policy page reads correctly in both without
+   knowing either exists.
+   ═══════════════════════════════════════════════════════════════════════════ */
+
+.legal-doc {
+  /* 68ch, not the 72ch used elsewhere. Legal text is the longest unbroken
+     prose on the site — no cards, no images, nothing to rest the eye on — and
+     the line length that works for a paragraph between two cards is too wide
+     for a page of them. Below ~45 characters it starts fragmenting instead,
+     so the clamp holds the useful middle. */
+  max-width: 68ch;
+  margin-top: var(--gap);
+  padding-bottom: clamp(48px, 6vw, 96px);
+}
+
+.legal-lede {
+  font-size: clamp(15px, 1.25vw, 18.5px);
+  line-height: 1.62;
+  font-weight: 300;
+  color: var(--text);
+  margin-bottom: clamp(24px, 3vw, 40px);
+  padding-bottom: clamp(20px, 2.4vw, 30px);
+  border-bottom: 1px solid var(--line);
+}
+
+.legal-section { margin-bottom: clamp(26px, 3.2vw, 44px); }
+
+.legal-h {
+  font-size: clamp(16px, 1.45vw, 21px);
+  font-weight: 700;
+  line-height: 1.3;
+  color: var(--text);
+  margin-bottom: 12px;
+  /* Headings in a legal document are landmarks people scan for, so they get
+     real separation from the paragraph above rather than the tighter rhythm
+     the marketing pages use. */
+  scroll-margin-top: 24px;
+}
+
+.legal-p,
+.legal-list li {
+  font-size: clamp(13.5px, 1.06vw, 16px);
+  /* 1.72, looser than the site's usual 1.55. Long prose at a tight leading is
+     where people lose their place mid-paragraph and give up, and this is the
+     one place on the site where somebody is genuinely trying to read every
+     word rather than skim for a price. */
+  line-height: 1.72;
+  font-weight: 300;
+  color: var(--muted);
+}
+
+.legal-p { margin-bottom: 13px; }
+.legal-p:last-child { margin-bottom: 0; }
+
+.legal-list {
+  display: flex;
+  flex-direction: column;
+  gap: 9px;
+  margin: 4px 0 13px;
+  padding-left: 20px;
+  list-style: disc;
+}
+/* The marker inherits the text colour by default, which at --muted on a dark
+   ground is heavier than the bullet needs to be. */
+.legal-list li::marker { color: var(--faint); }
+
+.legal-doc a,
+.legal-more a { color: var(--shiny); }
+
+.legal-more {
+  margin-top: clamp(28px, 3.4vw, 48px);
+  padding-top: clamp(22px, 2.6vw, 34px);
+  border-top: 1px solid var(--line);
+}
+.legal-more .legal-list { list-style: none; padding-left: 0; }
+
+/* ── The policy links in the chrome ────────────────────────────────────────
+   Quiet on purpose. These have to be findable from every page, which is a
+   different requirement from being noticeable: they sit at --faint until
+   hovered or focused, so they read as the fine print they are without
+   competing with the navigation above them. --faint measures 5.32:1 on the
+   dark ground and 5.61:1 on the light one, so "quiet" stays above the 4.5:1
+   AA floor rather than dropping under it. */
+.sidebar__legal {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 4px 12px;
+  margin-top: 14px;
+  padding-top: 14px;
+  border-top: 1px solid var(--line);
+}
+.sidebar__legal a,
+.tabsheet__legal a {
+  font-size: 12px;
+  font-weight: 300;
+  color: var(--faint);
+  transition: color 0.2s var(--ease);
+}
+.sidebar__legal a:hover,
+.tabsheet__legal a:hover,
+.sidebar__legal a:focus-visible,
+.tabsheet__legal a:focus-visible { color: var(--text); }
+
+.tabsheet__legal {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 6px 16px;
+  margin-top: 14px;
+  padding-top: 14px;
+  border-top: 1px solid var(--line);
+}
+
+/* ── Screen-reader-only text ──────────────────────────────────────────────
+   Visible to assistive technology, invisible on screen. Used for the form
+   labels: the layout was designed around placeholders, so drawing a label
+   above every field would change a form that works, while shipping without
+   labels leaves screen reader users with unnamed required fields.
+
+   NOT `display:none` or `visibility:hidden` — both remove the element from
+   the accessibility tree as well as the screen, which is the opposite of
+   what this is for. The clip-rect approach is the one that keeps it
+   announced.
+
+   `white-space: nowrap` matters: without it a 1px-wide box wraps the text to
+   one character per line, and some screen readers then read it letter by
+   letter. */
+.sr-only {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  white-space: nowrap;
+  border: 0;
+}
+
+/* The two inputs on the top row used to be direct flex children of
+   .msg-form__row. Each is wrapped in a field div now so its label has
+   somewhere to live, so the row's sizing moves onto the wrapper. */
+.msg-form__field { flex: 1 1 0; min-width: 0; display: flex; }
+.msg-form__field > input { width: 100%; }
+
+/* ── The consent line ─────────────────────────────────────────────────────
+   Set at --muted rather than --faint. It is fine print by function, but it is
+   fine print somebody is being asked to AGREE to, and text that quiet reads
+   as a disclaimer to skip past rather than a question being asked. --muted
+   measures 10.59:1 on the dark ground and 7.42:1 on the light one. */
+.msg-form__consent {
+  display: flex;
+  align-items: flex-start;
+  gap: 10px;
+  margin-top: 12px;
+}
+.msg-form__consent input[type="checkbox"] {
+  /* flex: none so the box never squashes to an oval when the label wraps to
+     three lines on a narrow phone. margin-top nudges it onto the first line's
+     baseline rather than the top of the text box. */
+  flex: none;
+  width: 17px;
+  height: 17px;
+  margin-top: 2px;
+  accent-color: var(--shiny);
+  cursor: pointer;
+}
+.msg-form__consent label {
+  font-size: clamp(11.5px, 0.9vw, 13px);
+  line-height: 1.55;
+  font-weight: 300;
+  color: var(--muted);
+  cursor: pointer;
+}
+.msg-form__consent a { color: var(--shiny); text-decoration: underline; }
+
+/* The error slot is always in the DOM so its live region works, which means
+   it occupies space while empty. Collapse it until it has something in it. */
+.msg-form__foot .form-status--err:empty { display: none; }
+
+/* ── Focus visibility ─────────────────────────────────────────────────────
+   WCAG 2.4.7. Browsers draw a default focus ring, but on a black ground the
+   UA default is frequently a thin dark outline that is effectively invisible,
+   and any `outline: none` anywhere in a stylesheet removes it silently. An
+   explicit ring on every interactive element is the only version that cannot
+   be lost by accident. --shiny is the site's brightest token in both themes,
+   at 11.76:1 on the dark ground and 6.72:1 on the light one. */
+a:focus-visible,
+button:focus-visible,
+input:focus-visible,
+textarea:focus-visible,
+select:focus-visible,
+[tabindex]:focus-visible {
+  outline: 2px solid var(--shiny);
+  outline-offset: 2px;
+  border-radius: 3px;
+}
+
+/* ── Skip link ────────────────────────────────────────────────────────────
+   The sidebar puts eight navigation links and four policy links before the
+   page content in the DOM. A keyboard or screen-reader user otherwise tabs
+   through all twelve on every single route before reaching anything they came
+   for. WCAG 2.4.1 (Bypass Blocks).
+
+   Off-screen until focused, then it drops into the top-left corner. */
+.skip-link {
+  position: absolute;
+  top: 8px;
+  left: 8px;
+  z-index: 1000;
+  padding: 10px 16px;
+  border-radius: 8px;
+  background: var(--shiny);
+  color: #07121f;
+  font-size: 14px;
+  font-weight: 700;
+  transform: translateY(-200%);
+  transition: transform 0.18s var(--ease);
+}
+.skip-link:focus { transform: translateY(0); }
+
+/* ── Respect a request for less motion ────────────────────────────────────
+   WCAG 2.3.3. The site animates a great deal: page transitions, staggered
+   card reveals, a moving video backdrop and the ShinyText sweep. For a
+   visitor with vestibular disorders that is not decoration, it is a symptom
+   trigger, and the OS-level setting is them asking for it to stop.
+
+   Motion is reduced to near-nothing rather than to nothing: 0.01ms keeps
+   framer-motion's onAnimationComplete callbacks firing, so anything that
+   reveals content on animation end still reveals it. `animation: none` would
+   leave those elements permanently hidden, which turns an accessibility
+   setting into a blank page. */
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+  /* The backdrop clip is the largest moving thing on the page and carries no
+     information, so it is simply stopped. */
+  .video-bg video { display: none; }
+}
+
+/* ── Click-to-load embed placeholder ──────────────────────────────────────
+   Sized to roughly match what it replaces, so pressing the button does not
+   shove the rest of the page down by 500px. Exact height is impossible (the
+   Instagram card sizes itself to the post), but close is enough to keep the
+   layout shift small. */
+.consent-embed {
+  display: grid;
+  place-items: center;
+  width: 100%;
+  height: 100%;
+  min-height: 260px;
+  padding: 22px;
+  border: 1px dashed var(--line);
+  border-radius: var(--radius, 14px);
+  background: var(--card);
+  text-align: center;
+}
+.consent-embed__inner { display: flex; flex-direction: column; align-items: center; gap: 9px; max-width: 42ch; }
+.consent-embed__what { font-size: 15px; font-weight: 700; color: var(--text); }
+.consent-embed__why {
+  font-size: 12.5px; line-height: 1.55; font-weight: 300; color: var(--muted);
+}
+.consent-embed__btn { margin-top: 4px; }
+.consent-embed__note { font-size: 11.5px; font-weight: 300; color: var(--faint); }
+.consent-embed__note a { color: var(--shiny); text-decoration: underline; }
+
+/* The Calendly slot is tall on desktop, so its placeholder is too — a 260px
+   box inside a 700px frame looks broken rather than deliberate. */
+.consent-embed--calendly { min-height: min(680px, 70vh); }

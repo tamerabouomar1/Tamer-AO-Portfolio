@@ -1,4 +1,6 @@
 import { useEffect, useState } from "react";
+import useFocusTrap from "../lib/useFocusTrap";
+import { Link } from "react-router-dom";
 import { motion, AnimatePresence } from "framer-motion";
 import { CONTACT, TEMPLATE_PACKAGES, templateZip } from "../siteData";
 import Turnstile from "./Turnstile";
@@ -25,6 +27,7 @@ function priceOf(tpl, pkg) {
 }
 
 export default function BuyModal({ template, onClose }) {
+  const trapRef = useFocusTrap(!!template);
   // One ladder for every template now: they are all free, so the modal always
   // opens on the free tier. Burying that behind a click on the membership would
   // waste the whole point of giving the work away.
@@ -87,6 +90,12 @@ export default function BuyModal({ template, onClose }) {
         role="dialog"
         aria-modal="true"
         aria-label={`Buy the ${template.name} template`}
+        /* Focus moves in on open, Tab cycles inside, and focus goes
+           back where it came from on close. tabIndex={-1} makes this
+           element itself a valid focus target for the fallback case
+           where the dialog has nothing focusable in it yet. */
+        ref={trapRef}
+        tabIndex={-1}
       >
         <div className="buy__head">
           <div>
@@ -156,6 +165,7 @@ export default function BuyModal({ template, onClose }) {
                   name: who.name,
                   reach: who.reach,
                   template: template.name,
+                  consent: "yes",
                   "cf-turnstile-response": token,
                 }),
                 keepalive: true,
@@ -198,6 +208,16 @@ export default function BuyModal({ template, onClose }) {
               </label>
             </div>
             <Turnstile onToken={setToken} />
+
+            {/* Same reasoning as the other two forms: this stores a name and a
+                contact, so it asks first. See MessageForm.jsx. */}
+            <div className="msg-form__consent">
+              <input id="buy-consent" type="checkbox" required />
+              <label htmlFor="buy-consent">
+                I&apos;m happy for Tamer to store my details in order to send this and
+                reply. See the <Link to="/privacy">Privacy Policy</Link>.
+              </label>
+            </div>
 
             <button className="btn-book buy-go" type="submit">
               {sent ? "Download again" : `Download ${template.name}, free`}

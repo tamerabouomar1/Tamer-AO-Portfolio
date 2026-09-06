@@ -7,6 +7,13 @@ const EASE = [0.22, 1, 0.36, 1];
 export default function Page({ children, className = "" }) {
   return (
     <motion.main
+      id="main"
+      /* The skip link's target. tabIndex={-1} makes <main> programmatically
+         focusable without adding it to the tab order, which is what makes the
+         skip link actually move focus: without it the browser scrolls to the
+         anchor but focus stays in the nav, so the next Tab goes back to the
+         second nav link and the skip did nothing for a keyboard user. */
+      tabIndex={-1}
       className={"main " + className}
       initial={{ opacity: 0, y: 18 }}
       animate={{ opacity: 1, y: 0 }}

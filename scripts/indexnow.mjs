@@ -12,7 +12,7 @@
  *   node scripts/indexnow.mjs            # every URL in the sitemap
  *   node scripts/indexnow.mjs /a /b      # just these paths
  */
-import { readFileSync } from "node:fs";
+import { readFileSync, existsSync } from "node:fs";
 import { join, dirname } from "node:path";
 import { fileURLToPath } from "node:url";
 
@@ -23,8 +23,22 @@ const KEY = "19dcb4e68023d2d30748257fd44c8749";
 const args = process.argv.slice(2);
 const urlList = args.length
   ? args.map((p) => `https://${HOST}${p.startsWith("/") ? p : "/" + p}`)
-  : [...readFileSync(join(root, "public/sitemap.xml"), "utf8")
-      .matchAll(/<loc>([^<]+)<\/loc>/g)].map((m) => m[1]);
+  : readSitemapUrls();
+
+/* dist/, not public/.
+ *
+ * The sitemap is generated AFTER the prerender now, because its <lastmod>
+ * values are content hashes of the built pages, so it is written straight to
+ * dist/ and no longer exists in public/. Reading the old path threw ENOENT and
+ * took the whole submission with it. */
+function readSitemapUrls() {
+  const file = join(root, "dist/sitemap.xml");
+  if (!existsSync(file)) {
+    console.error("indexnow: dist/sitemap.xml not found — run `npm run build` first.");
+    process.exit(1);
+  }
+  return [...readFileSync(file, "utf8").matchAll(/<loc>([^<]+)<\/loc>/g)].map((m) => m[1]);
+}
 
 const res = await fetch("https://api.indexnow.org/indexnow", {
   method: "POST",
