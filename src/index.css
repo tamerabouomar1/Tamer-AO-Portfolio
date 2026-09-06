@@ -3615,3 +3615,48 @@ select:focus-visible,
    default would leave the span shrink-wrapped mid-line; block keeps the
    heading laying out exactly as it did when the text sat in the h1. */
 .splitline { display: block; }
+
+/* ── Membership gate ──────────────────────────────────────────────────────
+   Thirty templates are free; the twelve Canvas/WebGL builds are the $19
+   membership. The store says which is which on the card, before the click. */
+
+/* Reads as a label rather than a price, because it is not one. Same size and
+   weight as "Free" so the row does not reflow between the two states. */
+.tpl-card__amount--member {
+  font-size: clamp(11px, 0.9vw, 13px);
+  font-weight: 700;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+  color: var(--shiny);
+  align-self: center;
+  white-space: nowrap;
+}
+
+/* The member's way back in, under the paid actions in the template modal. */
+.buy__unlock {
+  display: flex; flex-direction: column; gap: 10px;
+  margin-top: 16px; padding-top: 16px;
+  border-top: 1px solid var(--line);
+}
+.buy__unlock input { text-transform: uppercase; letter-spacing: 0.08em; }
+.buy__unlock .btn-book { align-self: flex-start; }
+.buy__unlock .btn-book[disabled] { opacity: 0.45; cursor: not-allowed; }
+
+/* A rejected code is information, not an alarm: the most common cause is a
+   typo, and the field is still sitting there waiting to be corrected. */
+.buy__error { margin: 0; font-size: 14px; color: #ff9b8f; }
+
+/* Says what a field is for, under it, without stealing the label's job. */
+.buy__hint { font-size: 12px; line-height: 1.45; color: var(--muted); }
+
+/* The qualification on a free offer, next to the offer rather than behind a
+   click — see FreeOffers.jsx. Quieter than the blurb, louder than nothing. */
+.freecard__caveat {
+  margin: 8px 0 0;
+  font-size: 12px; line-height: 1.5;
+  color: var(--muted);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .buy__unlock .btn-book { transition: none; }
+}

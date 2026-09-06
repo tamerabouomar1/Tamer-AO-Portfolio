@@ -34,6 +34,9 @@ function OfferCard({ offer, onClaim, compact }) {
         <li>{offer.turnaround}</li>
         <li>{offer.proof}</li>
       </ul>
+      {/* Said here rather than in the download dialog. A qualification that
+          only appears after someone has decided is not a qualification. */}
+      {offer.caveat && <p className="freecard__caveat">{offer.caveat}</p>}
     </>
   );
 
@@ -73,7 +76,7 @@ function OfferCard({ offer, onClaim, compact }) {
 /** The claim form, for the offers that need something sent in. */
 function ClaimModal({ offer, onClose }) {
   const trapRef = useFocusTrap(!!offer);
-  const [who, setWho] = useState({ name: "", reach: "", about: "" });
+  const [who, setWho] = useState({ name: "", reach: "", link: "", about: "" });
   const [status, setStatus] = useState("idle");
   const [token, setToken] = useState("");
 
@@ -92,9 +95,11 @@ function ClaimModal({ offer, onClose }) {
   const message =
     `Hi Tamer, I'd like to claim the free ${offer.name.toLowerCase()}.\n` +
     `Name: ${who.name || "(not given)"}\n` +
-    `Best contact: ${who.reach || "(this WhatsApp)"}\n\n` +
+    `Best contact: ${who.reach || "(this WhatsApp)"}\n` +
+    (offer.ask && who.link ? `${offer.ask.label}: ${who.link}\n` : "") +
+    `\n` +
     (who.about ? `${who.about}\n\n` : "") +
-    `Here's what I'm working with: `;
+    `Anything else I should know: `;
 
   const wa = `https://wa.me/${waNumber}?text=${encodeURIComponent(message)}`;
 
@@ -112,6 +117,7 @@ function ClaimModal({ offer, onClose }) {
         body: JSON.stringify({
           name: who.name,
           reach: who.reach,
+          link: who.link,
           about: who.about,
           offer: offer.name,
           // Recorded server-side as proof the box was ticked. The input is
@@ -212,11 +218,29 @@ function ClaimModal({ offer, onClose }) {
                 />
               </label>
             </div>
+            {/* Required, because the offer cannot start without it. The old
+                form asked for a name and an email and left the actual subject
+                of the work to an optional free-text box, so most claims began
+                with a reply asking for the link. */}
+            {offer.ask && (
+              <label className="buy__field">
+                <span>{offer.ask.label}</span>
+                <input
+                  type="text"
+                  required
+                  placeholder={offer.ask.placeholder}
+                  value={who.link}
+                  onChange={(e) => setWho((w) => ({ ...w, link: e.target.value }))}
+                />
+                <small className="buy__hint">{offer.ask.hint}</small>
+              </label>
+            )}
+
             <label className="buy__field">
-              <span>What are you working on? (optional)</span>
+              <span>Anything else? (optional)</span>
               <textarea
                 rows={3}
-                placeholder="A link, a handle, or a line about the business."
+                placeholder="A line about the business, or what you want looked at."
                 value={who.about}
                 onChange={(e) => setWho((w) => ({ ...w, about: e.target.value }))}
               />

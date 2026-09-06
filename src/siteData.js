@@ -111,14 +111,16 @@ export const PAYMENT_METHODS = [
 export const FREE_OFFERS = [
   {
     id: "templates",
-    name: "A Finished Website",
+    name: "A Website, Free to Take",
     kicker: "Websites",
     // Deliberately uncounted. A number dates the moment it is printed and
     // invites the wrong question ("only that many?") instead of the right one
     // ("is one of them mine?"). The gallery answers that in one click.
     blurb:
-      "A gallery of complete sites, built and running. Open any of them, and if it fits, the whole React source is yours.",
-    proof: "Full source · commercial use · new ones every week",
+      "A gallery of complete sites, built and running. Preview any of them; thirty are yours to take outright — the whole React source, a project you run with two commands, with your own words, photos and fonts dropped in.",
+    proof: "30 free · full source · commercial use",
+    caveat:
+      "The demo photos, video and fonts belong to their owners, so you swap those for your own before you launch.",
     turnaround: "Instant download",
     kind: "download",
     to: "/websites#store",
@@ -136,6 +138,14 @@ export const FREE_OFFERS = [
       "Send your logo, your Instagram or your site. You get back a short recorded critique: what is working, what is quietly costing you, and the three things I would change first.",
     proof: "Recorded video · yours to keep",
     turnaround: "Back within 3 days",
+    // What the form must collect before the clock can start. Without this the
+    // claim arrives as a name and an email and the first thing that happens is
+    // an email asking for the link — which is the turnaround, spent.
+    ask: {
+      label: "Your website or Instagram",
+      placeholder: "instagram.com/yourbrand or yoursite.com",
+      hint: "The 3 days start when this lands, not when you fill this in.",
+    },
     kind: "form",
     cta: "Send yours in",
     paid: {
@@ -151,6 +161,14 @@ export const FREE_OFFERS = [
       "Send me your footage and I cut one reel: hook, captions, the lot. Post it, watch what it does, and decide about the rest afterwards.",
     proof: "My own reels: 855K+ views, best at 219K",
     turnaround: "Back within 5 days",
+    // Footage cannot go through this form and should not pretend to: a browser
+    // upload of raw phone video is the slowest, most breakable part of the
+    // whole offer. A link to a folder is what everyone already has.
+    ask: {
+      label: "A link to your footage",
+      placeholder: "Google Drive, Dropbox, WeTransfer or an Instagram handle",
+      hint: "Share the folder so anyone with the link can view. The 5 days start when I can open it.",
+    },
     kind: "form",
     cta: "Claim the reel",
     paid: {
@@ -163,7 +181,7 @@ export const FREE_OFFERS = [
     name: "A Training Session",
     kicker: "Coaching",
     blurb:
-      "One full hour, one-on-one, free. Movement screen, technique, and a plan you can run on your own whether or not you ever come back.",
+      "Thirty minutes, one-on-one, free. Movement screen, technique, and a plan you can run on your own whether or not you ever come back.",
     proof: "100+ students coached · 10+ years",
     turnaround: "Book any open slot",
     kind: "call",
@@ -308,7 +326,7 @@ export const TESTIMONIALS = [];
 // Container ("Program"), Avatar per track.
 //
 // ON THE NUMBERS. `value` on each stack line is priced off Tamer's OWN rate
-// card, not invented: 26 sessions × the $37/session members already pay = $962,
+// card, not invented: 24 sessions × the $37/session members already pay = $888,
 // and the nutrition plan and programming are what the $299 month charges for
 // today. That is what makes the $2,254 total defensible if a client ever asks
 // how it was reached — which is the only reason to print an anchor at all.
@@ -386,7 +404,7 @@ export const DEFENSE_PROGRAM = {
   // Trim and stack. Everything a buyer gets, priced at what it costs on its
   // own, so the discrepancy between the stack and the price is visible.
   stack: [
-    { item: "26 coached sessions over 12 weeks, 2× per week", value: 962 },
+    { item: "24 coached sessions over 12 weeks, 2× per week", value: 888 },
     { item: "A training program written around your body and your starting point", value: 150 },
     { item: "Custom nutrition plan, built on university nutrition science", value: 150 },
     { item: "Weekly progress check-ins and a filmed benchmark every 4 weeks", value: 88 },
@@ -450,12 +468,12 @@ export const PT_PACKAGES = [
     name: "First Session",
     tagline: "Free, and it stays free",
     price: "$0",
-    period: "one full hour",
+    period: "30 minutes, free",
     free: true,
     save: "No card, no catch",
     cta: "Book the free session",
     features: [
-      "1-hour one-on-one training",
+      "30-minute one-on-one session",
       "Movement screen & technique work",
       "A plan you keep either way",
       "No obligation to book a second",
@@ -1895,7 +1913,7 @@ export const WEBSITE_CARE_PLANS = [
     flat: 30,
     period: "per month, per site",
     features: [
-      "Cloudflare hosting, SSL, CDN and domain renewal",
+      "Cloudflare hosting, SSL, CDN and DNS",
       "Nightly backups with 30-day history",
       "Uptime monitoring",
       "Security and dependency updates",
@@ -1930,7 +1948,7 @@ export const WEBSITE_CARE_PLANS = [
     badge: "Recommended",
     features: [
       "Everything in Managed",
-      "Unlimited content edits — fair use to fifteen a month",
+      "Up to 15 content edits a month",
       "No per-change invoices and no approval delays",
       "First reply within one working day",
       "Two new pages included per year",
@@ -2131,7 +2149,7 @@ export const PRESENCE = {
     price: 349,
     period: "per month after that, cancel with 30 days' notice",
     stack: [
-      { item: "Hosting, SSL, backups, monitoring and unlimited content edits", value: 190 },
+      { item: "Hosting, SSL, backups, monitoring and up to 15 content edits a month", value: 190 },
       { item: "Eight pieces of content a month, hooks and captions written", value: 199 },
     ],
     note: "Posted to your socials and your Google listing, so both stay alive instead of one going quiet.",
@@ -2193,7 +2211,7 @@ export const SERVICE_PAGES = [
       {
         title: "What actually gets built",
         body:
-          "A site designed around your brand rather than a theme, on your own domain, with the pages written to come up when someone in your area searches for what you sell. Booking, ordering, a menu or an enquiry form, whichever one is the thing you need people to do. Hosting, the domain, SSL, backups and monitoring are mine to run, so nothing about it is left for you to maintain.",
+          "A site designed around your brand rather than a theme, on your own domain, with the pages written to come up when someone in your area searches for what you sell. Booking, ordering, a menu or an enquiry form, whichever one is the thing you need people to do. Hosting, SSL, backups and monitoring are mine to run, so nothing about it is left for you to maintain.",
       },
       {
         title: "Who I build for",
@@ -2207,7 +2225,7 @@ export const SERVICE_PAGES = [
         bullets: [
           "$30 a month for hosting and monitoring alone",
           "$100 a month with five content edits and a quarterly report",
-          "$190 a month for unlimited edits, monthly reporting and a quarterly SEO refresh",
+          "$190 a month for up to 15 edits, monthly reporting and a quarterly SEO refresh",
           "$350 one-off for a single page set up from the free gallery, if a whole site is more than you need",
           "From $1,500 for a build with a shop or booking system behind it",
         ],
@@ -2335,7 +2353,7 @@ export const SERVICE_PAGES = [
       },
       {
         q: "What does it cost to run?",
-        a: "$850 to build it, then a monthly plan from $30. Online at $30 covers hosting, the domain, SSL, backups and monitoring. Managed at $100 adds five content edits a month and a quarterly report. Complete at $190 is unlimited edits, a monthly report and a quarterly SEO refresh.",
+        a: "$850 to build it, then a monthly plan from $30. Online at $30 covers hosting, SSL, backups and monitoring. Managed at $100 adds five content edits a month and a quarterly report. Complete at $190 is up to 15 edits a month, a monthly report and a quarterly SEO refresh.",
       },
       {
         q: "Can you put the menu in Arabic?",
@@ -2457,7 +2475,7 @@ export const SERVICE_PAGES = [
         bullets: [
           "$30 a month for hosting and monitoring",
           "$100 a month with five content edits",
-          "$190 a month for unlimited edits and a quarterly SEO refresh",
+          "$190 a month for up to 15 edits and a quarterly SEO refresh",
           "$350 for a single page set up from the free gallery, with no monthly at all",
         ],
       },
@@ -2611,7 +2629,7 @@ export const FITNESS = {
   freeFlag: "Free · no card · no obligation",
   freeTitle: "Your First Session Is Free.",
   freeBody:
-    "One hour, one-on-one. I check how you move, we train, and you leave with a written plan. The plan is yours even if you never come back.",
+    "Thirty minutes, one-on-one. I check how you move, we train, and you leave with a written plan. The plan is yours even if you never come back.",
   freeCta: "Book the free hour",
   secondaryCta: "See the prices",
 

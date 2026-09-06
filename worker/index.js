@@ -7,9 +7,14 @@
  * the person goes through with sending the message. This does not depend on
  * that, so nobody is ever downloaded-and-lost.
  *
- * `run_worker_first` in wrangler.jsonc is what routes /api/* here; every other
- * path is served by the asset handler before this script is ever invoked.
+ * It also holds the membership gate. `run_worker_first` in wrangler.jsonc is
+ * true, so EVERY request enters here before the asset handler — which is what
+ * makes it possible to refuse a premium zip. Leave it true: with it off, the
+ * edge would serve /downloads/<slug>-template.zip straight from disk and the
+ * paywall would exist only as a padlock drawn in the store.
  */
+
+import { PREMIUM_TEMPLATES, MEMBER_COOKIE } from "../src/premium.js";
 
 const MAX = 200; // per field, plenty for a name or an email
 const MAX_MESSAGE = 4000; // a contact message needs far more room than a name
@@ -377,6 +382,15 @@ async function saveClaim(body, request, env, ctx) {
   const offer = clean(body.offer);
   const about =
     typeof body.about === "string" ? body.about.trim().slice(0, MAX_MESSAGE) : "";
+
+  /* The website, Instagram or footage link the offer actually runs on. Folded
+     into `message` rather than given a column of its own, the same way the
+     feedback handler below folds its two answers together: the CSV header is
+     fixed, and a claim whose link is sitting in an unexported field is a claim
+     Tamer cannot action from the export. */
+  const link = clean(body.link).slice(0, 500);
+  const message = link ? (about ? `${link}\n${about}` : link) : about;
+
   if (!name || !reach) return json({ ok: false, error: "name and contact required" }, 400);
 
   const at = new Date().toISOString();
@@ -388,7 +402,7 @@ async function saveClaim(body, request, env, ctx) {
       name,
       reach,
       template: offer, // shares the leads CSV column with template downloads
-      message: about,
+      message,
       at,
       country: request.headers.get("cf-ipcountry") || "",
       referer: clean(request.headers.get("referer") || ""),
@@ -402,6 +416,7 @@ async function saveClaim(body, request, env, ctx) {
       ["Name", name],
       ["Contact", reach],
       ["Offer", offer],
+      ["Link", link],
       ["About", about],
     ])
   );
@@ -525,6 +540,119 @@ async function listLeads(request, env) {
    governs how index.html is resolved at "/". */
 const GSC_TOKEN = "googlecdc160a1620c12b8";
 
+
+/* ── The membership gate ──────────────────────────────────────────────────
+ *
+ * Thirty templates are free and always were. The twelve animation-heavy ones
+ * are the membership, and this is the only place that is true: a lock drawn
+ * in the UI is decoration, because /downloads/<slug>-template.zip is a
+ * guessable URL and the store publishes every slug.
+ *
+ * How a member gets in:
+ *
+ *   1. They pay by Whish, OMT or transfer and Tamer opens access by hand,
+ *      exactly as the membership already works. He mints a code with
+ *      POST /api/member (LEADS_TOKEN required) and sends it in the same
+ *      WhatsApp thread.
+ *   2. They enter it once. POST /api/unlock checks it and sets the cookie.
+ *   3. Every download re-checks the code against KV.
+ *
+ * The cookie holds the code rather than a signed session, on purpose: it
+ * means revoking a membership is one key delete and takes effect on the next
+ * request, with no secret to rotate and no token to expire out of step with
+ * the subscription. The cookie is httpOnly, so the page cannot read it back.
+ */
+
+const MEMBER_PREFIX = "member:";
+
+/** The slug in /downloads/<slug>-template.zip, or "". */
+function zipSlug(pathname) {
+  const m = /^\/downloads\/([a-z0-9-]+)-template\.zip$/i.exec(pathname);
+  return m ? m[1].toLowerCase() : "";
+}
+
+function readCookie(request, name) {
+  const raw = request.headers.get("cookie") || "";
+  for (const part of raw.split(";")) {
+    const [k, ...v] = part.trim().split("=");
+    if (k === name) return decodeURIComponent(v.join("="));
+  }
+  return "";
+}
+
+/** The membership record for a code, or null. Codes are opaque, so a wrong
+    one is indistinguishable from an expired one — which is what we want. */
+async function memberFor(env, code) {
+  const key = clean(code).toUpperCase().slice(0, 64);
+  if (!key || !env.LEADS) return null;
+  return env.LEADS.get(MEMBER_PREFIX + key, "json").catch(() => null);
+}
+
+/* Tamer mints a code after a payment lands. Same bearer token as the leads
+   export, so there is one admin credential on this worker rather than two.
+     curl -X POST https://tamerabouomar.com/api/member \
+       -H "authorization: Bearer $LEADS_TOKEN" \
+       -d '{"note":"Rami, Whish, monthly","days":31}'  */
+async function mintMember(request, env) {
+  const given =
+    request.headers.get("x-leads-token") ||
+    (request.headers.get("authorization") || "").replace(/^Bearer\s+/i, "");
+  if (!env.LEADS_TOKEN || !safeEqual(given, env.LEADS_TOKEN)) {
+    return json({ ok: false, error: "unauthorised" }, 401);
+  }
+  if (!env.LEADS) return json({ ok: false, error: "storage unavailable" }, 503);
+
+  const body = (await readJson(request)) || {};
+  // Ambiguous characters left out: no O/0, no I/1. These get read down a
+  // phone line and typed by hand.
+  const alphabet = "ABCDEFGHJKLMNPQRSTUVWXYZ23456789";
+  const code =
+    clean(body.code).toUpperCase().replace(/[^A-Z0-9]/g, "").slice(0, 32) ||
+    Array.from(crypto.getRandomValues(new Uint8Array(12)))
+      .map((b) => alphabet[b % alphabet.length])
+      .join("");
+
+  // Default 31 days: a monthly membership that is not renewed stops working
+  // on its own, so a missed cancellation cannot quietly stay open for months.
+  const days = Math.min(Math.max(Number(body.days) || 31, 1), 400);
+  const at = new Date().toISOString();
+  await env.LEADS.put(
+    MEMBER_PREFIX + code,
+    JSON.stringify({ code, note: clean(body.note), at, days }),
+    { expirationTtl: days * 86400 }
+  );
+  return json({ ok: true, code, days, expires: new Date(Date.now() + days * 86400e3).toISOString() });
+}
+
+/** Exchange a code for the cookie. Rate limited like every other write. */
+async function unlockMember(request, env) {
+  if (!originAllowed(request)) return json({ ok: false, error: "forbidden" }, 403);
+  if (await overLimit(env, request, "unlock")) {
+    return json({ ok: false, error: "too many tries, wait a minute" }, 429);
+  }
+  const body = (await readJson(request)) || {};
+  const code = clean(body.code).toUpperCase();
+  const member = await memberFor(env, code);
+  if (!member) return json({ ok: false, error: "that code is not active" }, 403);
+
+  const maxAge = Math.min(Number(member.days) || 31, 400) * 86400;
+  return new Response(JSON.stringify({ ok: true }), {
+    headers: {
+      "content-type": "application/json",
+      "cache-control": "no-store",
+      "set-cookie":
+        `${MEMBER_COOKIE}=${encodeURIComponent(code)}; Path=/; Max-Age=${maxAge}; ` +
+        `HttpOnly; Secure; SameSite=Lax`,
+    },
+  });
+}
+
+/** Whether this request may have this zip. */
+async function mayDownload(request, env, slug) {
+  if (!PREMIUM_TEMPLATES.includes(slug)) return true;
+  return !!(await memberFor(env, readCookie(request, MEMBER_COOKIE)));
+}
+
 export default {
   async fetch(request, env, ctx) {
     const { pathname } = new URL(request.url);
@@ -541,6 +669,8 @@ export default {
     }
 
     if (pathname === "/api/leads" && request.method === "GET") return listLeads(request, env);
+    if (pathname === "/api/member" && request.method === "POST") return mintMember(request, env);
+    if (pathname === "/api/unlock" && request.method === "POST") return unlockMember(request, env);
 
     /* Every write goes through one gate.
      *
@@ -606,6 +736,16 @@ export default {
        /assets — /demo/styles.css was hitting the same fallback and being
        answered with a page. A path that ends in .css, .js, .webp and so on is
        never a SPA route, so HTML is always the wrong answer for it. */
+    /* Premium zips never reach the asset handler without a membership. This
+       has to sit above the static-file branch below, which would otherwise
+       serve the file straight off the edge. 402 rather than 403: the thing
+       is not forbidden, it is paid for, and the store reads the status to
+       decide whether to open the membership window or say the code lapsed. */
+    const slug = zipSlug(pathname);
+    if (slug && !(await mayDownload(request, env, slug))) {
+      return json({ ok: false, error: "membership required", template: slug }, 402);
+    }
+
     if (/\.(css|js|mjs|json|webp|jpg|jpeg|png|svg|gif|avif|woff2?|ttf|otf|mp4|webm|m3u8|zip|ico|map)$/i.test(pathname)) {
       const res = await env.ASSETS.fetch(request);
       const type = res.headers.get("content-type") || "";

@@ -68,12 +68,13 @@ export default function Home() {
           </span>
         </MotionLink>
         {/* "from $109" was left over from when templates were priced one at a
-            time. Every template is free now, so the line was quoting a price
-            that no longer exists anywhere on the site. */}
+            time. Thirty of them are free outright and the twelve Canvas/WebGL
+            builds are the $19 membership, so a single "from" price would
+            misdescribe both halves. The count is what the flag carries. */}
         <MotionLink className="card path path--store" to="/websites" variants={cardIn}>
           <span className="path__head">
             <span className="path__label">Websites</span>
-            <span className="path__flag">Free source</span>
+            <span className="path__flag">30 free</span>
           </span>
           {/* Uncounted on purpose. The figure used to be printed here and in
               the store head, where it dates itself and invites "only that

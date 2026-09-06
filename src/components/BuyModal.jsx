@@ -3,6 +3,7 @@ import useFocusTrap from "../lib/useFocusTrap";
 import { Link } from "react-router-dom";
 import { motion, AnimatePresence } from "framer-motion";
 import { CONTACT, TEMPLATE_PACKAGES, templateZip } from "../siteData";
+import { isPremium } from "../premium";
 import Turnstile from "./Turnstile";
 
 /* The delivery step, shared by the store grid and the live preview bar.
@@ -28,14 +29,44 @@ function priceOf(tpl, pkg) {
 
 export default function BuyModal({ template, onClose }) {
   const trapRef = useFocusTrap(!!template);
-  // One ladder for every template now: they are all free, so the modal always
-  // opens on the free tier. Burying that behind a click on the membership would
-  // waste the whole point of giving the work away.
-  const tiers = TEMPLATE_PACKAGES;
-  const [picked, setPicked] = useState(tiers.find((p) => p.free)?.id ?? tiers[0].id);
+
+  /* Two ladders now.
+     The thirty free templates open on the free tier, for the same reason as
+     before: burying a free file behind a click on a paid plan wastes the point
+     of giving it away. The twelve animation-heavy ones are the membership, so
+     the free tier is not offered at all rather than shown and then refused —
+     a disabled option someone has already chosen reads as a bait. */
+  const locked = !!template && isPremium(template.slug);
+  const tiers = locked ? TEMPLATE_PACKAGES.filter((p) => !p.free) : TEMPLATE_PACKAGES;
+
+  const [picked, setPicked] = useState(
+    (locked ? tiers.find((p) => p.featured) : tiers.find((p) => p.free))?.id ?? tiers[0].id
+  );
   const [who, setWho] = useState({ name: "", reach: "" });
   const [sent, setSent] = useState(false);
   const [token, setToken] = useState("");
+  const [code, setCode] = useState("");
+  const [unlock, setUnlock] = useState("");
+
+  /* Reset the ladder whenever a different template opens this.
+     useState's initialiser runs once for the life of the component, and the
+     modal is kept mounted between openings — so without this, closing a
+     membership template and opening a free one leaves the $19 tier selected
+     and the free download nowhere on screen. The per-template state below is
+     cleared for the same reason: a name typed for one template, or a rejected
+     code, has no business surviving into the next one. */
+  useEffect(() => {
+    if (!template) return;
+    const list = isPremium(template.slug)
+      ? TEMPLATE_PACKAGES.filter((p) => !p.free)
+      : TEMPLATE_PACKAGES;
+    const want = isPremium(template.slug)
+      ? list.find((p) => p.featured)
+      : list.find((p) => p.free);
+    setPicked((want ?? list[0]).id);
+    setSent(false);
+    setUnlock("");
+  }, [template?.slug]);
 
   useEffect(() => {
     const onKey = (e) => e.key === "Escape" && onClose();
@@ -46,6 +77,41 @@ export default function BuyModal({ template, onClose }) {
       document.body.style.overflow = "";
     };
   }, [onClose]);
+
+  /* Hand over the file. The <a download> is what actually saves it; the worker
+     has already decided whether this request is allowed to have it. */
+  function saveZip() {
+    const a = document.createElement("a");
+    a.href = templateZip(template.slug);
+    a.download = "";
+    document.body.appendChild(a);
+    a.click();
+    a.remove();
+  }
+
+  /* An existing member typing their code. The cookie is set by the worker, so
+     nothing here can mint access on its own — a wrong code fails at the edge
+     whatever this component believes. */
+  async function handleUnlock(e) {
+    e.preventDefault();
+    setUnlock("checking");
+    try {
+      const res = await fetch("/api/unlock", {
+        method: "POST",
+        headers: { "content-type": "application/json" },
+        body: JSON.stringify({ code }),
+      });
+      const data = await res.json().catch(() => ({}));
+      if (!res.ok || !data.ok) {
+        setUnlock(data.error || "that code is not active");
+        return;
+      }
+      setUnlock("ok");
+      saveZip();
+    } catch {
+      setUnlock("could not check that just now — try again in a moment");
+    }
+  }
 
   if (!template) return null;
 
@@ -102,8 +168,9 @@ export default function BuyModal({ template, onClose }) {
             <span className="web-card__tag">{template.tag}</span>
             <h3 className="buy__title">{template.name}</h3>
             <p className="buy__sub">
-              The files are free. Join the membership if you want every new one the
-              week it ships.
+              {locked
+                ? "This one is part of the membership. Thirty other templates in the gallery are free to take right now."
+                : "The files are free. Join the membership if you want every new one the week it ships."}
             </p>
           </div>
           <button className="weblb__close" onClick={onClose} aria-label="Close">
@@ -250,10 +317,48 @@ export default function BuyModal({ template, onClose }) {
           </div>
         )}
 
+        {/* Someone who already paid should not have to go through WhatsApp
+            again to get a second file. Access is opened by hand, so the code
+            is what a member holds; this exchanges it for the cookie once and
+            every later download just works. */}
+        {locked && (
+          <form className="buy__unlock" onSubmit={handleUnlock}>
+            <label className="buy__field">
+              <span>Already a member? Enter your access code</span>
+              <input
+                type="text"
+                value={code}
+                onChange={(e) => {
+                  setCode(e.target.value.toUpperCase());
+                  setUnlock("");
+                }}
+                placeholder="e.g. K7RMQ2XPTB94"
+                autoComplete="off"
+                spellCheck="false"
+              />
+            </label>
+            <button className="btn-book buy-alt" type="submit" disabled={!code || unlock === "checking"}>
+              {unlock === "checking" ? "Checking…" : "Unlock the download"}
+            </button>
+            {unlock && unlock !== "checking" && (
+              <p
+                className={unlock === "ok" ? "buy__done" : "buy__error"}
+                role="status"
+              >
+                {unlock === "ok"
+                  ? "Unlocked. The download has started, and every other membership template will download straight away from now on."
+                  : unlock}
+              </p>
+            )}
+          </form>
+        )}
+
         <p className="price-note buy__note">
           {pkg.free
             ? "No payment and no card. The zip is a complete React project with a deploy guide, free for personal and client work. The demo photos, video and fonts belong to their owners, so swap those before you launch."
-            : "Payment by bank transfer, Whish or Western Union once we agree the scope, and nothing is charged before you approve the quote. The source files stay free either way."}
+            : locked
+              ? "Membership templates are the Canvas and WebGL builds — the ones that take days rather than hours. $19 a month gets all twelve plus every new one, and you keep whatever you have downloaded if you cancel. The demo photos, video and fonts belong to their owners, so swap those before you launch."
+              : "Payment by bank transfer, Whish or Western Union once we agree the scope, and nothing is charged before you approve the quote. The source files stay free either way."}
         </p>
       </motion.div>
     </motion.div>

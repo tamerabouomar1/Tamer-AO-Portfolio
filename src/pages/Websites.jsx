@@ -10,6 +10,7 @@ import { MemberModalHost } from "../components/MemberModal";
 import PriceCard from "../components/PriceCard";
 import MessageForm from "../components/MessageForm";
 import { prefetchTemplate } from "../templates/registry";
+import { isPremium } from "../premium";
 import {
   CONTACT,
   TEMPLATES,
@@ -95,7 +96,12 @@ function TemplateCard({ t, onBuy }) {
             <h3 className="web-card__title">{t.name}</h3>
             <span className="tpl-card__kicker">{t.kicker}</span>
           </div>
-          <span className="tpl-card__amount">Free</span>
+          {/* Said on the card, not in the modal. Finding out a template is
+              paid only after clicking "Get it free" is the kind of small
+              dishonesty that costs more than the twelve files are worth. */}
+          <span className={`tpl-card__amount${isPremium(t.slug) ? " tpl-card__amount--member" : ""}`}>
+            {isPremium(t.slug) ? "Membership" : "Free"}
+          </span>
         </div>
 
         <div className="tpl-card__actions">
@@ -107,7 +113,7 @@ function TemplateCard({ t, onBuy }) {
             Preview
           </Link>
           <button className="btn-book tpl-card__buy" onClick={() => onBuy(t)}>
-            Get it free
+            {isPremium(t.slug) ? "Get it with membership" : "Get it free"}
           </button>
         </div>
       </div>
@@ -279,7 +285,7 @@ export default function Websites() {
       {/* ── Ready-made sites ─────────────────────────────────── */}
       <section className="proj-section" id="store">
         <div className="storehead">
-          <span className="storehead__flag">Free source · Something new every week</span>
+          <span className="storehead__flag">30 free · 12 with membership · something new every week</span>
           <h2 className="storehead__title">
             A gallery of finished websites.
             <br />

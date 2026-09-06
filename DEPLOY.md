@@ -40,6 +40,59 @@ This is a Vite + React app. To keep it **live and editable**, host it on a servi
 that auto-rebuilds when you push code changes. The original setup below was
 **GitHub + Netlify** (free).
 
+## Membership templates (how to let someone in)
+
+Thirty templates download free. The twelve Canvas/WebGL builds listed in
+`src/premium.js` are the $19 membership, and the Worker refuses their zips to
+anyone without a live access code. That refusal is the paywall — the padlock in
+the store is only the label on it.
+
+**Whenever you change which templates are paid, edit `src/premium.js` and
+nothing else.** The store and the Worker both read that one list, which is why
+it is its own file.
+
+### When someone pays
+
+They send the money by Whish, OMT or transfer exactly as before, then you mint
+them a code:
+
+```bash
+curl -X POST https://tamerabouomar.com/api/member \
+  -H "authorization: Bearer $LEADS_TOKEN" \
+  -H "content-type: application/json" \
+  -d '{"note":"Rami, Whish, monthly","days":31}'
+```
+
+That returns something like `{"ok":true,"code":"PQ2HQMGY6WZJ","days":31}`. Send
+the code in the same WhatsApp thread. They type it once into the "Already a
+member?" box on any membership template and every membership download works
+from then on, on that device.
+
+`days` defaults to **31**, so a membership that is not renewed stops working by
+itself. That is deliberate: a missed cancellation cannot quietly stay open for
+months. Renewing is just minting a new code.
+
+### To cut someone off early
+
+```bash
+npx wrangler kv key delete --binding LEADS "member:THEIRCODE" --remote
+```
+
+It takes effect on their next download. There is no session to expire and no
+secret to rotate — the cookie holds the code itself, and the code is checked
+against KV on every request.
+
+### `LEADS_TOKEN` is required
+
+Minting codes uses the same bearer token as the leads export. If you have not
+set it yet:
+
+```bash
+npx wrangler secret put LEADS_TOKEN
+```
+
+Without it, `/api/member` answers 401 and you cannot let anyone in.
+
 ## One-time setup
 
 ### 1. Put the code on GitHub
