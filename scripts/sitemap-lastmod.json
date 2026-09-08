@@ -8,8 +8,8 @@
     "date": "2026-09-06"
   },
   "/websites": {
-    "hash": "7a8445b4d885e78e",
-    "date": "2026-09-06"
+    "hash": "03b59310ff01eddf",
+    "date": "2026-09-08"
   },
   "/projects": {
     "hash": "7a930c590a5a6e58",
@@ -108,16 +108,12 @@
     "date": "2026-09-04"
   },
   "/templates/aurora": {
-    "hash": "6c34c45a0f62cd1a",
-    "date": "2026-09-04"
-  },
-  "/templates/muse": {
-    "hash": "7d8d5598418fb8bc",
-    "date": "2026-09-04"
+    "hash": "d8315135a9e83e5e",
+    "date": "2026-09-08"
   },
   "/templates/reel": {
-    "hash": "fa580b23f7f51dbc",
-    "date": "2026-09-04"
+    "hash": "bef442c0a277a1bd",
+    "date": "2026-09-08"
   },
   "/templates/calm": {
     "hash": "b0405926ff253fb3",

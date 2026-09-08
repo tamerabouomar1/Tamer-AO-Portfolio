@@ -85,6 +85,20 @@ function TemplateCard({ t, onBuy }) {
       >
         <div className="tpl-card__shot">
           <LiveThumb src={`/templates/${t.slug}`} bg={t.bg} label={t.name} />
+          {/* The membership crest, on the thumbnail rather than in the body
+              row, because a grid of 30 cards is scanned by picture and the
+              word in the text column below is easy to slide past. It is
+              aria-hidden on purpose: .tpl-card__amount already announces
+              "Membership" to a screen reader, and repeating it here would
+              just make the card say the same thing twice out loud. */}
+          {isPremium(t.slug) && (
+            <span className="tpl-card__crest" aria-hidden="true">
+              <svg viewBox="0 0 16 16" width="11" height="11" focusable="false">
+                <path d="M8 0l1.9 6.1L16 8l-6.1 1.9L8 16l-1.9-6.1L0 8l6.1-1.9z" fill="currentColor" />
+              </svg>
+              Membership
+            </span>
+          )}
           <span className="tpl-card__badge">Open live preview +</span>
         </div>
       </Link>
@@ -320,10 +334,20 @@ export default function Websites() {
             second button competed with the download for the same decision.
             A line of text does not: the previews were always public, it is
             the SOURCE that the membership gates, so nothing here is given
-            away that was not already open. */}
+            away that was not already open.
+
+            The label said "Also in the membership" and that was WRONG. Two
+            different sets exist here and they are NOT the same list: this
+            slice is simply what the grid does not render (TEMPLATES beyond
+            GALLERY_PREVIEW_COUNT), while the paid tier is the explicit slug
+            list in premium.js. They overlap on four, which is what made the
+            mistake look plausible — but eight of the templates named below
+            are FREE, and eight genuinely paid ones were missing entirely.
+            Do not put a tier label on this line: it is about what is not
+            shown, and the lock already lives on the card. */}
         {TEMPLATES.length > GALLERY_PREVIEW_COUNT && (
           <p className="price-note">
-            Also in the membership:{" "}
+            The rest of the shelf:{" "}
             {TEMPLATES.slice(GALLERY_PREVIEW_COUNT).map((t, i, arr) => (
               <Fragment key={t.slug}>
                 <Link className="link" to={`/templates/${t.slug}`}>

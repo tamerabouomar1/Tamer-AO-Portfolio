@@ -1878,6 +1878,26 @@ ul { margin: 0; padding: 0; list-style: none; }
 .tpl-card:hover .tpl-card__media.is-ready,
 .tpl-card:focus-within .tpl-card__media.is-ready { opacity: 1; }
 
+/* Membership crest. Top-right because the hover badge owns bottom-left, and
+   ALWAYS visible rather than hover-revealed — the whole point is that someone
+   scrolling the grid can tell the tiers apart without touching anything.
+   Solid --shiny with dark ink, so it reads as a mark rather than more text.
+   11px is the floor set in the HIG pass; do not shave it to 10 to fit. */
+.tpl-card__crest {
+  position: absolute;
+  top: 10px; right: 10px;
+  z-index: 3;
+  display: inline-flex; align-items: center; gap: 5px;
+  padding: 5px 10px 5px 8px;
+  border-radius: 999px;
+  font-size: 11px; font-weight: 700; letter-spacing: 0.06em; text-transform: uppercase;
+  color: #06131c;
+  background: var(--shiny);
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.45);
+  pointer-events: none;
+}
+.tpl-card__crest svg { display: block; flex: none; }
+
 .tpl-card__badge {
   position: absolute;
   left: 12px; bottom: 12px;

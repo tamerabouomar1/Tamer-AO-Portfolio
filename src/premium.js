@@ -18,7 +18,6 @@ export const PREMIUM_TEMPLATES = [
   "onyx", // React · Framer Motion
   "strata", // React · Canvas
   "aperture", // React · Canvas
-  "muse", // React · Framer Motion · hls.js
   "signal", // React · Framer Motion · hls.js
   "mentality", // React · Framer Motion
   "refract", // React · SVG filters · Canvas

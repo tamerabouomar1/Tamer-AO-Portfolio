@@ -1,0 +1,18 @@
+  {
+    slug: "muse",
+    name: "Muse",
+    kicker: "Early Access Hero",
+    tag: "Landing page",
+    desc: "A serif headline over streamed film, with a CTA that becomes an email field.",
+    highlights: [
+      "HLS stream via hls.js",
+      "Typewriter placeholder",
+      "Glass pill navbar",
+      "One locked screen, no scroll",
+    ],
+    bestFor: "AI tools · Waitlists · Launches",
+    stack: "React · Framer Motion · hls.js",
+    accent: "#ffffff",
+    bg: "#000000",
+    ink: "#ffffff",
+  },

@@ -22,7 +22,6 @@ const loaders = {
   strata: () => import("./strata/StrataSite"),
   aperture: () => import("./aperture/ApertureSite"),
   aurora: () => import("./aurora/AuroraSite"),
-  muse: () => import("./muse/MuseSite"),
   reel: () => import("./reel/ReelSite"),
   calm: () => import("./calm/CalmSite"),
   atlas: () => import("./atlas/AtlasSite"),

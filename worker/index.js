@@ -789,6 +789,25 @@ export default {
       return Response.redirect(new URL("/websites", request.url).toString(), 301);
     }
 
+    /* Templates that have been retired.
+     *
+     * A removed template's URL was in sitemap.xml and is very likely indexed,
+     * so letting it fall through to a bare 404 throws away whatever ranking it
+     * had and hands anyone holding the link a dead end. A 301 to the gallery
+     * passes the signal somewhere useful and puts the visitor in front of the
+     * other forty.
+     *
+     * "muse" was retired because it and "signal" rendered as the same site:
+     * same headline, same Mux film, same palette, same demo brand. Signal kept
+     * the slot because its hero mechanic is the more developed of the two.
+     *
+     * Add a slug here whenever one is pulled from TEMPLATES. */
+    const RETIRED_TEMPLATES = new Set(["muse"]);
+    const retired = pathname.match(/^\/templates\/([\w-]+)\/?$/);
+    if (retired && RETIRED_TEMPLATES.has(retired[1])) {
+      return Response.redirect(new URL("/websites", request.url).toString(), 301);
+    }
+
     if (pathname.startsWith("/demo/")) {
       let res = await env.ASSETS.fetch(request);
       const loc = res.status >= 300 && res.status < 400 ? res.headers.get("location") : null;
