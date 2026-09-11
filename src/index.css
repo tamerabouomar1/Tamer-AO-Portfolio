@@ -1751,7 +1751,9 @@ ul { margin: 0; padding: 0; list-style: none; }
   .sidebar__name { font-size: 19px; }
   .sidebar__tagline { font-size: 11px; text-align: left; line-height: 1.3; }
 
-  /* navigation moves to the bottom tab bar; the header keeps just identity */
+  /* navigation moves to the bottom tab bar; the header keeps just identity.
+     The policy links go too — hidden beside their own rule further down,
+     which is declared after this block and would otherwise win. */
   .nav, .socials { display: none; }
 
   /* intent cards: compact rows so all three audiences fit on one screen */
@@ -3465,6 +3467,19 @@ ul { margin: 0; padding: 0; list-style: none; }
   margin-top: 14px;
   padding-top: 14px;
   border-top: 1px solid var(--line);
+}
+
+/* Below 760px the sidebar is a horizontal sticky header, not a vertical rail,
+   and these four links wrapped underneath the avatar behind a border-top
+   drawn for that rail — so the header stood at a different height depending
+   on how the links happened to wrap. They stay reachable from every page:
+   MobileTabBar repeats all four in the More sheet, as .tabsheet__legal above.
+
+   This sits here rather than with the other <=760px rules because those come
+   earlier in the file than .sidebar__legal's own display:flex, which would
+   win on source order. */
+@media (max-width: 760px) {
+  .sidebar__legal { display: none; }
 }
 
 /* ── Screen-reader-only text ──────────────────────────────────────────────
