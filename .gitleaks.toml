@@ -2,16 +2,22 @@
 # and keys" job in .github/workflows/security.yml.
 #
 # Why this file exists: push runs only scan the commits being pushed, but the
-# Monday scheduled run scans the whole history, and it kept failing on three
-# values that look like keys but are public by design. Each one below has to
-# be readable by anyone for the thing it belongs to to work at all, so there
-# is nothing to rotate. They are allowed by exact value, not by file or path,
-# so a real secret added next to them is still caught.
+# Monday scheduled run scans the whole history, and it kept failing on the
+# IndexNow key below. Gitleaks 8.24.3 flags only that one; the other two are
+# the same kind of value (they look like keys) and are listed so a newer
+# Gitleaks does not start failing on them. Each one has to be readable by
+# anyone for the thing it belongs to to work at all, so there is nothing to
+# rotate. They are allowed by exact value, not by file or path, so a real
+# secret added next to them is still caught.
 
 [extend]
 useDefault = true # keep every built-in rule
 
-[[allowlists]]
+# Singular [allowlist], not [[allowlists]]. gitleaks-action@v2 runs
+# Gitleaks 8.24.3, and the plural form only exists from 8.25 on; 8.24.3
+# ignores it without a warning, which is how the first version of this
+# file failed. The singular form works in both.
+[allowlist]
 description = "Values that are public by design, not secrets"
 regexes = [
   # Google Search Console verification token (worker/index.js GSC_TOKEN).
