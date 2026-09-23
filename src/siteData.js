@@ -2617,10 +2617,11 @@ export const FITNESS = {
   secondaryCta: "See the prices",
 
   taughtAt: [
-    "International College (IC)",
-    "Combat Sports Academy",
-    "Yarzeh Leisure Club",
+    "International College (IC) · 1.5 years",
+    "Combat Sports Academy · ~7 years",
+    "Yarzeh Leisure Club · 1.5 years",
   ],
+  taughtNote: "Teaching Taekwondo, Jiu-Jitsu & Wrestling",
 
   steps: [
     { n: "01", title: "Book the Free Hour", body: "Pick any open slot. No card, no forms." },

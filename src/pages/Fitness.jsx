@@ -78,6 +78,18 @@ export default function Fitness() {
         </motion.article>
         <motion.article className="card stat stat--center" variants={cardIn}>
           <span className="stat-text" style={{ fontSize: "clamp(16px,1.5vw,21px)" }}>
+            National Champion
+          </span>
+          <span className="stat-label">Certified wrestling coach</span>
+        </motion.article>
+        <motion.article className="card stat stat--center" variants={cardIn}>
+          <span className="stat-text" style={{ fontSize: "clamp(16px,1.5vw,21px)" }}>
+            Champion
+          </span>
+          <span className="stat-label">Jiu-Jitsu</span>
+        </motion.article>
+        <motion.article className="card stat stat--center" variants={cardIn}>
+          <span className="stat-text" style={{ fontSize: "clamp(16px,1.5vw,21px)" }}>
             Blue Belt BJJ
           </span>
           <span className="stat-label">4th degree black belt, Taekwondo</span>
@@ -99,6 +111,7 @@ export default function Fitness() {
             </span>
           ))}
         </div>
+        <span className="taught__note">{FITNESS.taughtNote}</span>
       </div>
 
       {/* ── HOW THE FREE HOUR WORKS ──────────────────────────────────── */}

@@ -1174,7 +1174,11 @@ ul { margin: 0; padding: 0; list-style: none; }
 
 /* generic page heading block inside cards */
 .section-title { font-size: clamp(22px, 2.4vw, 35px); font-weight: 700; margin-bottom: clamp(10px, 1.2vw, 18px); }
-.stat-row { display: grid; grid-template-columns: repeat(auto-fit, minmax(150px, 1fr)); gap: var(--gap); }
+/* Fixed three across rather than auto-fit. With six proof cards, auto-fit chose
+   four columns at desktop width and left two orphaned in a half-empty row; the
+   column count has to divide six, not just fill the space. */
+.stat-row { display: grid; grid-template-columns: repeat(3, 1fr); gap: var(--gap); }
+@media (max-width: 760px) { .stat-row { grid-template-columns: repeat(2, 1fr); } }
 
 /* ---------------------------------------------------------- */
 /*  WORK WITH ME                                               */
@@ -3182,6 +3186,7 @@ ul { margin: 0; padding: 0; list-style: none; }
   background: #ffffff;
   color: var(--muted);
 }
+.taught__note { font-size: clamp(12px, 0.95vw, 14px); color: var(--faint); }
 
 /* ── Steps ─────────────────────────────────────────────────────────────── */
 .steps {
