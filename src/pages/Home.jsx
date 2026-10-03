@@ -31,7 +31,7 @@ export default function Home() {
         initial="hidden"
         animate="show"
       >
-        <span className="freehero__badge">Free · no card · no obligation</span>
+        <span className="freehero__badge">Free to start</span>
         {/* No hard <br /> in here. JSX drops the whitespace either side of a
             tag when it sits on its own line, so a <br> hidden by CSS on mobile
             left "teardown,your" run together. The line breaks are balanced by
@@ -143,7 +143,7 @@ export default function Home() {
           <motion.article className="card cta" variants={cardIn}>
             <h2 className="card-title">The 90-Day Self-Defense Program</h2>
             <p className="card-body">
-              Three tracks — women, teens and adults — and one finish line: in 90 days you can
+              Three tracks, for women, teens and adults, and one finish line: in 90 days you can
               break a grip, create distance and get yourself out. Pass the day-90 pressure test
               or keep training with me free until you do.{" "}
               <Link className="link" to="/fitness">

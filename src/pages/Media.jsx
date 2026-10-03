@@ -124,7 +124,7 @@ export default function Media() {
         <p className="card-body" style={{ maxWidth: "70ch", marginBottom: 14 }}>
           Six posts, <strong style={{ color: "#fff" }}>618,000 views and 40,000 likes</strong>. The
           newest did <strong style={{ color: "#fff" }}>23,400 views in its first two days</strong>.
-          Shot, cut and captioned by me, with the numbers they actually did.
+          Shot, cut and captioned by me. The counts are from Instagram, unedited.
         </p>
         <motion.div className="reel-grid" variants={container} initial="hidden" animate="show">
           {INSTAGRAM_REELS.map((r) => (

@@ -126,7 +126,7 @@ export default function WorkWithMe() {
       <section className="proj-section">
         <h2 className="proj-section__title">Just the Google Profile</h2>
         <p className="page-lead" style={{ marginTop: "-4px" }}>
-          Not ready for the whole thing? Start where the searching actually happens. When
+          Want to start smaller? Start with your Google listing. When
           somebody nearby looks for what you sell, the map listing is what they see first,
           above every website on the page. Most are wrong, empty, or still unclaimed.
         </p>
@@ -160,7 +160,7 @@ export default function WorkWithMe() {
       <section className="proj-section">
         <h2 className="proj-section__title">Social Media</h2>
         <p className="page-lead" style={{ marginTop: "-4px" }}>
-          Reels are what actually reach people. Mine have done 855K+ views, with six past 20,000
+          Reels reach more people than any other post. Mine have done 855K+ views, with six past 20,000
           and a best post at 219,000. Every plan is built reels-first to get you seen.
         </p>
         <p className="page-lead" style={{ marginTop: 0 }}>

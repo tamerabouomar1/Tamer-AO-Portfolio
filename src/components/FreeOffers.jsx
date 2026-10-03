@@ -26,7 +26,6 @@ function OfferCard({ offer, onClaim, compact }) {
     <>
       <div className="freecard__head">
         <span className="freecard__kicker">{offer.kicker}</span>
-        <span className="freecard__free">Free</span>
       </div>
       <h3 className="freecard__name">{offer.name}</h3>
       <p className="card-body freecard__blurb">{offer.blurb}</p>
@@ -265,8 +264,7 @@ function ClaimModal({ offer, onClose }) {
         )}
 
         <p className="price-note buy__note">
-          No payment and no card. You are not signing up for anything, and there is
-          no obligation to buy afterwards.
+          It costs nothing, and you are not signing up for anything.
         </p>
       </motion.div>
     </motion.div>
@@ -284,7 +282,7 @@ export default function FreeOffers({
   title = "Start with something",
   accent = "free",
   lede = "Every line of work here has a way in that costs nothing. Take it, use it, and decide about the rest afterwards.",
-  flag = "No card · No obligation",
+  flag = "",
   compact = false,
   offers = FREE_OFFERS,
 }) {

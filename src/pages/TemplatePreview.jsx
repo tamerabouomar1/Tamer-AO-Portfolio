@@ -49,7 +49,7 @@ export default function TemplatePreview() {
      they run this too, but the iframe has its own document, so nothing the
      hook writes can reach the parent page's head. */
   usePageMeta(
-    tpl ? `${tpl.name} — ${tpl.kicker}, free website template` : null,
+    tpl ? `${tpl.name}: ${tpl.kicker}, free website template` : null,
     tpl ? `${tpl.desc} Free ${tpl.stack} source, live preview, and a deploy guide. ${tpl.bestFor}.` : null,
     tpl ? `/templates/${tpl.slug}` : null
   );

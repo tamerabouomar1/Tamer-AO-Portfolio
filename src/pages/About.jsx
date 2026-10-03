@@ -36,8 +36,8 @@ export default function About() {
           </motion.div>
 
           <motion.p variants={cardIn}>
-            As a martial arts instructor and personal trainer, I help people get in shape and build
-            confidence, empowering the mind through the body. <span style={{ color: "var(--shiny)" }}>@Combat Sports Academy</span>
+            As a martial arts instructor and personal trainer, I help people get fitter, and the confidence
+            comes with it. <span style={{ color: "var(--shiny)" }}>@Combat Sports Academy</span>
           </motion.p>
           <motion.p variants={cardIn}>
             I work as a freelance graphic designer in Beirut, Lebanon, building brand identities,

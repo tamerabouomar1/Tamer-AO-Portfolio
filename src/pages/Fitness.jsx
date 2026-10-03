@@ -158,7 +158,7 @@ export default function Fitness() {
           ))}
         </RevealGroup>
         <p className="price-note">
-          Prices in USD. Nothing is charged on this site — packages are arranged with me
+          Prices in USD. Nothing is charged on this site. Packages are arranged with me
           directly. Never trained with me before?{" "}
           <Link className="link" to="/free">
             Your first hour is free <span className="plus">+</span>
@@ -201,9 +201,9 @@ export default function Fitness() {
         <RevealCard className="card cta" style={{ minHeight: 0 }}>
           <h2 className="card-title">Most Trainers Guess at Nutrition</h2>
           <p className="card-body">
-            I studied it at the American University of Beirut — Nutrition (NFSC 220) and
+            I studied it at the American University of Beirut: Nutrition (NFSC 220) and
             Physical Activity, Nutrition and Health (NFSC 223). So your plan is built on how
-            your body actually uses food. It also survives Lebanese food, Ramadan and exam
+            your body uses food. It also survives Lebanese food, Ramadan and exam
             season, which a template does not.
           </p>
         </RevealCard>

@@ -145,7 +145,7 @@ function videoObjects() {
   const media = [
     ...arrayOf("LOGO_MOTIONS").map((v) => ({
       ...v,
-      name: `${v.title} — logo motion`,
+      name: `${v.title}, logo motion`,
       description: v.desc,
     })),
     ...arrayOf("VIDEO_EDITS").map((v) => ({ ...v, name: v.title, description: v.desc })),
@@ -232,7 +232,7 @@ for (const [i, t] of templates.entries()) {
     prev: templates[(i - 1 + templates.length) % templates.length],
     next: templates[(i + 1) % templates.length],
     path: `/templates/${t.slug}`,
-    title: `${t.name} — ${t.kicker} Website Template | ${SUFFIX}`,
+    title: `${t.name}: ${t.kicker} Website Template | ${SUFFIX}`,
     /* Built to stay under 160 characters.
      *
      * This used to be the template's own description PLUS a fixed 90-character

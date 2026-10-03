@@ -117,8 +117,8 @@ export const FREE_OFFERS = [
     // invites the wrong question ("only that many?") instead of the right one
     // ("is one of them mine?"). The gallery answers that in one click.
     blurb:
-      "A gallery of complete sites, built and running. Preview any of them; thirty are yours to take outright — the whole React source, a project you run with two commands, with your own words, photos and fonts dropped in.",
-    proof: "30 free · full source · commercial use",
+      "A gallery of complete sites, built and running. Preview any of them; thirty are yours to take outright: the whole React source, a project you run with two commands, with your own words, photos and fonts dropped in.",
+    proof: "30 templates, full source, free for client work",
     caveat:
       "The demo photos, video and fonts belong to their owners, so you swap those for your own before you launch.",
     turnaround: "Instant download",
@@ -135,8 +135,8 @@ export const FREE_OFFERS = [
     name: "A Brand Teardown",
     kicker: "Design & Branding",
     blurb:
-      "Send your logo, your Instagram or your site. You get back a short recorded critique: what is working, what is quietly costing you, and the three things I would change first.",
-    proof: "Recorded video · yours to keep",
+      "Send your logo, your Instagram or your site. You get back a short recorded critique: what is working, what is costing you customers, and the three things I would change first.",
+    proof: "A recorded video you keep",
     turnaround: "Back within 3 days",
     // What the form must collect before the clock can start. Without this the
     // claim arrives as a name and an email and the first thing that happens is
@@ -158,8 +158,8 @@ export const FREE_OFFERS = [
     name: "Your First Reel",
     kicker: "Social Media",
     blurb:
-      "Send me your footage and I cut one reel: hook, captions, the lot. Post it, watch what it does, and decide about the rest afterwards.",
-    proof: "My own reels: 855K+ views, best at 219K",
+      "Send me your footage and I'll cut one reel, with the hook and captions written. Post it, watch what it does, and decide about the rest afterwards.",
+    proof: "My reels have passed 855K views",
     turnaround: "Back within 5 days",
     // Footage cannot go through this form and should not pretend to: a browser
     // upload of raw phone video is the slowest, most breakable part of the
@@ -182,7 +182,7 @@ export const FREE_OFFERS = [
     kicker: "Coaching",
     blurb:
       "Thirty minutes, one-on-one, free. Movement screen, technique, and a plan you can run on your own whether or not you ever come back.",
-    proof: "100+ students coached · 10+ years",
+    proof: "100+ students coached over 10+ years",
     turnaround: "Book any open slot",
     kind: "call",
     cta: "Book the session",
@@ -225,7 +225,7 @@ export const SOCIAL_PACKAGES = [
     cta: "Book a meeting",
     features: [
       "8 pieces of content / month",
-      "Reels, carousels or story sets \u2014 your mix",
+      "Reels, carousels or story sets, in whatever mix you want",
       "1 platform (Instagram or TikTok)",
       "Hooks & captions written for you",
     ],
@@ -242,8 +242,8 @@ export const SOCIAL_PACKAGES = [
     cta: "Book a meeting",
     features: [
       "16 pieces of content / month",
-      "Reels, carousels or story sets \u2014 your mix",
-      "1 platform, done properly",
+      "Reels, carousels or story sets, in whatever mix you want",
+      "1 platform",
       "Trend & hook research",
       "Content calendar + captions",
     ],
@@ -259,7 +259,7 @@ export const SOCIAL_PACKAGES = [
     cta: "Book a meeting",
     features: [
       "28 pieces of content / month",
-      "Reels, carousels or story sets \u2014 your mix",
+      "Reels, carousels or story sets, in whatever mix you want",
       "Up to 3 platforms",
       "Full content & growth strategy + monthly report",
       "Priority editing & turnaround",
@@ -277,7 +277,7 @@ export const SOCIAL_PACKAGES = [
 // average views at kickoff. Do that on day one or the promise has no baseline.
 export const SOCIAL_GUARANTEE = {
   title: "Beat your own average in 60 days, or the third month is free",
-  body: "On day one we screenshot your average reel views over the last 90 days. If what I make for you hasn't beaten that average within 60 days, you don't pay for the third month — I keep working through it.",
+  body: "On day one we screenshot your average reel views over the last 90 days. If what I make for you hasn't beaten that average within 60 days, you don't pay for the third month, and I keep working through it.",
 };
 
 // ── Social proof ──────────────────────────────────────────────
@@ -342,10 +342,10 @@ export const DEFENSE_PROGRAM = {
   name: "The 90-Day Self-Defense Program",
   kicker: "Three tracks · one coach · every session with me",
   promise:
-    "In 90 days you will be able to break a grip, create distance and get yourself out — under pressure, against someone bigger than you, without freezing.",
+    "In 90 days you will be able to break a grip, create distance and get yourself out under pressure, against someone bigger than you, without freezing.",
   // Perceived likelihood of achievement: the reason to believe it.
   proof:
-    "Blue Belt BJJ, 4th Degree Black Belt Taekwondo, 10+ years on the mats and 100+ students coached. I run every session myself — there is no assistant coach you get handed to.",
+    "Blue Belt BJJ, 4th Degree Black Belt Taekwondo, 10+ years on the mats and 100+ students coached. I run every session myself. Nobody hands you to an assistant coach.",
   price: 997,
   period: "one payment, 12 weeks of training",
   cta: "Claim a seat",
@@ -362,7 +362,7 @@ export const DEFENSE_PROGRAM = {
     {
       weeks: "Weeks 5–8",
       title: "Break the grip",
-      body: "The five holds people actually get caught in, and the escape from each. Drilled until it is reflex, not memory.",
+      body: "The five holds people get caught in most, and the escape from each, drilled until you do it without thinking.",
     },
     {
       weeks: "Weeks 9–12",
@@ -387,7 +387,7 @@ export const DEFENSE_PROGRAM = {
       who: "For parents of teens",
       pain: "Your kid has gone quiet about school, and you don't know whether it's a phase or a person.",
       outcome:
-        "Your kid stops reading as an easy target — posture, voice and eye contact first, hands only if it gets there. They come home able to tell you what happened.",
+        "Your kid stops looking like an easy target. Posture, voice and eye contact come first, hands only if it gets that far. They come home able to tell you what happened.",
       note: "Grown out of the Kids & Teenagers Anti-Bullying Program I run at Combat Sports Academy.",
     },
     {
@@ -418,7 +418,7 @@ export const DEFENSE_PROGRAM = {
     {
       name: "The Situational Awareness Playbook",
       value: 90,
-      body: "The written guide to not being there when it happens — routes, exits, phones, taxis, car parks. Yours in week one, before you can throw a single strike.",
+      body: "The written guide to not being there when it happens: routes, exits, phones, taxis, car parks. Yours in week one, before you can throw a single strike.",
     },
     {
       name: "Home & Commute Safety Audit",
@@ -433,7 +433,7 @@ export const DEFENSE_PROGRAM = {
     {
       name: "Your filmed pressure test",
       value: 120,
-      body: "Day 90, on camera, against someone bigger. Yours to keep — it is the proof, and it is the thing you show yourself the next time you doubt it.",
+      body: "Day 90, on camera, against someone bigger. You keep the video, and you can watch it the next time you doubt yourself.",
     },
   ],
 
@@ -441,7 +441,7 @@ export const DEFENSE_PROGRAM = {
   // because it is paid in Tamer's hours rather than refunded cash.
   guarantee: {
     title: "Pass it, or keep training free",
-    body: "Make 80% of the sessions and do the drills between them. If you can't pass the day-90 pressure test, you keep training with me — free — until you can. I am not asking you to trust that it works. I am asking you to show up.",
+    body: "Make 80% of the sessions and do the drills between them. If you can't pass the day-90 pressure test, you keep training with me for free until you can. All I ask is that you show up.",
   },
 
   // Real constraint, not a countdown clock. Tamer coaches every session
@@ -470,13 +470,13 @@ export const PT_PACKAGES = [
     price: "$0",
     period: "30 minutes, free",
     free: true,
-    save: "No card, no catch",
+    save: "Nothing to pay",
     cta: "Book the free session",
     features: [
       "30-minute one-on-one session",
       "Movement screen & technique work",
       "A plan you keep either way",
-      "No obligation to book a second",
+      "Book a second one only if you want to",
     ],
     bonus: "Drop-in sessions after that are $45",
   },
@@ -748,7 +748,7 @@ export const PROJECT_GROUPS = [
         name: "Letters to My Daughter",
         tag: "Publication · book design",
         images: imgs("uni-letters", 22),
-        desc: "رسائل إلى ابنتي — a book of five letters from a mother to her daughter, read right to left. Charcoal, family photographs across the gutter, and type treated as the same material as the images. Text by Najwa Sabbah, design by Tamer.",
+        desc: "رسائل إلى ابنتي (Letters to My Daughter), a book of five letters from a mother to her daughter, read right to left. Charcoal, family photographs across the gutter, and type treated as the same material as the images. Text by Najwa Sabbah, design by Tamer.",
       },
       {
         // Publication project 2, a 12-page saddle-stitched booklet: front and
@@ -990,7 +990,7 @@ export const WEBSITES = [
     tag: "Website design",
     image: "/assets/projects/web-fabricaid.webp",
     full: "/assets/projects/web-fabricaid.webp",
-    desc: "A seven-page site for FabricAID's uniform arm: workwear made in their own facility, with the social impact woven through rather than bolted on. Browse the range, the facility and the partner logos.",
+    desc: "A seven-page site for FabricAID's uniform arm: workwear made in their own facility, with the social impact running through every page. Browse the range, the facility and the partner logos.",
   },
   {
     name: "Snack Faysal",
@@ -1029,7 +1029,7 @@ export const WEBSITES = [
     tag: "Website design",
     image: "/assets/projects/web-csa.webp",
     full: "/assets/projects/web-csa.webp",
-    desc: "The martial arts academy in Ebadieh where I coach. Taekwondo, no-gi jiu-jitsu, and the kids anti-bullying and women empowerment programs, with the real coaches and the real class times.",
+    desc: "The martial arts academy in Ebadieh where I coach. Taekwondo, no-gi jiu-jitsu, and the kids anti-bullying and women empowerment programs, with the actual coaches and class schedule.",
   },
   {
     name: "Majd Abou Omar",
@@ -1751,7 +1751,7 @@ export const TEMPLATE_PACKAGES = [
       "Free for personal and client work",
       "Deploy guide included",
     ],
-    bonus: "No payment, no card, no email course",
+    bonus: "Yours to keep and edit",
   },
   {
     id: "member",
@@ -1857,7 +1857,7 @@ export const SERVICE_PACKAGES = [
     ],
     bonus: "Free logo animation for your hero",
     guarantee:
-      "Half on signature, half on launch. The second half is due when the site is live, not on a date — if it is not live, it is not payable.",
+      "Half on signature, half on launch. The second half is due the day the site goes live, not on a calendar date.",
   },
   {
     id: "custom",
@@ -1900,7 +1900,7 @@ export const WEBSITE_CARE_PLANS = [
       "Nightly backups with 30-day history",
       "Uptime monitoring",
       "Security and dependency updates",
-      "No edits included — every change is quoted and billed",
+      "No edits included; each change is quoted and billed",
       "First reply within five working days",
     ],
     guarantee: "Down for more than a day and that month is free.",
@@ -2016,8 +2016,8 @@ export const WEBSITE_CARE_NOTES = [
 export const GOOGLE_PROFILE = {
   price: 250,
   period: "one-off, live within 7 days",
-  name: "Google Business Profile, Done Properly",
-  tagline: "The listing people actually see before your site",
+  name: "Google Business Profile Setup",
+  tagline: "The listing people see before they see your site",
   features: [
     "Profile claimed, verified and locked to you",
     "Categories, services and service areas set the way people search",
@@ -2064,7 +2064,7 @@ export const PRESENCE = {
       name: "Fill the calendar",
       pain: "Bookings sit in my DMs until morning and half of them are gone by then.",
       outcome:
-        "Every screen books into your calendar, and the profile that shows up on the map has your real hours, real prices and real photos on it.",
+        "Every screen books into your calendar, and the profile that shows up on the map has your current hours, prices and photos on it.",
       note: "Built already for Salon Nizar, booking into their Fresha calendar.",
     },
     {
@@ -2092,13 +2092,13 @@ export const PRESENCE = {
       weeks: "Week 2",
       title: "The site takes shape",
       body:
-        "Your pages, written and designed around what you actually sell. You review it once, as a single list of changes, and I make them.",
+        "Your pages, written and designed around what you sell. You review it once, as a single list of changes, and I make them.",
     },
     {
       weeks: "Week 3",
       title: "It goes live",
       body:
-        "Launched on your own domain: fast, secure, and submitted to Google with the search setup done properly rather than left as a checkbox.",
+        "Launched on your own domain, fast and secure, and submitted to Google with the search setup finished.",
     },
     {
       weeks: "Every month after",
@@ -2112,7 +2112,7 @@ export const PRESENCE = {
      the total defensible if a client asks how it was reached. */
   stack: [
     { item: "Your website, up to six pages, launched and found on Google", value: 850 },
-    { item: "Your Google Business Profile, claimed and set up properly", value: 250 },
+    { item: "Your Google Business Profile, claimed and fully set up", value: 250 },
   ],
   bonuses: [
     {
@@ -2229,9 +2229,9 @@ export const SERVICE_PAGES = [
       "Most small business sites in Lebanon are a logo, a phone number and a Facebook link. They sit there. A site should bring you work, and that is a different job from looking nice.",
     sections: [
       {
-        title: "What actually gets built",
+        title: "What you get",
         body:
-          "A site designed around your brand rather than a theme, on your own domain, with the pages written to come up when someone in your area searches for what you sell. Booking, ordering, a menu or an enquiry form, whichever one is the thing you need people to do. Hosting, SSL, backups and monitoring are mine to run, so nothing about it is left for you to maintain.",
+          "A site designed around your brand, on your own domain, with the pages written to come up when someone in your area searches for what you sell. Booking, ordering, a menu or an enquiry form, whichever one is the thing you need people to do. Hosting, SSL, backups and monitoring are mine to run, so nothing about it is left for you to maintain.",
       },
       {
         title: "Who I build for",
@@ -2256,12 +2256,12 @@ export const SERVICE_PAGES = [
       { name: "Snack Faysal", what: "A Beirut manakish institution, appetite-led and built around the menu." },
       { name: "Sophia's Forum", what: "Bilingual English and Arabic, mirroring cleanly into right-to-left." },
       { name: "Sinar", what: "Construction and interior fit-out, clean and architectural." },
-      { name: "Combat Sports Academy", what: "The academy in Ebadieh: programs, coaches and real class times." },
+      { name: "Combat Sports Academy", what: "The academy in Ebadieh, with its programs, coaches and class times." },
     ],
     faqs: [
       {
         q: "How much does a website cost in Lebanon?",
-        a: "A full six-page site, launched and set up to be found on Google, is $850 one-off. Keeping it running afterwards is $30, $100 or $190 a month depending on how often you want changes made. A single page set up from the free gallery is $350 as a one-off, and a site built from scratch with a shop or booking system behind it starts at $1,500. Every price on this site is the price you pay.",
+        a: "A full six-page site, launched and set up to be found on Google, is $850 one-off. Keeping it running afterwards is $30, $100 or $190 a month depending on how often you want changes made. A single page set up from the free gallery is $350 as a one-off, and a site built from scratch with a shop or booking system behind it starts at $1,500.",
       },
       {
         q: "How long does it take?",
@@ -2370,12 +2370,12 @@ export const SERVICE_PAGES = [
     h1: "Logo Design & Branding in Lebanon",
     kicker: "A mark, and everything that has to live around it",
     lede:
-      "A logo on its own is not an identity. What you need is the mark, the type, the colours and the rules for using them, so everything you put out afterwards looks like it came from the same place.",
+      "A logo is one piece of an identity. Around it go the type, the colours and the rules for using them, and those are what make everything you put out afterwards look like it came from the same place.",
     sections: [
       {
         title: "Start with the teardown, free",
         body:
-          "Send your logo, your Instagram or your site and you get back a short recorded critique: what is working, what is quietly costing you, and the three things I would change first. It is real work, it takes me an afternoon, and it costs you nothing. Most people can act on it without hiring anybody.",
+          "Send your logo, your Instagram or your site and you get back a short recorded critique: what is working, what is costing you customers, and the three things I would change first. It is real work, it takes me an afternoon, and it costs you nothing. Most people can act on it without hiring anybody.",
       },
       {
         title: "What a full identity includes",
@@ -2405,8 +2405,8 @@ export const SERVICE_PAGES = [
         a: "The mark in every format you will need for print and screen, the typefaces and colours written down, and the rules for using them. If we do motion, you get the animated version for your reels and stories too.",
       },
       {
-        q: "Is the brand teardown really free?",
-        a: "Yes. No card, no trial, no email course. You send what you have, I record a critique and send it back within 3 days, and it is yours to keep whether or not you ever hire me.",
+        q: "What does the brand teardown cost?",
+        a: "Nothing. You send what you have, I record a critique and send it back within 3 days, and it is yours to keep whether or not you ever hire me.",
       },
       {
         q: "Do you design for apparel and packaging as well?",
@@ -2431,12 +2431,12 @@ export const SERVICE_PAGES = [
       {
         title: "What the site does",
         body:
-          "Your full menu, priced and photographed, with a cart and every payment method that actually works here. Orders land with you. It comes up on Google when somebody nearby searches for what you serve, and your Google Business profile gets fixed in the first week so the map listing is right before the site is even finished.",
+          "Your full menu, priced and photographed, with a cart and every payment method that works in Lebanon. Orders land with you. It comes up on Google when somebody nearby searches for what you serve, and your Google Business profile gets fixed in the first week so the map listing is right before the site is even finished.",
       },
       {
         title: "Already built and running",
         body:
-          "This is not a plan, it is the thing I have already built more than once. Snack Faysal is a Beirut manakish and fatayer institution, and the site is built around its menu and its heritage rather than around a template. The cart, the accounts and the payment methods are a system I have already built and run for a working kitchen, and it gets written to your menu rather than bolted onto it.",
+          "I have built this more than once. Snack Faysal is a Beirut manakish and fatayer institution, and the site is built around its menu and its heritage. The cart, the accounts and the payment methods are a system I have already built and run for a working kitchen, and it gets written to your menu rather than bolted onto it.",
       },
     ],
     proof: [
@@ -2447,7 +2447,7 @@ export const SERVICE_PAGES = [
     faqs: [
       {
         q: "Can people order directly from the site?",
-        a: "Yes. A full cart with accounts and every payment method that actually works here is something I have already built and run for a working kitchen, and it is the same system I would build for you. The order comes to you, and so does the customer.",
+        a: "Yes. A full cart with accounts and every payment method that works in Lebanon is something I have already built and run for a working kitchen, and it is the same system I would build for you. The order comes to you, and so does the customer.",
       },
       {
         q: "Do I have to leave the delivery apps?",
@@ -2479,7 +2479,7 @@ export const SERVICE_PAGES = [
     h1: "Social Media Management in Lebanon",
     kicker: "Post every week without touching it",
     lede:
-      "Posting stops for three weeks, the account goes quiet, and starting again feels like starting from zero. The fix is not more effort. It is somebody whose job it is, every week, whether or not you feel like it.",
+      "Posting stops for three weeks, the account goes quiet, and starting again feels like starting from zero. What fixes it is handing the weekly posting to someone whose job it is.",
     sections: [
       {
         title: "Reels first, because reach is",
@@ -2489,7 +2489,7 @@ export const SERVICE_PAGES = [
       {
         title: "What it costs, in the open",
         body:
-          "Every tier priced in the open, so the arithmetic is one you can check rather than a claim you have to take:",
+          "What each package costs:",
         bullets: [
           "Starter, $199 a month for 8 pieces on one platform",
           "Growth, $449 for 16, with trend and hook research and a content calendar",
@@ -2500,12 +2500,12 @@ export const SERVICE_PAGES = [
       {
         title: "The numbers behind the work",
         body:
-          "My own reels have done over 855,000 views, with the best single one at 219,000. The posts on the media page carry their real view, like and comment counts, unedited, because a screenshot of a number is worth more than an adjective. That is the same editing, the same hooks and the same pacing your account gets.",
+          "My own reels have done over 855,000 views, with the best single one at 219,000. The posts on the media page show their view, like and comment counts as Instagram reports them. Your account gets the same editing.",
       },
       {
         title: "You go first, for free",
         body:
-          "Send your footage and I cut one reel: hook, captions, the lot, back within 5 days. Post it, watch what it does, and decide about the rest afterwards. No card and no obligation. If it does nothing, you have lost nothing and you keep the reel.",
+          "Send your footage and I'll cut one reel, write the hook and captions, and send it back within 5 days. Post it and see how it does before you decide anything else. You keep the reel either way.",
       },
     ],
     proof: [
@@ -2518,15 +2518,15 @@ export const SERVICE_PAGES = [
     faqs: [
       {
         q: "How much does social media management cost in Lebanon?",
-        a: "$199 a month for 8 pieces of content on one platform, $449 for 16 with trend research and a content calendar, or $899 for 28 across up to three platforms with a monthly strategy meeting. Buying the same content one reel at a time is $65 a piece. Every price on this site is the price you pay.",
+        a: "$199 a month for 8 pieces of content on one platform, $449 for 16 with trend research and a content calendar, or $899 for 28 across up to three platforms with a monthly strategy meeting. Buying the same content one reel at a time is $65 a piece.",
       },
       {
         q: "Do I have to send you the footage?",
         a: "For most brands yes, and it is less work than it sounds: phone footage shot through your normal week is usually enough, and I tell you what to shoot. Where a brand needs it filmed properly that is quoted on top rather than assumed.",
       },
       {
-        q: "Is the first reel really free?",
-        a: "Yes. Send your footage and you get one reel cut, captioned and back within 5 days. No card, no trial and no email course. Post it and judge the work by what it does.",
+        q: "What does the first reel cost?",
+        a: "Nothing. Send your footage and the reel comes back cut and captioned within 5 days. If it does well, we can talk about a package. If it doesn't, you've lost nothing.",
       },
       {
         q: "What if my views do not go up?",
@@ -2534,7 +2534,7 @@ export const SERVICE_PAGES = [
       },
       {
         q: "Which platforms do you handle?",
-        a: "Instagram and TikTok. Starter and Growth run one platform properly rather than two badly. Premium goes up to three.",
+        a: "Instagram and TikTok. Starter and Growth cover one platform. Premium covers up to three.",
       },
       {
         q: "Can I stop whenever I want?",
@@ -2630,12 +2630,12 @@ export const SERVICE_PAGES = [
           "A site takes three weeks. A profile takes one, and it is the thing standing between you and the person searching right now. Hours, photos, services, the booking link and the reviews all live there, and Google shows it to people within a few streets of you without anybody clicking through to anything. If you only ever fix one thing online, fix this one first.",
       },
       {
-        title: "What actually gets done",
+        title: "What gets done",
         body:
           "Everything below, in the order it happens:",
         bullets: [
           "The profile claimed and verified in your name, so it is yours and not an agency's",
-          "Categories and services set the way people search rather than the way you describe yourself internally",
+          "Categories and services named the way customers search for them",
           "Service areas, hours and the phone number wired to the right places",
           "Photos uploaded, named and ordered so the good ones lead",
           "A description written for what people type",
@@ -2646,7 +2646,7 @@ export const SERVICE_PAGES = [
       {
         title: "The part most people get wrong",
         body:
-          "A profile is not a form you fill in once. It rots. Hours go stale over a holiday, a competitor posts every week and you have not posted since you opened, reviews go unanswered, and Google quietly stops showing a listing nobody maintains. Keeping it alive is worth more than setting it up, which is why it is part of the monthly rather than a one-off I hand over and forget.",
+          "Left alone, a profile goes stale. Hours are wrong after a holiday, a competitor posts every week and you have not posted since you opened, reviews go unanswered, and Google shows a neglected listing less and less. Keeping it current is worth more than setting it up, which is why it is part of the monthly plan.",
       },
       {
         title: "What it costs",
@@ -2725,7 +2725,7 @@ export const SERVICE_PAGES = [
       {
         title: "What a change costs without a plan",
         body:
-          "On the $30 plan every change is billed on its own, at rates you can see now rather than discover later. Seven small changes in a month cost exactly what the $100 plan costs, which is the point where the plan is the cheaper way to buy them.",
+          "On the $30 plan every change is billed on its own, at these rates. Seven small changes in a month cost exactly what the $100 plan costs, which is the point where the plan is the cheaper way to buy them.",
         bullets: [
           "$10 for a text, price or contact detail change",
           "$15 for a photo swap or a new gallery item",
@@ -2745,11 +2745,11 @@ export const SERVICE_PAGES = [
       },
     ],
     proof: [
-      { name: "FabricAID Uniforms", what: "A seven-page site for their uniform arm, with the social impact woven through." },
-      { name: "Snack Faysal", what: "A Beirut manakish institution, appetite-led and built around the menu." },
-      { name: "Salon Nizar", what: "A barbershop in Abadiyeh where every screen books into their calendar." },
-      { name: "Sinar", what: "Construction and interior fit-out, clean and architectural." },
-      { name: "Combat Sports Academy", what: "The academy in Ebadieh: programs, coaches and real class times." },
+      { name: "FabricAID Uniforms", what: "Seven pages, which is the size most of these builds land at." },
+      { name: "Snack Faysal", what: "A menu-led site, the kind of build a restaurant starts with." },
+      { name: "Salon Nizar", what: "Booking wired into the Fresha calendar they already used." },
+      { name: "Sinar", what: "A construction and fit-out firm, presented project by project." },
+      { name: "Combat Sports Academy", what: "Programs, coaches and the class timetable on one site." },
     ],
     faqs: [
       {
@@ -2766,7 +2766,7 @@ export const SERVICE_PAGES = [
       },
       {
         q: "Why does a custom website start at $1,500?",
-        a: "Because a shop, customer accounts, payments or a second language is real engineering rather than layout. You get a fixed quote before a line is written, and if the work takes longer than quoted that is mine to absorb, not yours to pay for.",
+        a: "Because a shop, customer accounts, payments or a second language take far more building than a set of pages. You get a fixed quote before a line is written, and if the work takes longer than quoted that is mine to absorb, not yours to pay for.",
       },
       {
         q: "How much is a domain name in Lebanon?",
@@ -2790,7 +2790,7 @@ export const SERVICE_PAGES = [
     h1: "Video Editor in Beirut, Lebanon",
     kicker: "Reels, event edits and logo motion, cut to be watched to the end",
     lede:
-      "Most videos lose the viewer in the first two seconds, and it is almost never the camera's fault. It is the first line, the pacing and the cut. That is the part I do.",
+      "Most videos lose the viewer in the first two seconds. The camera is rarely why. The first line, the pacing and the cut usually are, and those are what I work on.",
     sections: [
       {
         title: "What I edit",
@@ -2810,12 +2810,12 @@ export const SERVICE_PAGES = [
       {
         title: "The numbers behind the cut",
         body:
-          "My own reels have done over 855,000 views, with the best single one at 219,000. They sit on the media page with their real view, like and comment counts, unedited. Your footage gets the same hooks, the same pacing and the same editing.",
+          "Reels I shot and edited for my own account have passed 855,000 views, and the best one reached 219,000. Six of them passed 20,000 views each. Your footage gets edited the same way.",
       },
       {
         title: "Your first reel is free",
         body:
-          "Send your footage and I cut one reel: hook, captions, the lot, back within 5 days. Post it and judge the work by what it does. No card and no obligation, and you keep the reel either way.",
+          "Send raw footage from your phone and I'll return one finished reel within 5 days, cut and captioned, with the opening line written. It costs nothing, and the reel is yours to post.",
       },
     ],
     proof: [
@@ -2823,17 +2823,17 @@ export const SERVICE_PAGES = [
       { name: "Combat Sports Academy", what: "Logo motion: the red tri-blade builds on white and settles above the wordmark." },
       { name: "MoCars", what: "Logo motion: the monogram drawn in electric blue light on black." },
       { name: "BIAF", what: "Logo motion: the wordmark lit in gold on black." },
-      { name: "Tamer AO", what: "855K+ views on my own reels, best single reel at 219K." },
+      { name: "My own reels", what: "Six past 20,000 views each, the best at 219,000." },
     ],
     work: [{ label: "videos, reels and logo motion", to: "/media" }],
     faqs: [
       {
         q: "How much does a video editor charge in Lebanon?",
-        a: "I charge $65 for a single reel. If you post every week, a monthly package is cheaper per piece: $199 for 8, $449 for 16 or $899 for 28. Every price on this site is the price you pay.",
+        a: "I charge $65 for a single reel. If you post every week, a monthly package is cheaper per piece: $199 for 8, $449 for 16 or $899 for 28.",
       },
       {
         q: "Do you film as well, or only edit?",
-        a: "Mostly edit. Phone footage shot through your normal week is usually enough, and I tell you what to shoot. Where a brand needs it filmed properly, that is quoted on top rather than assumed.",
+        a: "Mostly edit. Phone footage shot through your normal week is usually enough, and I tell you what to shoot. If you need a proper shoot, that is quoted separately.",
       },
       {
         q: "How fast do I get the video back?",
@@ -2841,7 +2841,7 @@ export const SERVICE_PAGES = [
       },
       {
         q: "What does the free reel include?",
-        a: "One reel cut from your footage, with the hook and the captions written. No card, no trial and no email course. It is yours to post whether or not you ever hire me.",
+        a: "One finished reel from your footage, with the cut, the captions and the opening line done. You can post it whether or not you hire me afterwards.",
       },
       {
         q: "Can you animate my logo?",
@@ -2866,9 +2866,9 @@ export const SERVICE_PAGES = [
       "An agency sells you an account manager, who briefs a designer, who briefs an editor, and you pay for every handoff. Here the person you talk to is the person doing the work: your website, your Google listing and your content, run as one thing, with every price in the open.",
     sections: [
       {
-        title: "What a small business actually needs",
+        title: "What a small business needs",
         body:
-          "Strip away the slide deck and marketing for a local business is three jobs. Come up when somebody nearby searches for what you sell. Look worth calling when they find you. Stay visible between searches. That is a Google profile, a website and content, and I build and run all three.",
+          "For a local business, marketing mostly means being found when someone nearby searches, looking worth calling once they do, and posting often enough that people remember you. In practice that is a Google profile, a website and regular content, and I build and run all three.",
       },
       {
         title: "What it costs",
@@ -2888,7 +2888,7 @@ export const SERVICE_PAGES = [
       {
         title: "What it asks of you",
         body:
-          "One 30-minute call at the start and one folder of photos. One round of changes, sent as a single list. After that, nothing. Approve the content if you want to, or don't.",
+          "A 30-minute call to start, a folder of your photos, and one list of changes when you see the site. From then on you can check each post before it goes out, or leave it to me.",
       },
       {
         title: "When an agency is the better buy",
@@ -2897,28 +2897,28 @@ export const SERVICE_PAGES = [
       },
     ],
     proof: [
-      { name: "FabricAID Uniforms", what: "A seven-page site for their uniform arm, with the social impact woven through." },
-      { name: "Snack Faysal", what: "A Beirut manakish institution, appetite-led and built around the menu." },
-      { name: "Salon Nizar", what: "A barbershop in Abadiyeh where every screen books into their calendar." },
-      { name: "Combat Sports Academy", what: "The academy site in Ebadieh, plus the logo motion for their mark." },
-      { name: "Tamer AO", what: "855K+ views on my own reels, best single reel at 219K." },
+      { name: "FabricAID Uniforms", what: "Website and company profile, in English and in Arabic." },
+      { name: "Snack Faysal", what: "The menu online, built around the dishes people come in for." },
+      { name: "Salon Nizar", what: "Site and booking, so new customers book without a phone call." },
+      { name: "Combat Sports Academy", what: "Website and logo motion for the academy where I coach." },
+      { name: "My own account", what: "Reels I shot and cut myself, past 855,000 views." },
     ],
     faqs: [
       {
         q: "How much does digital marketing cost in Lebanon?",
-        a: "Here it is $950 once to set up your website, Google Business Profile and a logo animation, then $349 a month for hosting, up to 15 edits and eight pieces of content. You can also buy the pieces on their own: $250 for the Google profile, $850 for the website, or content from $199 a month. Every price on this site is the price you pay.",
+        a: "Here it is $950 once to set up your website, Google Business Profile and a logo animation, then $349 a month for hosting, up to 15 edits and eight pieces of content. You can also buy the pieces on their own: $250 for the Google profile, $850 for the website, or content from $199 a month.",
       },
       {
-        q: "Is it really one person?",
-        a: "Yes. The person on the call is the person who designs the site, sets up the profile, edits the content and writes the report. Nothing gets lost in a handoff, and you are never passed down to someone more junior.",
+        q: "Who does the work?",
+        a: "I do. The person on the call is the person who designs the site, sets up the profile, edits the content and writes the report. Nothing gets lost in a handoff, and you are never passed down to someone more junior.",
       },
       {
         q: "Do you run paid ads?",
-        a: "Not as a service. The work here is the part that keeps paying after the ad budget stops: being on the map, a site that converts, and content that keeps the account alive. If a large ad budget is the plan, an agency built for that is the better buy.",
+        a: "No. I build what keeps bringing customers in after an ad budget runs out: your Google listing, a site that turns visits into enquiries, and regular content. If a large ad budget is the plan, an agency built for that is the better buy.",
       },
       {
         q: "What if it does not bring in more business?",
-        a: "Before anything is built we write down what came in over your previous 90 days: calls, messages, walk-ins. If the 90 days after launch have not beaten that number, you do not pay for months four, five or six, and I keep working straight through them. You keep the site, the domain and the profile either way.",
+        a: "The same 90-day guarantee as the website. We count your calls, messages and walk-ins from the 90 days before launch, and if the 90 days after do not beat it, months four to six are free while I keep working.",
       },
       {
         q: "Can I start smaller?",
@@ -2967,7 +2967,7 @@ export const FITNESS = {
   title: "Strength & Self-Defense",
   sub: "Martial arts, strength & personal training",
 
-  freeFlag: "Free · no card · no obligation",
+  freeFlag: "Free to start",
   freeTitle: "Your First Session Is Free.",
   freeBody:
     "Thirty minutes, one-on-one. I check how you move, we train, and you leave with a written plan. The plan is yours even if you never come back.",
@@ -3012,8 +3012,8 @@ export const FITNESS = {
       a: "In Beirut, at whichever gym or academy suits you. Your building's gym works too if it has the basics. Tell me where you are and I will tell you.",
     },
     {
-      q: "Is the first session really free?",
-      a: "Yes. No card, and no obligation. You keep the plan either way.",
+      q: "Is the first session free?",
+      a: "Yes. You keep the plan whether or not you book again.",
     },
     {
       q: "I already train a combat sport.",

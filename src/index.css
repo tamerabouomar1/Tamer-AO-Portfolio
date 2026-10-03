@@ -1212,11 +1212,8 @@ ul { margin: 0; padding: 0; list-style: none; }
    "Monthly Coaching" ran straight under the pill. */
 .price-card__badge {
   align-self: flex-start;
-  font-size: 11px; font-weight: 700; letter-spacing: 0.06em; text-transform: uppercase;
-  padding: 5px 11px; border-radius: 8px;
-  background: transparent;
+  font-size: 13px; font-weight: 600;
   color: var(--shiny);
-  border: 1px solid rgba(100, 206, 251, 0.45);
 }
 .price-card__badge--ghost { visibility: hidden; }
 .price-card__head { display: flex; flex-direction: column; gap: 4px; }
@@ -1437,10 +1434,7 @@ ul { margin: 0; padding: 0; list-style: none; }
 }
 .freehero:hover { transform: translateY(-3px); border-color: var(--shiny); }
 .freehero__badge {
-  font-size: clamp(10px, 0.85vw, 12px); font-weight: 700;
-  letter-spacing: 0.11em; text-transform: uppercase; color: var(--shiny);
-  padding: 5px 12px; border-radius: 999px;
-  border: 1px solid rgba(100, 206, 251, 0.4);
+  font-size: clamp(12px, 0.95vw, 14px); font-weight: 600; color: var(--shiny);
 }
 .freehero__title {
   font-size: clamp(21px, 2.5vw, 38px); font-weight: 700; line-height: 1.14;
@@ -1470,9 +1464,7 @@ ul { margin: 0; padding: 0; list-style: none; }
   padding: clamp(22px, 2.3vw, 34px);
 }
 .free-card__worth {
-  font-size: 11px; font-weight: 700; letter-spacing: 0.09em; text-transform: uppercase;
-  padding: 4px 11px; border-radius: 999px;
-  background: var(--shiny); color: #07121f;
+  font-size: 13px; font-weight: 700; color: var(--shiny);
 }
 .free-card__name { font-size: clamp(19px, 1.8vw, 25px); font-weight: 700; }
 .free-card__lede {
@@ -1526,26 +1518,23 @@ ul { margin: 0; padding: 0; list-style: none; }
 /*  Social proof — client roster + testimonials                */
 /* ---------------------------------------------------------- */
 .trusted__title {
-  font-size: clamp(11px, 0.95vw, 13px);
-  font-weight: 600; letter-spacing: 0.14em; text-transform: uppercase;
+  font-size: clamp(13px, 1vw, 15px);
+  font-weight: 600;
   color: var(--faint);
-  margin-bottom: clamp(10px, 1.2vw, 16px);
+  margin-bottom: clamp(8px, 1vw, 12px);
 }
 .trusted__row {
   display: flex; flex-wrap: wrap;
-  gap: clamp(8px, 0.9vw, 12px);
+  gap: 6px clamp(18px, 2vw, 28px);
   list-style: none;
 }
 .trusted__item {
-  padding: 9px 16px; border-radius: 8px;
-  font-size: clamp(12.5px, 1vw, 15px); font-weight: 600;
+  font-size: clamp(14px, 1.1vw, 17px); font-weight: 600;
   color: var(--muted);
-  background: rgba(255, 255, 255, 0.04);
-  border: 1px solid var(--line);
   white-space: nowrap;
-  transition: color 0.3s var(--ease), border-color 0.3s var(--ease);
+  transition: color 0.3s var(--ease);
 }
-.trusted__item:hover { color: var(--text); border-color: rgba(100, 206, 251, 0.35); }
+.trusted__item:hover { color: var(--text); }
 
 .quote-grid {
   display: grid;
@@ -1819,7 +1808,7 @@ ul { margin: 0; padding: 0; list-style: none; }
      declared further down this file, and a media query adds no specificity,
      so a bare .path__flag here loses on source order and silently does
      nothing. */
-  .path__head .path__flag { font-size: 9px; padding: 3px 7px; letter-spacing: 0.07em; }
+  .path__head .path__flag { font-size: 11px; }
 
   /* leave room for the fixed tab bar (plus the iPhone home indicator) */
   .main { padding-bottom: calc(96px + env(safe-area-inset-bottom, 0px)); }
@@ -2367,9 +2356,7 @@ ul { margin: 0; padding: 0; list-style: none; }
   margin-left: auto;
   flex: none;
   align-self: center;
-  font-size: 10px; font-weight: 700; letter-spacing: 0.09em; text-transform: uppercase;
-  padding: 3px 9px; border-radius: 999px;
-  background: var(--shiny); color: #07121f;
+  font-size: 12px; font-weight: 600; color: var(--shiny);
 }
 
 /* The preview bar owns the bottom-centre of the screen. Viktor Oddy ships
@@ -2417,14 +2404,8 @@ ul { margin: 0; padding: 0; list-style: none; }
 }
 .storehead__flag {
   display: inline-block;
-/* 11px, not 10. 11 is the minimum text size for the small platform, and
-   uppercase letterspaced micro-labels are the hardest text on this site to
-   read already. The sibling kicker, tag and tab labels moved with it. */
-  font-size: 11px; font-weight: 700; letter-spacing: 0.1em; text-transform: uppercase;
-  padding: 5px 11px; border-radius: 8px;
-  background: transparent;
+  font-size: 13px; font-weight: 600;
   color: var(--shiny);
-  border: 1px solid rgba(100, 206, 251, 0.45);
 }
 .storehead__title {
   font-size: clamp(26px, 3.2vw, 46px);
@@ -2433,12 +2414,13 @@ ul { margin: 0; padding: 0; list-style: none; }
   letter-spacing: -0.015em;
   margin: 14px 0 12px;
 }
+/* De-slop pass (2026-10): the uppercase letterspaced pills and the
+   gradient-lit heading word were the two most "generated landing page"
+   things on the site. Labels are now plain coloured text, and the accent
+   word reads as part of its sentence. Spans and class names are kept as
+   hooks; only the styling went. */
 .storehead__accent {
-  background: linear-gradient(92deg, var(--shiny), var(--accent));
-  -webkit-background-clip: text;
-  background-clip: text;
-  -webkit-text-fill-color: transparent;
-  color: transparent;
+  color: inherit;
 }
 .storehead__lede {
   font-size: clamp(14px, 1.15vw, 18px);
@@ -2625,11 +2607,7 @@ ul { margin: 0; padding: 0; list-style: none; }
   border-color: rgba(100, 206, 251, 0.62);
 }
 .homefree__flag {
-  font-size: 11px; font-weight: 700; letter-spacing: 0.1em; text-transform: uppercase;
-  padding: 5px 11px; border-radius: 8px;
-  background: transparent;
-  color: var(--shiny);
-  border: 1px solid rgba(100, 206, 251, 0.45);
+  font-size: 13px; font-weight: 600; color: var(--shiny);
 }
 .homefree__title {
   font-size: clamp(20px, 2.5vw, 34px);
@@ -2680,13 +2658,6 @@ ul { margin: 0; padding: 0; list-style: none; }
   font-size: 11px; font-weight: 700; letter-spacing: 0.09em; text-transform: uppercase;
   color: var(--faint);
 }
-.freecard__free {
-  font-size: 11px; font-weight: 800; letter-spacing: 0.06em; text-transform: uppercase;
-  padding: 3px 9px; border-radius: 8px;
-  background: transparent;
-  color: var(--shiny);
-  border: 1px solid rgba(100, 206, 251, 0.45);
-}
 .freecard__name {
   font-size: clamp(16px, 1.5vw, 22px);
   font-weight: 700;
@@ -2695,13 +2666,11 @@ ul { margin: 0; padding: 0; list-style: none; }
 }
 .freecard__blurb { font-size: clamp(12.5px, 1vw, 15px); }
 .freecard__meta {
-  display: flex; flex-wrap: wrap; gap: 6px;
+  display: flex; flex-direction: column; gap: 3px;
   margin-top: 2px;
 }
 .freecard__meta li {
-  font-size: 11px; font-weight: 500;
-  padding: 4px 9px; border-radius: 8px;
-  border: 1px solid var(--line);
+  font-size: 12.5px; font-weight: 500;
   color: var(--muted);
 }
 .freecard__go { margin-top: auto; }
@@ -3165,10 +3134,7 @@ ul { margin: 0; padding: 0; list-style: none; }
     #ffffff !important;
 }
 .freebox__flag {
-  font-size: 11px; font-weight: 700; letter-spacing: 0.08em; text-transform: uppercase;
-  color: var(--on-fit-flag, #ffffff);
-  background: var(--accent);
-  padding: 5px 11px; border-radius: 999px;
+  font-size: 13px; font-weight: 700; color: var(--accent);
 }
 .freebox__title { font-size: clamp(24px, 2.8vw, 40px); font-weight: 800; line-height: 1.12; }
 .freebox__body {
@@ -3238,8 +3204,7 @@ ul { margin: 0; padding: 0; list-style: none; }
   background: linear-gradient(180deg, rgba(211, 36, 26, 0.05), rgba(211, 36, 26, 0)), #fff !important;
 }
 .promise__seal {
-  font-size: 11px; font-weight: 800; letter-spacing: 0.1em; text-transform: uppercase;
-  color: #fff; background: var(--accent); padding: 6px 12px; border-radius: 999px;
+  font-size: 13px; font-weight: 800; color: var(--accent);
 }
 .promise__title { font-size: clamp(22px, 2.3vw, 34px); font-weight: 800; line-height: 1.15; }
 .promise__body {

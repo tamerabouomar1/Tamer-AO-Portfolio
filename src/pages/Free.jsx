@@ -40,8 +40,8 @@ export default function Free() {
         </h2>
         <p className="card-body freehero__body">
           A finished website, a teardown of your brand, your first reel cut, or an hour of
-          coaching. Take whichever one is useful. No card, no trial that quietly starts
-          charging, no email course.
+          coaching. Take whichever one is useful. Nothing
+          starts charging you later.
         </p>
         <div className="freehero__acts">
           <a className="btn-book" href="#offers">
@@ -67,7 +67,7 @@ export default function Free() {
       <FreeOffers
         title="Four ways in, all of them"
         accent="free"
-        lede="Each one is real work, actually delivered. The line under each card is what it costs if you ever want the step after it."
+        lede="Each one is finished work you keep. The line under each card says what the paid next step costs, if you ever want it."
       />
 
       <TrustedBy title="Who I have done this for" />

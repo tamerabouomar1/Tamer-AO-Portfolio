@@ -291,8 +291,8 @@ export default function Websites() {
           ))}
         </motion.div>
         <p className="price-note">
-          Prices in USD. Half on signature, half on launch — the second half is due when
-          the site is live, not on a date. Paid by OMT, Whish Money or bank transfer.
+          Prices in USD. Half on signature, half on launch, and the second half is due the
+          day the site goes live. Paid by OMT, Whish Money or bank transfer.
         </p>
       </section>
 
@@ -306,7 +306,7 @@ export default function Websites() {
             <span className="storehead__accent">Take one, free.</span>
           </h2>
           <p className="storehead__lede">
-            Every card is the real site running, not a screenshot. Open it, and if it fits,
+            Every card is a working site. Open one, and if it fits,
             download it.
           </p>
         </div>
@@ -489,8 +489,8 @@ export default function Websites() {
             ))}
           </ul>
           <p className="rate-card__note">
-            Seven small text changes in a month on Online costs $30 plus $70 — exactly what
-            Managed costs, except Managed includes five of them, answers three working days
+            Seven small text changes in a month on Online costs $30 plus $70, the same as
+            Managed, except Managed includes five of them, answers three working days
             sooner and sends you a report. A single new page is $120, more than a whole
             month of Managed.
           </p>
