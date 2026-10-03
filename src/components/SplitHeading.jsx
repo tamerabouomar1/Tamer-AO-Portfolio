@@ -78,6 +78,9 @@ export default function SplitHeading({
   className = "topbar__title",
   as: Tag = "h1",
   delay = 0.15,
+  // "chars" for Latin. "words" for joined scripts such as Arabic, where a
+  // per-letter split shows every letter in its unjoined form.
+  type = "chars",
 }) {
   const ref = useRef(null);
 
@@ -97,9 +100,9 @@ export default function SplitHeading({
       const restore = () => split?.revert();
 
       ctx = gsap.context(() => {
-        split = new SplitText(el, { type: "chars", aria: "auto" });
+        split = new SplitText(el, { type, aria: "auto" });
 
-        const tween = gsap.from(split.chars, {
+        const tween = gsap.from(type === "words" ? split.words : split.chars, {
           yPercent: 40,
           opacity: 0,
           duration: 0.5,
@@ -137,7 +140,7 @@ export default function SplitHeading({
       cancelled = true;
       cleanup?.();
     };
-  }, [children, delay]);
+  }, [children, delay, type]);
 
   /* The inner span, and its key, are load-bearing — not stray markup.
 

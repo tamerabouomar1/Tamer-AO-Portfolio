@@ -110,6 +110,12 @@ export default function App() {
             {SERVICE_PAGES.map((s) => (
               <Route key={s.slug} path={`/${s.slug}`} element={<ServicePage slug={s.slug} />} />
             ))}
+            {/* Arabic versions, for any service page carrying an `ar` block.
+                Each needs a PAGE_META entry too, or it is not prerendered and
+                404s in production. */}
+            {SERVICE_PAGES.filter((s) => s.ar).map((s) => (
+              <Route key={`ar-${s.slug}`} path={`/ar/${s.slug}`} element={<ServicePage slug={s.slug} lang="ar" />} />
+            ))}
             {/* Privacy, cookies, terms, refunds. Same one-route-per-slug shape
                 as the service pages above, and for the same reason: an unknown
                 path must fall through to the catch-all rather than render an

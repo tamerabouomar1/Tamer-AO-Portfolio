@@ -45,6 +45,7 @@ const PAGES = [
   // The search-intent pages. High priority because they are the ones written
   // to be found, rather than to be navigated to from inside the site.
   ["/website-design-lebanon", "monthly", "0.9"],
+  ["/ar/website-design-lebanon", "monthly", "0.9"],
   ["/logo-design-beirut", "monthly", "0.9"],
   ["/restaurant-website-lebanon", "monthly", "0.9"],
   ["/social-media-management-lebanon", "monthly", "0.9"],

@@ -3,7 +3,7 @@ import { Link } from "react-router-dom";
 import Page, { container, cardIn } from "../components/Page";
 import MessageForm from "../components/MessageForm";
 import { TrustedBy } from "../components/SocialProof";
-import { CONTACT, SERVICE_PAGES } from "../siteData";
+import { CONTACT, SERVICE_PAGES, SERVICE_UI } from "../siteData";
 import SplitHeading from "../components/SplitHeading";
 
 /* One page per thing people actually search for.
@@ -31,13 +31,27 @@ const DEFAULT_WORK = [
   { label: "branding & design", to: "/projects" },
 ];
 
-export default function ServicePage({ slug }) {
-  const p = SERVICE_PAGES.find((x) => x.slug === slug);
-  if (!p) return null;
+/* `lang` is "ar" on the /ar/<slug> routes. The Arabic copy is an `ar` block
+   on the same SERVICE_PAGES entry, laid over the English one, so anything the
+   Arabic block does not set (slug, the sibling list) is shared rather than
+   copied. The whole page body goes right-to-left; the sidebar stays English
+   and left-to-right, because it is the same sidebar on every page. */
+export default function ServicePage({ slug, lang = "en" }) {
+  const base = SERVICE_PAGES.find((x) => x.slug === slug);
+  if (!base) return null;
+  const ar = lang === "ar" && Boolean(base.ar);
+  const p = ar ? { ...base, ...base.ar } : base;
+  const t = SERVICE_UI[ar ? "ar" : "en"];
+  // The switch is a real link between two prerendered URLs, not a toggle
+  // that swaps text in place: Google indexes URLs, and a translation that
+  // only exists after a click is a translation it never sees.
+  const otherLang = base.ar ? (ar ? `/${slug}` : `/ar/${slug}`) : null;
+  const waNumber = CONTACT.phoneHref.replace(/\D/g, "");
 
   const faqSchema = {
     "@context": "https://schema.org",
     "@type": "FAQPage",
+    inLanguage: ar ? "ar" : "en",
     mainEntity: p.faqs.map((f) => ({
       "@type": "Question",
       name: f.q,
@@ -46,15 +60,29 @@ export default function ServicePage({ slug }) {
   };
 
   return (
-    <Page>
+    <Page className={ar ? "svc-rtl" : ""} dir={ar ? "rtl" : undefined} lang={ar ? "ar" : undefined}>
       <header className="topbar">
         <div>
-          <SplitHeading>{p.h1}</SplitHeading>
+          {/* Whole words for Arabic: split into single letters, Arabic
+              script loses its joins and every word falls apart mid-animation. */}
+          <SplitHeading type={ar ? "words" : "chars"}>{p.h1}</SplitHeading>
           <p className="topbar__sub">{p.kicker}</p>
         </div>
-        <a className="link" href={CONTACT.calendly} target="_blank" rel="noreferrer noopener">
-          Book a free call <span className="plus">+</span>
-        </a>
+        <div className="svc-topacts">
+          {otherLang && (
+            <Link
+              className="link lang-switch"
+              to={otherLang}
+              lang={t.switchLang}
+              hrefLang={t.switchLang}
+            >
+              {t.switchTo}
+            </Link>
+          )}
+          <a className="link" href={CONTACT.calendly} target="_blank" rel="noreferrer noopener">
+            {t.bookCall} <span className="plus">+</span>
+          </a>
+        </div>
       </header>
 
       <motion.section className="card svc-lede" variants={cardIn} initial="hidden" animate="show">
@@ -69,7 +97,7 @@ export default function ServicePage({ slug }) {
             target="_blank"
             rel="noreferrer noopener"
           >
-            Book a free 30-minute call
+            {t.bookCallLong}
           </a>
         </div>
       </motion.section>
@@ -108,7 +136,7 @@ export default function ServicePage({ slug }) {
       </section>
 
       <section className="proj-section">
-        <h2 className="proj-section__title">Already Built</h2>
+        <h2 className="proj-section__title">{t.built}</h2>
         <motion.div
           className="svc-proof"
           variants={container}
@@ -128,7 +156,7 @@ export default function ServicePage({ slug }) {
             page's work lives on /media, and sending that visitor to a gallery
             of websites would be answering a question they did not ask. */}
         <p className="price-note">
-          See the work:{" "}
+          {t.seeWork}{" "}
           {(p.work || DEFAULT_WORK).map((w, i) => (
             <span key={w.to}>
               {i > 0 && " "}
@@ -140,10 +168,10 @@ export default function ServicePage({ slug }) {
         </p>
       </section>
 
-      <TrustedBy />
+      <TrustedBy title={t.trusted} />
 
       <section className="proj-section">
-        <h2 className="proj-section__title">Questions People Ask</h2>
+        <h2 className="proj-section__title">{t.faqs}</h2>
         <motion.div
           className="svc-faqs"
           variants={container}
@@ -168,7 +196,7 @@ export default function ServicePage({ slug }) {
           often the same person who needs the social one. Generated from
           SERVICE_PAGES so a sixth page joins the block with no edit here. */}
       <section className="proj-section">
-        <h2 className="proj-section__title">Also Worth Reading</h2>
+        <h2 className="proj-section__title">{t.also}</h2>
         <motion.div
           className="svc-proof"
           variants={container}
@@ -177,7 +205,13 @@ export default function ServicePage({ slug }) {
           viewport={{ once: true, margin: "-40px" }}
         >
           {SERVICE_PAGES.filter((x) => x.slug !== p.slug).map((x) => (
-            <motion.div className="card svc-proof__item" key={x.slug} variants={cardIn}>
+            <motion.div
+              className="card svc-proof__item"
+              key={x.slug}
+              variants={cardIn}
+              lang={ar ? "en" : undefined}
+              dir={ar ? "ltr" : undefined}
+            >
               <Link className="svc-proof__name link" to={`/${x.slug}`}>
                 {x.h1} <span className="plus">+</span>
               </Link>
@@ -188,13 +222,36 @@ export default function ServicePage({ slug }) {
       </section>
 
       <section className="proj-section">
-        <h2 className="proj-section__title">Send a Message</h2>
-        <motion.div className="card work-message" variants={cardIn} initial="hidden" animate="show">
-          <p className="card-body">
-            Tell me what you need and I&apos;ll get back to you.
-          </p>
-          <MessageForm placeholder="What are you working on?" />
-        </motion.div>
+        <h2 className="proj-section__title">{t.contact}</h2>
+        {/* The message form's labels, consent wording and errors are English,
+            and half-translating a consent line is worse than not offering the
+            form. The Arabic page offers WhatsApp and a call instead, which is
+            how most people here would reach out first anyway. */}
+        {ar ? (
+          <motion.div className="card work-message" variants={cardIn} initial="hidden" animate="show">
+            <p className="card-body">{t.contactBody}</p>
+            <div className="svc-lede__acts">
+              <a
+                className="btn-book"
+                href={`https://wa.me/${waNumber}?text=${encodeURIComponent(t.whatsappText)}`}
+                target="_blank"
+                rel="noreferrer noopener"
+              >
+                {t.whatsapp}
+              </a>
+              <a className="btn-book buy-alt" href={CONTACT.phoneHref}>
+                {t.call} <span dir="ltr">{CONTACT.phone}</span>
+              </a>
+            </div>
+          </motion.div>
+        ) : (
+          <motion.div className="card work-message" variants={cardIn} initial="hidden" animate="show">
+            <p className="card-body">
+              Tell me what you need and I&apos;ll get back to you.
+            </p>
+            <MessageForm placeholder="What are you working on?" />
+          </motion.div>
+        )}
       </section>
 
       {/* Rendered into the markup rather than injected from an effect, so it

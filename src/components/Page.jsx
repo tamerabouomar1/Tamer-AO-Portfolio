@@ -4,7 +4,7 @@ import { motion } from "framer-motion";
 const EASE = [0.22, 1, 0.36, 1];
 
 /** Wraps each route's content so it fades/slides on navigation (framer-motion). */
-export default function Page({ children, className = "" }) {
+export default function Page({ children, className = "", ...rest }) {
   return (
     <motion.main
       id="main"
@@ -15,6 +15,7 @@ export default function Page({ children, className = "" }) {
          second nav link and the skip did nothing for a keyboard user. */
       tabIndex={-1}
       className={"main " + className}
+      {...rest}
       initial={{ opacity: 0, y: 18 }}
       animate={{ opacity: 1, y: 0 }}
       exit={{ opacity: 0, y: -12 }}

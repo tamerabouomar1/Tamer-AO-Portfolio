@@ -273,6 +273,27 @@ function render(route) {
      immediately instead of flashing the dark shell before React mounts. */
   if (route.path === "/fitness") whole(/<html lang="en">/, '<html lang="en" data-theme="fit">');
 
+  /* Translations. Any PAGE_META route under /ar/ is the Arabic version of the
+     same path without it, so the pair is derived rather than configured, and
+     a new translation needs no edit here. Both pages carry both hreflang
+     links plus x-default (Google ignores a one-way hreflang), and the Arabic
+     one is stamped lang="ar" so it is read as Arabic before any JS runs. dir
+     stays off <html>: only the page body is right-to-left, the sidebar is the
+     same English column on every page. */
+  const isAr = route.path.startsWith("/ar/");
+  const enPath = isAr ? route.path.slice(3) : route.path;
+  const arPath = "/ar" + enPath;
+  if (PAGE_META[enPath] && PAGE_META[arPath]) {
+    if (isAr) {
+      whole(/<html lang="en">/, '<html lang="ar">');
+      wrap(/(<meta\s+property="og:locale"\s+content=")[^"]*(")/, "ar_AR");
+    }
+    h = h.replace("</head>",
+      `  <link rel="alternate" hreflang="en" href="${SITE + enPath}" />\n` +
+      `    <link rel="alternate" hreflang="ar" href="${SITE + arPath}" />\n` +
+      `    <link rel="alternate" hreflang="x-default" href="${SITE + enPath}" />\n  </head>`);
+  }
+
   whole(/<title>[\s\S]*?<\/title>/, `<title>${esc(route.title)}</title>`);
   wrap(/(<meta\s+name="description"\s+content=")[\s\S]*?(")/, esc(route.description));
   wrap(/(<link\s+rel="canonical"\s+href=")[^"]*(")/, url);

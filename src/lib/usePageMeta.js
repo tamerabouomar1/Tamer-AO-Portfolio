@@ -68,6 +68,14 @@ export const PAGE_META = {
     description:
       "Web design for businesses in Lebanon, built and run for you. $850 for a six-page website, launched and found on Google, then care from $30 a month.",
   },
+  /* The Arabic version of the page above. Its own URL, so Google can index
+     it for the Arabic query; prerender-head.mjs pairs any /ar/<path> with
+     <path> through hreflang, and sets <html lang="ar"> on it. */
+  "/ar/website-design-lebanon": {
+    title: "تصميم مواقع إلكترونية في لبنان",
+    description:
+      "تصميم مواقع إلكترونية في لبنان بالعربية والإنجليزية: موقع من ست صفحات بسعر 850$، مُطلَق وجاهز ليظهر على جوجل، ثم خطة صيانة تبدأ من 30$ شهرياً.",
+  },
   "/logo-design-beirut": {
     title: "Logo Design & Branding in Lebanon",
     description:
@@ -171,6 +179,9 @@ export default function usePageMeta(title, description, path) {
     setMeta('meta[name="twitter:title"]', "content", document.title);
 
     if (path) {
+      // The prerendered HTML already carries the right lang for a cold load;
+      // this keeps it right when moving between pages inside the app.
+      document.documentElement.lang = path.startsWith("/ar/") ? "ar" : "en";
       const url = SITE + path;
       setMeta('link[rel="canonical"]', "href", url);
       setMeta('meta[property="og:url"]', "content", url);

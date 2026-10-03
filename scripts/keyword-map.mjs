@@ -45,7 +45,7 @@ const CLUSTERS = [
   { id: "ecommerce and shopify", match: /e-?\s?commerce|shopify/, route: null, proof: 0, note: "No live client shop in WEBSITES. OKIRO is Tamer's own." },
   { id: "seo", match: /\bseo\b/, route: null, proof: 1, note: "Sold inside builds and the Google profile, never on its own." },
   { id: "marketing agency", match: /marketing|advertising agency|creative agency|social media (agency|marketing)|تسويق/, route: "/digital-marketing-agency-lebanon", title: ["marketing agency", "lebanon"], proof: 5 },
-  { id: "arabic web design", match: /تصميم مواقع|تصميم موقع/, route: null, proof: 1, note: "No Arabic page on the site. Sophia's Forum is the bilingual proof." },
+  { id: "arabic web design", match: /تصميم مواقع|تصميم موقع/, route: "/ar/website-design-lebanon", title: ["تصميم مواقع", "لبنان"], proof: 6 },
 ];
 
 const NOT_BUYERS = [
