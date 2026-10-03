@@ -10,7 +10,9 @@
     "build:zips": "node scripts/build-template-zips.mjs",
     "build:tokens": "node scripts/build-design-tokens.mjs",
     "build:sitemap": "node scripts/build-sitemap.mjs",
-    "prerender": "node scripts/prerender-head.mjs"
+    "prerender": "node scripts/prerender-head.mjs",
+    "seo:harvest": "node scripts/keyword-harvest.mjs",
+    "seo:map": "node scripts/keyword-map.mjs"
   },
   "dependencies": {
     "@gsap/react": "^2.1.2",

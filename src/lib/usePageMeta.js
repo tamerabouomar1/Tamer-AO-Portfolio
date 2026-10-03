@@ -64,14 +64,24 @@ export const PAGE_META = {
   // The search-intent pages. Titles here lead with the query the page is
   // built to answer, because the title is the headline of the search result.
   "/website-design-lebanon": {
-    title: "Website Design in Lebanon",
+    title: "Web Design & Website Development in Lebanon",
     description:
-      "Websites designed, built and run for businesses in Lebanon. $850 for a six-page site, launched and found on Google, then care from $30 a month.",
+      "Web design for businesses in Lebanon, built and run for you. $850 for a six-page website, launched and found on Google, then care from $30 a month.",
   },
   "/logo-design-beirut": {
-    title: "Logo Design & Brand Identity in Beirut",
+    title: "Logo Design & Branding in Lebanon",
     description:
-      "Logo design, brand identity, logo motion and apparel in Beirut. Start with a free recorded brand teardown: what to change first, and why.",
+      "Logo design, brand identity, logo motion and apparel for businesses in Lebanon. Start with a free recorded brand teardown: what to change first, and why.",
+  },
+  "/website-cost-lebanon": {
+    title: "Website Cost in Lebanon: Every Price in the Open",
+    description:
+      "What a website costs in Lebanon, in real figures: $350 for one page, $850 for six, from $30 a month to run. Plus the domain and every change rate.",
+  },
+  "/video-editor-lebanon": {
+    title: "Video Editor in Beirut, Lebanon",
+    description:
+      "Reels, event edits and logo motion from a video editor in Beirut. $65 a reel or from $199 a month. 855,000 views on my own reels. Your first reel is free.",
   },
   "/restaurant-website-lebanon": {
     title: "Restaurant Websites in Lebanon",

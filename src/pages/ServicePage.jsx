@@ -26,6 +26,11 @@ import SplitHeading from "../components/SplitHeading";
  * read — useParams() returns an empty object, the lookup misses, and the
  * component renders null. Which it silently did: the pages built, prerendered
  * and deployed as an empty shell. */
+const DEFAULT_WORK = [
+  { label: "client sites", to: "/websites" },
+  { label: "branding & design", to: "/projects" },
+];
+
 export default function ServicePage({ slug }) {
   const p = SERVICE_PAGES.find((x) => x.slug === slug);
   if (!p) return null;
@@ -118,14 +123,20 @@ export default function ServicePage({ slug }) {
             </motion.div>
           ))}
         </motion.div>
+        {/* `work` is optional and overrides where "See the work" points. The
+            default pair suits every page about sites or branding; the video
+            page's work lives on /media, and sending that visitor to a gallery
+            of websites would be answering a question they did not ask. */}
         <p className="price-note">
           See the work:{" "}
-          <Link className="link" to="/websites">
-            client sites <span className="plus">+</span>
-          </Link>{" "}
-          <Link className="link" to="/projects">
-            branding &amp; design <span className="plus">+</span>
-          </Link>
+          {(p.work || DEFAULT_WORK).map((w, i) => (
+            <span key={w.to}>
+              {i > 0 && " "}
+              <Link className="link" to={w.to}>
+                {w.label} <span className="plus">+</span>
+              </Link>
+            </span>
+          ))}
         </p>
       </section>
 

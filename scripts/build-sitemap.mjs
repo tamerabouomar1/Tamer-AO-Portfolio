@@ -50,6 +50,8 @@ const PAGES = [
   ["/social-media-management-lebanon", "monthly", "0.9"],
   ["/salon-website-lebanon", "monthly", "0.9"],
   ["/google-business-profile-lebanon", "monthly", "0.9"],
+  ["/website-cost-lebanon", "monthly", "0.9"],
+  ["/video-editor-lebanon", "monthly", "0.9"],
   ["/fitness", "monthly", "0.8"],
   ["/media", "monthly", "0.7"],
   ["/about", "monthly", "0.7"],

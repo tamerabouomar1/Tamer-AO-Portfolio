@@ -2186,7 +2186,10 @@ export const PRESENCE = {
 export const SERVICE_PAGES = [
   {
     slug: "website-design-lebanon",
-    h1: "Website Design in Lebanon",
+    // "web design lebanon" is suggested about twice as often as "website
+    // design lebanon", and "web developer lebanon" / "website development"
+    // sit in the same cluster. See scripts/keyword-map.mjs.
+    h1: "Web Design & Website Development in Lebanon",
     kicker: "For businesses that need the phone to ring",
     lede:
       "Most small business sites in Lebanon are a logo, a phone number and a Facebook link. They sit there. A site should bring you work, and that is a different job from looking nice.",
@@ -2248,7 +2251,11 @@ export const SERVICE_PAGES = [
 
   {
     slug: "logo-design-beirut",
-    h1: "Logo Design & Brand Identity in Beirut",
+    // People search this by country, not by city: "logo design lebanon",
+    // "logo designer lebanon" and "branding agency in lebanon" all surface,
+    // the Beirut variants barely do. The slug stays, because moving a URL
+    // costs more than a keyword in it earns.
+    h1: "Logo Design & Branding in Lebanon",
     kicker: "A mark, and everything that has to live around it",
     lede:
       "A logo on its own is not an identity. What you need is the mark, the type, the colours and the rules for using them, so everything you put out afterwards looks like it came from the same place.",
@@ -2278,7 +2285,7 @@ export const SERVICE_PAGES = [
     ],
     faqs: [
       {
-        q: "How much does a logo cost in Beirut?",
+        q: "How much does logo design cost in Lebanon?",
         a: "One-off design work is quoted per project, because a single mark and a full identity with apparel and packaging behind it are not the same job. Start with the free brand teardown and you will know what you actually need before anyone quotes you anything.",
       },
       {
@@ -2568,6 +2575,168 @@ export const SERVICE_PAGES = [
       },
     ],
     cta: { label: "See the whole presence offer", to: "/work-with-me" },
+  },
+
+  /* The price question, as its own page. "website cost in lebanon" and
+     "website price in lebanon" are both suggested searches, and the person
+     typing them wants figures, not a pitch. Almost nobody in this market
+     publishes a number, so the page that does is the one worth clicking.
+     Every figure here is read off SERVICE_PACKAGES, WEBSITE_CARE_PLANS and
+     WEBSITE_CHANGE_RATES above: if one of those moves, this moves with it. */
+  {
+    slug: "website-cost-lebanon",
+    h1: "Website Cost in Lebanon",
+    kicker: "Every price, written down before you ask",
+    lede:
+      "Ask five people what a website costs in Lebanon and you get five numbers and one \"it depends\". Here is every figure I charge, what each one buys, and what you pay other people on top, so you can do the arithmetic before you talk to anyone.",
+    sections: [
+      {
+        title: "The short answer",
+        body: "Four prices cover almost every small business:",
+        bullets: [
+          "$0 for a finished template from the free gallery, in full source, if you can set it up yourself",
+          "$350 one-off for a single page set up for you, live within 7 days of sending your content or you do not pay",
+          "$850 one-off for a full site of up to six pages, launched on your own domain and set up to be found on Google, in about three weeks",
+          "From $1,500 for a site built from scratch with a shop, accounts, payments or a second language, quoted as a fixed price first",
+        ],
+      },
+      {
+        title: "What it costs every month",
+        body:
+          "A website is not a poster. It has to stay online, backed up and current, and the monthly plan is the price of that. You pick it by how often your site changes:",
+        bullets: [
+          "$30 a month keeps it hosted, secured, backed up nightly and monitored, with no edits included",
+          "$100 a month adds five content edits and a quarterly traffic and Google ranking report",
+          "$190 a month covers up to 15 edits, a monthly report, two new pages a year and a quarterly SEO refresh",
+        ],
+      },
+      {
+        title: "What a change costs without a plan",
+        body:
+          "On the $30 plan every change is billed on its own, at rates you can see now rather than discover later. Seven small changes in a month cost exactly what the $100 plan costs, which is the point where the plan is the cheaper way to buy them.",
+        bullets: [
+          "$10 for a text, price or contact detail change",
+          "$15 for a photo swap or a new gallery item",
+          "$45 for a new section on an existing page",
+          "$120 for a whole new page",
+        ],
+      },
+      {
+        title: "What you pay other people",
+        body:
+          "Almost nothing. Your domain is registered in your name and renews at roughly $20 a year. Hosting on Cloudflare, the contact form and the booking calendar are free at normal traffic levels. The site is built in code, so there is no page-builder subscription sitting underneath it.",
+      },
+      {
+        title: "How you pay",
+        body:
+          "A full build is half on signature and half on launch. The second half is due when the site is live, not on a date, so if it is not live it is not payable. Everything is priced in USD, and you can pay by Whish, OMT or bank transfer.",
+      },
+    ],
+    proof: [
+      { name: "FabricAID Uniforms", what: "A seven-page site for their uniform arm, with the social impact woven through." },
+      { name: "Snack Faysal", what: "A Beirut manakish institution, appetite-led and built around the menu." },
+      { name: "Salon Nizar", what: "A barbershop in Abadiyeh where every screen books into their calendar." },
+      { name: "Sinar", what: "Construction and interior fit-out, clean and architectural." },
+      { name: "Combat Sports Academy", what: "The academy in Ebadieh: programs, coaches and real class times." },
+    ],
+    faqs: [
+      {
+        q: "What is the cheapest way to get a website in Lebanon?",
+        a: "Free, if you can set it up yourself: the gallery on this site gives away finished templates in full source. Done for you, a single page is $350 as a one-off and is live within 7 days of you sending your content, or you do not pay.",
+      },
+      {
+        q: "What exactly does the $850 website include?",
+        a: "Up to six pages designed around your brand, all content edits and two rounds of revisions, your domain, hosting, SSL and CDN set up, image compression and speed work, titles, descriptions, structured data and a sitemap, Google Search Console and analytics installed, and your booking calendar, contact form and socials wired up. It ends with a handover walkthrough and a first ranking report.",
+      },
+      {
+        q: "Is there a monthly fee for a website?",
+        a: "Yes, from $30 a month, and it is what keeps the site hosted, secured, backed up and monitored. $100 a month adds five edits and $190 covers up to 15. The plan runs for an initial twelve months from launch, then continues monthly and can be cancelled with thirty days' notice.",
+      },
+      {
+        q: "Why does a custom website start at $1,500?",
+        a: "Because a shop, customer accounts, payments or a second language is real engineering rather than layout. You get a fixed quote before a line is written, and if the work takes longer than quoted that is mine to absorb, not yours to pay for.",
+      },
+      {
+        q: "How much is a domain name in Lebanon?",
+        a: "Roughly $20 a year for most names, paid by you directly to the registrar. It is registered in your name, so the address is yours whatever happens to the site built on it.",
+      },
+      {
+        q: "Can I pay for a website in Lebanon without a card?",
+        a: "Yes. Prices are in USD and payment is by Whish, OMT or bank transfer, so you do not need a card at all.",
+      },
+    ],
+    cta: { label: "See every price and plan", to: "/websites" },
+  },
+
+  /* Video editing had no search page at all, while "video editor beirut" and
+     "video editor in lebanon" are among the most repeated suggestions in the
+     whole harvest. The social media page sells a monthly retainer; this one
+     answers the person who wants one edit, one event or one logo animated.
+     `work` points the proof links at /media, where the video actually is. */
+  {
+    slug: "video-editor-lebanon",
+    h1: "Video Editor in Beirut, Lebanon",
+    kicker: "Reels, event edits and logo motion, cut to be watched to the end",
+    lede:
+      "Most videos lose the viewer in the first two seconds, and it is almost never the camera's fault. It is the first line, the pacing and the cut. That is the part I do.",
+    sections: [
+      {
+        title: "What I edit",
+        body:
+          "Reels and TikToks for brands that need to post every week. Event edits, like Athletes Night at AUB. Match and competition edits, where the cut has to keep up with the sport. And logo motion, for the moment your mark has to move at the start of a video instead of sitting there.",
+      },
+      {
+        title: "What it costs",
+        body: "Priced per piece, so you know the number before you send a file:",
+        bullets: [
+          "$65 for a single reel",
+          "$199 a month for 8 pieces, with the hooks and captions written for you",
+          "$449 a month for 16, or $899 for 28 across up to three platforms",
+          "A logo animation, valued at $150, free with a website build or the Premium package",
+        ],
+      },
+      {
+        title: "The numbers behind the cut",
+        body:
+          "My own reels have done over 855,000 views, with the best single one at 219,000. They sit on the media page with their real view, like and comment counts, unedited. Your footage gets the same hooks, the same pacing and the same editing.",
+      },
+      {
+        title: "Your first reel is free",
+        body:
+          "Send your footage and I cut one reel: hook, captions, the lot, back within 5 days. Post it and judge the work by what it does. No card and no obligation, and you keep the reel either way.",
+      },
+    ],
+    proof: [
+      { name: "Athletes Night at AUB", what: "Event edit from the night." },
+      { name: "Combat Sports Academy", what: "Logo motion: the red tri-blade builds on white and settles above the wordmark." },
+      { name: "MoCars", what: "Logo motion: the monogram drawn in electric blue light on black." },
+      { name: "BIAF", what: "Logo motion: the wordmark lit in gold on black." },
+      { name: "Tamer AO", what: "855K+ views on my own reels, best single reel at 219K." },
+    ],
+    work: [{ label: "videos, reels and logo motion", to: "/media" }],
+    faqs: [
+      {
+        q: "How much does a video editor charge in Lebanon?",
+        a: "I charge $65 for a single reel. If you post every week, a monthly package is cheaper per piece: $199 for 8, $449 for 16 or $899 for 28. Every price on this site is the price you pay.",
+      },
+      {
+        q: "Do you film as well, or only edit?",
+        a: "Mostly edit. Phone footage shot through your normal week is usually enough, and I tell you what to shoot. Where a brand needs it filmed properly, that is quoted on top rather than assumed.",
+      },
+      {
+        q: "How fast do I get the video back?",
+        a: "The free first reel comes back within 5 days of you sending the footage. The Premium package comes with priority editing and turnaround.",
+      },
+      {
+        q: "What does the free reel include?",
+        a: "One reel cut from your footage, with the hook and the captions written. No card, no trial and no email course. It is yours to post whether or not you ever hire me.",
+      },
+      {
+        q: "Can you animate my logo?",
+        a: "Yes. The Combat Sports Academy, MoCars and BIAF animations are on the media page. A logo animation is valued at $150 and comes free with a website build and with the Premium content package.",
+      },
+    ],
+    cta: { label: "Claim the free reel", to: "/free" },
   },
 ];
 
