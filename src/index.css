@@ -46,6 +46,26 @@ a, button, summary, input, label, [role="button"] {
 }
 
 
+/* Heading face. Inter on every word is the single most common tell of a
+   generated site, so the page and section headings get a face of their own:
+   Archivo, heavy and slightly condensed, the way fight kit and team apparel
+   are lettered, which is the work this site is built on. Self-hosted
+   (public/fonts, OFL licence beside it) so it adds no third-party request.
+   One variable file covers every weight and width. Body copy stays Inter.
+   Arabic has no glyphs in either face, so the stack ends in the system
+   Arabic fonts for the /ar/ pages. */
+@font-face {
+  font-family: "Archivo";
+  src: url("/fonts/archivo-latin-wdth.woff2") format("woff2");
+  font-weight: 100 900;
+  font-stretch: 62% 125%;
+  font-style: normal;
+  font-display: swap;
+}
+:root {
+  --font-display: "Archivo", "Inter", "SF Arabic", "Geeza Pro", "Noto Sans Arabic", system-ui, sans-serif;
+}
+
 body {
   background: var(--bg);
   color: var(--text);
@@ -3682,3 +3702,22 @@ select:focus-visible,
 @media (prefers-reduced-motion: reduce) {
   .buy__unlock .btn-book { transition: none; }
 }
+
+/* The heading face, applied to page and section headings only (h1/h2
+   classes). Card and item titles stay Inter so the two faces have distinct
+   jobs. font-stretch 88% is semi-condensed: enough to read as athletic, not
+   so narrow that long Lebanese place names crowd. */
+.topbar__title,
+.section-title,
+.card-title,
+.storehead__title,
+.freehero__title,
+.offer__name,
+.proj-section__title {
+  font-family: var(--font-display);
+  font-weight: 800;
+  font-stretch: 88%;
+  letter-spacing: -0.005em;
+}
+.svc-rtl .topbar__title,
+.svc-rtl .proj-section__title { font-stretch: 100%; }
