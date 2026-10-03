@@ -2042,7 +2042,7 @@ export const PRESENCE = {
 
   // Perceived likelihood. Work that is live, named and checkable.
   proof:
-    "Seven client sites running now, including a full ordering system with accounts and payments for Kitchen Garage in Aley, a bilingual English and Arabic build that mirrors properly into right-to-left, and a barbershop that books straight into its own Fresha calendar. My own reels have done over 855,000 views.",
+    "Six client sites running now, including a barbershop that books straight into its own Fresha calendar, a Beirut manakish institution built around its menu, and a seven-page site for FabricAID's uniform arm. My own reels have done over 855,000 views.",
 
   /* Three doors, because the person paying a delivery app a third of every
      order and the contractor nobody can find are not the same buyer and must
@@ -2056,7 +2056,7 @@ export const PRESENCE = {
       pain: "The app keeps about a third of every order and won't tell me who ate my food.",
       outcome:
         "Your own menu, your own cart, your own customers. The map listing brings them in and the site takes the order, so the margin stays with you.",
-      note: "Built already for Kitchen Garage, Snack Faysal and Rasif Aley.",
+      note: "Built already for Snack Faysal.",
     },
     {
       id: "booking",
@@ -2074,7 +2074,7 @@ export const PRESENCE = {
       pain: "I only get work when somebody happens to mention me.",
       outcome:
         "A site that says what you do and proves it, and a profile that puts you in front of the person searching right now instead of the one asking a friend.",
-      note: "Built already for Sinar, ACC and FabricAID Uniforms.",
+      note: "Built already for Sinar, FabricAID Uniforms and Combat Sports Academy.",
     },
   ],
 
@@ -2737,6 +2737,83 @@ export const SERVICE_PAGES = [
       },
     ],
     cta: { label: "Claim the free reel", to: "/free" },
+  },
+
+  /* The agency search. "marketing agency in lebanon", "digital marketing
+     agency lebanon" and "social media marketing agency lebanon" are the
+     largest buyer cluster in the keyword map with no page answering them.
+     Tamer is not an agency and this page does not pretend to be one: it
+     answers the search with what an agency would actually deliver a small
+     business, priced, and says plainly when an agency is the better buy.
+     Every figure is PRESENCE / GOOGLE_PROFILE / SERVICE_PACKAGES above. */
+  {
+    slug: "digital-marketing-agency-lebanon",
+    h1: "Digital Marketing in Lebanon, Without the Agency",
+    kicker: "Website, Google profile and content, run by one person",
+    lede:
+      "An agency sells you an account manager, who briefs a designer, who briefs an editor, and you pay for every handoff. Here the person you talk to is the person doing the work: your website, your Google listing and your content, run as one thing, with every price in the open.",
+    sections: [
+      {
+        title: "What a small business actually needs",
+        body:
+          "Strip away the slide deck and marketing for a local business is three jobs. Come up when somebody nearby searches for what you sell. Look worth calling when they find you. Stay visible between searches. That is a Google profile, a website and content, and I build and run all three.",
+      },
+      {
+        title: "What it costs",
+        body: "One setup fee, one monthly, both written down before we speak:",
+        bullets: [
+          "$950 to set the whole thing up in about three weeks: a website of up to six pages, your Google Business Profile, and a logo animation for your hero",
+          "$349 a month after that: hosting and up to 15 edits, plus eight pieces of content a month posted to your socials and your Google listing",
+          "The monthly cancels with 30 days' notice",
+          "Or buy one piece on its own: $250 for the Google profile, $850 for the website, from $199 a month for content",
+        ],
+      },
+      {
+        title: "How the first month runs",
+        body:
+          "Week one, your Google profile is claimed, corrected and live, so calls can start before the site exists. Week two, the site takes shape and you review it once, as a single list of changes. Week three, it launches on your own domain and is submitted to Google. Every month after that, content goes out, the profile stays current, and a report shows what came in and where it came from.",
+      },
+      {
+        title: "What it asks of you",
+        body:
+          "One 30-minute call at the start and one folder of photos. One round of changes, sent as a single list. After that, nothing. Approve the content if you want to, or don't.",
+      },
+      {
+        title: "When an agency is the better buy",
+        body:
+          "If what you need is a large paid ads budget managed every day, a PR campaign, or a team of ten on your account, hire an agency. This is for a business that wants to be found, look right when it is, and stay visible, without paying for the layers in between.",
+      },
+    ],
+    proof: [
+      { name: "FabricAID Uniforms", what: "A seven-page site for their uniform arm, with the social impact woven through." },
+      { name: "Snack Faysal", what: "A Beirut manakish institution, appetite-led and built around the menu." },
+      { name: "Salon Nizar", what: "A barbershop in Abadiyeh where every screen books into their calendar." },
+      { name: "Combat Sports Academy", what: "The academy site in Ebadieh, plus the logo motion for their mark." },
+      { name: "Tamer AO", what: "855K+ views on my own reels, best single reel at 219K." },
+    ],
+    faqs: [
+      {
+        q: "How much does digital marketing cost in Lebanon?",
+        a: "Here it is $950 once to set up your website, Google Business Profile and a logo animation, then $349 a month for hosting, up to 15 edits and eight pieces of content. You can also buy the pieces on their own: $250 for the Google profile, $850 for the website, or content from $199 a month. Every price on this site is the price you pay.",
+      },
+      {
+        q: "Is it really one person?",
+        a: "Yes. The person on the call is the person who designs the site, sets up the profile, edits the content and writes the report. Nothing gets lost in a handoff, and you are never passed down to someone more junior.",
+      },
+      {
+        q: "Do you run paid ads?",
+        a: "Not as a service. The work here is the part that keeps paying after the ad budget stops: being on the map, a site that converts, and content that keeps the account alive. If a large ad budget is the plan, an agency built for that is the better buy.",
+      },
+      {
+        q: "What if it does not bring in more business?",
+        a: "Before anything is built we write down what came in over your previous 90 days: calls, messages, walk-ins. If the 90 days after launch have not beaten that number, you do not pay for months four, five or six, and I keep working straight through them. You keep the site, the domain and the profile either way.",
+      },
+      {
+        q: "Can I start smaller?",
+        a: "Yes. The Google profile alone is $250 and is live within 7 days or you do not pay. Or start free: a recorded brand teardown, your first reel edited, or a finished website template, none of which needs a card.",
+      },
+    ],
+    cta: { label: "See the whole offer", to: "/work-with-me" },
   },
 ];
 

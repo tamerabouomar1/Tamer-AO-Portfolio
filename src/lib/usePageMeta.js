@@ -78,6 +78,11 @@ export const PAGE_META = {
     description:
       "What a website costs in Lebanon, in real figures: $350 for one page, $850 for six, from $30 a month to run. Plus the domain and every change rate.",
   },
+  "/digital-marketing-agency-lebanon": {
+    title: "Digital Marketing Agency Alternative in Lebanon",
+    description:
+      "Website, Google profile and content run by one person instead of an agency. $950 to set up, $349 a month, every price in the open. Based in Beirut.",
+  },
   "/video-editor-lebanon": {
     title: "Video Editor in Beirut, Lebanon",
     description:
