@@ -902,6 +902,50 @@ ul { margin: 0; padding: 0; list-style: none; }
 .reellb video { width: 100%; height: 100%; object-fit: contain; display: block; background: #000; }
 .reellb .lightbox__close { z-index: 2; }
 .reel-card__body { padding: clamp(14px, 1.4vw, 20px); }
+
+/* Featured motion reel: the big one at the top of the Motion Design section.
+   The border is the reel's own palette (electric blue into cyan) so the block
+   reads as part of the piece, not a generic highlight. */
+.reel-feature {
+  position: relative;
+  display: grid;
+  grid-template-columns: minmax(0, clamp(260px, 26vw, 400px)) minmax(0, 1fr);
+  gap: clamp(18px, 3vw, 56px);
+  align-items: center;
+  padding: clamp(12px, 1.4vw, 20px);
+  margin-bottom: var(--gap);
+  border: 1px solid transparent;
+  background:
+    radial-gradient(120% 90% at 0% 100%, rgba(10, 20, 230, 0.28), rgba(10, 20, 230, 0) 60%) padding-box,
+    linear-gradient(var(--card-solid), var(--card-solid)) padding-box,
+    linear-gradient(120deg, #0a14e6, #3e89f5 45%, #70f0fb) border-box;
+  box-shadow: 0 30px 90px -40px rgba(10, 20, 230, 0.75);
+}
+.reel-feature__frame { border-radius: 10px; box-shadow: 0 0 0 1px rgba(112, 240, 251, 0.18); }
+.reel-feature__body { display: flex; flex-direction: column; gap: clamp(10px, 1.1vw, 16px); padding: clamp(4px, 1vw, 16px) clamp(4px, 1vw, 12px); }
+.reel-feature__tag {
+  align-self: flex-start;
+  font-size: 12px; font-weight: 600; letter-spacing: 0.08em; text-transform: uppercase;
+  color: #70f0fb;
+  padding: 6px 12px; border-radius: 999px;
+  border: 1px solid rgba(112, 240, 251, 0.35);
+  background: rgba(112, 240, 251, 0.06);
+}
+.reel-feature__title { font-size: clamp(28px, 3.4vw, 54px); font-weight: 300; line-height: 1.08; letter-spacing: -0.025em; max-width: 16ch; }
+.reel-feature__points { list-style: none; display: grid; gap: 8px; margin: 2px 0 4px; }
+.reel-feature__points li { position: relative; padding-left: 20px; font-size: clamp(14px, 1vw, 16px); font-weight: 300; color: var(--muted); }
+.reel-feature__points li::before {
+  content: ""; position: absolute; left: 0; top: 0.55em;
+  width: 8px; height: 8px; border-radius: 50%;
+  background: #70f0fb; box-shadow: 0 0 10px rgba(112, 240, 251, 0.8);
+}
+.reel-feature__actions { display: flex; flex-wrap: wrap; align-items: center; gap: 14px 24px; }
+.btn-book.reel-feature__watch { background: linear-gradient(100deg, #0a14e6, #3e89f5 60%, #70f0fb); border-color: transparent; }
+.btn-book.reel-feature__watch:hover { background: linear-gradient(100deg, #0a14e6, #3e89f5 60%, #70f0fb); box-shadow: 0 12px 30px -10px rgba(62, 137, 245, 0.9); }
+@media (max-width: 760px) {
+  .reel-feature { grid-template-columns: 1fr; }
+  .reel-feature__frame { max-width: 420px; justify-self: center; width: 100%; }
+}
 .reel-card__head { display: flex; align-items: baseline; gap: 10px; flex-wrap: wrap; }
 .reel-card__head .web-card__title { margin-bottom: 0; }
 /* Reads as a live signal rather than another statistic, so it is the one

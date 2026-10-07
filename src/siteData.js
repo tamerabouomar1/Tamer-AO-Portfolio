@@ -908,6 +908,17 @@ export const LOGO_MOTIONS = [
    re-encoded to 720x1280 for the site. Order is strongest first. `desc` doubles
    as the VideoObject description, so it says what happens in the clip. */
 export const MOTION_REELS = [
+  /* `featured` puts a reel in the large block at the top of the Motion Design
+     section; it stays in this list so the lightbox can swipe to and from it. */
+  {
+    title: "Found, booked and posted, in one day",
+    src: "/assets/motion/design-presence-system.mp4",
+    desc: "A narrated reel on why a website, a Google profile and your socials only work when they are linked, and how all three go live in one day.",
+    featured: true,
+    tag: "Featured · voiceover",
+    points: ["48 seconds, voiceover and captions", "A real client site booking inside it", "Original score, ducked under the voice"],
+    cta: { label: "Get yours set up in one day", to: "/work-with-me#online-presence" },
+  },
   {
     title: "Built to be remembered",
     src: "/assets/motion/design-glow-system.mp4",

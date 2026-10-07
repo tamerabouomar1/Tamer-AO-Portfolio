@@ -137,8 +137,41 @@ export default function Media() {
           Design reels made for Instagram, with type, colour and shape in motion and each one
           scored with its own original music. Tap any of them to watch it with sound.
         </p>
+        {MOTION_REELS.map((r, i) =>
+          r.featured ? (
+            <motion.article className="card reel-feature" key={r.src} variants={cardIn} initial="hidden" animate="show">
+              <button className="reel-card__frame reel-card__play reel-feature__frame" onClick={() => setReelIdx(i)} aria-label={`Play ${r.title} with sound`}>
+                <LoopVideo src={r.src} label={r.title} />
+                <span className="reel-card__sound" aria-hidden="true">
+                  <svg viewBox="0 0 24 24">
+                    <path d="M4 9.5h3.2L12 5.5v13l-4.8-4H4z" />
+                    <path d="M15.5 9a4.2 4.2 0 0 1 0 6M18.2 6.6a7.6 7.6 0 0 1 0 10.8" />
+                  </svg>
+                </span>
+              </button>
+              <div className="reel-feature__body">
+                <span className="reel-feature__tag">{r.tag}</span>
+                <h3 className="reel-feature__title">{r.title}</h3>
+                <p className="card-body">{r.desc}</p>
+                <ul className="reel-feature__points">
+                  {r.points.map((p) => (
+                    <li key={p}>{p}</li>
+                  ))}
+                </ul>
+                <div className="reel-feature__actions">
+                  <button className="btn-book reel-feature__watch" onClick={() => setReelIdx(i)}>
+                    Watch with sound
+                  </button>
+                  <Link className="link" to={r.cta.to}>
+                    {r.cta.label} <span className="plus">+</span>
+                  </Link>
+                </div>
+              </div>
+            </motion.article>
+          ) : null,
+        )}
         <motion.div className="reel-grid" variants={container} initial="hidden" animate="show">
-          {MOTION_REELS.map((r, i) => (
+          {MOTION_REELS.map((r, i) => r.featured ? null : (
             <motion.article className="card reel-card" key={r.src} variants={cardIn}>
               <button className="reel-card__frame reel-card__play" onClick={() => setReelIdx(i)} aria-label={`Play ${r.title} with sound`}>
                 <LoopVideo src={r.src} label={r.title} />
