@@ -2833,6 +2833,15 @@ ul { margin: 0; padding: 0; list-style: none; }
 .glance__name { font-size: clamp(14px, 1.05vw, 16px); font-weight: 600; }
 .glance__what { font-size: clamp(12.5px, 0.95vw, 14px); font-weight: 300; line-height: 1.45; color: var(--muted); flex: 1; }
 .glance__price { font-size: clamp(13px, 0.95vw, 14.5px); font-weight: 600; color: var(--shiny); }
+/* Phones: two columns, name and price only. At ~140px a tile cannot hold the
+   one-line description without wrapping it to five lines, and the sections
+   the tiles jump to say it anyway. Flex-grow lets the fifth tile take the
+   whole last row instead of sitting alone at half width. */
+@media (max-width: 560px) {
+  .glance { gap: 8px; }
+  .glance__item { flex: 1 1 calc(50% - 4px); padding: 12px 14px; gap: 4px; }
+  .glance__what { display: none; }
+}
 /* jump targets clear the top edge instead of landing flush against it */
 .anchor, .proj-section[id] { scroll-margin-top: 24px; }
 
