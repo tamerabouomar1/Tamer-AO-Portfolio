@@ -84,7 +84,7 @@ export const PAGE_META = {
   "/digital-marketing-agency-lebanon": {
     title: "Digital Marketing Agency Alternative in Lebanon",
     description:
-      "Website, Google profile and content run by one person instead of an agency. $950 to set up, $349 a month, every price in the open. Based in Beirut.",
+      "Website, Google profile and content run by one person instead of an agency. Quoted per project from $1,200, live in one day. Based in Beirut.",
   },
   "/video-editor-lebanon": {
     title: "Video Editor in Beirut, Lebanon",
@@ -117,7 +117,7 @@ export const PAGE_META = {
   "/work-with-me": {
     title: "Your Whole Online Presence, Start Free",
     description:
-      "Start free with a website template, brand teardown or your first reel. Or have the website, Google profile and content set up in one day: $950, then $349 a month.",
+      "Start free with a website template, brand teardown or your first reel. Or have the website, Google profile and content set up in one day, quoted from $1,200.",
   },
 
   /* The policy pages.

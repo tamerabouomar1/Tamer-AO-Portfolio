@@ -2842,6 +2842,30 @@ ul { margin: 0; padding: 0; list-style: none; }
   .glance__item { flex: 1 1 calc(50% - 4px); padding: 12px 14px; gap: 4px; }
   .glance__what { display: none; }
 }
+/* The Whole Online Presence, minimal: what is in it on the left, the floor
+   price and the one button on the right. Stacks on phones. */
+.svc-min {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) auto;
+  gap: clamp(18px, 3vw, 48px);
+  align-items: center;
+  padding: clamp(20px, 2.4vw, 36px);
+  border-color: rgba(100, 206, 251, 0.42);
+  background:
+    radial-gradient(120% 100% at 0% 0%, rgba(100, 206, 251, 0.12), transparent 60%),
+    var(--card);
+}
+.svc-min__line { font-size: clamp(17px, 1.5vw, 22px); font-weight: 500; line-height: 1.35; max-width: 34ch; margin-bottom: 14px; }
+.svc-min__list { list-style: none; display: grid; gap: 8px; }
+.svc-min__list li { position: relative; padding-left: 20px; font-size: clamp(14px, 1.05vw, 16px); font-weight: 300; color: var(--muted); }
+.svc-min__list li::before { content: ""; position: absolute; left: 0; top: 0.55em; width: 8px; height: 8px; border-radius: 50%; background: var(--shiny); }
+.svc-min__price { display: flex; flex-direction: column; align-items: flex-start; gap: 6px; min-width: 220px; }
+.svc-min__from { font-size: 13px; letter-spacing: 0.08em; text-transform: uppercase; color: var(--muted); }
+.svc-min__price strong { font-size: clamp(38px, 3.6vw, 54px); font-weight: 700; line-height: 1; letter-spacing: -0.02em; }
+.svc-min__terms { font-size: 13.5px; line-height: 1.45; color: var(--muted); max-width: 26ch; margin-bottom: 8px; }
+@media (max-width: 760px) {
+  .svc-min { grid-template-columns: 1fr; }
+}
 /* jump targets clear the top edge instead of landing flush against it */
 .anchor, .proj-section[id] { scroll-margin-top: 24px; }
 

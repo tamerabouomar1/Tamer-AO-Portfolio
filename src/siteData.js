@@ -925,6 +925,11 @@ export const MOTION_REELS = [
     desc: "A narrated reel on the map that shows up above every website when someone nearby searches, and what gets a business into its top three.",
   },
   {
+    title: "A salesperson that never sleeps",
+    src: "/assets/motion/design-site-salesperson.mp4",
+    desc: "A narrated reel: the 2am booking request your Instagram never answers, and the website that takes it straight into the calendar.",
+  },
+  {
     title: "Built to be remembered",
     src: "/assets/motion/design-glow-system.mp4",
     desc: "A dot becomes a ring, a sparkle, a pill and finally a brand card, all one continuous glowing shape.",
@@ -2048,49 +2053,11 @@ export const WEBSITE_CARE_NOTES = [
 
 
 // ── The Whole Online Presence ──────────────────────────────────
-// The bundle, and the reason it exists.
-//
-// Everything above this line is sold as a COMPONENT: a site, a logo, some
-// posts. Components compete on price, because a buyer comparing "$850 for a
-// website" against the next freelancer's $600 has been handed a spreadsheet
-// and no reason to choose. Nobody wakes up wanting a website. They want the
-// phone to ring.
-//
-// So this is the same work sold as the outcome it produces, with the pieces
-// kept visible as the anchor. Built on the $100M Offers value equation, the
-// same as DEFENSE_PROGRAM above:
-//
-//   Value = (Dream Outcome × Perceived Likelihood) ÷ (Time Delay × Effort)
-//
-// `promise` is the dream outcome stated as something they can picture,
-// `proof` raises the likelihood with work already live, `weeks` collapses the
-// time delay by putting the whole thing live inside one day, `effort` removes the
-// sacrifice, and the guarantee removes the risk of trying.
-//
-// WHY IT IS A RETAINER, not another one-off. A website is a thing you buy
-// once and a presence is a thing you keep. Google profiles rot: hours go
-// stale, reviews go unanswered, competitors post and you do not. The monthly
-// is what makes the outcome hold, and it is the difference between selling
-// $850 once and $349 every month.
-//
-// ON THE NUMBERS. Every anchor line is Tamer's OWN published price, not an
-// invented one, which is what makes the total defensible if a client asks how
-// it was reached. Setup: $850 (the six-page build) + $250 (Google profile
-// setup) = $1,100. Monthly: $190 (Complete care) + $199 (Starter content) =
-// $389. Both are summed from the lines at render time rather than stored, so
-// editing a line can never leave the headline quietly wrong.
-//
-// ⚠ TAMER, CONFIRM BEFORE THIS GOES LIVE:
-//   1. GOOGLE_PROFILE.price ($250) is the one number here that is not already
-//      published somewhere on this site. Every other figure is yours. Change
-//      it or tell me and I will.
-//   2. The guarantee promises you keep working free through months four to
-//      six if the 90 days do not beat the baseline. It costs hours, not cash,
-//      and it is the same promise already made on /website-design-lebanon and
-//      /restaurant-website-lebanon. It only works if you write the baseline
-//      down on day one.
-//   3. `seats` says you take three of these at a time. A cap nobody enforces
-//      reads as a lie the first time somebody asks twice.
+// The bundle: website, Google profile and content sold as one outcome rather
+// than three components. Until 2026-10-07 it carried a fixed $950 setup and
+// $349/month with a full value stack, phases and a 90-day guarantee. It is
+// quoted per project now, from $1,200, with monthly care quoted alongside,
+// and the Services page shows only what is below.
 
 /** Google Business Profile, sold on its own as well as inside the bundle.
  *  It is the fastest win Tamer has: the map listing is what a nearby search
@@ -2116,137 +2083,17 @@ export const GOOGLE_PROFILE = {
 
 export const PRESENCE = {
   name: "The Whole Online Presence",
-  kicker: "Website · Google profile · content, run as one thing",
-
-  // Dream outcome. Not "a professional online presence", which is a category
-  // nobody wants. The picture of the moment the money is actually made.
-  promise:
-    "Somebody three streets away pulls out their phone and searches for what you sell. You are what comes up. You are the one with the photos, the reviews and the hours that are right. You are the one they call.",
-
-  // Perceived likelihood. Work that is live, named and checkable.
-  proof:
-    "Six client sites running now, including a barbershop that books straight into its own Fresha calendar, a Beirut manakish institution built around its menu, and a seven-page site for FabricAID's uniform arm. My own reels have done over 855,000 views.",
-
-  /* Three doors, because the person paying a delivery app a third of every
-     order and the contractor nobody can find are not the same buyer and must
-     not be sold with the same sentence. Every one of these is a client type
-     already on this site. */
-  tracks: [
-    {
-      id: "food",
-      who: "Restaurants & cafés",
-      name: "Own the order",
-      pain: "The app keeps about a third of every order and won't tell me who ate my food.",
-      outcome:
-        "Your own menu, your own cart, your own customers. The map listing brings them in and the site takes the order, so the margin stays with you.",
-      note: "Built already for Snack Faysal.",
-    },
-    {
-      id: "booking",
-      who: "Salons, barbers & clinics",
-      name: "Fill the calendar",
-      pain: "Bookings sit in my DMs until morning and half of them are gone by then.",
-      outcome:
-        "Every screen books into your calendar, and the profile that shows up on the map has your current hours, prices and photos on it.",
-      note: "Built already for Salon Nizar, booking into their Fresha calendar.",
-    },
-    {
-      id: "trade",
-      who: "Trades, studios & firms",
-      name: "Be findable at all",
-      pain: "I only get work when somebody happens to mention me.",
-      outcome:
-        "A site that says what you do and proves it, and a profile that puts you in front of the person searching right now instead of the one asking a friend.",
-      note: "Built already for Sinar, FabricAID Uniforms and Combat Sports Academy.",
-    },
+  line: "Website, Google profile and content, built as one job and live in one day.",
+  includes: [
+    "Website, up to six pages, on your own domain",
+    "Google Business Profile, claimed and set up",
+    "Socials linked, with content posted every month",
+    "Logo animation for your hero",
   ],
-
-  /* Time delay collapsed to one day. The Google profile still goes first, so
-     the map listing is working before the site has even launched. */
-  phases: [
-    {
-      weeks: "Morning",
-      title: "You are on the map",
-      body:
-        "Your Google profile claimed, corrected and live: categories, service areas, hours, photos, the booking link and the review link. This starts producing calls before the site is built.",
-    },
-    {
-      weeks: "Midday",
-      title: "The site takes shape",
-      body:
-        "Your pages, written and designed around what you sell. You review it once, as a single list of changes, and I make them.",
-    },
-    {
-      weeks: "By the evening",
-      title: "It goes live",
-      body:
-        "Launched on your own domain, fast and secure, and submitted to Google with the search setup finished.",
-    },
-    {
-      weeks: "Every month after",
-      title: "It keeps working",
-      body:
-        "Content going out, the profile kept current, the site kept fast, and a report each month showing what came in and where it came from.",
-    },
-  ],
-
-  /* Every line is a price already published on this site, which is what makes
-     the total defensible if a client asks how it was reached. */
-  stack: [
-    { item: "Your website, up to six pages, launched and found on Google", value: 850 },
-    { item: "Your Google Business Profile, claimed and fully set up", value: 250 },
-  ],
-  bonuses: [
-    {
-      name: "Logo animation for your hero",
-      body: "The same one that ships with the Premium content package.",
-      value: 150,
-    },
-  ],
-
-  price: 950,
-  period: "to set the whole thing up, in one day",
-
-  /* The retainer. A website is bought once; a presence is kept. Profiles rot:
-     hours go stale, reviews go unanswered, competitors post and you do not.
-     This is also the difference between selling $850 once and $349 monthly. */
-  monthly: {
-    price: 349,
-    period: "per month after that, cancel with 30 days' notice",
-    stack: [
-      { item: "Hosting, SSL, backups, monitoring and up to 15 content edits a month", value: 190 },
-      { item: "Eight pieces of content a month, hooks and captions written", value: 199 },
-    ],
-    note: "Posted to your socials and your Google listing, so both stay alive instead of one going quiet.",
-  },
-
-  /* The denominator nobody prices. "It's easy" is not a claim. "One folder of
-     photos and one phone call" is. */
-  effort: [
-    "One 30-minute call at the start, and one folder of photos.",
-    "One round of changes, sent as a single list.",
-    "After that, nothing. Approve the content if you want to, or don't.",
-  ],
-
-  guarantee: {
-    title: "Beat your own 90 days, or I work the next three free",
-    body:
-      "Before anything is built we write down what came in over your previous 90 days: calls, messages, walk-ins. If the 90 days after launch have not beaten that number, you do not pay for months four, five or six, and I keep working straight through them. You keep the site, the domain and the profile either way.",
-  },
-
-  // ⚠ Only true if Tamer enforces it. See the confirm block above.
-  intake: {
-    label: "I take three of these at a time.",
-    cadence: "It is a month of my week, every month,",
-    reason: "so it is not a thing I can run ten of.",
-  },
-
-  cta: "Book a free 30-minute call",
-
-  /* Said out loud, on purpose. A buyer who rules himself out on his own terms
-     is worth more than one who discovers it in month two. */
-  terms:
-    "If you only need a logo, or only a website with nothing after it, buy that instead. It is cheaper and it is further down this page. This is for a business that wants the whole thing handled and wants it to keep working.",
+  // Quoted per project since 2026-10-07; this is the floor the page shows.
+  from: 1200,
+  terms: "Quoted per project. Monthly care is quoted with it.",
+  cta: "Get a quote",
 };
 
 // ── Service pages ─────────────────────────────────────────────
@@ -2733,7 +2580,7 @@ export const SERVICE_PAGES = [
       {
         title: "What it costs",
         body:
-          "$250 one-off, set up within one day of you sending your details, or you do not pay. If you want the site, the profile and the content run as one thing instead of three, that is The Whole Online Presence: $950 to set up and $349 a month, against $1,250 and $389 buying the same pieces separately.",
+          "$250 one-off, set up within one day of you sending your details, or you do not pay. If you want the site, the profile and the content run as one thing instead of three, that is The Whole Online Presence, quoted per project from $1,200 with the monthly care quoted alongside.",
       },
     ],
     proof: [
@@ -2745,7 +2592,7 @@ export const SERVICE_PAGES = [
     faqs: [
       {
         q: "How much does Google Business Profile setup cost in Lebanon?",
-        a: "$250 as a one-off, set up within one day of getting your details or you do not pay. It is also included in The Whole Online Presence, which is $950 to set up the site and the profile together and $349 a month to keep both running.",
+        a: "$250 as a one-off, set up within one day of getting your details or you do not pay. It is also included in The Whole Online Presence, which sets up the site and the profile together, quoted per project from $1,200.",
       },
       {
         q: "I already have a listing. Do I still need this?",
@@ -2956,8 +2803,8 @@ export const SERVICE_PAGES = [
         title: "What it costs",
         body: "One setup fee, one monthly, both written down before we speak:",
         bullets: [
-          "$950 to set the whole thing up in one day: a website of up to six pages, your Google Business Profile, and a logo animation for your hero",
-          "$349 a month after that: hosting and up to 15 edits, plus eight pieces of content a month posted to your socials and your Google listing",
+          "From $1,200, quoted per project, to set the whole thing up in one day: a website of up to six pages, your Google Business Profile, and a logo animation for your hero",
+          "Monthly care after that, quoted with the setup: hosting, edits, and content posted to your socials and your Google listing",
           "The monthly cancels with 30 days' notice",
           "Or buy one piece on its own: $250 for the Google profile, $850 for the website, from $199 a month for content",
         ],
@@ -2988,7 +2835,7 @@ export const SERVICE_PAGES = [
     faqs: [
       {
         q: "How much does digital marketing cost in Lebanon?",
-        a: "Here it is $950 once to set up your website, Google Business Profile and a logo animation, then $349 a month for hosting, up to 15 edits and eight pieces of content. You can also buy the pieces on their own: $250 for the Google profile, $850 for the website, or content from $199 a month.",
+        a: "Here it is quoted per project, from $1,200, to set up your website, Google Business Profile and a logo animation, with hosting, edits and monthly content quoted alongside. You can also buy the pieces on their own: $250 for the Google profile, $850 for the website, or content from $199 a month.",
       },
       {
         q: "Who does the work?",
