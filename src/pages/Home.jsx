@@ -15,7 +15,7 @@ export default function Home() {
           <SplitHeading>Graphic Designer in Beirut</SplitHeading>
           <p className="topbar__sub">Student Athlete</p>
         </div>
-        <Link className="link" to="/free">
+        <Link className="link" to="/work-with-me#free">
           Start free <span className="plus">+</span>
         </Link>
       </header>
@@ -26,7 +26,7 @@ export default function Home() {
           objection gone before the first price is shown. */}
       <MotionLink
         className="card freehero"
-        to="/free"
+        to="/work-with-me#free"
         variants={cardIn}
         initial="hidden"
         animate="show"

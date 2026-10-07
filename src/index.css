@@ -1511,7 +1511,7 @@ ul { margin: 0; padding: 0; list-style: none; }
 /*  Home intent routing — "what did you come here for?"        */
 /* ---------------------------------------------------------- */
 /* ---------------------------------------------------------- */
-/*  The free offers — hero on Home, cards on /free             */
+/*  The free offers — hero on Home, cards on /work-with-me#free  */
 /* ---------------------------------------------------------- */
 .freehero {
   display: flex; flex-direction: column; align-items: flex-start;
@@ -2783,7 +2783,7 @@ ul { margin: 0; padding: 0; list-style: none; }
   margin-bottom: 2px;
 }
 
-/* The free page's opening card. */
+/* The opening card of /work-with-me (and the free hero on Home). */
 .freehero {
   padding: clamp(24px, 3vw, 46px);
   margin-bottom: var(--gap);
@@ -2804,6 +2804,37 @@ ul { margin: 0; padding: 0; list-style: none; }
   font-size: clamp(13.5px, 1.1vw, 17px);
 }
 .freehero__acts { display: flex; flex-wrap: wrap; gap: 10px; }
+
+/* Services (merged with Start Free): the summary card's jump list. One row
+   per thing on the page, name / what / price, each a link to its section.
+   The card is a section, not a link, so it does not lift on hover. */
+.glance-hero:hover { transform: none; }
+.glance-hero .freehero__body { margin-bottom: 6px; }
+/* flex-wrap, not a grid: five tiles in a four-column grid left one alone on
+   its own row. Here every row stretches its tiles to fill the width. */
+.glance {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+  width: 100%;
+  margin: 8px 0 20px;
+}
+.glance__item {
+  flex: 1 1 190px;
+  display: flex; flex-direction: column; gap: 6px;
+  padding: 14px 16px;
+  border-radius: 12px;
+  border: 1px solid var(--line);
+  background: rgba(255, 255, 255, 0.03);
+  color: inherit; text-decoration: none;
+  transition: border-color 0.25s var(--ease), background 0.25s var(--ease), transform 0.25s var(--ease);
+}
+.glance__item:hover, .glance__item:focus-visible { border-color: rgba(100, 206, 251, 0.55); background: rgba(100, 206, 251, 0.07); transform: translateY(-2px); }
+.glance__name { font-size: clamp(14px, 1.05vw, 16px); font-weight: 600; }
+.glance__what { font-size: clamp(12.5px, 0.95vw, 14px); font-weight: 300; line-height: 1.45; color: var(--muted); flex: 1; }
+.glance__price { font-size: clamp(13px, 0.95vw, 14.5px); font-weight: 600; color: var(--shiny); }
+/* jump targets clear the top edge instead of landing flush against it */
+.anchor, .proj-section[id] { scroll-margin-top: 24px; }
 
 /* Free → paid, one card per line of work. */
 .ladder-grid {

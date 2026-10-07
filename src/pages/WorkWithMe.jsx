@@ -24,89 +24,73 @@ const CALENDLY_EMBED =
   "&embed_domain=" +
   (typeof window !== "undefined" ? window.location.hostname : "tamerabouomar.com");
 
+/* The summary at the top of the page. Prices come from the same objects the
+   sections below render, so the card can never quote a different number. */
+const GLANCE = [
+  { id: "free", name: "Start free", what: "A website template, a brand teardown, your first reel or an hour of coaching", price: "$0" },
+  { id: "online-presence", name: "The whole online presence", what: "Website, Google profile and content, run as one thing", price: `$${PRESENCE.price} in one day, then $${PRESENCE.monthly.price}/mo` },
+  { id: "google-profile", name: "Just the Google profile", what: "The map listing people see before any website", price: `$${GOOGLE_PROFILE.price}, set up in one day` },
+  { id: "social", name: "Social media", what: "Reels-first content, every month", price: `from ${SOCIAL_PACKAGES[0].price}/mo` },
+  { id: "one-off", name: "One-off work", what: "Logos, identities, apparel and print", price: "quoted per job" },
+];
+
 export default function WorkWithMe() {
   return (
     <Page>
       <header className="topbar">
         <div>
-          {/* The page used to be titled for the components it sells. It leads
-              with the whole online presence now, because that is the outcome
-              people are actually buying and the only framing in which the
-              Google profile, the site and the content stop looking like three
-              separate invoices. */}
+          {/* Services and Start Free used to be two pages that said the same
+              thing twice: the free offers, the client logos, the testimonials
+              and the message form all appeared on both. They are one page now.
+              The free work still comes before any price, and /free 301s here
+              to #free. */}
           <SplitHeading>Your Whole Online Presence</SplitHeading>
-          <p className="topbar__sub">Website, Google profile, content &amp; brand</p>
+          <p className="topbar__sub">Start free, or have it all done</p>
         </div>
       </header>
 
-      {/* Hero: book the meeting */}
-      <motion.section
-        className="card work-booking work-booking--hero"
-        variants={cardIn}
-        initial="hidden"
-        animate="show"
-      >
-        <div className="work-booking__grid">
-          <div className="work-booking__head">
-            <h2 className="card-title">Book a Free 30-Min Call</h2>
-            <p className="card-body">
-              Content that sells and design that stands out. Pick a time and we&apos;ll
-              plan it together. No pitch, no obligation.
-            </p>
-            <a
-              className="btn-book work-booking__direct"
-              href={CONTACT.calendly}
-              target="_blank"
-              rel="noreferrer"
-            >
-              Open in Calendly
-            </a>
-          </div>
-          {/* Gated. The Calendly iframe used to load with the page, which
-              handed every visitor to /work-with-me to Calendly whether or not
-              they ever intended to book. The "Open in Calendly" link above and
-              the fallback link below both still work without loading anything
-              here, so nobody is forced through this to book. */}
-          <ConsentEmbed
-            provider="Calendly"
-            label="Booking calendar"
-            className="consent-embed--calendly"
-          >
-            {() => (
-              <iframe
-                className="calendly-frame"
-                src={CALENDLY_EMBED}
-                title="Book a free 30-minute meeting with Tamer"
-              />
-            )}
-          </ConsentEmbed>
-        </div>
-        <p className="price-note">
-          Calendar not loading?{" "}
-          <a
-            className="work-booking__fallback"
-            href={CONTACT.calendly}
-            target="_blank"
-            rel="noreferrer"
-          >
-            Open Calendly in a new tab
-          </a>{" "}
-          or send a message below.
+      {/* The whole page in one card: what is free, what each paid thing
+          costs, and a jump to it. Someone who reads only this knows the full
+          menu and where to tap. */}
+      <motion.section className="card freehero glance-hero" variants={cardIn} initial="hidden" animate="show">
+        <h2 className="freehero__title">
+          I would rather you had the work
+          <br />
+          <span className="storehead__accent">than a sales pitch about it.</span>
+        </h2>
+        <p className="card-body freehero__body">
+          Take something free first. If you want it done properly after that, every price is
+          below, and the whole thing goes live in one day.
         </p>
+        <nav className="glance" aria-label="On this page">
+          {GLANCE.map((g) => (
+            <a className="glance__item" href={`#${g.id}`} key={g.id}>
+              <span className="glance__name">{g.name}</span>
+              <span className="glance__what">{g.what}</span>
+              <span className="glance__price">{g.price}</span>
+            </a>
+          ))}
+        </nav>
+        <div className="freehero__acts">
+          <a className="btn-book" href={CONTACT.calendly} target="_blank" rel="noreferrer noopener">
+            Book a free 30-min call
+          </a>
+          <a className="btn-book buy-alt" href="#message">
+            Or send a message
+          </a>
+        </div>
       </motion.section>
 
-      {/* Credibility before the ask */}
+      <div id="free" className="anchor" />
+      <FreeOffers
+        title="Start free"
+        accent="free"
+        lede="Each one is finished work you keep. The line under each card says what the paid next step costs, if you ever want it."
+      />
+
+      {/* Credibility between the free work and the first price. */}
       <TrustedBy />
       <Testimonials />
-
-      {/* Every free way in, ahead of every price on this page. Someone who
-          lands on the pricing page and isn't ready to buy should still leave
-          with something rather than leaving with nothing. */}
-      <FreeOffers
-        title="Before any of this, take something"
-        accent="free"
-        lede="Nothing on this page is the first step. These are. Real work, delivered at no cost, so you can judge it before you pay for any of it."
-      />
 
       {/* The flagship, and the only thing on this page sold as an outcome
           rather than a deliverable. It sits after the free offers and before
@@ -120,10 +104,10 @@ export default function WorkWithMe() {
       {/* Google Business Profile on its own. It belongs beside the bundle
           rather than buried in it, because it is the cheapest, fastest thing
           Tamer sells: the map listing sits above the organic results for a
-          nearby search, and it can be fixed in a week without touching the
+          nearby search, and it can be set up in a day without touching the
           website. It is also the natural first sale to someone not ready to
           commit to a build. */}
-      <section className="proj-section">
+      <section className="proj-section" id="google-profile">
         <h2 className="proj-section__title">Just the Google Profile</h2>
         <p className="page-lead" style={{ marginTop: "-4px" }}>
           Want to start smaller? Start with your Google listing. When
@@ -157,7 +141,7 @@ export default function WorkWithMe() {
       </section>
 
       {/* Social media */}
-      <section className="proj-section">
+      <section className="proj-section" id="social">
         <h2 className="proj-section__title">Social Media</h2>
         <p className="page-lead" style={{ marginTop: "-4px" }}>
           Reels reach more people than any other post. Mine have done 855K+ views, with six past 20,000
@@ -187,14 +171,7 @@ export default function WorkWithMe() {
               features={p.features}
               bonus={p.bonus}
               action={
-                <a
-                  className="btn-book"
-                  href="#top"
-                  onClick={(e) => {
-                    e.preventDefault();
-                    window.scrollTo({ top: 0, behavior: "smooth" });
-                  }}
-                >
+                <a className="btn-book" href="#book">
                   {p.cta}
                 </a>
               }
@@ -225,7 +202,7 @@ export default function WorkWithMe() {
       </section>
 
       {/* Design & identities, Clothing */}
-      <section className="proj-section">
+      <section className="proj-section" id="one-off">
         <h2 className="proj-section__title">One-off Work</h2>
         <motion.div
           className="cat-grid"
@@ -268,19 +245,39 @@ export default function WorkWithMe() {
         </p>
       </section>
 
-      {/* Message form */}
-      <section className="proj-section">
+      {/* The close: book a time, or write. The calendar used to open the
+          page; it sits at the end now, where someone who has read the prices
+          is ready to use it, and the summary card at the top links straight
+          to Calendly for anyone who already is. */}
+      <section className="proj-section" id="book">
+        <h2 className="proj-section__title">Book a Call</h2>
+        <motion.section className="card work-booking" variants={cardIn} initial="hidden" whileInView="show" viewport={{ once: true, margin: "-40px" }}>
+          <div className="work-booking__grid">
+            <div className="work-booking__head">
+              <h3 className="card-title">Free 30 minutes</h3>
+              <p className="card-body">
+                Pick a time and we&apos;ll plan it together. No pitch, no obligation.
+              </p>
+              <a className="btn-book work-booking__direct" href={CONTACT.calendly} target="_blank" rel="noreferrer">
+                Open in Calendly
+              </a>
+            </div>
+            {/* Gated, so Calendly only loads for someone who asks for it. */}
+            <ConsentEmbed provider="Calendly" label="Booking calendar" className="consent-embed--calendly">
+              {() => <iframe className="calendly-frame" src={CALENDLY_EMBED} title="Book a free 30-minute meeting with Tamer" />}
+            </ConsentEmbed>
+          </div>
+        </motion.section>
+      </section>
+
+      <section className="proj-section" id="message">
         <h2 className="proj-section__title">Send a Message</h2>
-        <motion.div
-          className="card work-message"
-          variants={cardIn}
-          initial="hidden"
-          animate="show"
-        >
+        <motion.div className="card work-message" variants={cardIn} initial="hidden" whileInView="show" viewport={{ once: true, margin: "-40px" }}>
           <p className="card-body">
-            Tell me what you need and I&apos;ll get back to you.
+            Took something free, want the paid version, or just have a question? Write it here
+            and I&apos;ll get back to you.
           </p>
-          <MessageForm />
+          <MessageForm placeholder="What do you need?" />
         </motion.div>
       </section>
     </Page>

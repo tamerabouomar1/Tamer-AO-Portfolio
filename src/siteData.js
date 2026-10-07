@@ -920,6 +920,11 @@ export const MOTION_REELS = [
     cta: { label: "Get yours set up in one day", to: "/work-with-me#online-presence" },
   },
   {
+    title: "Three pins, then everyone else",
+    src: "/assets/motion/design-map-pack.mp4",
+    desc: "A narrated reel on the map that shows up above every website when someone nearby searches, and what gets a business into its top three.",
+  },
+  {
     title: "Built to be remembered",
     src: "/assets/motion/design-glow-system.mp4",
     desc: "A dot becomes a ring, a sparkle, a pill and finally a brand card, all one continuous glowing shape.",
@@ -2490,7 +2495,7 @@ export const SERVICE_PAGES = [
         a: "Yes, and it changes how the mark should be drawn. A logo that only works on a website falls apart embroidered on a sleeve. Rashguards, fight kits, retail packaging and print are all work I do regularly.",
       },
     ],
-    cta: { label: "Claim the free teardown", to: "/free" },
+    cta: { label: "Claim the free teardown", to: "/work-with-me#free" },
   },
 
   {
@@ -2925,7 +2930,7 @@ export const SERVICE_PAGES = [
         a: "Yes. The Combat Sports Academy, MoCars and BIAF animations are on the media page. A logo animation is valued at $150 and comes free with a website build and with the Premium content package.",
       },
     ],
-    cta: { label: "Claim the free reel", to: "/free" },
+    cta: { label: "Claim the free reel", to: "/work-with-me#free" },
   },
 
   /* The agency search. "marketing agency in lebanon", "digital marketing

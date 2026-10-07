@@ -25,11 +25,6 @@ export const PAGE_META = {
     description:
       "Brand identity, logos, logo motion and apparel design in Beirut. Work for OKIRO, 10th Planet Jiu Jitsu, FabricAID and Combat Sports Academy, by Tamer Abou Omar.",
   },
-  "/free": {
-    title: "Free Website Templates, Brand Teardown & Reel",
-    description:
-      "Four things that cost nothing: a finished website in full source, a brand teardown, your first reel edited, or an hour of coaching. No card, no obligation.",
-  },
   "/projects": {
     title: "Design & Branding Projects",
     description:
@@ -120,9 +115,9 @@ export const PAGE_META = {
      components rather than the outcome. The page now leads with the whole
      online presence, and the title has to agree with the h1. */
   "/work-with-me": {
-    title: "Your Whole Online Presence",
+    title: "Your Whole Online Presence, Start Free",
     description:
-      "Website, Google profile and content run as one thing: $950 to set up, $349 a month. Or buy the pieces on their own. Every price in the open, Beirut-based.",
+      "Start free with a website template, brand teardown or your first reel. Or have the website, Google profile and content set up in one day: $950, then $349 a month.",
   },
 
   /* The policy pages.

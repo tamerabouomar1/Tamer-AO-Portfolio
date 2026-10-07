@@ -99,9 +99,11 @@ export const Icon = {
 
 /* Full navigation, in sidebar order.
    `tab` marks the five items that get a permanent slot in the mobile bottom
-   bar — Home, the free offers, and the three things people pay for. Projects,
-   Media and About live behind "More": they are what someone reads to decide,
-   not what they arrive for.
+   bar. Media is third, straight after Services: the reels are the work most
+   people arrive from Instagram to see, so they get a tab of their own rather
+   than sitting behind "More". Start Free is gone as its own entry; it was
+   merged into Services, which opens with the free offers. Projects and About
+   live behind "More".
 
    The ready-made site store deliberately has NO nav entry of its own: it is
    a section of the Websites page, which is where someone shopping for a
@@ -112,12 +114,11 @@ export const Icon = {
    is "Train" there while the sidebar keeps the full word. */
 export const NAV = [
   { to: "/", label: "Home", short: "Home", end: true, icon: Icon.home, tab: true },
-  { to: "/free", label: "Start Free", short: "Free", icon: Icon.free, tab: true },
-  { to: "/work-with-me", label: "Services", short: "Work", icon: Icon.work, tab: true },
+  { to: "/work-with-me", label: "Services", short: "Work", icon: Icon.work, tab: true, flag: "Free" },
+  { to: "/media", label: "Media", short: "Media", icon: Icon.videos, tab: true },
   { to: "/websites", label: "Websites", short: "Sites", icon: Icon.websites, tab: true },
   { to: "/fitness", label: "Fitness", short: "Train", icon: Icon.fitness, tab: true },
   { to: "/projects", label: "Projects", short: "Projects", icon: Icon.projects },
-  { to: "/media", label: "Media", short: "Media", icon: Icon.videos },
   { to: "/about", label: "About", short: "About", icon: Icon.about },
 ];
 

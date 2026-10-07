@@ -160,7 +160,7 @@ export default function Fitness() {
         <p className="price-note">
           Prices in USD. Nothing is charged on this site. Packages are arranged with me
           directly. Never trained with me before?{" "}
-          <Link className="link" to="/free">
+          <Link className="link" to="/work-with-me#free">
             Your first hour is free <span className="plus">+</span>
           </Link>
         </p>
@@ -301,7 +301,7 @@ export default function Fitness() {
             >
               {FITNESS.close.cta}
             </a>
-            <Link className="btn-book btn-book--lg btn-book--ghost" to="/free">
+            <Link className="btn-book btn-book--lg btn-book--ghost" to="/work-with-me#free">
               See what else is free
             </Link>
           </div>

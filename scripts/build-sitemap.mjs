@@ -33,7 +33,6 @@ const SITE = "https://tamerabouomar.com";
    about ranking against anyone else, so the spread is deliberately narrow. */
 const PAGES = [
   ["/", "weekly", "1.0"],
-  ["/free", "weekly", "0.9"],
   ["/websites", "weekly", "0.9"],
   // NOT /templates. That route is a client-side <Navigate> to /websites, so
   // it is a redirect rather than a destination: a crawler that runs no JS

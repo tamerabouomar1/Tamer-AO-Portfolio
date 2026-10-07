@@ -11,7 +11,6 @@ import { SERVICE_PAGES } from "./siteData";
 import { LEGAL_PAGES } from "./legalData";
 
 import Home from "./pages/Home";
-import Free from "./pages/Free";
 import Projects from "./pages/Projects";
 import Websites from "./pages/Websites";
 import TemplatePreview from "./pages/TemplatePreview";
@@ -22,11 +21,27 @@ import WorkWithMe from "./pages/WorkWithMe";
 import ServicePage from "./pages/ServicePage";
 import Legal from "./pages/Legal";
 
+/* New page: start at the top. New page with a #hash (the /media card's
+   "/work-with-me#online-presence", the /free redirect to "#free"): go to that
+   section instead. This used to scroll to the top unconditionally, so every
+   deep link landed on the page header. The new page only mounts after the old
+   one has animated out, so the target is looked for every 100ms for up to
+   two seconds rather than once. */
 function ScrollToTop() {
-  const { pathname } = useLocation();
+  const { pathname, hash } = useLocation();
   useEffect(() => {
     window.scrollTo(0, 0);
-  }, [pathname]);
+    if (!hash) return;
+    const id = decodeURIComponent(hash.slice(1));
+    let tries = 0;
+    const timer = setInterval(() => {
+      const el = document.getElementById(id);
+      if (el || ++tries > 20) clearInterval(timer);
+      // a hidden tab does not animate a smooth scroll, so it jumps there instead
+      if (el) el.scrollIntoView({ behavior: document.hidden ? "auto" : "smooth", block: "start" });
+    }, 100);
+    return () => clearInterval(timer);
+  }, [pathname, hash]);
   return null;
 }
 
@@ -95,7 +110,9 @@ export default function App() {
         <AnimatePresence mode="wait">
           <Routes location={location} key={location.pathname}>
             <Route path="/" element={<Home />} />
-            <Route path="/free" element={<Free />} />
+            {/* Start Free was merged into Services. The worker 301s /free too;
+                this covers in-app navigation from an old link. */}
+            <Route path="/free" element={<Navigate to={{ pathname: "/work-with-me", hash: "#free" }} replace />} />
             <Route path="/projects" element={<Projects />} />
             <Route path="/websites" element={<Websites />} />
             {/* The store is a section of Websites now, not its own page. */}

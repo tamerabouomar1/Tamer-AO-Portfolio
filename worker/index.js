@@ -76,6 +76,12 @@ const ALLOWED_ORIGINS = [
  * than remember both. */
 const CANONICAL_HOST = "tamerabouomar.com";
 
+/* Old path → where its content lives now. Start Free was merged into
+   Services on 2026-10-07, opening at the free offers. */
+const MERGED_PAGES = {
+  "/free": "/work-with-me#free",
+};
+
 function canonicalRedirect(request) {
   const url = new URL(request.url);
 
@@ -724,6 +730,13 @@ export default {
     // workers.dev host both land on the canonical domain, path intact.
     const moved = canonicalRedirect(request);
     if (moved) return moved;
+
+    // Pages that were merged into another one. 301 so search engines move
+    // the old page's signals across instead of keeping a dead URL.
+    const merged = MERGED_PAGES[pathname.replace(/\/+$/, "") || "/"];
+    if (merged && (request.method === "GET" || request.method === "HEAD")) {
+      return Response.redirect(`https://${CANONICAL_HOST}${merged}`, 301);
+    }
 
     if (pathname === `/${GSC_TOKEN}.html`) {
       return new Response(`google-site-verification: ${GSC_TOKEN}.html`, {
