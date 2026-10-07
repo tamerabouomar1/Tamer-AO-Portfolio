@@ -115,7 +115,7 @@ export default function WorkWithMe() {
           two seconds to reach the piece they want. It does NOT bury the
           numbers the way the old website flagship did, because it carries its
           own price and its own monthly in the close. */}
-      <OfferProgram program={PRESENCE} id="online-presence" phasesTitle="How the first month runs" />
+      <OfferProgram program={PRESENCE} id="online-presence" phasesTitle="How the day runs" />
 
       {/* Google Business Profile on its own. It belongs beside the bundle
           rather than buried in it, because it is the cheapest, fastest thing

@@ -192,7 +192,7 @@ That writes a \`dist/\` folder of plain static files. Any host will serve it:
 ## Want it done for you?
 
 Send your copy, photos and brand and I will have it live on your domain, with
-SSL and a working contact form, inside a week. WhatsApp +961 70477595 or email
+SSL and a working contact form, within one day. WhatsApp +961 70477595 or email
 tamerabouomar1@gmail.com.
 
 ## License

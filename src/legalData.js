@@ -291,13 +291,13 @@ export const TERMS = {
     {
       h: "The guarantees",
       p: [
-        "Several services on this site carry a specific guarantee: a site live within seven days or you do not pay, downtime beyond a day making that month free, results not beating an agreed baseline meaning I work the following months free. These are real and I intend to honour them. They are also conditional, and the conditions are part of the promise:",
+        "Several services on this site carry a specific guarantee: a site live within one day or you do not pay, downtime beyond a day making that month free, results not beating an agreed baseline meaning I work the following months free. These are real and I intend to honour them. They are also conditional, and the conditions are part of the promise:",
       ],
       list: [
         "The baseline is written down and agreed by both of us before work starts. A guarantee measured against a number produced afterwards is not measurable, so no baseline means no guarantee.",
         "The guarantee assumes you do your part: supplying content and approvals, keeping the agreed access, and not making changes that undo the work.",
         "A guarantee paid in my continued work is exactly that. Unless the page for that service says a payment is refunded, the remedy is my time, not your money back.",
-        "Guarantees do not cover things outside my control: a platform changing its rules, a hosting outage at the provider, your business closing or changing what it sells, or a third party taking your account down.",
+        "Guarantees do not cover things outside my control: a platform changing its rules, Google taking extra days over its own verification check, a hosting outage at the provider, your business closing or changing what it sells, or a third party taking your account down.",
       ],
       after: [
         "Where a page's wording and this section disagree about a specific service, the page for that service wins, because that is what you actually read when you bought it.",

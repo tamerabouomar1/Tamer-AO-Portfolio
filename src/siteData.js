@@ -1898,7 +1898,7 @@ export const SERVICE_PACKAGES = [
       "One round of revisions",
     ],
     bonus: "Free logo animation for your hero",
-    guarantee: "Live within 7 days of getting your content, or you don't pay.",
+    guarantee: "Live within one day of getting your content, or you don't pay.",
   },
   {
     /* The FabricAID number, and the one most businesses actually buy: a whole
@@ -1909,7 +1909,7 @@ export const SERVICE_PACKAGES = [
     name: "The Whole Site, Live and Found",
     tagline: "Up to six pages, launched and on Google",
     flat: 850,
-    period: "one-off · about three weeks",
+    period: "one-off · live in one day",
     featured: true,
     badge: "Most bought",
     features: [
@@ -2048,7 +2048,7 @@ export const WEBSITE_CARE_NOTES = [
 //
 // `promise` is the dream outcome stated as something they can picture,
 // `proof` raises the likelihood with work already live, `weeks` collapses the
-// time delay by showing the first win inside seven days, `effort` removes the
+// time delay by putting the whole thing live inside one day, `effort` removes the
 // sacrifice, and the guarantee removes the risk of trying.
 //
 // WHY IT IS A RETAINER, not another one-off. A website is a thing you buy
@@ -2079,10 +2079,10 @@ export const WEBSITE_CARE_NOTES = [
 /** Google Business Profile, sold on its own as well as inside the bundle.
  *  It is the fastest win Tamer has: the map listing is what a nearby search
  *  actually returns, it sits above the organic results, and it can be fixed
- *  in a week without touching the website. */
+ *  in a day without touching the website. */
 export const GOOGLE_PROFILE = {
   price: 250,
-  period: "one-off, live within 7 days",
+  period: "one-off, set up within one day",
   name: "Google Business Profile Setup",
   tagline: "The listing people see before they see your site",
   features: [
@@ -2095,7 +2095,7 @@ export const GOOGLE_PROFILE = {
     "Posts and offers scheduled for the first month",
   ],
   bonus: "Free walkthrough so you can post to it yourself afterwards",
-  guarantee: "Live and verified within 7 days of getting your details, or you don't pay.",
+  guarantee: "Set up within one day of getting your details, or you don't pay.",
 };
 
 export const PRESENCE = {
@@ -2145,24 +2145,23 @@ export const PRESENCE = {
     },
   ],
 
-  /* Time delay collapsed. The first win lands inside a week, before a single
-     page of the site exists, which is the whole reason the Google profile is
-     done first rather than last. */
+  /* Time delay collapsed to one day. The Google profile still goes first, so
+     the map listing is working before the site has even launched. */
   phases: [
     {
-      weeks: "Week 1",
+      weeks: "Morning",
       title: "You are on the map",
       body:
         "Your Google profile claimed, corrected and live: categories, service areas, hours, photos, the booking link and the review link. This starts producing calls before the site is built.",
     },
     {
-      weeks: "Week 2",
+      weeks: "Midday",
       title: "The site takes shape",
       body:
         "Your pages, written and designed around what you sell. You review it once, as a single list of changes, and I make them.",
     },
     {
-      weeks: "Week 3",
+      weeks: "By the evening",
       title: "It goes live",
       body:
         "Launched on your own domain, fast and secure, and submitted to Google with the search setup finished.",
@@ -2190,7 +2189,7 @@ export const PRESENCE = {
   ],
 
   price: 950,
-  period: "to set the whole thing up, about three weeks",
+  period: "to set the whole thing up, in one day",
 
   /* The retainer. A website is bought once; a presence is kept. Profiles rot:
      hours go stale, reviews go unanswered, competitors post and you do not.
@@ -2308,7 +2307,7 @@ export const SERVICE_PAGES = [
       {
         title: "What it costs",
         body:
-          "A full site, up to six pages, designed, launched, optimised and submitted to Google, is $850 as a one-off and takes about three weeks. Then a monthly plan keeps it online and looked after:",
+          "A full site, up to six pages, designed, launched, optimised and submitted to Google, is $850 as a one-off and goes live in one day. Then a monthly plan keeps it online and looked after:",
         bullets: [
           "$30 a month for hosting and monitoring alone",
           "$100 a month with five content edits and a quarterly report",
@@ -2332,7 +2331,7 @@ export const SERVICE_PAGES = [
       },
       {
         q: "How long does it take?",
-        a: "A single page from the gallery is live within 7 days of you sending your content, or you do not pay. A full six-page build runs about three weeks: week one is your content edits and revisions, week two is launch on your own domain, week three is the SEO setup and handover. That timeline holds as long as your changes come back as one list.",
+        a: "One day. A single page from the gallery is live within one day of you sending your content, or you do not pay. A full six-page build takes the same day: your content and one round of changes in the morning, launch on your own domain by midday, the SEO setup and handover by the evening. That holds as long as your changes come back as one list.",
       },
       {
         q: "Do I own the website?",
@@ -2381,7 +2380,7 @@ export const SERVICE_PAGES = [
         {
           title: "كم يكلّف",
           body:
-            "موقع كامل حتى ست صفحات، مصمَّم ومُطلَق ومُحسَّن ومُرسَل إلى جوجل، بسعر 850$ لمرة واحدة ويستغرق نحو ثلاثة أسابيع. بعدها خطة شهرية تُبقيه شغّالاً ومُعتنى به:",
+            "موقع كامل حتى ست صفحات، مصمَّم ومُطلَق ومُحسَّن ومُرسَل إلى جوجل، بسعر 850$ لمرة واحدة ويصبح جاهزاً خلال يوم واحد. بعدها خطة شهرية تُبقيه شغّالاً ومُعتنى به:",
           bullets: [
             "30$ شهرياً للاستضافة والمراقبة فقط",
             "100$ شهرياً مع خمسة تعديلات على المحتوى وتقرير كل ثلاثة أشهر",
@@ -2405,7 +2404,7 @@ export const SERVICE_PAGES = [
         },
         {
           q: "كم يستغرق إنجاز الموقع؟",
-          a: "الصفحة الواحدة من المعرض تكون جاهزة خلال 7 أيام من إرسال المحتوى، وإلا لا تدفع. الموقع الكامل من ست صفحات يستغرق نحو ثلاثة أسابيع: الأسبوع الأول للتعديلات والمراجعات، والثاني للإطلاق على نطاقك، والثالث لإعداد SEO والتسليم. هذا الجدول ثابت طالما تصلني تعديلاتك في قائمة واحدة.",
+          a: "يوم واحد. الصفحة الواحدة من المعرض تكون جاهزة خلال يوم واحد من إرسال المحتوى، وإلا لا تدفع. والموقع الكامل من ست صفحات يُنجَز في اليوم نفسه: المحتوى وجولة تعديلات واحدة في الصباح، والإطلاق على نطاقك عند الظهر، وإعداد SEO والتسليم بحلول المساء. هذا الجدول ثابت طالما تصلني تعديلاتك في قائمة واحدة.",
         },
         {
           q: "هل أملك الموقع؟",
@@ -2640,7 +2639,7 @@ export const SERVICE_PAGES = [
       {
         title: "What it costs",
         body:
-          "A full site, up to six pages, designed, launched and set up to be found, is $850 one off and takes about three weeks. Keeping it alive afterwards:",
+          "A full site, up to six pages, designed, launched and set up to be found, is $850 one off and goes live in one day. Keeping it alive afterwards:",
         bullets: [
           "$30 a month for hosting and monitoring",
           "$100 a month with five content edits",
@@ -2673,7 +2672,7 @@ export const SERVICE_PAGES = [
       },
       {
         q: "How long does it take?",
-        a: "About three weeks for a full build: your edits and revisions in week one, launch on your own domain in week two, the SEO setup and handover in week three. A single page from the gallery is live within 7 days of your content arriving, or you do not pay.",
+        a: "One day for a full build: your edits and revisions in the morning, launch on your own domain by midday, the SEO setup and handover by the evening. A single page from the gallery is live within one day of your content arriving, or you do not pay.",
       },
     ],
     cta: { label: "See the offer", to: "/websites" },
@@ -2694,7 +2693,7 @@ export const SERVICE_PAGES = [
       {
         title: "Why this beats a website to the punch",
         body:
-          "A site takes three weeks. A profile takes one, and it is the thing standing between you and the person searching right now. Hours, photos, services, the booking link and the reviews all live there, and Google shows it to people within a few streets of you without anybody clicking through to anything. If you only ever fix one thing online, fix this one first.",
+          "A site takes a day. So does a profile, and it is the thing standing between you and the person searching right now. Hours, photos, services, the booking link and the reviews all live there, and Google shows it to people within a few streets of you without anybody clicking through to anything. If you only ever fix one thing online, fix this one first.",
       },
       {
         title: "What gets done",
@@ -2718,7 +2717,7 @@ export const SERVICE_PAGES = [
       {
         title: "What it costs",
         body:
-          "$250 one-off, live and verified within 7 days of you sending your details, or you do not pay. If you want the site, the profile and the content run as one thing instead of three, that is The Whole Online Presence: $950 to set up and $349 a month, against $1,250 and $389 buying the same pieces separately.",
+          "$250 one-off, set up within one day of you sending your details, or you do not pay. If you want the site, the profile and the content run as one thing instead of three, that is The Whole Online Presence: $950 to set up and $349 a month, against $1,250 and $389 buying the same pieces separately.",
       },
     ],
     proof: [
@@ -2730,7 +2729,7 @@ export const SERVICE_PAGES = [
     faqs: [
       {
         q: "How much does Google Business Profile setup cost in Lebanon?",
-        a: "$250 as a one-off, live and verified within 7 days of getting your details or you do not pay. It is also included in The Whole Online Presence, which is $950 to set up the site and the profile together and $349 a month to keep both running.",
+        a: "$250 as a one-off, set up within one day of getting your details or you do not pay. It is also included in The Whole Online Presence, which is $950 to set up the site and the profile together and $349 a month to keep both running.",
       },
       {
         q: "I already have a listing. Do I still need this?",
@@ -2746,7 +2745,7 @@ export const SERVICE_PAGES = [
       },
       {
         q: "How long before it makes a difference?",
-        a: "The listing itself is live within 7 days. Movement in the map results is usually a few weeks, and it depends on how many businesses near you are competing for the same search. Reviews are the fastest lever after setup, which is why you get the link and the message to ask with.",
+        a: "The listing is set up within one day. Google then runs its own verification check, a video, a call or a postcard, which can take a few extra days on their side. Movement in the map results is usually a few weeks, and it depends on how many businesses near you are competing for the same search. Reviews are the fastest lever after setup, which is why you get the link and the message to ask with.",
       },
       {
         q: "Can you do it for more than one location?",
@@ -2774,8 +2773,8 @@ export const SERVICE_PAGES = [
         body: "Four prices cover almost every small business:",
         bullets: [
           "$0 for a finished template from the free gallery, in full source, if you can set it up yourself",
-          "$350 one-off for a single page set up for you, live within 7 days of sending your content or you do not pay",
-          "$850 one-off for a full site of up to six pages, launched on your own domain and set up to be found on Google, in about three weeks",
+          "$350 one-off for a single page set up for you, live within one day of sending your content or you do not pay",
+          "$850 one-off for a full site of up to six pages, launched on your own domain and set up to be found on Google, in one day",
           "From $1,500 for a site built from scratch with a shop, accounts, payments or a second language, quoted as a fixed price first",
         ],
       },
@@ -2821,7 +2820,7 @@ export const SERVICE_PAGES = [
     faqs: [
       {
         q: "What is the cheapest way to get a website in Lebanon?",
-        a: "Free, if you can set it up yourself: the gallery on this site gives away finished templates in full source. Done for you, a single page is $350 as a one-off and is live within 7 days of you sending your content, or you do not pay.",
+        a: "Free, if you can set it up yourself: the gallery on this site gives away finished templates in full source. Done for you, a single page is $350 as a one-off and is live within one day of you sending your content, or you do not pay.",
       },
       {
         q: "What exactly does the $850 website include?",
@@ -2941,7 +2940,7 @@ export const SERVICE_PAGES = [
         title: "What it costs",
         body: "One setup fee, one monthly, both written down before we speak:",
         bullets: [
-          "$950 to set the whole thing up in about three weeks: a website of up to six pages, your Google Business Profile, and a logo animation for your hero",
+          "$950 to set the whole thing up in one day: a website of up to six pages, your Google Business Profile, and a logo animation for your hero",
           "$349 a month after that: hosting and up to 15 edits, plus eight pieces of content a month posted to your socials and your Google listing",
           "The monthly cancels with 30 days' notice",
           "Or buy one piece on its own: $250 for the Google profile, $850 for the website, from $199 a month for content",
@@ -2989,7 +2988,7 @@ export const SERVICE_PAGES = [
       },
       {
         q: "Can I start smaller?",
-        a: "Yes. The Google profile alone is $250 and is live within 7 days or you do not pay. Or start free: a recorded brand teardown, your first reel edited, or a finished website template, none of which needs a card.",
+        a: "Yes. The Google profile alone is $250 and is set up within one day or you do not pay. Or start free: a recorded brand teardown, your first reel edited, or a finished website template, none of which needs a card.",
       },
     ],
     cta: { label: "See the whole offer", to: "/work-with-me" },
