@@ -566,6 +566,69 @@ const GSC_TOKEN = "googlecdc160a1620c12b8";
 const MEMBER_PREFIX = "member:";
 
 /** The slug in /downloads/<slug>-template.zip, or "". */
+/* Byte ranges for video. The static-asset layer answers a `Range: bytes=…`
+   request with the whole file and a 200, and Safari on iPhone is strict about
+   this for <video>: it probes with a range and expects 206 Partial Content
+   before it will play or seek. So for video responses this advertises
+   Accept-Ranges and answers a single range with a 206, slicing the asset
+   stream rather than buffering the file (the largest edit is 22 MB). */
+function sliceStream(body, start, end) {
+  const want = end - start + 1;
+  let pos = 0;
+  let sent = 0;
+  return body.pipeThrough(
+    new TransformStream({
+      transform(chunk, ctl) {
+        const from = pos;
+        pos += chunk.byteLength;
+        if (pos <= start || sent >= want) return;
+        const a = Math.max(0, start - from);
+        const b = Math.min(chunk.byteLength, a + (want - sent));
+        const part = chunk.subarray(a, b);
+        sent += part.byteLength;
+        ctl.enqueue(part);
+      },
+    }),
+  );
+}
+
+async function withByteRanges(request, res) {
+  const type = res.headers.get("content-type") || "";
+  if (res.status !== 200 || !/^video\//.test(type)) return res;
+  const headers = new Headers(res.headers);
+  headers.set("accept-ranges", "bytes");
+  const m = /^bytes=(\d*)-(\d*)$/.exec((request.headers.get("range") || "").trim());
+  if (!m || (m[1] === "" && m[2] === "")) return new Response(res.body, { status: 200, headers });
+  // The asset layer does not always say how big the file is (the edge adds
+  // Content-Length later). Without it, read the file once to measure it.
+  let size = Number(res.headers.get("content-length"));
+  let body = res.body;
+  if (!Number.isFinite(size) || size <= 0) {
+    const buf = await res.arrayBuffer();
+    size = buf.byteLength;
+    body = new Response(buf).body;
+  }
+  if (size <= 0) return new Response(body, { status: 200, headers });
+  let start, end;
+  if (m[1] === "") {
+    // suffix form, "bytes=-500": the last 500 bytes
+    start = Math.max(0, size - Number(m[2]));
+    end = size - 1;
+  } else {
+    start = Number(m[1]);
+    end = m[2] === "" ? size - 1 : Math.min(Number(m[2]), size - 1);
+  }
+  if (start >= size || start > end) {
+    headers.set("content-range", `bytes */${size}`);
+    headers.delete("content-length");
+    return new Response(null, { status: 416, headers });
+  }
+  headers.set("content-range", `bytes ${start}-${end}/${size}`);
+  headers.set("content-length", String(end - start + 1));
+  const out = request.method === "HEAD" || !body ? null : sliceStream(body, start, end);
+  return new Response(out, { status: 206, headers });
+}
+
 function zipSlug(pathname) {
   const m = /^\/downloads\/([a-z0-9-]+)-template\.zip$/i.exec(pathname);
   return m ? m[1].toLowerCase() : "";
@@ -755,7 +818,7 @@ export default {
           headers: { "content-type": "text/plain; charset=utf-8", "cache-control": "no-store" },
         });
       }
-      return res;
+      return await withByteRanges(request, res);
     }
 
     /* The runnable client-site copies under /demo/ must be served at the URL
