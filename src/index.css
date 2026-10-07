@@ -873,6 +873,34 @@ ul { margin: 0; padding: 0; list-style: none; }
   overflow: hidden;
 }
 .reel-card__frame video { width: 100%; height: 100%; object-fit: cover; display: block; }
+/* Motion design reels: the frame is a button that opens the reel with sound */
+.reel-card__play { border: 0; padding: 0; cursor: pointer; font: inherit; color: inherit; }
+.reel-card__sound {
+  position: absolute; right: 12px; bottom: 12px;
+  width: 40px; height: 40px; border-radius: 50%;
+  display: grid; place-items: center;
+  background: rgba(0, 0, 0, 0.55);
+  backdrop-filter: blur(6px); -webkit-backdrop-filter: blur(6px);
+  transition: transform 0.2s ease, background 0.2s ease;
+}
+.reel-card__sound svg { width: 20px; height: 20px; fill: none; stroke: #fff; stroke-width: 1.8; stroke-linecap: round; stroke-linejoin: round; }
+.reel-card__play:hover .reel-card__sound,
+.reel-card__play:focus-visible .reel-card__sound { transform: scale(1.1); background: rgba(0, 0, 0, 0.75); }
+
+/* Motion reel lightbox: a 9:16 player sized to the viewport */
+.reellb {
+  position: relative;
+  height: min(92vh, calc(92vw * 16 / 9));
+  aspect-ratio: 9 / 16;
+  background: #000;
+  border: 1px solid var(--line);
+  border-radius: 14px;
+  overflow: hidden;
+  box-shadow: 0 30px 90px rgba(0, 0, 0, 0.65);
+  touch-action: pan-y pinch-zoom;
+}
+.reellb video { width: 100%; height: 100%; object-fit: contain; display: block; background: #000; }
+.reellb .lightbox__close { z-index: 2; }
 .reel-card__body { padding: clamp(14px, 1.4vw, 20px); }
 .reel-card__head { display: flex; align-items: baseline; gap: 10px; flex-wrap: wrap; }
 .reel-card__head .web-card__title { margin-bottom: 0; }

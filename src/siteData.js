@@ -903,6 +903,73 @@ export const LOGO_MOTIONS = [
   },
 ];
 
+/* Motion design reels, the first section on /media. Each was animated and
+   scored for Instagram (sources live in Desktop/claude/content-studio) and
+   re-encoded to 720x1280 for the site. Order is strongest first. `desc` doubles
+   as the VideoObject description, so it says what happens in the clip. */
+export const MOTION_REELS = [
+  {
+    title: "Built to be remembered",
+    src: "/assets/motion/design-glow-system.mp4",
+    desc: "A dot becomes a ring, a sparkle, a pill and finally a brand card, all one continuous glowing shape.",
+  },
+  {
+    title: "Most brands blend in",
+    src: "/assets/motion/design-design-manifesto.mp4",
+    desc: "Flat colour and wide type, cut on the beat, making the case that good design gets noticed and great design gets booked.",
+  },
+  {
+    title: "The 5-second test",
+    src: "/assets/motion/design-five-second-test.mp4",
+    desc: "Five questions a stranger should answer about a website in five seconds, counted down with a new treatment for every number.",
+  },
+  {
+    title: "Same words, different business",
+    src: "/assets/motion/design-same-words.mp4",
+    desc: "One line set four ways to show how type alone changes what a business feels like.",
+  },
+  {
+    title: "3 signs your logo is costing you",
+    src: "/assets/motion/design-logo-signs.mp4",
+    desc: "Too many colours, unreadable at icon size, looks like everyone else. Each one shown and fixed on a made-up brand.",
+  },
+  {
+    title: "Hierarchy, Swiss style",
+    src: "/assets/motion/design-swiss-hierarchy.mp4",
+    desc: "A flat flyer snaps into hierarchy on a six-column grid, using size, weight, colour and reading order.",
+  },
+  {
+    title: "How to look expensive",
+    src: "/assets/motion/design-luxe-expensive.mp4",
+    desc: "Space, fewer fonts, one accent colour. Three quiet moves in a bone, forest and brass editorial style.",
+  },
+  {
+    title: "A logo is not a brand",
+    src: "/assets/motion/design-riso-system.mp4",
+    desc: "A risograph zine where one mark is stamped onto a card, a cup, a tote and a sign, showing a brand as a system.",
+  },
+  {
+    title: "One logo isn't enough",
+    src: "/assets/motion/design-riso-logo-versions.mp4",
+    desc: "Wide, stacked and icon versions of one logo, stamped onto a sign, a social post, a browser tab and an app icon.",
+  },
+  {
+    title: "Print it in 3 inks",
+    src: "/assets/motion/design-riso-three-inks.mp4",
+    desc: "The 60/30/10 colour rule, shown as a poster printing pass by pass in risograph inks.",
+  },
+  {
+    title: "Before you print 1,000 flyers",
+    src: "/assets/motion/design-riso-flyer-check.mp4",
+    desc: "A four-point print check on a flyer, from reading distance to bleed, ending in an approval stamp.",
+  },
+  {
+    title: "How a brand is born",
+    src: "/assets/motion/design-riso-process.mp4",
+    desc: "A dot, a line and a shape with its anchor points, inked in risograph colours and set in motion.",
+  },
+];
+
 export const INSTAGRAM_REELS = [
   {
     title: "Side effects of jiu jitsu",

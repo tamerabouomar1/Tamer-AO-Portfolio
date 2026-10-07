@@ -143,6 +143,11 @@ function uploadDate(v) {
 
 function videoObjects() {
   const media = [
+    ...arrayOf("MOTION_REELS").map((v) => ({
+      ...v,
+      name: `${v.title}, motion design`,
+      description: v.desc,
+    })),
     ...arrayOf("LOGO_MOTIONS").map((v) => ({
       ...v,
       name: `${v.title}, logo motion`,

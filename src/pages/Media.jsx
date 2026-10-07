@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { Link } from "react-router-dom";
 import { motion, AnimatePresence } from "framer-motion";
 import Page, { container, cardIn } from "../components/Page";
@@ -10,6 +10,7 @@ import {
   INSTAGRAM_POSTS,
   INSTAGRAM_REELS,
   LOGO_MOTIONS,
+  MOTION_REELS,
   SOCIAL_POSTS,
   VIDEO_EDITS,
   posterFor,
@@ -43,8 +44,32 @@ const freshness = (iso) => {
   return weeks === 1 ? "1 week old" : `${weeks} weeks old`;
 };
 
+/* A reel that plays only while it is on screen. Twelve autoplaying clips on one
+   page would all start downloading at once on a phone; with preload="none" and
+   an IntersectionObserver each one loads and runs only when it is scrolled to,
+   and pauses again when it leaves. Muted + playsInline is what lets iOS start it
+   without a tap. */
+function LoopVideo({ src, label }) {
+  const ref = useRef(null);
+  useEffect(() => {
+    const v = ref.current;
+    if (!v || typeof IntersectionObserver === "undefined") return;
+    const io = new IntersectionObserver(
+      ([entry]) => {
+        if (entry.isIntersecting) v.play().catch(() => {});
+        else v.pause();
+      },
+      { threshold: 0.35 },
+    );
+    io.observe(v);
+    return () => io.disconnect();
+  }, []);
+  return <video ref={ref} src={src} poster={posterFor(src)} muted loop playsInline preload="none" aria-label={label} />;
+}
+
 export default function Media() {
   const [postIdx, setPostIdx] = useState(null); // social-post index or null
+  const [reelIdx, setReelIdx] = useState(null); // motion-reel index or null
 
   const nextPost = () => setPostIdx((i) => (i + 1) % SOCIAL_POSTS.images.length);
   const prevPost = () => setPostIdx((i) => (i - 1 + SOCIAL_POSTS.images.length) % SOCIAL_POSTS.images.length);
@@ -55,6 +80,29 @@ export default function Media() {
     onRight: prevPost,
     onDown: () => setPostIdx(null),
   });
+
+  const nextReel = () => setReelIdx((i) => (i + 1) % MOTION_REELS.length);
+  const prevReel = () => setReelIdx((i) => (i - 1 + MOTION_REELS.length) % MOTION_REELS.length);
+  const reelSwipe = useSwipe({
+    onLeft: nextReel,
+    onRight: prevReel,
+    onDown: () => setReelIdx(null),
+  });
+
+  useEffect(() => {
+    if (reelIdx === null) return;
+    const onKey = (e) => {
+      if (e.key === "Escape") setReelIdx(null);
+      else if (e.key === "ArrowRight") nextReel();
+      else if (e.key === "ArrowLeft") prevReel();
+    };
+    window.addEventListener("keydown", onKey);
+    document.body.style.overflow = "hidden";
+    return () => {
+      window.removeEventListener("keydown", onKey);
+      document.body.style.overflow = "";
+    };
+  }, [reelIdx]);
 
   useEffect(() => {
     if (postIdx === null) return;
@@ -75,7 +123,7 @@ export default function Media() {
     <Page>
       <header className="topbar">
         <div>
-          <SplitHeading>Logo Motion &amp; Video Editing</SplitHeading>
+          <SplitHeading>Motion Design &amp; Video Editing</SplitHeading>
           <p className="topbar__sub">Motion, edits &amp; social</p>
         </div>
         <Link className="link" to="/work-with-me">
@@ -84,6 +132,33 @@ export default function Media() {
       </header>
 
       <section className="proj-section" style={{ marginTop: 0 }}>
+        <h2 className="section-title">Motion Design</h2>
+        <p className="card-body" style={{ maxWidth: "70ch", marginBottom: 14 }}>
+          Design reels made for Instagram, with type, colour and shape in motion and each one
+          scored with its own original music. Tap any of them to watch it with sound.
+        </p>
+        <motion.div className="reel-grid" variants={container} initial="hidden" animate="show">
+          {MOTION_REELS.map((r, i) => (
+            <motion.article className="card reel-card" key={r.src} variants={cardIn}>
+              <button className="reel-card__frame reel-card__play" onClick={() => setReelIdx(i)} aria-label={`Play ${r.title} with sound`}>
+                <LoopVideo src={r.src} label={r.title} />
+                <span className="reel-card__sound" aria-hidden="true">
+                  <svg viewBox="0 0 24 24">
+                    <path d="M4 9.5h3.2L12 5.5v13l-4.8-4H4z" />
+                    <path d="M15.5 9a4.2 4.2 0 0 1 0 6M18.2 6.6a7.6 7.6 0 0 1 0 10.8" />
+                  </svg>
+                </span>
+              </button>
+              <div className="reel-card__body">
+                <h3 className="web-card__title">{r.title}</h3>
+                <p className="card-body">{r.desc}</p>
+              </div>
+            </motion.article>
+          ))}
+        </motion.div>
+      </section>
+
+      <section className="proj-section">
         <h2 className="section-title">Logo Motion</h2>
         <motion.div className="motion-grid" variants={container} initial="hidden" animate="show">
           {LOGO_MOTIONS.map((m) => (
@@ -246,6 +321,48 @@ export default function Media() {
           </div>
         </motion.div>
       </section>
+
+      <AnimatePresence>
+        {reelIdx !== null && (
+          <motion.div
+            className="lightbox"
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            exit={{ opacity: 0 }}
+            onClick={() => setReelIdx(null)}
+          >
+            <motion.div
+              className="reellb"
+              initial={{ scale: 0.96, opacity: 0 }}
+              animate={{ scale: 1, opacity: 1 }}
+              exit={{ scale: 0.96, opacity: 0 }}
+              transition={{ type: "spring", stiffness: 260, damping: 26 }}
+              onClick={(e) => e.stopPropagation()}
+              {...reelSwipe}
+            >
+              <button className="lightbox__close" onClick={() => setReelIdx(null)} aria-label="Close">
+                ×
+              </button>
+              {/* keyed so switching reels starts the new one from the top */}
+              <video
+                key={MOTION_REELS[reelIdx].src}
+                src={MOTION_REELS[reelIdx].src}
+                poster={posterFor(MOTION_REELS[reelIdx].src)}
+                controls
+                autoPlay
+                playsInline
+                aria-label={MOTION_REELS[reelIdx].title}
+              />
+              <button className="lb-nav lb-nav--prev" onClick={prevReel} aria-label="Previous reel">
+                ‹
+              </button>
+              <button className="lb-nav lb-nav--next" onClick={nextReel} aria-label="Next reel">
+                ›
+              </button>
+            </motion.div>
+          </motion.div>
+        )}
+      </AnimatePresence>
 
       <AnimatePresence>
         {postIdx !== null && (

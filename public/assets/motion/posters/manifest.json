@@ -1,4 +1,100 @@
 {
+  "design-design-manifesto.mp4": {
+    "poster": "/assets/motion/posters/design-design-manifesto.webp",
+    "posterWidth": 608,
+    "posterHeight": 1080,
+    "width": 720,
+    "height": 1280,
+    "duration": "PT14S"
+  },
+  "design-five-second-test.mp4": {
+    "poster": "/assets/motion/posters/design-five-second-test.webp",
+    "posterWidth": 608,
+    "posterHeight": 1080,
+    "width": 720,
+    "height": 1280,
+    "duration": "PT15S"
+  },
+  "design-glow-system.mp4": {
+    "poster": "/assets/motion/posters/design-glow-system.webp",
+    "posterWidth": 608,
+    "posterHeight": 1080,
+    "width": 720,
+    "height": 1280,
+    "duration": "PT17S"
+  },
+  "design-logo-signs.mp4": {
+    "poster": "/assets/motion/posters/design-logo-signs.webp",
+    "posterWidth": 608,
+    "posterHeight": 1080,
+    "width": 720,
+    "height": 1280,
+    "duration": "PT16S"
+  },
+  "design-luxe-expensive.mp4": {
+    "poster": "/assets/motion/posters/design-luxe-expensive.webp",
+    "posterWidth": 608,
+    "posterHeight": 1080,
+    "width": 720,
+    "height": 1280,
+    "duration": "PT16S"
+  },
+  "design-riso-flyer-check.mp4": {
+    "poster": "/assets/motion/posters/design-riso-flyer-check.webp",
+    "posterWidth": 608,
+    "posterHeight": 1080,
+    "width": 720,
+    "height": 1280,
+    "duration": "PT16S"
+  },
+  "design-riso-logo-versions.mp4": {
+    "poster": "/assets/motion/posters/design-riso-logo-versions.webp",
+    "posterWidth": 608,
+    "posterHeight": 1080,
+    "width": 720,
+    "height": 1280,
+    "duration": "PT16S"
+  },
+  "design-riso-process.mp4": {
+    "poster": "/assets/motion/posters/design-riso-process.webp",
+    "posterWidth": 608,
+    "posterHeight": 1080,
+    "width": 720,
+    "height": 1280,
+    "duration": "PT19S"
+  },
+  "design-riso-system.mp4": {
+    "poster": "/assets/motion/posters/design-riso-system.webp",
+    "posterWidth": 608,
+    "posterHeight": 1080,
+    "width": 720,
+    "height": 1280,
+    "duration": "PT16S"
+  },
+  "design-riso-three-inks.mp4": {
+    "poster": "/assets/motion/posters/design-riso-three-inks.webp",
+    "posterWidth": 608,
+    "posterHeight": 1080,
+    "width": 720,
+    "height": 1280,
+    "duration": "PT16S"
+  },
+  "design-same-words.mp4": {
+    "poster": "/assets/motion/posters/design-same-words.webp",
+    "posterWidth": 608,
+    "posterHeight": 1080,
+    "width": 720,
+    "height": 1280,
+    "duration": "PT15S"
+  },
+  "design-swiss-hierarchy.mp4": {
+    "poster": "/assets/motion/posters/design-swiss-hierarchy.webp",
+    "posterWidth": 608,
+    "posterHeight": 1080,
+    "width": 720,
+    "height": 1280,
+    "duration": "PT16S"
+  },
   "edit-athletes-night.mp4": {
     "poster": "/assets/motion/posters/edit-athletes-night.webp",
     "posterWidth": 960,

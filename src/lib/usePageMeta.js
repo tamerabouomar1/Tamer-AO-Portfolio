@@ -47,9 +47,9 @@ export const PAGE_META = {
       "A gallery of finished website templates, free in full React source. Plus what a built site costs: $350 for one page, $850 for a six-page build.",
   },
   "/media": {
-    title: "Logo Motion & Video Editing",
+    title: "Motion Design & Video Editing",
     description:
-      "Logo motion, video edits and social-media design, with the real Instagram posts and the view, like and comment counts they earned.",
+      "Twelve motion design reels with original music, plus logo motion, video edits and the real Instagram posts with the views, likes and comments they earned.",
   },
   "/about": {
     title: "About Tamer Abou Omar",
