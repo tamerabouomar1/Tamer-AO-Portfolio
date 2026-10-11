@@ -1,0 +1,8 @@
+# Standalone deploy config for the "$1 Fund" page.
+# Deploy this as its OWN Netlify site (separate from the portfolio):
+#   New site → pick this repo → set "Base directory" to `fund`.
+# No build step is needed — it's a single static file.
+[build]
+  base    = "fund"
+  publish = "."
+  command = ""
