@@ -8,9 +8,9 @@ import "./oddy.css";
    partner CTA, footer and a floating bottom nav.
 
    Type note: the reference design pairs PP Neue Montreal (body) with
-   PP Mondwest (the serif accent). Neue Montreal is loaded from Webflow's
-   CDN in oddy.css; Mondwest is a licensed face with no free CDN, so the
-   `.od-serif` class falls back to a book serif stack. Drop
+   PP Mondwest (the serif accent). Both are licensed, so the body uses
+   Switzer from Fontshare, the closest free match; Mondwest has no free CDN,
+   so the `.od-serif` class falls back to a book serif stack. Drop
    PPMondwest-Regular.woff2 into /public and the @font-face in oddy.css
    picks it up with no other change. */
 
@@ -489,7 +489,7 @@ function Footer() {
 }
 
 export default function OddySite() {
-  useTemplateFont(null); // fonts for this template come from oddy.css @font-face
+  useTemplateFont("https://api.fontshare.com/v2/css?f[]=switzer@400,500&display=swap");
 
   return (
     <div className="od">

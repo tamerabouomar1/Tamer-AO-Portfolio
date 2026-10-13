@@ -20,9 +20,11 @@ import "./atlas.css";
       rather than a slider, so keep it if you retime anything. Under
       prefers-reduced-motion it is bypassed and values snap. */
 
-const FONT = "Ogg Medium";
-const OGG =
-  "https://dcym8fthxf5uu.cloudfront.net/fonts/247a073c-29f5-4a89-aa3a-741020f346fc/OggText-Medium.woff2";
+/* The design calls for Ogg, a licensed face, which used to be hotlinked from
+   someone else's CloudFront. That was blocked by this site's CSP and could
+   not ship in the member zips anyway. Boska is Fontshare's free calligraphic
+   serif with the same sharp, ink-trap feel. */
+const BOSKA = "https://api.fontshare.com/v2/css?f[]=boska@500&display=swap";
 
 const A = "https://raft-blast-61784561.figma.site/_assets/v11/";
 const SCENE = {
@@ -77,35 +79,13 @@ function segmentInOut(s, a, b, c, d) {
 }
 
 export default function AtlasSite() {
-  useTemplateFont(null); // the display face is a woff2, loaded below instead
+  useTemplateFont(BOSKA);
 
   const rootRef = useRef(null);
   const sectionRef = useRef(null);
   const trackRef = useRef(null);
   const controlsRef = useRef(null);
   const activeRef = useRef(SIGHTS.length); // start in the middle clone set
-
-  /* The display serif is a bare woff2, so @font-face has to be injected
-     rather than linked like a Google Fonts stylesheet. Reference counting
-     matches useTemplateFont: mount adds it, the last unmount removes it. */
-  useEffect(() => {
-    const id = "atl-ogg-face";
-    let tag = document.getElementById(id);
-    if (tag) {
-      tag.dataset.uses = String(Number(tag.dataset.uses || 1) + 1);
-    } else {
-      tag = document.createElement("style");
-      tag.id = id;
-      tag.dataset.uses = "1";
-      tag.textContent = `@font-face{font-family:"${FONT}";src:url("${OGG}") format("woff2");font-weight:500;font-style:normal;font-display:swap;}`;
-      document.head.appendChild(tag);
-    }
-    return () => {
-      const left = Number(tag.dataset.uses || 1) - 1;
-      if (left > 0) tag.dataset.uses = String(left);
-      else tag.remove();
-    };
-  }, []);
 
   /* ── the scroll engine ─────────────────────────────────────── */
   useEffect(() => {

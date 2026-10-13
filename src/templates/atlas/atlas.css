@@ -80,7 +80,7 @@
 }
 .atl-logo {
   justify-self: start;
-  font-family: "Ogg Medium", Georgia, serif;
+  font-family: "Boska", Georgia, serif;
   font-size: 24px;
   font-weight: 500;
   line-height: 1;
@@ -290,7 +290,7 @@
   width: min(94vw, 1780px);
   margin: 0;
   color: #fdf1e1;
-  font-family: "Ogg Medium", Georgia, serif;
+  font-family: "Boska", Georgia, serif;
   font-size: 14rem;
   font-weight: 500;
   line-height: 0.78;
@@ -398,7 +398,7 @@
 .atl-panel h2 {
   margin: 0;
   color: #fdf1e1;
-  font-family: "Ogg Medium", Georgia, serif;
+  font-family: "Boska", Georgia, serif;
   font-size: 4.75rem;
   font-weight: 500;
   line-height: 0.95;
@@ -432,7 +432,7 @@
 }
 .atl-facts dt {
   color: #fdf1e1;
-  font-family: "Ogg Medium", Georgia, serif;
+  font-family: "Boska", Georgia, serif;
   font-size: 4.2rem;
   font-weight: 500;
   line-height: 0.9;

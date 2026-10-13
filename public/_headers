@@ -81,7 +81,14 @@
   # icon CSS. font-src alone is not enough — the @font-face rules never load,
   # the request is blocked at the <link>, and the template silently falls back
   # to Arial. Neither is in script-src, and neither ever needs to be.
-  Content-Security-Policy: default-src 'self'; script-src 'self' https://challenges.cloudflare.com https://static.cloudflareinsights.com; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com https://api.fontshare.com https://db.onlinewebfonts.com https://cdnjs.cloudflare.com; font-src 'self' data: https://fonts.gstatic.com https://api.fontshare.com https://db.onlinewebfonts.com https://cdnjs.cloudflare.com; img-src 'self' data: blob: https:; media-src 'self' blob: https:; frame-src https:; connect-src 'self' https:; object-src 'none'; base-uri 'self'; form-action 'self'; frame-ancestors 'self'; upgrade-insecure-requests
+  #
+  # cdn.fontshare.com is font-src only. api.fontshare.com serves the CSS, but
+  # the @font-face rules inside it point at cdn.fontshare.com for the actual
+  # files, so allowing the API host alone loads the stylesheet and then has
+  # every font file blocked (Aurora, Atelier and Atlas fell back for months).
+  # Fontshare's faces are free for commercial use, which is why the templates
+  # that hand out zips use them instead of hotlinking licensed fonts.
+  Content-Security-Policy: default-src 'self'; script-src 'self' https://challenges.cloudflare.com https://static.cloudflareinsights.com; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com https://api.fontshare.com https://db.onlinewebfonts.com https://cdnjs.cloudflare.com; font-src 'self' data: https://fonts.gstatic.com https://api.fontshare.com https://cdn.fontshare.com https://db.onlinewebfonts.com https://cdnjs.cloudflare.com; img-src 'self' data: blob: https:; media-src 'self' blob: https:; frame-src https:; connect-src 'self' https:; object-src 'none'; base-uri 'self'; form-action 'self'; frame-ancestors 'self'; upgrade-insecure-requests
   # Only this site may frame this site. Stops the page being loaded invisibly
   # over someone else's, so a click they think lands on their page lands on
   # yours — while still allowing the store's own template previews, which are

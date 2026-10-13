@@ -56,7 +56,7 @@
 }
 
 .lost-404 {
-  font-family: "Geist Mono:SemiBold", ui-monospace, monospace;
+  font-family: "Geist Mono", ui-monospace, monospace;
   font-size: 295.751px;
   font-weight: 600;
   line-height: 1.1;
@@ -78,7 +78,7 @@
 
 .lost-msg {
   width: 100%;
-  font-family: "Geist Mono:SemiBold", ui-monospace, monospace;
+  font-family: "Geist Mono", ui-monospace, monospace;
   font-size: 24px;
   font-weight: 600;
   line-height: 1.1;

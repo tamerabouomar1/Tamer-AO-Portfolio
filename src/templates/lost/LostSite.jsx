@@ -1,4 +1,4 @@
-import { useEffect } from "react";
+import useTemplateFont from "../useTemplateFont";
 import "./lost.css";
 
 /* ── Lost — 404 Screen (Signature) ─────────────────────────────
@@ -13,31 +13,10 @@ import "./lost.css";
 const VIDEO =
   "https://d8j0ntlcm91z4.cloudfront.net/user_38xzZboKViGWJOttwIXH07lWA1P/hf_20260801_001207_ec20d138-aa45-4b2b-ab8c-bdc71607f240.mp4";
 
-/* Geist Mono is served as a bare woff2, so it needs an @font-face rather than
-   a stylesheet link. Reference counted the same way useTemplateFont does, so
-   navigating away leaves nothing behind. */
-function useGeistMono() {
-  useEffect(() => {
-    const id = "lost-geist-face";
-    let tag = document.getElementById(id);
-    if (tag) {
-      tag.dataset.uses = String(Number(tag.dataset.uses || 1) + 1);
-    } else {
-      tag = document.createElement("style");
-      tag.id = id;
-      tag.dataset.uses = "1";
-      tag.textContent =
-        '@font-face{font-family:"Geist Mono:SemiBold";font-style:normal;font-weight:600;' +
-        'font-display:swap;src:url("https://static.figma.com/font/GeistMono_wght__1") format("woff2");}';
-      document.head.appendChild(tag);
-    }
-    return () => {
-      const left = Number(tag.dataset.uses || 1) - 1;
-      if (left > 0) tag.dataset.uses = String(left);
-      else tag.remove();
-    };
-  }, []);
-}
+/* Geist Mono is open source (OFL) and on Google Fonts, so it loads like every
+   other template face. It used to be pulled straight off Figma's font server,
+   which this site's CSP blocks, so the numerals silently fell back. */
+const GEIST_MONO = "https://fonts.googleapis.com/css2?family=Geist+Mono:wght@600&display=swap";
 
 function Mark() {
   return (
@@ -65,7 +44,7 @@ function Wordmark() {
 }
 
 export default function LostSite() {
-  useGeistMono();
+  useTemplateFont(GEIST_MONO);
 
   return (
     <main className="lost">
