@@ -127,7 +127,7 @@ export const FREE_OFFERS = [
     cta: "Open the gallery",
     paid: {
       label: "When you want it live without touching code",
-      detail: "Set up for you from $350, live on your domain in a week.",
+      detail: "Built for you from $1,000, live on your domain in one day.",
     },
   },
   {
@@ -917,7 +917,7 @@ export const MOTION_REELS = [
     featured: true,
     tag: "Featured · voiceover",
     points: ["48 seconds, voiceover and captions", "A real client site booking inside it", "Original score, ducked under the voice"],
-    cta: { label: "Get yours set up in one day", to: "/work-with-me#online-presence" },
+    cta: { label: "Get yours set up in one day", to: "/work-with-me#packages" },
   },
   {
     title: "Three pins, then everyone else",
@@ -988,6 +988,104 @@ export const MOTION_REELS = [
     title: "How a brand is born",
     src: "/assets/motion/design-riso-process.mp4",
     desc: "A dot, a line and a shape with its anchor points, inked in risograph colours and set in motion.",
+  },
+];
+
+/* Reels made for clients, shown on /media under Social Media for Clients and
+   grouped by `client`. FabricAID's are Tamer's edits of their own iPhone
+   footage (sources in Desktop/claude/fabricaid-reel); the masters are HLG HDR,
+   so these web copies are tone-mapped to standard H.264 because most browsers
+   cannot play the HDR files. PlayWear's are the launch posts built in
+   content-studio/playwear, with their own music. */
+export const CLIENT_GROUPS = [
+  {
+    client: "FabricAID",
+    line: "Reels for a Lebanese textile recycler, cut from their own phone footage. Speech is Lebanese Arabic, every caption is written in English.",
+  },
+  {
+    client: "PlayWear Club",
+    line: "Launch posts for a kids' clothing brand and its creative pop-ups. Logo by me, every post animated and scored with its own music.",
+  },
+];
+
+export const CLIENT_REELS = [
+  {
+    client: "FabricAID",
+    title: "Meet Naseej",
+    src: "/assets/motion/fabricaid-naseej.mp4",
+    desc: "The NASEEJ tote revealed in designed English copy, from the old-clothes hook to the Arabic on the back that reads textile recycling.",
+  },
+  {
+    client: "FabricAID",
+    title: "What the tote is made of",
+    src: "/assets/motion/fabricaid-naseej-tote.mp4",
+    desc: "A talking reel on the NASEEJ tote, side panels in upcycled kandura fabric and an organic canvas front, with B-roll cut under the voice.",
+  },
+  {
+    client: "FabricAID",
+    title: "We didn't do the math right",
+    src: "/assets/motion/fabricaid-caps.mp4",
+    desc: "A two-person skit selling the caps, with two-tier captions, emoji pop-ins and punch-in zooms on the punchline.",
+  },
+  {
+    client: "FabricAID",
+    title: "Inside the uniforms showroom",
+    src: "/assets/motion/fabricaid-showroom.mp4",
+    desc: "The uniforms rack, cut on hard jump-cuts between framings with a flash montage of the studio product photos.",
+  },
+  {
+    client: "FabricAID",
+    title: "The machine that draws it",
+    src: "/assets/motion/fabricaid-plotter.mp4",
+    desc: "How a pattern goes from the laptop to the plotter on the factory floor, told in under a minute.",
+  },
+  {
+    client: "PlayWear Club",
+    title: "Bring the fun back",
+    src: "/assets/motion/playwear-bring-fun-back.mp4",
+    desc: "A scrapbook of notebook pages, ransom-note letters and taped polaroids, built from the client's own nostalgia idea.",
+  },
+  {
+    client: "PlayWear Club",
+    title: "The memory book",
+    src: "/assets/motion/playwear-memory-book.mp4",
+    desc: "A mini book flipped page by page, each photo held long enough to read.",
+  },
+  {
+    client: "PlayWear Club",
+    title: "Candy cake, stop-motion",
+    src: "/assets/motion/playwear-candy-cake.mp4",
+    desc: "Forty frames of the candy cake pop-up, cut as stop-motion with a tilt reveal at the end.",
+  },
+  {
+    client: "PlayWear Club",
+    title: "Coming soon",
+    src: "/assets/motion/playwear-teaser.mp4",
+    desc: "The launch teaser. Something playful is popping up, coming soon to Beirut.",
+  },
+  {
+    client: "PlayWear Club",
+    title: "Our first pop-up",
+    src: "/assets/motion/playwear-first-popup.mp4",
+    desc: "The first pop-up announced, with its four activities from the squishy cart to the bedazzle box.",
+  },
+  {
+    client: "PlayWear Club",
+    title: "The squishy cart",
+    src: "/assets/motion/playwear-squishy-cart.mp4",
+    desc: "How the squishy cart works in four steps. Choose the filling, pick colours and toppings, seal it, then name it.",
+  },
+  {
+    client: "PlayWear Club",
+    title: "The sensory tray",
+    src: "/assets/motion/playwear-sensory-tray.mp4",
+    desc: "A whole little world made by the kids, who choose a base, shape the land, add friends and take it home.",
+  },
+  {
+    client: "PlayWear Club",
+    title: "The bedazzle box",
+    src: "/assets/motion/playwear-bedazzle-box.mp4",
+    desc: "Pick a squishy, decorate its box with gems, stickers and a name, and make it sparkle.",
   },
 ];
 
@@ -1073,12 +1171,46 @@ export const VIDEO_EDITS = [
 // still the fast, static card art; the live copy only loads on hover.
 export const WEBSITES = [
   {
+    name: "Qasr Al Karami",
+    /* Home page only, copied from the client's dist/ with root paths moved
+       under /demo/qasr/. Only the H.264 cut of the hero film ships here (18 MB
+       instead of 52), and links to the other pages go to qasralkarami.com,
+       which is live. Re-run scratchpad qasr_snap.py logic if the site changes. */
+    demo: "/demo/qasr/index.html",
+    tag: "Website design",
+    image: "/assets/projects/web-qasr.webp",
+    full: "/assets/projects/web-qasr.webp",
+    desc: "An open-air wedding and events venue in Saoufar, Mount Lebanon, live at qasralkarami.com. Real drone footage of the Qasr and its helipad leads, every date check goes straight to WhatsApp, and the whole site reads in English and Arabic.",
+  },
+  {
     name: "FabricAID Uniforms",
     demo: "/demo/fabricaid/index.html",
     tag: "Website design",
     image: "/assets/projects/web-fabricaid.webp",
     full: "/assets/projects/web-fabricaid.webp",
     desc: "A seven-page site for FabricAID's uniform arm: workwear made in their own facility, with the social impact running through every page. Browse the range, the facility and the partner logos.",
+  },
+  /* The two Shopify themes. A theme only runs inside Shopify and the store is
+     password-protected, so these snapshots are the theme's own home page
+     rendered from its Liquid files outside Shopify (scratchpad
+     shopify-render/render.mjs). Smoothr shows the real store prices; Paperly
+     has no products in a store yet, so its offer block is left out rather
+     than shown with a made-up price. */
+  {
+    name: "Smoothr",
+    demo: "/demo/smoothr/index.html",
+    tag: "Shopify store",
+    image: "/assets/projects/web-smoothr.webp",
+    full: "/assets/projects/web-smoothr.webp",
+    desc: "A one-product Shopify store for a seven-head shaving kit. Built to sell: the kit offer with its free attachments, a side-by-side comparison, a subscribe-and-save option for blades, and every section editable from the Shopify theme editor.",
+  },
+  {
+    name: "Paperly",
+    demo: "/demo/paperly/index.html",
+    tag: "Shopify store",
+    image: "/assets/projects/web-paperly.webp",
+    full: "/assets/projects/web-paperly.webp",
+    desc: "A Shopify theme for an inkless A4 printer that prints with heat. The page answers the one question buyers have, what does it cost to run, and turns paper refills into a subscription.",
   },
   {
     name: "Snack Faysal",
@@ -1895,76 +2027,94 @@ export const TEMPLATE_PACKAGES = [
 // in both of those the same day, or a client is reading two different prices
 // for the same thing.
 
-// ── Everything else ───────────────────────────────────────────
-// Deliberately demoted, and deliberately small. These used to be two full
-// pricing tables above the fold, which turned the page into a menu and let a
-// visitor comparison-shop instead of deciding. They are still here because
-// somebody genuinely only wants a one-page site, or already has a site and
-// only wants it kept alive, and refusing to sell that would be posturing.
+// ── Website packages (2026-10-22) ──────────────────────────────
+// Three tiers, set by Tamer: $1,000 is the floor for any website, $2,500 adds
+// the Google profile and social media training, $4,500 is everything done at
+// the high end. They replace the old $350 one-page, $850 six-page and
+// "from $1,500" custom tiers, and the "from $1,200" presence quote. Nothing
+// on the site may quote those numbers again.
 //
-// Every one of them now carries a guarantee. A tier without one is a tier
-// where the risk is still sitting on the buyer.
+// Every price on the Services page, the Websites page, the three service
+// pages, usePageMeta.js and the JSON-LD in index.html reads from or must match
+// this list. Change a number here and grep for the old one.
+//
+// Delivery is one day everywhere ([[one-day-delivery]]): for the top tier
+// that clock starts once the photo shoot is done, because the photos are
+// what goes on the site.
 export const SERVICE_PACKAGES = [
   {
-    id: "setup",
-    name: "One Page, Live This Week",
-    tagline: "You have something to point at by Friday",
-    flat: 350,
-    period: "one-off, no monthly",
-    features: [
-      "Any template from the gallery, set up for you",
-      "Your copy, photos and colours applied",
-      "Domain, SSL and deployment handled",
-      "Contact or WhatsApp button wired up",
-      "One round of revisions",
-    ],
-    bonus: "Free logo animation for your hero",
-    guarantee: "Live within one day of getting your content, or you don't pay.",
-  },
-  {
-    /* The FabricAID number, and the one most businesses actually buy: a whole
-       site designed, launched and findable. Priced against what it is worth
-       rather than against the hours — the same scope is $4,000–$8,000 from a
-       Beirut agency and $12,000+ regionally. */
-    id: "build",
-    name: "The Whole Site, Live and Found",
-    tagline: "Up to six pages, launched and on Google",
-    flat: 850,
+    id: "website",
+    name: "The Website",
+    tagline: "Up to six pages, live and on Google in one day",
+    flat: 1000,
     period: "one-off · live in one day",
-    featured: true,
-    badge: "Most bought",
     features: [
       "Up to six pages, designed around your brand",
-      "All content edits and two rounds of revisions",
-      "Domain, Cloudflare hosting, SSL and CDN set up",
-      "Image compression and speed work on every page",
-      "Full SEO: titles, descriptions, structured data, sitemap, social cards",
-      "Google Search Console and analytics installed and verified",
-      "Booking calendar, contact form and socials wired up",
-      "Handover walkthrough and a first ranking report",
+      "Your domain, hosting, SSL and speed work handled",
+      "Full SEO: titles, structured data, sitemap, social cards",
+      "Google Search Console and analytics set up",
+      "Booking, contact form and WhatsApp wired in",
+      "Two rounds of revisions",
     ],
     bonus: "Free logo animation for your hero",
-    guarantee:
-      "Half on signature, half on launch. The second half is due the day the site goes live, not on a calendar date.",
+    guarantee: "Live within one day of getting your content, or you don't pay the second half.",
   },
   {
-    id: "custom",
-    name: "Built From Scratch",
-    tagline: "When the site has a job to do",
-    from: 1500,
-    period: "quoted per project",
+    id: "found",
+    name: "Website, Google and Social",
+    tagline: "Found on the map, and you know how to post",
+    flat: 2500,
+    period: "one-off · live in one day",
+    featured: true,
+    badge: "Most chosen",
     features: [
-      "Shop, accounts, payments or multi-language",
-      "Built to your flows, not a template's",
-      "Performance and technical SEO pass",
-      "Analytics and conversion tracking",
-      "Unlimited revisions inside the agreed scope",
-      "60 days of post-launch support",
+      "Everything in The Website",
+      "Google Business Profile claimed, set up and linked",
+      "Review link and the message that gets you reviews",
+      "Instagram, Facebook and TikTok set up and linked",
+      "Social media training: two one-hour sessions on shooting, editing and posting reels from your phone",
+      "A 30-day content plan to post from",
     ],
-    bonus: "Free 30-minute scoping call first",
+    bonus: "Free first reel, edited by me",
     guarantee:
-      "Fixed quote before a line is written. If it takes longer than quoted, that is mine to absorb, not yours to pay for.",
+      "Live within one day of getting your content. Google's own verification can take a few extra days, which is outside my control.",
   },
+  {
+    id: "everything",
+    name: "The Whole Online Presence",
+    tagline: "Everything, done at the high end",
+    flat: 4500,
+    period: "one-off · live in one day after the shoot",
+    features: [
+      "A high-end custom website, English and Arabic, with motion",
+      "Professional photo shoot at your place, edited for the site, Google and socials",
+      "Google Business Profile plus local SEO and map listings",
+      "First month of content: 8 reels and posts, shot and edited",
+      "Instagram and Google ads set up and launched (ad spend paid by you)",
+      "WhatsApp Business with catalogue and quick replies",
+      "Social media training for you or your team",
+      "Review kit: QR table cards, link and message templates",
+      "Three months of monthly reports: visitors, calls, bookings, rankings",
+    ],
+    bonus: "Free logo animation and a brand refresh",
+    guarantee:
+      "Half on signature, half on launch. The second half is due the day it all goes live, not on a calendar date.",
+  },
+];
+
+/* Digital marketing, bought on its own or added to a package. Short on
+   purpose: what it is, what it costs. Prices set 2026-10-22 next to the
+   existing $250 Google profile; edit them here and they update everywhere on
+   the Services page. */
+export const DIGITAL_MARKETING = [
+  { id: "gbp", name: "Google Business Profile setup", what: "Claimed, verified and set up the way people search", price: "$250", period: "one-off" },
+  { id: "gbp-care", name: "Google profile management", what: "Weekly posts, new photos, every review answered, a monthly report", price: "$120", period: "per month" },
+  { id: "local-seo", name: "Local SEO and map listings", what: "Listed the same way on Google, Apple Maps, Bing and Waze, plus local directories", price: "$300", period: "one-off" },
+  { id: "ads", name: "Instagram or Google ads", what: "Campaign set up, targeted and launched. Ad spend is paid to the platform by you", price: "$350", period: "per platform, then $250/mo to run" },
+  { id: "photo", name: "Photo shoot", what: "Half a day at your place, 40 edited photos for the site, Google and socials", price: "$400", period: "one-off" },
+  { id: "training", name: "Social media training", what: "One hour, one to one, on shooting, editing and posting reels from your phone", price: "$150", period: "per session" },
+  { id: "whatsapp", name: "WhatsApp Business setup", what: "Catalogue, quick replies, away message and a link on every page", price: "$120", period: "one-off" },
+  { id: "reviews", name: "Review kit", what: "QR table cards, your review link and the message to send after every visit", price: "$90", period: "one-off" },
 ];
 
 // ── Keeping a site alive ──────────────────────────────────────
@@ -2056,8 +2206,8 @@ export const WEBSITE_CARE_NOTES = [
 // The bundle: website, Google profile and content sold as one outcome rather
 // than three components. Until 2026-10-07 it carried a fixed $950 setup and
 // $349/month with a full value stack, phases and a 90-day guarantee. It is
-// quoted per project now, from $1,200, with monthly care quoted alongside,
-// and the Services page shows only what is below.
+// was then quoted from $1,200, and since 2026-10-22 it is the top website
+// package at $4,500 (SERVICE_PACKAGES above).
 
 /** Google Business Profile, sold on its own as well as inside the bundle.
  *  It is the fastest win Tamer has: the map listing is what a nearby search
@@ -2083,17 +2233,9 @@ export const GOOGLE_PROFILE = {
 
 export const PRESENCE = {
   name: "The Whole Online Presence",
-  line: "Website, Google profile and content, built as one job and live in one day.",
-  includes: [
-    "Website, up to six pages, on your own domain",
-    "Google Business Profile, claimed and set up",
-    "Socials linked, with content posted every month",
-    "Logo animation for your hero",
-  ],
-  // Quoted per project since 2026-10-07; this is the floor the page shows.
-  from: 1200,
-  terms: "Quoted per project. Monthly care is quoted with it.",
-  cta: "Get a quote",
+  // Kept as its own object for the service pages and reels that name it;
+  // the price is the top package's, so the two cannot drift.
+  from: SERVICE_PACKAGES[2].flat,
 };
 
 // ── Service pages ─────────────────────────────────────────────
@@ -2170,17 +2312,17 @@ export const SERVICE_PAGES = [
       {
         title: "What it costs",
         body:
-          "A full site, up to six pages, designed, launched, optimised and submitted to Google, is $850 as a one-off and goes live in one day. Then a monthly plan keeps it online and looked after:",
+          "Three packages, each live in one day, then a monthly plan that keeps the site online and looked after:",
         bullets: [
-          "$30 a month for hosting and monitoring alone",
-          "$100 a month with five content edits and a quarterly report",
-          "$190 a month for up to 15 edits, monthly reporting and a quarterly SEO refresh",
-          "$350 one-off for a single page set up from the free gallery, if a whole site is more than you need",
-          "From $1,500 for a build with a shop or booking system behind it",
+          "$1,000 for the website: up to six pages, launched on your domain and set up to be found on Google",
+          "$2,500 adds your Google Business Profile, your socials set up and linked, and two training sessions on posting reels yourself",
+          "$4,500 for everything: a high-end site in English and Arabic, a photo shoot, local SEO, a month of content and ads set up",
+          "Then $30, $100 or $190 a month for hosting, edits and reporting, picked by how often your site changes",
         ],
       },
     ],
     proof: [
+      { name: "Qasr Al Karami", what: "A wedding venue in Mount Lebanon, in English and Arabic, with its own drone film leading." },
       { name: "FabricAID Uniforms", what: "A seven-page site for their uniform arm, with the social impact woven through." },
       { name: "Snack Faysal", what: "A Beirut manakish institution, appetite-led and built around the menu." },
       { name: "Sophia's Forum", what: "Bilingual English and Arabic, mirroring cleanly into right-to-left." },
@@ -2190,11 +2332,11 @@ export const SERVICE_PAGES = [
     faqs: [
       {
         q: "How much does a website cost in Lebanon?",
-        a: "A full six-page site, launched and set up to be found on Google, is $850 one-off. Keeping it running afterwards is $30, $100 or $190 a month depending on how often you want changes made. A single page set up from the free gallery is $350 as a one-off, and a site built from scratch with a shop or booking system behind it starts at $1,500.",
+        a: "A website of up to six pages, launched and set up to be found on Google, is $1,000 one-off. With your Google Business Profile, your socials and social media training added, it is $2,500. The high-end version with a photo shoot, local SEO, content and ads is $4,500. Keeping it running afterwards is $30, $100 or $190 a month depending on how often you want changes made.",
       },
       {
         q: "How long does it take?",
-        a: "One day. A single page from the gallery is live within one day of you sending your content, or you do not pay. A full six-page build takes the same day: your content and one round of changes in the morning, launch on your own domain by midday, the SEO setup and handover by the evening. That holds as long as your changes come back as one list.",
+        a: "One day. A full six-page build is live within one day of you sending your content: your content and one round of changes in the morning, launch on your own domain by midday, the SEO setup and handover by the evening. That holds as long as your changes come back as one list.",
       },
       {
         q: "Do I own the website?",
@@ -2243,13 +2385,12 @@ export const SERVICE_PAGES = [
         {
           title: "كم يكلّف",
           body:
-            "موقع كامل حتى ست صفحات، مصمَّم ومُطلَق ومُحسَّن ومُرسَل إلى جوجل، بسعر 850$ لمرة واحدة ويصبح جاهزاً خلال يوم واحد. بعدها خطة شهرية تُبقيه شغّالاً ومُعتنى به:",
+            "ثلاث باقات، كل واحدة جاهزة خلال يوم واحد، ثم خطة شهرية تُبقي الموقع شغّالاً ومُعتنى به:",
           bullets: [
-            "30$ شهرياً للاستضافة والمراقبة فقط",
-            "100$ شهرياً مع خمسة تعديلات على المحتوى وتقرير كل ثلاثة أشهر",
-            "190$ شهرياً لما يصل إلى 15 تعديلاً، وتقرير شهري، وتحديث SEO كل ثلاثة أشهر",
-            "350$ لمرة واحدة لصفحة واحدة من المعرض المجاني، إذا كان الموقع الكامل أكثر مما تحتاج",
-            "ابتداءً من 1,500$ لموقع فيه متجر أو نظام حجز",
+            "1,000$ للموقع: حتى ست صفحات، مُطلَق على نطاقك وجاهز ليظهر على جوجل",
+            "2,500$ تضيف ملفك على Google Business، وإعداد حساباتك على وسائل التواصل وربطها، وجلستَي تدريب على نشر الريلز بنفسك",
+            "4,500$ لكل شيء: موقع راقٍ بالعربية والإنجليزية، وجلسة تصوير، وSEO محلي، وشهر من المحتوى، وإعلانات جاهزة",
+            "بعدها 30$ أو 100$ أو 190$ شهرياً للاستضافة والتعديلات والتقارير، بحسب عدد التعديلات التي تحتاجها",
           ],
         },
       ],
@@ -2263,11 +2404,11 @@ export const SERVICE_PAGES = [
       faqs: [
         {
           q: "كم يكلّف تصميم موقع إلكتروني في لبنان؟",
-          a: "موقع كامل من ست صفحات، مُطلَق وجاهز ليظهر على جوجل، بسعر 850$ لمرة واحدة. بعدها 30$ أو 100$ أو 190$ شهرياً بحسب عدد التعديلات التي تريدها. صفحة واحدة من المعرض المجاني بسعر 350$ لمرة واحدة، وموقع مبني من الصفر مع متجر أو نظام حجز يبدأ من 1,500$. كل سعر على هذا الموقع هو السعر الذي تدفعه.",
+          a: "موقع حتى ست صفحات، مُطلَق وجاهز ليظهر على جوجل، بسعر 1,000$ لمرة واحدة. مع ملفك على Google Business وحساباتك على وسائل التواصل والتدريب عليها، يصبح 2,500$. والنسخة الراقية مع جلسة تصوير وSEO محلي ومحتوى وإعلانات بسعر 4,500$. بعدها 30$ أو 100$ أو 190$ شهرياً بحسب عدد التعديلات التي تريدها.",
         },
         {
           q: "كم يستغرق إنجاز الموقع؟",
-          a: "يوم واحد. الصفحة الواحدة من المعرض تكون جاهزة خلال يوم واحد من إرسال المحتوى، وإلا لا تدفع. والموقع الكامل من ست صفحات يُنجَز في اليوم نفسه: المحتوى وجولة تعديلات واحدة في الصباح، والإطلاق على نطاقك عند الظهر، وإعداد SEO والتسليم بحلول المساء. هذا الجدول ثابت طالما تصلني تعديلاتك في قائمة واحدة.",
+          a: "يوم واحد. الموقع الكامل من ست صفحات يكون جاهزاً خلال يوم واحد من إرسال المحتوى: المحتوى وجولة تعديلات واحدة في الصباح، والإطلاق على نطاقك عند الظهر، وإعداد SEO والتسليم بحلول المساء. هذا الجدول ثابت طالما تصلني تعديلاتك في قائمة واحدة.",
         },
         {
           q: "هل أملك الموقع؟",
@@ -2355,7 +2496,7 @@ export const SERVICE_PAGES = [
       {
         title: "The arithmetic",
         body:
-          "On a $20 order an app can keep around $6. Twenty orders a day through the app is roughly $3,600 a month gone. A site that takes your orders directly is $850 to build and from $30 a month to run, and the customer becomes yours: their number, their order history, and a reason to come back that does not involve somebody else's push notification.",
+          "On a $20 order an app can keep around $6. Twenty orders a day through the app is roughly $3,600 a month gone. A site that takes your orders directly is $1,000 to build and from $30 a month to run, and the customer becomes yours: their number, their order history, and a reason to come back that does not involve somebody else's push notification.",
       },
       {
         title: "What the site does",
@@ -2384,7 +2525,7 @@ export const SERVICE_PAGES = [
       },
       {
         q: "What does it cost to run?",
-        a: "$850 to build it, then a monthly plan from $30. Online at $30 covers hosting, SSL, backups and monitoring. Managed at $100 adds five content edits a month and a quarterly report. Complete at $190 is up to 15 edits a month, a monthly report and a quarterly SEO refresh.",
+        a: "$1,000 to build it, then a monthly plan from $30. Online at $30 covers hosting, SSL, backups and monitoring. Managed at $100 adds five content edits a month and a quarterly report. Complete at $190 is up to 15 edits a month, a monthly report and a quarterly SEO refresh.",
       },
       {
         q: "Can you put the menu in Arabic?",
@@ -2502,12 +2643,11 @@ export const SERVICE_PAGES = [
       {
         title: "What it costs",
         body:
-          "A full site, up to six pages, designed, launched and set up to be found, is $850 one off and goes live in one day. Keeping it alive afterwards:",
+          "A full site, up to six pages, designed, launched and set up to be found, is $1,000 one off and goes live in one day. With your Google profile, socials and training added it is $2,500. Keeping it alive afterwards:",
         bullets: [
           "$30 a month for hosting and monitoring",
           "$100 a month with five content edits",
           "$190 a month for up to 15 edits and a quarterly SEO refresh",
-          "$350 for a single page set up from the free gallery, with no monthly at all",
         ],
       },
     ],
@@ -2519,7 +2659,7 @@ export const SERVICE_PAGES = [
     faqs: [
       {
         q: "How much does a salon website cost in Lebanon?",
-        a: "$850 one off for a full six page site, launched and set up to be found on Google, then $30, $100 or $190 a month depending on how often you want changes made. A single page from the free gallery is $350 one off with no monthly.",
+        a: "$1,000 one off for a full six page site, launched and set up to be found on Google, then $30, $100 or $190 a month depending on how often you want changes made. $2,500 adds your Google profile, your socials set up and two sessions of social media training.",
       },
       {
         q: "Can clients book directly on the site?",
@@ -2580,7 +2720,7 @@ export const SERVICE_PAGES = [
       {
         title: "What it costs",
         body:
-          "$250 one-off, set up within one day of you sending your details, or you do not pay. If you want the site, the profile and the content run as one thing instead of three, that is The Whole Online Presence, quoted per project from $1,200 with the monthly care quoted alongside.",
+          "$250 one-off, set up within one day of you sending your details, or you do not pay. It also comes inside the $2,500 website package, with your socials set up and social media training, and inside The Whole Online Presence at $4,500.",
       },
     ],
     proof: [
@@ -2592,7 +2732,7 @@ export const SERVICE_PAGES = [
     faqs: [
       {
         q: "How much does Google Business Profile setup cost in Lebanon?",
-        a: "$250 as a one-off, set up within one day of getting your details or you do not pay. It is also included in The Whole Online Presence, which sets up the site and the profile together, quoted per project from $1,200.",
+        a: "$250 as a one-off, set up within one day of getting your details or you do not pay. It is also included in the $2,500 website package and in The Whole Online Presence at $4,500, which set up the site and the profile together.",
       },
       {
         q: "I already have a listing. Do I still need this?",
@@ -2636,9 +2776,9 @@ export const SERVICE_PAGES = [
         body: "Four prices cover almost every small business:",
         bullets: [
           "$0 for a finished template from the free gallery, in full source, if you can set it up yourself",
-          "$350 one-off for a single page set up for you, live within one day of sending your content or you do not pay",
-          "$850 one-off for a full site of up to six pages, launched on your own domain and set up to be found on Google, in one day",
-          "From $1,500 for a site built from scratch with a shop, accounts, payments or a second language, quoted as a fixed price first",
+          "$1,000 one-off for a full site of up to six pages, launched on your own domain and set up to be found on Google, in one day",
+          "$2,500 one-off for the site plus your Google Business Profile, your socials set up and linked, and two sessions of social media training",
+          "$4,500 one-off for everything: a high-end site in English and Arabic, a photo shoot, local SEO, a month of content, ads set up and three months of reports",
         ],
       },
       {
@@ -2683,10 +2823,10 @@ export const SERVICE_PAGES = [
     faqs: [
       {
         q: "What is the cheapest way to get a website in Lebanon?",
-        a: "Free, if you can set it up yourself: the gallery on this site gives away finished templates in full source. Done for you, a single page is $350 as a one-off and is live within one day of you sending your content, or you do not pay.",
+        a: "Free, if you can set it up yourself: the gallery on this site gives away finished templates in full source. Done for you, a full site of up to six pages is $1,000 as a one-off and is live within one day of you sending your content.",
       },
       {
-        q: "What exactly does the $850 website include?",
+        q: "What exactly does the $1,000 website include?",
         a: "Up to six pages designed around your brand, all content edits and two rounds of revisions, your domain, hosting, SSL and CDN set up, image compression and speed work, titles, descriptions, structured data and a sitemap, Google Search Console and analytics installed, and your booking calendar, contact form and socials wired up. It ends with a handover walkthrough and a first ranking report.",
       },
       {
@@ -2694,8 +2834,8 @@ export const SERVICE_PAGES = [
         a: "Yes, from $30 a month, and it is what keeps the site hosted, secured, backed up and monitored. $100 a month adds five edits and $190 covers up to 15. The plan runs for an initial twelve months from launch, then continues monthly and can be cancelled with thirty days' notice.",
       },
       {
-        q: "Why does a custom website start at $1,500?",
-        a: "Because a shop, customer accounts, payments or a second language take far more building than a set of pages. You get a fixed quote before a line is written, and if the work takes longer than quoted that is mine to absorb, not yours to pay for.",
+        q: "What does the $4,500 package add?",
+        a: "A high-end custom site in English and Arabic with motion, a photo shoot at your place, your Google profile with local SEO and map listings, a first month of eight reels and posts, Instagram and Google ads set up, WhatsApp Business, social media training, a review kit and three months of reports. Ad spend is paid to the platforms by you.",
       },
       {
         q: "How much is a domain name in Lebanon?",
@@ -2803,16 +2943,16 @@ export const SERVICE_PAGES = [
         title: "What it costs",
         body: "One setup fee, one monthly, both written down before we speak:",
         bullets: [
-          "From $1,200, quoted per project, to set the whole thing up in one day: a website of up to six pages, your Google Business Profile, and a logo animation for your hero",
-          "Monthly care after that, quoted with the setup: hosting, edits, and content posted to your socials and your Google listing",
-          "The monthly cancels with 30 days' notice",
-          "Or buy one piece on its own: $250 for the Google profile, $850 for the website, from $199 a month for content",
+          "$2,500 to set up your website, Google Business Profile and socials in one day, with two sessions of social media training so you can post yourself",
+          "$4,500 for everything at the high end: the site in English and Arabic, a photo shoot, local SEO, a month of content, Instagram and Google ads set up and three months of reports",
+          "Monthly care after that, from $30 for the site and from $199 for content, cancelled with 30 days' notice",
+          "Or buy one piece on its own: $250 for the Google profile, $1,000 for the website, $400 for a photo shoot, $150 for a training session",
         ],
       },
       {
         title: "How the first month runs",
         body:
-          "Week one, your Google profile is claimed, corrected and live, so calls can start before the site exists. Week two, the site takes shape and you review it once, as a single list of changes. Week three, it launches on your own domain and is submitted to Google. Every month after that, content goes out, the profile stays current, and a report shows what came in and where it came from.",
+          "Day one, everything goes live: in the morning your Google profile is claimed and corrected, by midday the site is on your own domain after one round of changes, and by the evening it is submitted to Google and your socials are linked. Google's own verification can take a few extra days. Every month after that, content goes out, the profile stays current, and a report shows what came in and where it came from.",
       },
       {
         title: "What it asks of you",
@@ -2822,10 +2962,11 @@ export const SERVICE_PAGES = [
       {
         title: "When an agency is the better buy",
         body:
-          "If what you need is a large paid ads budget managed every day, a PR campaign, or a team of ten on your account, hire an agency. This is for a business that wants to be found, look right when it is, and stay visible, without paying for the layers in between.",
+          "I set up and launch Instagram and Google ads, and run them from $250 a month. If what you need is a large ad budget managed every day, a PR campaign, or a team of ten on your account, hire an agency. This is for a business that wants to be found, look right when it is, and stay visible, without paying for the layers in between.",
       },
     ],
     proof: [
+      { name: "Qasr Al Karami", what: "Website, Google profile, Search Console and Instagram for a wedding venue." },
       { name: "FabricAID Uniforms", what: "Website and company profile, in English and in Arabic." },
       { name: "Snack Faysal", what: "The menu online, built around the dishes people come in for." },
       { name: "Salon Nizar", what: "Site and booking, so new customers book without a phone call." },
@@ -2835,7 +2976,7 @@ export const SERVICE_PAGES = [
     faqs: [
       {
         q: "How much does digital marketing cost in Lebanon?",
-        a: "Here it is quoted per project, from $1,200, to set up your website, Google Business Profile and a logo animation, with hosting, edits and monthly content quoted alongside. You can also buy the pieces on their own: $250 for the Google profile, $850 for the website, or content from $199 a month.",
+        a: "$2,500 sets up your website, Google Business Profile and socials, with social media training. $4,500 is everything at the high end, including a photo shoot, local SEO, a month of content and ads set up. You can also buy the pieces on their own: $250 for the Google profile, $1,000 for the website, or content from $199 a month.",
       },
       {
         q: "Who does the work?",
@@ -2843,11 +2984,11 @@ export const SERVICE_PAGES = [
       },
       {
         q: "Do you run paid ads?",
-        a: "No. I build what keeps bringing customers in after an ad budget runs out: your Google listing, a site that turns visits into enquiries, and regular content. If a large ad budget is the plan, an agency built for that is the better buy.",
+        a: "Yes, on Instagram and Google: $350 per platform to set up and launch, then $250 a month to run, with the ad spend paid to the platform by you. They come set up inside the $4,500 package. Ads work best on top of a Google listing and a site that turns visits into enquiries, so those come first.",
       },
       {
         q: "What if it does not bring in more business?",
-        a: "The same 90-day guarantee as the website. We count your calls, messages and walk-ins from the 90 days before launch, and if the 90 days after do not beat it, months four to six are free while I keep working.",
+        a: "You only pay the second half on the day it all goes live, so nothing is payable for work that is not running. After launch, the monthly report shows calls, messages, bookings and rankings against the months before, and the monthly plan cancels with 30 days' notice if it is not earning its place.",
       },
       {
         q: "Can I start smaller?",

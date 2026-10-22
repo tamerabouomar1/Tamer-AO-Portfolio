@@ -39,7 +39,7 @@ export const PAGE_META = {
   "/websites": {
     title: "Free Website Templates & Website Pricing",
     description:
-      "A gallery of finished website templates, free in full React source. Plus what a built site costs: $350 for one page, $850 for a six-page build.",
+      "A gallery of finished website templates, free in full React source. Plus what a built site costs: $1,000 for a six-page website, live in one day.",
   },
   "/media": {
     title: "Motion Design & Video Editing",
@@ -61,7 +61,7 @@ export const PAGE_META = {
   "/website-design-lebanon": {
     title: "Web Design & Website Development in Lebanon",
     description:
-      "Web design for businesses in Lebanon, built and run for you. $850 for a six-page website, launched and found on Google, then care from $30 a month.",
+      "Web design for businesses in Lebanon, built and run for you. $1,000 for a six-page website, launched and found on Google, then care from $30 a month.",
   },
   /* The Arabic version of the page above. Its own URL, so Google can index
      it for the Arabic query; prerender-head.mjs pairs any /ar/<path> with
@@ -69,7 +69,7 @@ export const PAGE_META = {
   "/ar/website-design-lebanon": {
     title: "تصميم مواقع إلكترونية في لبنان",
     description:
-      "تصميم مواقع إلكترونية في لبنان بالعربية والإنجليزية: موقع من ست صفحات بسعر 850$، مُطلَق وجاهز ليظهر على جوجل، ثم خطة صيانة تبدأ من 30$ شهرياً.",
+      "تصميم مواقع إلكترونية في لبنان بالعربية والإنجليزية: موقع من ست صفحات بسعر 1,000$، مُطلَق وجاهز ليظهر على جوجل، ثم خطة صيانة تبدأ من 30$ شهرياً.",
   },
   "/logo-design-beirut": {
     title: "Logo Design & Branding in Lebanon",
@@ -79,12 +79,12 @@ export const PAGE_META = {
   "/website-cost-lebanon": {
     title: "Website Cost in Lebanon: Every Price in the Open",
     description:
-      "What a website costs in Lebanon, in real figures: $350 for one page, $850 for six, from $30 a month to run. Plus the domain and every change rate.",
+      "What a website costs in Lebanon, in real figures: $1,000, $2,500 or $4,500 to build, from $30 a month to run. Plus the domain and every change rate.",
   },
   "/digital-marketing-agency-lebanon": {
     title: "Digital Marketing Agency Alternative in Lebanon",
     description:
-      "Website, Google profile and content run by one person instead of an agency. Quoted per project from $1,200, live in one day. Based in Beirut.",
+      "Website, Google profile, ads, photos and content run by one person instead of an agency. From $2,500, live in one day. Based in Beirut.",
   },
   "/video-editor-lebanon": {
     title: "Video Editor in Beirut, Lebanon",
@@ -94,7 +94,7 @@ export const PAGE_META = {
   "/restaurant-website-lebanon": {
     title: "Restaurant Websites in Lebanon",
     description:
-      "Take orders on your own site instead of paying a delivery app a third of every one. Built already for Snack Faysal. $850, then from $30 a month.",
+      "Take orders on your own site instead of paying a delivery app a third of every one. Built already for Snack Faysal. $1,000, then from $30 a month.",
   },
   "/social-media-management-lebanon": {
     title: "Social Media Management in Lebanon",
@@ -104,7 +104,7 @@ export const PAGE_META = {
   "/salon-website-lebanon": {
     title: "Salon & Barbershop Websites in Lebanon",
     description:
-      "Stop losing bookings in your DMs. A site where every screen books into your calendar, live already for Salon Nizar. $850 to build, care from $30 a month.",
+      "Stop losing bookings in your DMs. A site where every screen books into your calendar, live already for Salon Nizar. $1,000 to build, care from $30 a month.",
   },
   "/google-business-profile-lebanon": {
     title: "Google Business Profile Setup in Lebanon",
@@ -117,7 +117,7 @@ export const PAGE_META = {
   "/work-with-me": {
     title: "Your Whole Online Presence, Start Free",
     description:
-      "Start free with a website template, brand teardown or your first reel. Or have the website, Google profile and content set up in one day, quoted from $1,200.",
+      "Start free with a website template, brand teardown or your first reel. Or get a website from $1,000, with Google, social and marketing, live in one day.",
   },
 
   /* The policy pages.

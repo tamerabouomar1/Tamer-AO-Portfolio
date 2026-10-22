@@ -154,6 +154,11 @@ function videoObjects() {
       description: v.desc,
     })),
     ...arrayOf("VIDEO_EDITS").map((v) => ({ ...v, name: v.title, description: v.desc })),
+    ...arrayOf("CLIENT_REELS").map((v) => ({
+      ...v,
+      name: `${v.title}, ${v.src.includes("playwear") ? "PlayWear Club" : "FabricAID"} reel`,
+      description: v.desc,
+    })),
     ...arrayOf("INSTAGRAM_REELS").map((v) => ({
       ...v,
       name: v.title,

@@ -6,6 +6,8 @@ import SplitHeading from "../components/SplitHeading";
 import useSwipe from "../components/useSwipe";
 import InstagramEmbed from "../components/InstagramEmbed";
 import {
+  CLIENT_GROUPS,
+  CLIENT_REELS,
   CONTACT,
   INSTAGRAM_POSTS,
   INSTAGRAM_REELS,
@@ -69,7 +71,12 @@ function LoopVideo({ src, label }) {
 
 export default function Media() {
   const [postIdx, setPostIdx] = useState(null); // social-post index or null
-  const [reelIdx, setReelIdx] = useState(null); // motion-reel index or null
+  // The reel lightbox plays whichever list it was opened from, so arrows stay
+  // inside that list: motion reels, or one client's reels.
+  const [reel, setReel] = useState(null); // { list, i } or null
+  const openReel = (list, i) => setReel({ list, i });
+  const closeReel = () => setReel(null);
+  const current = reel ? reel.list[reel.i] : null;
 
   const nextPost = () => setPostIdx((i) => (i + 1) % SOCIAL_POSTS.images.length);
   const prevPost = () => setPostIdx((i) => (i - 1 + SOCIAL_POSTS.images.length) % SOCIAL_POSTS.images.length);
@@ -81,18 +88,18 @@ export default function Media() {
     onDown: () => setPostIdx(null),
   });
 
-  const nextReel = () => setReelIdx((i) => (i + 1) % MOTION_REELS.length);
-  const prevReel = () => setReelIdx((i) => (i - 1 + MOTION_REELS.length) % MOTION_REELS.length);
+  const nextReel = () => setReel((r) => ({ ...r, i: (r.i + 1) % r.list.length }));
+  const prevReel = () => setReel((r) => ({ ...r, i: (r.i - 1 + r.list.length) % r.list.length }));
   const reelSwipe = useSwipe({
     onLeft: nextReel,
     onRight: prevReel,
-    onDown: () => setReelIdx(null),
+    onDown: closeReel,
   });
 
   useEffect(() => {
-    if (reelIdx === null) return;
+    if (reel === null) return;
     const onKey = (e) => {
-      if (e.key === "Escape") setReelIdx(null);
+      if (e.key === "Escape") closeReel();
       else if (e.key === "ArrowRight") nextReel();
       else if (e.key === "ArrowLeft") prevReel();
     };
@@ -102,7 +109,7 @@ export default function Media() {
       window.removeEventListener("keydown", onKey);
       document.body.style.overflow = "";
     };
-  }, [reelIdx]);
+  }, [reel === null]);
 
   useEffect(() => {
     if (postIdx === null) return;
@@ -140,7 +147,7 @@ export default function Media() {
         {MOTION_REELS.map((r, i) =>
           r.featured ? (
             <motion.article className="card reel-feature" key={r.src} variants={cardIn} initial="hidden" animate="show">
-              <button className="reel-card__frame reel-card__play reel-feature__frame" onClick={() => setReelIdx(i)} aria-label={`Play ${r.title} with sound`}>
+              <button className="reel-card__frame reel-card__play reel-feature__frame" onClick={() => openReel(MOTION_REELS, i)} aria-label={`Play ${r.title} with sound`}>
                 <LoopVideo src={r.src} label={r.title} />
                 <span className="reel-card__sound" aria-hidden="true">
                   <svg viewBox="0 0 24 24">
@@ -159,7 +166,7 @@ export default function Media() {
                   ))}
                 </ul>
                 <div className="reel-feature__actions">
-                  <button className="btn-book reel-feature__watch" onClick={() => setReelIdx(i)}>
+                  <button className="btn-book reel-feature__watch" onClick={() => openReel(MOTION_REELS, i)}>
                     Watch with sound
                   </button>
                   <Link className="link" to={r.cta.to}>
@@ -173,7 +180,7 @@ export default function Media() {
         <motion.div className="reel-grid" variants={container} initial="hidden" animate="show">
           {MOTION_REELS.map((r, i) => r.featured ? null : (
             <motion.article className="card reel-card" key={r.src} variants={cardIn}>
-              <button className="reel-card__frame reel-card__play" onClick={() => setReelIdx(i)} aria-label={`Play ${r.title} with sound`}>
+              <button className="reel-card__frame reel-card__play" onClick={() => openReel(MOTION_REELS, i)} aria-label={`Play ${r.title} with sound`}>
                 <LoopVideo src={r.src} label={r.title} />
                 <span className="reel-card__sound" aria-hidden="true">
                   <svg viewBox="0 0 24 24">
@@ -189,6 +196,40 @@ export default function Media() {
             </motion.article>
           ))}
         </motion.div>
+      </section>
+
+      {/* Client work, one block per client. Same card as the motion reels,
+          and the lightbox stays inside the client's own list. */}
+      <section className="proj-section" id="clients">
+        <h2 className="section-title">Social Media for Clients</h2>
+        {CLIENT_GROUPS.map((g) => {
+          const list = CLIENT_REELS.filter((r) => r.client === g.client);
+          return (
+            <div className="client-reels" key={g.client}>
+              <h3 className="client-reels__name">{g.client}</h3>
+              <p className="card-body client-reels__line">{g.line}</p>
+              <motion.div className="reel-grid" variants={container} initial="hidden" whileInView="show" viewport={{ once: true, margin: "-40px" }}>
+                {list.map((r, i) => (
+                  <motion.article className="card reel-card" key={r.src} variants={cardIn}>
+                    <button className="reel-card__frame reel-card__play" onClick={() => openReel(list, i)} aria-label={`Play ${r.title} with sound`}>
+                      <LoopVideo src={r.src} label={r.title} />
+                      <span className="reel-card__sound" aria-hidden="true">
+                        <svg viewBox="0 0 24 24">
+                          <path d="M4 9.5h3.2L12 5.5v13l-4.8-4H4z" />
+                          <path d="M15.5 9a4.2 4.2 0 0 1 0 6M18.2 6.6a7.6 7.6 0 0 1 0 10.8" />
+                        </svg>
+                      </span>
+                    </button>
+                    <div className="reel-card__body">
+                      <h3 className="web-card__title">{r.title}</h3>
+                      <p className="card-body">{r.desc}</p>
+                    </div>
+                  </motion.article>
+                ))}
+              </motion.div>
+            </div>
+          );
+        })}
       </section>
 
       <section className="proj-section">
@@ -356,13 +397,13 @@ export default function Media() {
       </section>
 
       <AnimatePresence>
-        {reelIdx !== null && (
+        {current && (
           <motion.div
             className="lightbox"
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             exit={{ opacity: 0 }}
-            onClick={() => setReelIdx(null)}
+            onClick={closeReel}
           >
             <motion.div
               className="reellb"
@@ -373,18 +414,18 @@ export default function Media() {
               onClick={(e) => e.stopPropagation()}
               {...reelSwipe}
             >
-              <button className="lightbox__close" onClick={() => setReelIdx(null)} aria-label="Close">
+              <button className="lightbox__close" onClick={closeReel} aria-label="Close">
                 ×
               </button>
               {/* keyed so switching reels starts the new one from the top */}
               <video
-                key={MOTION_REELS[reelIdx].src}
-                src={MOTION_REELS[reelIdx].src}
-                poster={posterFor(MOTION_REELS[reelIdx].src)}
+                key={current.src}
+                src={current.src}
+                poster={posterFor(current.src)}
                 controls
                 autoPlay
                 playsInline
-                aria-label={MOTION_REELS[reelIdx].title}
+                aria-label={current.title}
               />
               <button className="lb-nav lb-nav--prev" onClick={prevReel} aria-label="Previous reel">
                 ‹

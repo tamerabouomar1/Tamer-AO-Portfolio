@@ -39,6 +39,22 @@
     "height": 1280,
     "duration": "PT16S"
   },
+  "design-map-pack.mp4": {
+    "poster": "/assets/motion/posters/design-map-pack.webp",
+    "posterWidth": 720,
+    "posterHeight": 1280,
+    "width": 720,
+    "height": 1280,
+    "duration": "PT50S"
+  },
+  "design-presence-system.mp4": {
+    "poster": "/assets/motion/posters/design-presence-system.webp",
+    "posterWidth": 720,
+    "posterHeight": 1280,
+    "width": 720,
+    "height": 1280,
+    "duration": "PT49S"
+  },
   "design-riso-flyer-check.mp4": {
     "poster": "/assets/motion/posters/design-riso-flyer-check.webp",
     "posterWidth": 608,
@@ -87,6 +103,14 @@
     "height": 1280,
     "duration": "PT15S"
   },
+  "design-site-salesperson.mp4": {
+    "poster": "/assets/motion/posters/design-site-salesperson.webp",
+    "posterWidth": 720,
+    "posterHeight": 1280,
+    "width": 720,
+    "height": 1280,
+    "duration": "PT43S"
+  },
   "design-swiss-hierarchy.mp4": {
     "poster": "/assets/motion/posters/design-swiss-hierarchy.webp",
     "posterWidth": 608,
@@ -134,6 +158,46 @@
     "width": 960,
     "height": 540,
     "duration": "PT12S"
+  },
+  "fabricaid-caps.mp4": {
+    "poster": "/assets/motion/posters/fabricaid-caps.webp",
+    "posterWidth": 608,
+    "posterHeight": 1080,
+    "width": 720,
+    "height": 1280,
+    "duration": "PT21S"
+  },
+  "fabricaid-naseej-tote.mp4": {
+    "poster": "/assets/motion/posters/fabricaid-naseej-tote.webp",
+    "posterWidth": 608,
+    "posterHeight": 1080,
+    "width": 720,
+    "height": 1280,
+    "duration": "PT17S"
+  },
+  "fabricaid-naseej.mp4": {
+    "poster": "/assets/motion/posters/fabricaid-naseej.webp",
+    "posterWidth": 608,
+    "posterHeight": 1080,
+    "width": 720,
+    "height": 1280,
+    "duration": "PT12S"
+  },
+  "fabricaid-plotter.mp4": {
+    "poster": "/assets/motion/posters/fabricaid-plotter.webp",
+    "posterWidth": 608,
+    "posterHeight": 1080,
+    "width": 720,
+    "height": 1280,
+    "duration": "PT32S"
+  },
+  "fabricaid-showroom.mp4": {
+    "poster": "/assets/motion/posters/fabricaid-showroom.webp",
+    "posterWidth": 608,
+    "posterHeight": 1080,
+    "width": 720,
+    "height": 1280,
+    "duration": "PT23S"
   },
   "ig-always-healthy.mp4": {
     "poster": "/assets/motion/posters/ig-always-healthy.webp",
@@ -214,5 +278,69 @@
     "width": 1080,
     "height": 1920,
     "duration": "PT2S"
+  },
+  "playwear-bedazzle-box.mp4": {
+    "poster": "/assets/motion/posters/playwear-bedazzle-box.webp",
+    "posterWidth": 608,
+    "posterHeight": 1080,
+    "width": 720,
+    "height": 1280,
+    "duration": "PT15S"
+  },
+  "playwear-bring-fun-back.mp4": {
+    "poster": "/assets/motion/posters/playwear-bring-fun-back.webp",
+    "posterWidth": 608,
+    "posterHeight": 1080,
+    "width": 720,
+    "height": 1280,
+    "duration": "PT30S"
+  },
+  "playwear-candy-cake.mp4": {
+    "poster": "/assets/motion/posters/playwear-candy-cake.webp",
+    "posterWidth": 608,
+    "posterHeight": 1080,
+    "width": 720,
+    "height": 1280,
+    "duration": "PT13S"
+  },
+  "playwear-first-popup.mp4": {
+    "poster": "/assets/motion/posters/playwear-first-popup.webp",
+    "posterWidth": 608,
+    "posterHeight": 1080,
+    "width": 720,
+    "height": 1280,
+    "duration": "PT12S"
+  },
+  "playwear-memory-book.mp4": {
+    "poster": "/assets/motion/posters/playwear-memory-book.webp",
+    "posterWidth": 608,
+    "posterHeight": 1080,
+    "width": 720,
+    "height": 1280,
+    "duration": "PT44S"
+  },
+  "playwear-sensory-tray.mp4": {
+    "poster": "/assets/motion/posters/playwear-sensory-tray.webp",
+    "posterWidth": 608,
+    "posterHeight": 1080,
+    "width": 720,
+    "height": 1280,
+    "duration": "PT15S"
+  },
+  "playwear-squishy-cart.mp4": {
+    "poster": "/assets/motion/posters/playwear-squishy-cart.webp",
+    "posterWidth": 608,
+    "posterHeight": 1080,
+    "width": 720,
+    "height": 1280,
+    "duration": "PT18S"
+  },
+  "playwear-teaser.mp4": {
+    "poster": "/assets/motion/posters/playwear-teaser.webp",
+    "posterWidth": 608,
+    "posterHeight": 1080,
+    "width": 720,
+    "height": 1280,
+    "duration": "PT9S"
   }
 }

@@ -8,8 +8,8 @@ import MessageForm from "../components/MessageForm";
 import { TrustedBy } from "../components/SocialProof";
 import {
   CONTACT,
-  PRESENCE,
-  GOOGLE_PROFILE,
+  SERVICE_PACKAGES,
+  DIGITAL_MARKETING,
   SOCIAL_PACKAGES,
   SOCIAL_GUARANTEE,
   SERVICE_CATEGORIES,
@@ -24,14 +24,15 @@ import {
 
 const money = (n) => "$" + n.toLocaleString("en-US");
 
-/* Price cards show their first three features here; the rest are on the
-   service pages and come up on the call. */
+/* Social cards show their first three features here; the rest come up on
+   the call. The website packages show everything, because what separates the
+   three tiers is the list itself. */
 const FEATURES_SHOWN = 3;
 
 const GLANCE = [
   { id: "free", name: "Start free", what: "A template, a brand teardown, your first reel or an hour of coaching", price: "$0" },
-  { id: "online-presence", name: "The whole online presence", what: "Website, Google profile and content, as one job", price: `from ${money(PRESENCE.from)}, quoted` },
-  { id: "google-profile", name: "Just the Google profile", what: "The map listing people see before any website", price: `${money(GOOGLE_PROFILE.price)}, in one day` },
+  { id: "packages", name: "Website packages", what: "The site, then Google and social, then everything", price: SERVICE_PACKAGES.map((p) => money(p.flat)).join(" · ") },
+  { id: "marketing", name: "Digital marketing", what: "Google profile, ads, photos, training, WhatsApp", price: "from $90" },
   { id: "social", name: "Social media", what: "Reels-first content, every month", price: `from ${SOCIAL_PACKAGES[0].price}/mo` },
   { id: "one-off", name: "One-off work", what: "Logos, identities, apparel and print", price: "quoted per job" },
 ];
@@ -77,42 +78,56 @@ export default function WorkWithMe() {
 
       <TrustedBy />
 
-      {/* The flagship, quoted per project. */}
-      <section className="proj-section" id="online-presence">
-        <h2 className="proj-section__title">The Whole Online Presence</h2>
-        <motion.article className="card svc-min" variants={cardIn} initial="hidden" whileInView="show" viewport={{ once: true, margin: "-40px" }}>
-          <div className="svc-min__main">
-            <p className="svc-min__line">{PRESENCE.line}</p>
-            <ul className="svc-min__list">
-              {PRESENCE.includes.map((i) => (
-                <li key={i}>{i}</li>
-              ))}
-            </ul>
-          </div>
-          <div className="svc-min__price">
-            <span className="svc-min__from">from</span>
-            <strong>{money(PRESENCE.from)}</strong>
-            <span className="svc-min__terms">{PRESENCE.terms}</span>
-            {bookCall(PRESENCE.cta)}
-          </div>
-        </motion.article>
+      {/* Three website packages, set by Tamer 2026-10-22. */}
+      <section className="proj-section" id="packages">
+        <h2 className="proj-section__title">Website Packages</h2>
+        <p className="page-lead" style={{ marginTop: "-4px" }}>
+          Every package goes live in one day. Half up front, half on launch day.
+        </p>
+        <motion.div className="price-grid" variants={container} initial="hidden" whileInView="show" viewport={{ once: true, margin: "-40px" }}>
+          {SERVICE_PACKAGES.map((p) => (
+            <PriceCard
+              key={p.id}
+              name={p.name}
+              tagline={p.tagline}
+              amount={money(p.flat)}
+              period={p.period}
+              badge={p.badge}
+              featured={p.featured}
+              features={p.features}
+              bonus={p.bonus}
+              guarantee={p.guarantee}
+              action={bookCall(p.featured ? "Book a free call" : "Get a quote")}
+            />
+          ))}
+        </motion.div>
+        <p className="price-note">
+          Prices in USD, by OMT, Whish Money or bank transfer. Hosting and edits after launch from $30 a month.
+        </p>
       </section>
 
-      <section className="proj-section" id="google-profile">
-        <h2 className="proj-section__title">Just the Google Profile</h2>
-        <motion.div className="price-grid" variants={container} initial="hidden" whileInView="show" viewport={{ once: true, margin: "-40px" }}>
-          <PriceCard
-            name={GOOGLE_PROFILE.name}
-            tagline={GOOGLE_PROFILE.tagline}
-            amount={money(GOOGLE_PROFILE.price)}
-            period={GOOGLE_PROFILE.period}
-            features={GOOGLE_PROFILE.features.slice(0, FEATURES_SHOWN)}
-            guarantee={GOOGLE_PROFILE.guarantee}
-            featured
-            badge="Fastest win"
-            action={bookCall()}
-          />
+      {/* Anchor kept for old links to the presence and Google sections. */}
+      <div id="online-presence" className="anchor" />
+      <div id="google-profile" className="anchor" />
+      <section className="proj-section" id="marketing">
+        <h2 className="proj-section__title">Digital Marketing</h2>
+        <p className="page-lead" style={{ marginTop: "-4px" }}>
+          Bought on its own, or added to any package.
+        </p>
+        <motion.div className="mk-grid" variants={container} initial="hidden" whileInView="show" viewport={{ once: true, margin: "-40px" }}>
+          {DIGITAL_MARKETING.map((m) => (
+            <motion.article className="card mk-item" key={m.id} variants={cardIn}>
+              <h3 className="mk-item__name">{m.name}</h3>
+              <p className="mk-item__what">{m.what}</p>
+              <p className="mk-item__price">
+                <strong>{m.price}</strong> <span>{m.period}</span>
+              </p>
+            </motion.article>
+          ))}
         </motion.div>
+        <p className="price-note">
+          Not sure what you need? <a className="link" href="#message">Tell me about the business</a> and I&apos;ll say which of these would move the needle first.
+        </p>
       </section>
 
       <section className="proj-section" id="social">

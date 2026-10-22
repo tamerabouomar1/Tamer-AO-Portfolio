@@ -46,30 +46,46 @@ a, button, summary, input, label, [role="button"] {
 }
 
 
-/* Heading face. Inter on every word is the single most common tell of a
-   generated site, so the page and section headings get a face of their own:
-   Archivo, heavy and slightly condensed, the way fight kit and team apparel
-   are lettered, which is the work this site is built on. Self-hosted
-   (public/fonts, OFL licence beside it) so it adds no third-party request.
-   One variable file covers every weight and width. Body copy stays Inter.
-   Arabic has no glyphs in either face, so the stack ends in the system
-   Arabic fonts for the /ar/ pages. */
+/* Type. Instrument Serif for page and section headings, Instrument Sans for
+   everything else (2026-10-22, replacing Archivo + Inter: Tamer wanted the
+   portfolio to read more like a design studio and less like team apparel).
+   The two were drawn as a pair, so they share proportions and sit well
+   together. All three files are self-hosted in public/fonts with the OFL
+   licence beside them. The serif only comes in a regular weight, so headings
+   get their presence from size, not boldness. Neither face has Arabic, so the
+   stacks end in the system Arabic fonts for the /ar/ pages. The store
+   templates keep their own fonts (several still load Inter from Google). */
 @font-face {
-  font-family: "Archivo";
-  src: url("/fonts/archivo-latin-wdth.woff2") format("woff2");
-  font-weight: 100 900;
-  font-stretch: 62% 125%;
+  font-family: "Instrument Serif";
+  src: url("/fonts/instrument-serif-latin.woff2") format("woff2");
+  font-weight: 400;
+  font-style: normal;
+  font-display: swap;
+}
+@font-face {
+  font-family: "Instrument Serif";
+  src: url("/fonts/instrument-serif-latin-italic.woff2") format("woff2");
+  font-weight: 400;
+  font-style: italic;
+  font-display: swap;
+}
+@font-face {
+  font-family: "Instrument Sans";
+  src: url("/fonts/instrument-sans-latin-wdth.woff2") format("woff2");
+  font-weight: 400 700;
+  font-stretch: 75% 100%;
   font-style: normal;
   font-display: swap;
 }
 :root {
-  --font-display: "Archivo", "Inter", "SF Arabic", "Geeza Pro", "Noto Sans Arabic", system-ui, sans-serif;
+  --font-display: "Instrument Serif", "Iowan Old Style", Georgia, "SF Arabic", "Geeza Pro", "Noto Sans Arabic", serif;
+  --font-body: "Instrument Sans", system-ui, -apple-system, "SF Arabic", "Geeza Pro", sans-serif;
 }
 
 body {
   background: var(--bg);
   color: var(--text);
-  font-family: "Inter", system-ui, -apple-system, sans-serif;
+  font-family: var(--font-body);
   -webkit-font-smoothing: antialiased;
   text-rendering: optimizeLegibility;
   overflow-x: hidden;
@@ -1801,7 +1817,7 @@ ul { margin: 0; padding: 0; list-style: none; }
    Letter-spacing is zeroed because spacing Arabic letters apart breaks the
    joins between them, and the thin 200/300 weights the English copy uses are
    lifted, because Arabic at those weights turns to hairlines. */
-.svc-rtl { font-family: "Inter", "SF Arabic", "Geeza Pro", "Noto Sans Arabic", "Segoe UI", Tahoma, sans-serif; }
+.svc-rtl { font-family: "Instrument Sans", "SF Arabic", "Geeza Pro", "Noto Sans Arabic", "Segoe UI", Tahoma, sans-serif; }
 .svc-rtl, .svc-rtl * { letter-spacing: 0 !important; }
 .svc-rtl .svc-block__list { padding-left: 0; padding-right: 18px; }
 .svc-rtl .svc-block__list,
@@ -2372,7 +2388,7 @@ ul { margin: 0; padding: 0; list-style: none; }
   -webkit-backdrop-filter: blur(14px) saturate(1.2);
   box-shadow: 0 18px 50px rgba(0, 0, 0, 0.55);
   color: #fff;
-  font-family: "Inter", system-ui, sans-serif;
+  font-family: var(--font-body);
   max-width: calc(100vw - 24px);
   transition: opacity 0.3s var(--ease), transform 0.3s var(--ease);
 }
@@ -2427,7 +2443,7 @@ ul { margin: 0; padding: 0; list-style: none; }
   left: 50%; bottom: max(16px, env(safe-area-inset-bottom));
   transform: translateX(-50%);
   padding: 8px 18px; border-radius: 8px; cursor: pointer;
-  font-family: "Inter", system-ui, sans-serif; font-size: 12px; font-weight: 600;
+  font-family: var(--font-body); font-size: 12px; font-weight: 600;
   background: rgba(10, 10, 12, 0.7); border: 1px solid rgba(255, 255, 255, 0.18);
   color: rgba(255, 255, 255, 0.8);
   backdrop-filter: blur(10px);
@@ -3840,9 +3856,10 @@ select:focus-visible,
 }
 
 /* The heading face, applied to page and section headings only (h1/h2
-   classes). Card and item titles stay Inter so the two faces have distinct
-   jobs. font-stretch 88% is semi-condensed: enough to read as athletic, not
-   so narrow that long Lebanese place names crowd. */
+   classes). Card and item titles stay in the sans so the two faces have
+   distinct jobs. The serif is a single regular weight: no faux bold, and a
+   touch of negative tracking so large sizes set tight. Italic is reserved for
+   the odd accent word wrapped in <em>. */
 .topbar__title,
 .section-title,
 .card-title,
@@ -3851,9 +3868,36 @@ select:focus-visible,
 .offer__name,
 .proj-section__title {
   font-family: var(--font-display);
-  font-weight: 800;
-  font-stretch: 88%;
-  letter-spacing: -0.005em;
+  font-weight: 400;
+  font-synthesis: none;
+  letter-spacing: -0.012em;
+  line-height: 1.08;
 }
+.topbar__title em,
+.section-title em,
+.proj-section__title em { font-style: italic; }
 .svc-rtl .topbar__title,
-.svc-rtl .proj-section__title { font-stretch: 100%; }
+.svc-rtl .proj-section__title { font-family: var(--font-body); font-weight: 700; }
+
+/* /media: client reels, one block per client. */
+.client-reels + .client-reels { margin-top: clamp(26px, 3vw, 40px); }
+.client-reels__name {
+  font-family: var(--font-display);
+  font-weight: 400;
+  font-size: clamp(22px, 2vw, 28px);
+  letter-spacing: -0.01em;
+  margin-bottom: 4px;
+}
+.client-reels__line { max-width: 70ch; margin-bottom: 14px; }
+
+/* Services: digital marketing list. Plain cards, name, one line, price. */
+.mk-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
+  gap: clamp(10px, 1.2vw, 16px);
+}
+.mk-item { display: flex; flex-direction: column; gap: 6px; padding: clamp(16px, 1.6vw, 22px); }
+.mk-item__name { font-size: 17px; font-weight: 600; line-height: 1.25; }
+.mk-item__what { color: var(--muted); font-size: 14px; line-height: 1.45; flex: 1; }
+.mk-item__price { margin-top: 6px; font-size: 14px; color: var(--muted); }
+.mk-item__price strong { color: var(--text); font-size: 20px; font-weight: 700; margin-right: 4px; }
