@@ -3890,14 +3890,4 @@ select:focus-visible,
 }
 .client-reels__line { max-width: 70ch; margin-bottom: 14px; }
 
-/* Services: digital marketing list. Plain cards, name, one line, price. */
-.mk-grid {
-  display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
-  gap: clamp(10px, 1.2vw, 16px);
-}
-.mk-item { display: flex; flex-direction: column; gap: 6px; padding: clamp(16px, 1.6vw, 22px); }
-.mk-item__name { font-size: 17px; font-weight: 600; line-height: 1.25; }
-.mk-item__what { color: var(--muted); font-size: 14px; line-height: 1.45; flex: 1; }
-.mk-item__price { margin-top: 6px; font-size: 14px; color: var(--muted); }
-.mk-item__price strong { color: var(--text); font-size: 20px; font-weight: 700; margin-right: 4px; }
+.price-grid--single { max-width: 560px; }

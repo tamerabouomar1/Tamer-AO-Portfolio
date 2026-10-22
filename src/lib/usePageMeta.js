@@ -109,7 +109,7 @@ export const PAGE_META = {
   "/google-business-profile-lebanon": {
     title: "Google Business Profile Setup in Lebanon",
     description:
-      "The map listing sits above every website when someone nearby searches. Claimed and set up properly for $250, within one day or you don't pay.",
+      "The map listing sits above every website when someone nearby searches. Claimed and set up properly with your website, live in one day, from $2,500.",
   },
   /* Retitled away from "Design & Social Media Services", which named the
      components rather than the outcome. The page now leads with the whole

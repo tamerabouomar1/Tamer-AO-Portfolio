@@ -2072,7 +2072,7 @@ export const SERVICE_PACKAGES = [
       "Google Business Profile claimed, set up and linked",
       "Review link and the message that gets you reviews",
       "Instagram, Facebook and TikTok set up and linked",
-      "Social media training: two one-hour sessions on shooting, editing and posting reels from your phone",
+      "The Social Media Training course, $1,500 on its own",
       "A 30-day content plan to post from",
     ],
     bonus: "Free first reel, edited by me",
@@ -2092,7 +2092,7 @@ export const SERVICE_PACKAGES = [
       "First month of content: 8 reels and posts, shot and edited",
       "Instagram and Google ads set up and launched (ad spend paid by you)",
       "WhatsApp Business with catalogue and quick replies",
-      "Social media training for you or your team",
+      "The Social Media Training course, for you or your team",
       "Review kit: QR table cards, link and message templates",
       "Three months of monthly reports: visitors, calls, bookings, rankings",
     ],
@@ -2102,20 +2102,26 @@ export const SERVICE_PACKAGES = [
   },
 ];
 
-/* Digital marketing, bought on its own or added to a package. Short on
-   purpose: what it is, what it costs. Prices set 2026-10-22 next to the
-   existing $250 Google profile; edit them here and they update everywhere on
-   the Services page. */
-export const DIGITAL_MARKETING = [
-  { id: "gbp", name: "Google Business Profile setup", what: "Claimed, verified and set up the way people search", price: "$250", period: "one-off" },
-  { id: "gbp-care", name: "Google profile management", what: "Weekly posts, new photos, every review answered, a monthly report", price: "$120", period: "per month" },
-  { id: "local-seo", name: "Local SEO and map listings", what: "Listed the same way on Google, Apple Maps, Bing and Waze, plus local directories", price: "$300", period: "one-off" },
-  { id: "ads", name: "Instagram or Google ads", what: "Campaign set up, targeted and launched. Ad spend is paid to the platform by you", price: "$350", period: "per platform, then $250/mo to run" },
-  { id: "photo", name: "Photo shoot", what: "Half a day at your place, 40 edited photos for the site, Google and socials", price: "$400", period: "one-off" },
-  { id: "training", name: "Social media training", what: "One hour, one to one, on shooting, editing and posting reels from your phone", price: "$150", period: "per session" },
-  { id: "whatsapp", name: "WhatsApp Business setup", what: "Catalogue, quick replies, away message and a link on every page", price: "$120", period: "one-off" },
-  { id: "reviews", name: "Review kit", what: "QR table cards, your review link and the message to send after every visit", price: "$90", period: "one-off" },
-];
+/* The Social Media Training course (2026-10-23). $1,500 on its own, and
+   included in the $2,500 and $4,500 packages, which is the anchor those
+   packages lean on. It replaced an eight-item list of small add-ons ($90 to
+   $400): Tamer wants big checks, so Google setup, ads, photos, WhatsApp and
+   reviews are only sold inside the packages now. */
+export const SOCIAL_TRAINING = {
+  id: "training",
+  name: "Social Media Training",
+  tagline: "Run your own socials like you hired someone",
+  flat: 1500,
+  period: "one-off course · for you or your team",
+  features: [
+    "Shoot reels on your phone that look paid for",
+    "Hooks, captions and editing, the way I cut my own reels (855K+ views)",
+    "What to post, when to post it, and how to read what is working",
+    "Instagram, Facebook and TikTok set up properly",
+    "A 30-day content plan built for your business",
+  ],
+  bonus: "Your first reel edited by me",
+};
 
 // ── Keeping a site alive ──────────────────────────────────────
 // The three monthly plans from the FabricAID proposal, unchanged. Every plan
@@ -2209,27 +2215,6 @@ export const WEBSITE_CARE_NOTES = [
 // was then quoted from $1,200, and since 2026-10-22 it is the top website
 // package at $4,500 (SERVICE_PACKAGES above).
 
-/** Google Business Profile, sold on its own as well as inside the bundle.
- *  It is the fastest win Tamer has: the map listing is what a nearby search
- *  actually returns, it sits above the organic results, and it can be fixed
- *  in a day without touching the website. */
-export const GOOGLE_PROFILE = {
-  price: 250,
-  period: "one-off, set up within one day",
-  name: "Google Business Profile Setup",
-  tagline: "The listing people see before they see your site",
-  features: [
-    "Profile claimed, verified and locked to you",
-    "Categories, services and service areas set the way people search",
-    "Hours, phone and booking link wired to the right places",
-    "Photos uploaded, named and ordered so the good ones lead",
-    "Description written for what people type, not what you call it",
-    "Review link set up, plus the message to send asking for them",
-    "Posts and offers scheduled for the first month",
-  ],
-  bonus: "Free walkthrough so you can post to it yourself afterwards",
-  guarantee: "Set up within one day of getting your details, or you don't pay.",
-};
 
 export const PRESENCE = {
   name: "The Whole Online Presence",
@@ -2315,7 +2300,7 @@ export const SERVICE_PAGES = [
           "Three packages, each live in one day, then a monthly plan that keeps the site online and looked after:",
         bullets: [
           "$1,000 for the website: up to six pages, launched on your domain and set up to be found on Google",
-          "$2,500 adds your Google Business Profile, your socials set up and linked, and two training sessions on posting reels yourself",
+          "$2,500 adds your Google Business Profile, your socials set up and linked, and the Social Media Training course, which is $1,500 on its own",
           "$4,500 for everything: a high-end site in English and Arabic, a photo shoot, local SEO, a month of content and ads set up",
           "Then $30, $100 or $190 a month for hosting, edits and reporting, picked by how often your site changes",
         ],
@@ -2388,7 +2373,7 @@ export const SERVICE_PAGES = [
             "ثلاث باقات، كل واحدة جاهزة خلال يوم واحد، ثم خطة شهرية تُبقي الموقع شغّالاً ومُعتنى به:",
           bullets: [
             "1,000$ للموقع: حتى ست صفحات، مُطلَق على نطاقك وجاهز ليظهر على جوجل",
-            "2,500$ تضيف ملفك على Google Business، وإعداد حساباتك على وسائل التواصل وربطها، وجلستَي تدريب على نشر الريلز بنفسك",
+            "2,500$ تضيف ملفك على Google Business، وإعداد حساباتك على وسائل التواصل وربطها، ودورة التدريب على وسائل التواصل التي سعرها وحدها 1,500$",
             "4,500$ لكل شيء: موقع راقٍ بالعربية والإنجليزية، وجلسة تصوير، وSEO محلي، وشهر من المحتوى، وإعلانات جاهزة",
             "بعدها 30$ أو 100$ أو 190$ شهرياً للاستضافة والتعديلات والتقارير، بحسب عدد التعديلات التي تحتاجها",
           ],
@@ -2659,7 +2644,7 @@ export const SERVICE_PAGES = [
     faqs: [
       {
         q: "How much does a salon website cost in Lebanon?",
-        a: "$1,000 one off for a full six page site, launched and set up to be found on Google, then $30, $100 or $190 a month depending on how often you want changes made. $2,500 adds your Google profile, your socials set up and two sessions of social media training.",
+        a: "$1,000 one off for a full six page site, launched and set up to be found on Google, then $30, $100 or $190 a month depending on how often you want changes made. $2,500 adds your Google profile, your socials set up and the Social Media Training course, $1,500 on its own.",
       },
       {
         q: "Can clients book directly on the site?",
@@ -2720,19 +2705,18 @@ export const SERVICE_PAGES = [
       {
         title: "What it costs",
         body:
-          "$250 one-off, set up within one day of you sending your details, or you do not pay. It also comes inside the $2,500 website package, with your socials set up and social media training, and inside The Whole Online Presence at $4,500.",
+          "It comes inside the $2,500 package, with your website, your socials set up and the Social Media Training course, and inside The Whole Online Presence at $4,500 with local SEO and map listings on top. Live within one day of getting your details; Google's own verification can take a few extra days.",
       },
     ],
     proof: [
       { name: "Salon Nizar", what: "Barbershop in Abadiyeh, where the map listing is most of the walk-in traffic." },
-      { name: "Kitchen Garage", what: "Aley, where a nearby search is the whole game for a food order." },
-      { name: "Rasif Aley", what: "Coffee shop running on its real menu, photographs and reviews." },
+      { name: "Qasr Al Karami", what: "A wedding venue in Mount Lebanon, verified on Google and linked to its own site and Search Console." },
       { name: "Tamer AO", what: "My own profile, set up the same way this one would be." },
     ],
     faqs: [
       {
         q: "How much does Google Business Profile setup cost in Lebanon?",
-        a: "$250 as a one-off, set up within one day of getting your details or you do not pay. It is also included in the $2,500 website package and in The Whole Online Presence at $4,500, which set up the site and the profile together.",
+        a: "It is set up as part of the $2,500 package, together with your website, your socials and the Social Media Training course, or the $4,500 package, which adds local SEO, a photo shoot and ads. A profile on its own brings calls to a business with nowhere good to send them, so I set the two up together.",
       },
       {
         q: "I already have a listing. Do I still need this?",
@@ -2777,7 +2761,7 @@ export const SERVICE_PAGES = [
         bullets: [
           "$0 for a finished template from the free gallery, in full source, if you can set it up yourself",
           "$1,000 one-off for a full site of up to six pages, launched on your own domain and set up to be found on Google, in one day",
-          "$2,500 one-off for the site plus your Google Business Profile, your socials set up and linked, and two sessions of social media training",
+          "$2,500 one-off for the site plus your Google Business Profile, your socials set up and linked, and the Social Media Training course, which is $1,500 on its own",
           "$4,500 one-off for everything: a high-end site in English and Arabic, a photo shoot, local SEO, a month of content, ads set up and three months of reports",
         ],
       },
@@ -2926,7 +2910,7 @@ export const SERVICE_PAGES = [
      Tamer is not an agency and this page does not pretend to be one: it
      answers the search with what an agency would actually deliver a small
      business, priced, and says plainly when an agency is the better buy.
-     Every figure is PRESENCE / GOOGLE_PROFILE / SERVICE_PACKAGES above. */
+     Every figure is SERVICE_PACKAGES / SOCIAL_TRAINING above. */
   {
     slug: "digital-marketing-agency-lebanon",
     h1: "Digital Marketing in Lebanon, Without the Agency",
@@ -2943,10 +2927,10 @@ export const SERVICE_PAGES = [
         title: "What it costs",
         body: "One setup fee, one monthly, both written down before we speak:",
         bullets: [
-          "$2,500 to set up your website, Google Business Profile and socials in one day, with two sessions of social media training so you can post yourself",
+          "$2,500 to set up your website, Google Business Profile and socials in one day, with the Social Media Training course so you can post yourself",
           "$4,500 for everything at the high end: the site in English and Arabic, a photo shoot, local SEO, a month of content, Instagram and Google ads set up and three months of reports",
           "Monthly care after that, from $30 for the site and from $199 for content, cancelled with 30 days' notice",
-          "Or buy one piece on its own: $250 for the Google profile, $1,000 for the website, $400 for a photo shoot, $150 for a training session",
+          "Or learn to run it yourself: the Social Media Training course on its own is $1,500",
         ],
       },
       {
@@ -2962,7 +2946,7 @@ export const SERVICE_PAGES = [
       {
         title: "When an agency is the better buy",
         body:
-          "I set up and launch Instagram and Google ads, and run them from $250 a month. If what you need is a large ad budget managed every day, a PR campaign, or a team of ten on your account, hire an agency. This is for a business that wants to be found, look right when it is, and stay visible, without paying for the layers in between.",
+          "Instagram and Google ads are set up and launched inside The Whole Online Presence. If what you need is a large ad budget managed every day, a PR campaign, or a team of ten on your account, hire an agency. This is for a business that wants to be found, look right when it is, and stay visible, without paying for the layers in between.",
       },
     ],
     proof: [
@@ -2976,7 +2960,7 @@ export const SERVICE_PAGES = [
     faqs: [
       {
         q: "How much does digital marketing cost in Lebanon?",
-        a: "$2,500 sets up your website, Google Business Profile and socials, with social media training. $4,500 is everything at the high end, including a photo shoot, local SEO, a month of content and ads set up. You can also buy the pieces on their own: $250 for the Google profile, $1,000 for the website, or content from $199 a month.",
+        a: "$2,500 sets up your website, Google Business Profile and socials, with social media training. $4,500 is everything at the high end, including a photo shoot, local SEO, a month of content and ads set up. The website alone is $1,000, the Social Media Training course is $1,500, and monthly content starts at $199.",
       },
       {
         q: "Who does the work?",
@@ -2984,7 +2968,7 @@ export const SERVICE_PAGES = [
       },
       {
         q: "Do you run paid ads?",
-        a: "Yes, on Instagram and Google: $350 per platform to set up and launch, then $250 a month to run, with the ad spend paid to the platform by you. They come set up inside the $4,500 package. Ads work best on top of a Google listing and a site that turns visits into enquiries, so those come first.",
+        a: "Yes, on Instagram and Google. They are set up and launched inside the $4,500 package, with the ad spend paid to the platforms by you. Ads work best on top of a Google listing and a site that turns visits into enquiries, so those come first.",
       },
       {
         q: "What if it does not bring in more business?",
@@ -2992,7 +2976,7 @@ export const SERVICE_PAGES = [
       },
       {
         q: "Can I start smaller?",
-        a: "Yes. The Google profile alone is $250 and is set up within one day or you do not pay. Or start free: a recorded brand teardown, your first reel edited, or a finished website template, none of which needs a card.",
+        a: "Yes. The website alone is $1,000 and live in one day, and the Social Media Training course is $1,500. Or start free: a recorded brand teardown, your first reel edited, or a finished website template, none of which needs a card.",
       },
     ],
     cta: { label: "See the whole offer", to: "/work-with-me" },

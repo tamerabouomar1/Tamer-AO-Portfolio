@@ -9,7 +9,7 @@ import { TrustedBy } from "../components/SocialProof";
 import {
   CONTACT,
   SERVICE_PACKAGES,
-  DIGITAL_MARKETING,
+  SOCIAL_TRAINING,
   SOCIAL_PACKAGES,
   SOCIAL_GUARANTEE,
   SERVICE_CATEGORIES,
@@ -30,9 +30,9 @@ const money = (n) => "$" + n.toLocaleString("en-US");
 const FEATURES_SHOWN = 3;
 
 const GLANCE = [
-  { id: "free", name: "Start free", what: "A template, a brand teardown, your first reel or an hour of coaching", price: "$0" },
   { id: "packages", name: "Website packages", what: "The site, then Google and social, then everything", price: SERVICE_PACKAGES.map((p) => money(p.flat)).join(" · ") },
-  { id: "marketing", name: "Digital marketing", what: "Google profile, ads, photos, training, WhatsApp", price: "from $90" },
+  { id: "free", name: "Start free", what: "A template, a brand teardown, your first reel or an hour of coaching", price: "$0" },
+  { id: "training", name: "Social media training", what: "A course on shooting, editing and posting reels", price: money(SOCIAL_TRAINING.flat) },
   { id: "social", name: "Social media", what: "Reels-first content, every month", price: `from ${SOCIAL_PACKAGES[0].price}/mo` },
   { id: "one-off", name: "One-off work", what: "Logos, identities, apparel and print", price: "quoted per job" },
 ];
@@ -50,12 +50,12 @@ export default function WorkWithMe() {
         <div>
           {/* Start Free was merged in here; /free 301s to #free. */}
           <SplitHeading>Your Whole Online Presence</SplitHeading>
-          <p className="topbar__sub">Start free, or have it all done</p>
+          <p className="topbar__sub">Have it all done, or start free</p>
         </div>
       </header>
 
       <motion.section className="card freehero glance-hero" variants={cardIn} initial="hidden" animate="show">
-        <h2 className="freehero__title">Take the work first. Pay when it&apos;s worth it.</h2>
+        <h2 className="freehero__title">Website, Google and socials. Done for you, live in one day.</h2>
         <nav className="glance" aria-label="On this page">
           {GLANCE.map((g) => (
             <a className="glance__item" href={`#${g.id}`} key={g.id}>
@@ -73,16 +73,11 @@ export default function WorkWithMe() {
         </div>
       </motion.section>
 
-      <div id="free" className="anchor" />
-      <FreeOffers title="Start free" accent="free" compact />
-
-      <TrustedBy />
-
       {/* Three website packages, set by Tamer 2026-10-22. */}
       <section className="proj-section" id="packages">
         <h2 className="proj-section__title">Website Packages</h2>
         <p className="page-lead" style={{ marginTop: "-4px" }}>
-          Every package goes live in one day. Half up front, half on launch day.
+          Every package goes live in one day. Google, ads, photos and training are sold inside the packages, not one piece at a time.
         </p>
         <motion.div className="price-grid" variants={container} initial="hidden" whileInView="show" viewport={{ once: true, margin: "-40px" }}>
           {SERVICE_PACKAGES.map((p) => (
@@ -106,28 +101,34 @@ export default function WorkWithMe() {
         </p>
       </section>
 
+      <div id="free" className="anchor" />
+      <FreeOffers title="Start free" accent="free" compact />
+
+      <TrustedBy />
+
       {/* Anchor kept for old links to the presence and Google sections. */}
       <div id="online-presence" className="anchor" />
       <div id="google-profile" className="anchor" />
-      <section className="proj-section" id="marketing">
-        <h2 className="proj-section__title">Digital Marketing</h2>
+      {/* Sold on its own, and inside the $2,500 and $4,500 packages. The
+          small add-ons that used to sit here are only sold inside the
+          packages now (2026-10-23). */}
+      <div id="marketing" className="anchor" />
+      <section className="proj-section" id="training">
+        <h2 className="proj-section__title">Social Media Training</h2>
         <p className="page-lead" style={{ marginTop: "-4px" }}>
-          Bought on its own, or added to any package.
+          Included in the $2,500 and $4,500 packages. On its own, it is a course for you or your team.
         </p>
-        <motion.div className="mk-grid" variants={container} initial="hidden" whileInView="show" viewport={{ once: true, margin: "-40px" }}>
-          {DIGITAL_MARKETING.map((m) => (
-            <motion.article className="card mk-item" key={m.id} variants={cardIn}>
-              <h3 className="mk-item__name">{m.name}</h3>
-              <p className="mk-item__what">{m.what}</p>
-              <p className="mk-item__price">
-                <strong>{m.price}</strong> <span>{m.period}</span>
-              </p>
-            </motion.article>
-          ))}
+        <motion.div className="price-grid price-grid--single" variants={container} initial="hidden" whileInView="show" viewport={{ once: true, margin: "-40px" }}>
+          <PriceCard
+            name={SOCIAL_TRAINING.name}
+            tagline={SOCIAL_TRAINING.tagline}
+            amount={money(SOCIAL_TRAINING.flat)}
+            period={SOCIAL_TRAINING.period}
+            features={SOCIAL_TRAINING.features}
+            bonus={SOCIAL_TRAINING.bonus}
+            action={bookCall()}
+          />
         </motion.div>
-        <p className="price-note">
-          Not sure what you need? <a className="link" href="#message">Tell me about the business</a> and I&apos;ll say which of these would move the needle first.
-        </p>
       </section>
 
       <section className="proj-section" id="social">
