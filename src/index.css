@@ -46,40 +46,39 @@ a, button, summary, input, label, [role="button"] {
 }
 
 
-/* Type. Instrument Serif for page and section headings, Instrument Sans for
-   everything else (2026-10-22, replacing Archivo + Inter: Tamer wanted the
-   portfolio to read more like a design studio and less like team apparel).
-   The two were drawn as a pair, so they share proportions and sit well
-   together. All three files are self-hosted in public/fonts with the OFL
-   licence beside them. The serif only comes in a regular weight, so headings
-   get their presence from size, not boldness. Neither face has Arabic, so the
-   stacks end in the system Arabic fonts for the /ar/ pages. The store
-   templates keep their own fonts (several still load Inter from Google). */
+/* Type. Clash Display for page and section headings, Satoshi for everything
+   else (2026-10-23). Tamer picked them from a side-by-side sheet of six
+   pairings after turning down Archivo + Inter and then Instrument Serif +
+   Sans: he wants it to read like a modern design agency. Both are from
+   Fontshare (Indian Type Foundry) under the ITF Free Font License, which
+   allows commercial use and self-hosting; the licence files sit beside the
+   fonts in public/fonts. One variable file each covers every weight. Neither
+   has Arabic, so the stacks end in the system Arabic fonts for the /ar/
+   pages. The store templates keep their own fonts. */
 @font-face {
-  font-family: "Instrument Serif";
-  src: url("/fonts/instrument-serif-latin.woff2") format("woff2");
-  font-weight: 400;
+  font-family: "Clash Display";
+  src: url("/fonts/clash-display-variable.woff2") format("woff2");
+  font-weight: 200 700;
   font-style: normal;
   font-display: swap;
 }
 @font-face {
-  font-family: "Instrument Serif";
-  src: url("/fonts/instrument-serif-latin-italic.woff2") format("woff2");
-  font-weight: 400;
+  font-family: "Satoshi";
+  src: url("/fonts/satoshi-variable.woff2") format("woff2");
+  font-weight: 300 900;
+  font-style: normal;
+  font-display: swap;
+}
+@font-face {
+  font-family: "Satoshi";
+  src: url("/fonts/satoshi-variable-italic.woff2") format("woff2");
+  font-weight: 300 900;
   font-style: italic;
   font-display: swap;
 }
-@font-face {
-  font-family: "Instrument Sans";
-  src: url("/fonts/instrument-sans-latin-wdth.woff2") format("woff2");
-  font-weight: 400 700;
-  font-stretch: 75% 100%;
-  font-style: normal;
-  font-display: swap;
-}
 :root {
-  --font-display: "Instrument Serif", "Iowan Old Style", Georgia, "SF Arabic", "Geeza Pro", "Noto Sans Arabic", serif;
-  --font-body: "Instrument Sans", system-ui, -apple-system, "SF Arabic", "Geeza Pro", sans-serif;
+  --font-display: "Clash Display", "Satoshi", "SF Arabic", "Geeza Pro", "Noto Sans Arabic", system-ui, sans-serif;
+  --font-body: "Satoshi", system-ui, -apple-system, "SF Arabic", "Geeza Pro", sans-serif;
 }
 
 body {
@@ -1817,7 +1816,7 @@ ul { margin: 0; padding: 0; list-style: none; }
    Letter-spacing is zeroed because spacing Arabic letters apart breaks the
    joins between them, and the thin 200/300 weights the English copy uses are
    lifted, because Arabic at those weights turns to hairlines. */
-.svc-rtl { font-family: "Instrument Sans", "SF Arabic", "Geeza Pro", "Noto Sans Arabic", "Segoe UI", Tahoma, sans-serif; }
+.svc-rtl { font-family: "Satoshi", "SF Arabic", "Geeza Pro", "Noto Sans Arabic", "Segoe UI", Tahoma, sans-serif; }
 .svc-rtl, .svc-rtl * { letter-spacing: 0 !important; }
 .svc-rtl .svc-block__list { padding-left: 0; padding-right: 18px; }
 .svc-rtl .svc-block__list,
@@ -3856,10 +3855,9 @@ select:focus-visible,
 }
 
 /* The heading face, applied to page and section headings only (h1/h2
-   classes). Card and item titles stay in the sans so the two faces have
-   distinct jobs. The serif is a single regular weight: no faux bold, and a
-   touch of negative tracking so large sizes set tight. Italic is reserved for
-   the odd accent word wrapped in <em>. */
+   classes). Card and item titles stay in Satoshi so the two faces have
+   distinct jobs. Semibold with slightly tight tracking, as in the sheet
+   Tamer chose from. */
 .topbar__title,
 .section-title,
 .card-title,
@@ -3868,14 +3866,10 @@ select:focus-visible,
 .offer__name,
 .proj-section__title {
   font-family: var(--font-display);
-  font-weight: 400;
-  font-synthesis: none;
-  letter-spacing: -0.012em;
-  line-height: 1.08;
+  font-weight: 600;
+  letter-spacing: -0.01em;
+  line-height: 1.06;
 }
-.topbar__title em,
-.section-title em,
-.proj-section__title em { font-style: italic; }
 .svc-rtl .topbar__title,
 .svc-rtl .proj-section__title { font-family: var(--font-body); font-weight: 700; }
 
@@ -3883,7 +3877,7 @@ select:focus-visible,
 .client-reels + .client-reels { margin-top: clamp(26px, 3vw, 40px); }
 .client-reels__name {
   font-family: var(--font-display);
-  font-weight: 400;
+  font-weight: 600;
   font-size: clamp(22px, 2vw, 28px);
   letter-spacing: -0.01em;
   margin-bottom: 4px;
